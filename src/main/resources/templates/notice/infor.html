@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/notice.css">
+    <title>공지사항 페이지</title>
+</head>
+<style>
+    * {
+        margin: 0;
+    }
+
+    header {
+        margin: 0 auto;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background-color: #8B8BDA;
+        width: 720px;
+        height: 40px;
+    }
+
+    .main_title {
+        margin: 40px;
+    }
+
+    header >img {
+        position: absolute;
+    }
+
+    .images {
+        position: relative;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        margin-left: 20px;
+        height: 30px;
+        width: 160px;
+    }
+
+    .user {
+        height: 20px;
+        width: 20px;
+    }
+
+    .category{
+        height: 30px;
+        width: 30px;
+    }
+
+    .images>div{
+        width: 720px;
+        margin-right: 20px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        height: 40px;
+        flex-direction: row-reverse;
+    }
+
+    footer {
+        margin: 0 auto;
+        width: 720px;
+        border-top: 3px solid #8F8CB8;
+        background-color: #F9F8FF;
+        padding: 10px 0 60px;
+    }
+
+    .under_info {
+        padding-top: 10px;
+    }
+
+    .under_info > p {
+        padding: 20px;
+    }
+
+    ul {
+        display: flex;
+        list-style:none;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-bottom: 10px
+    }
+    
+     .under_fix {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 720px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        background-color: #8B8BDA;
+    }
+
+    .under_fix .css-footer-buttons {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    img {
+        height: 30px;
+        overflow: clip;
+        color: #fff;
+    }
+
+    .under_fix .css-footer-buttons > a > span {
+        font-size: 13px;
+        font-weight: 200;
+        color: #fff;
+    }
+
+    .under_fix .css-footer-buttons a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+</style>
+<!-- 클래스 이름주는거 정해서할까요 아니면 각자 알아서? -->
+<body>
+    <header>
+        <div class="images">
+            <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
+            <div>
+                <img class="user" src="images/Group.svg" alt="회원">
+                <img class="category" src="images/Vector.svg" alt="카테고리">
+            </div>
+        </div>
+    </header>
+    
+    <!-- 검색창 -->
+    <div class="search">
+        <form action="/search.jsp" method="get">
+            <input type="text" name="searchbox" id="searchbox" >
+            <button type="submit" id="searchButton">
+                <img src="images/magnifying-glass-solid.svg" alt="돋보기">
+            </button>
+        </form>      
+    <!-- 공지사항 -->
+        <div class="notice">
+            <section id="noticmenu">           
+                <!-- 메인메뉴설정-->
+                <nav>                 
+                    <ul class="mainmenu">
+                        <!--상위메뉴-->
+                        <li><a href="#">공지사항</a>
+                        <ul class=notice_content>
+                            <li><a href="#">공지</a></li>
+                            <li><a href="#">날짜</a></li>
+                            
+                        </ul>
+                        </li> 
+                        <li><a href="#">FAQ</a></li> 
+                        <li><a href="#">Q&A</a></li> 
+                        <li><a href="#">후기</a></li> 
+                    </ul> 
+                </nav>
+            </section>       
+        </div>
+    </div>
+
+        
+
+    </div>
+
+    
+    <footer>
+        <div class="under_info">
+            <ul>
+                <li><a href="main.html">POPUP DAY</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">개인정보 처리방침</a></li>
+                <li><a href="#">고객지원</a></li>
+            </ul>
+            <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- 처음 div만 이름 바꿨어용 -->
+    <div class="under_fix">
+        <div class="css-footer-buttons">
+            <a href="#메인페이지로_넘어가기">
+                <img src="images/home.svg">
+                <span>홈</span>
+            </a>
+            <a href="#카테고리로_넘어가기">
+                <img src="images/list.svg">
+                <span>카테고리</span>
+            </a>
+            <a href="#찜 목록으로_넘어가기">
+                <img src="images/heart_bold.svg">
+                <span>찜 목록</span>
+            </a>
+            <a href="#마이페이지로_넘어가기">
+                <img src="images/person.svg">
+                <span>마이페이지</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
