@@ -1,0 +1,42 @@
+@charset "utf-8";
+body {
+    background-color: #f9f8ff;
+}
+a {
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    margin-top: 100px;
+    padding-top: 100px;
+}
+header > a {
+    float: right;
+    margin-top: -150px;
+}
+.category_down ul {
+    width: 100%;
+    height: auto;
+}
+ul > li > a {
+    font-size: 30px;
+    font-weight: bold;
+}
+ul {
+    list-style: none;
+    padding: 20px;
+}
+ul > li {
+    line-height: 60px;
+}
+body::after {
+    display:block;/*a요소를 블록 요소라고 선언*/
+    width:70px;/*카테고리 메뉴 밑줄의 크기를 동일하게 주기 위해 width 설정*/
+    /*혹시 동일하지 않길 바란다면 width 삭제*/
+    content: '';
+    border-bottom: solid 2px #fff;
+    transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
+    transition: transform 250ms ease-in-out; /*변형 방식*/
+}
+body:hover:after {
+    transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+}

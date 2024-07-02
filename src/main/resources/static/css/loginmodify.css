@@ -1,0 +1,113 @@
+@charset "ut-8";
+
+/*회원정보 수정 */
+.loginmodify {
+    padding-top: 40px;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    height: 900px; 
+}
+
+/*회원정보수정 메인 타이틀*/
+.main_title {
+    display: flex;
+    justify-content: flex-start;  
+    
+}
+.main_title img {
+    margin-left: -15px;
+    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    width: 30px;
+    height: 30px;
+    
+}
+
+/*프로필변경*/
+.joinmodify {
+    padding-top: 10px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.joinmodify img {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.joinmodify p {
+    margin-top: 10px ;
+    font-size: 22px;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out;
+}
+
+.joinmodify:hover img {
+    filter: brightness(0.8);
+}
+
+.joinmodify:hover p {
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+/*아이디,비밀번호 이메일*/
+#joinForm {
+    margin-top: 50px;
+    margin-left: 70px;
+    text-align: left; /* 내부 요소 가운데 정렬 */
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 배치 */
+    align-items: center; /* 가로 중앙 정렬 */
+}
+
+#joinForm p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-inline-end: auto;
+    margin-bottom: 30px;
+}
+
+#joinForm label {
+    display: block;
+    margin-bottom: -10px;
+}
+
+#joinForm input[type="text"],
+#joinForm input[type="name"],
+#joinForm input[type="email"],
+#joinForm input[type="submit"] {
+    background-color: #D9D9D9;
+    width: 550px; 
+    height: 40px;
+    padding: 8px; /
+    margin-bottom: 15px; 
+    border: none; 
+    font-size: 20px; 
+    cursor: pointer;
+}
+
+#joinForm input:hover {
+    background-color: #FEFEDF;
+    border: none;
+}
+
+#joinForm input[type="submit"] {
+    font-size: 25px;
+    font-weight: bold;
+    width: 567px; 
+    height: 57px;
+    margin-top: 35px;
+}
+
+#joinForm input[type="submit"]:hover {
+    background-color: #8B8BDA;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
