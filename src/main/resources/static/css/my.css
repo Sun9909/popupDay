@@ -1,0 +1,52 @@
+@charset "utf-8";
+.container {
+    padding-top: 40px;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    height: 900px;
+}
+h2 {
+    margin: 20px 0 20px 20px;
+}
+/* 프로필 영역 */
+.profile {
+    display: flex;
+    padding-left: 30px;
+}
+.profile span {
+    background-color: #d9d9d9;
+    border-radius: 9999px;
+    padding: 20px;
+    display: flex;
+    margin: 10px 10px 10px 30px;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+}
+.profile .profileImg {
+    width: 30px;
+    height: 30px;
+}
+.profile p {
+    font-size: 1.2em;
+    margin: 15px 430px 0 15px;
+}
+.profile a img {
+    margin: 20px 30px 0 15px;
+    width: 35px;
+    height: 35px;
+}
+/* 프로필 영역 끝 */
+
+/* 내가 작성 영역 */
+.wrote {
+    border: 1px black solid;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    height: 170px;
+    display: flex;
+    margin: 20px 35px;
+}
+/* 내가 작성 영역 끝 */

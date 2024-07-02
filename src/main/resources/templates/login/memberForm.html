@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개인 회원가입</title>
+</head>
+<script>
+    // 체크박스 전체 선택
+    $(".checkbox_group").on("click", "#check_all", function () {
+        $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
+    });
+
+    // 체크박스 개별 선택
+    $(".checkbox_group").on("click", ".normal", function() {
+        var is_checked = true;
+
+        $(".checkbox_group .normal").each(function(){
+            is_checked = is_checked && $(this).is(":checked");
+        });
+
+        $("#check_all").prop("checked", is_checked);
+    });
+</script>
+<body>
+    <div class="individual_join">
+        <h1>POP UP DAY</h1><BR>
+        <span>회원 가입을 위해 아래 정보들을 입력해주세요</span><br><br>
+    </div>
+    <form>
+        <table>
+            <tr>
+                <td>이메일을 입력해주세요.</td>
+                <td><input type="email" name="email" required></td>
+                <td><a href="중복확인">중복 확인</a></td>
+            </tr>
+            <tr>
+                <td>아이디를 입력해주세요.</td>
+                <td><input type="text" name="id" required></td>
+                <td><a href="중복확인">중복 확인</a></td>
+            </tr>
+            <tr>
+                <td>비밀번호를 입력해주세요.</td>
+                <td><input type="password" name="pwd" required></td>
+            </tr>
+            <tr>
+                <td>비밀번호 확인</td>
+                <td><input type="password" name="pwd" required></td>
+            </tr>
+            <tr>
+                <td>이름을 입력해주세요.</td>
+                <td><input type="text" name="name"></td>
+            </tr>
+        </table>
+    </form>
+    <div class="checkbox_group">
+        <input type="checkbox" id="check_all">
+        <label for="check_all">전체 동의</label>
+
+        <input type="checkbox" id="check_1" class="normal">
+        <label for="check_1">~~ 동의</label>
+
+        <input type="checkbox" id="check_2" class="normal">
+        <label for="check_2">~~ 동의</label>
+    </div>
+    <input type="submit" value="가입하기">
+    <input type="reset" value="다시 입력">
+</body>
+</html>
