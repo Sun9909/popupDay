@@ -118,6 +118,7 @@ footer {
 
 .under_fix {
     position: fixed;
+    z-index: 98;
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
