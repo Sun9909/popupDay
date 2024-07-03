@@ -1,81 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입창</title>
 </head>
-
-<link rel="stylesheet" type="text/css" href="front/css/index.css">
-<link rel="stylesheet" type="text/css" href="css/join.css">
-
-
+<link rel="stylesheet" type="text/css" href="/css/join.css">
 <body>
-<!--index.html-->
-<header>
-    <div class="images">
-        <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
-        <div>
-            <img class="user" src="images/Group.svg" alt="회원">
-            <img class="category" src="images/Vector.svg" alt="카테고리">
-        </div>
+<th:block layout:fragment="content">
+    <a href="메인 창">
+        <h2>POP UP <br>DAY</h2>
+    </a>
+    <br>
+    <br>
+    <br>
+    <div class="login">
+        <span>이미 가입 하셨다면,</span><br><br>
+        <button onclick="/join.html">로그인</button>
     </div>
-</header>
-<!-- https://getbootstrap.kr/docs/5.3/components/carousel/ 쓰고싶다-->
-
-<a href="메인 창">
-    <h2>POP UP <br>DAY</h2>
-</a>
-<br>
-<br>
-<br>
-<div class="login">
-    <span>이미 가입 하셨다면,</span><br><br>
-    <button onclick="join.html">로그인</button>
-</div>
-<br>
-<br>
-<br>
-<div class="join">
-    <span>회원가입을 하시고 다양한 서비스를 이용해보세요.</span><br><br>
-    <button onclick="join.html">회원가입</button>
-</div>
-<br>
-<br>
-<br>
-<br>
-<!--footer-->
-<footer>
-    <div class="under_info">
-        <ul>
-            <li><a href="index.html">POPUP DAY</a></li>
-            <li><a href="#">이용약관</a></li>
-            <li><a href="#">개인정보 처리방침</a></li>
-            <li><a href="#">고객지원</a></li>
-        </ul>
-        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
+    <br>
+    <br>
+    <br>
+    <div class="join">
+        <span>회원가입을 하시고 다양한 서비스를 이용해보세요.</span><br><br>
+        <button onclick="/join.html">회원가입</button>
     </div>
-    <div class="under_fix">
-        <div class="css-footer-buttons">
-            <a href="index.html">
-                <img src="images/home.svg">
-                <span>홈</span>
-            </a>
-            <a href="category.html">
-                <img src="images/list.svg">
-                <span>카테고리</span>
-            </a>
-            <a href="#찜 목록으로_넘어가기">
-                <img src="images/zzem.svg">
-                <span>찜 목록</span>
-            </a>
-            <a href="#마이페이지로_넘어가기">
-                <img src="images/person.svg">
-                <span>마이페이지</span>
-            </a>
-        </div>
-    </div>
-</footer>
-<!-- 처음 div만 이름 바꿨어용 -->
+    <br>
+    <br>
+    <br>
+    <br>
+</th:block>
 </body>
 </html>
