@@ -4,17 +4,33 @@
     <meta charset="UTF-8">
     <title>카테고리</title>
 </head>
+<link rel="stylesheet" type="text/css" href="front/css/index.css">
 <link rel="stylesheet" type="text/css" href="css/category.css">
 <body>
+<!--header-->
+<!--index.html-->
+<header>
+    <div class="images">
+        <img class="logo" src="front/images/POPUP%20DAY.svg" alt="로고">
+        <div>
+            <img class="user" src="front/images/Group.svg" alt="회원">
+            <img class="category" src="front/images/Vector.svg" alt="카테고리">
+        </div>
+    </div>
+</header>
+<!-- https://getbootstrap.kr/docs/5.3/components/carousel/ 쓰고싶다-->
+
+
+<div class="container">
     <div class="category_down">
-        <header>
-            <h1>
+        <div id="category_header">
+            <h1 class="category_logo">
                 <a href="#메뉴로">
-                    <img src="로고 이미지" alt="팝업데이 카테고리">
+                    <I>POPUP<BR>DAY</i>
                 </a>
             </h1>
-            <a href="로그인 페이지로 이동">로그인</a>
-        </header>
+            <a class="category_header_a" href="로그인 페이지로 이동">로그인</a>
+        </div>
         <ul class="category_box">
             <li>
                 <a href="팝업 검색창">
@@ -49,7 +65,7 @@
         </ul>
     </div>
     <div class="businessperson_category">
-        <ul>
+        <ul class="businessperson_box">
             <li>
                 <a href="사업자 문의 창">사업자 문의</a>
             </li>
@@ -61,5 +77,40 @@
             </li>
         </ul>
     </div>
+
+    <!--처음 div만 이름 바꿨어용 -->
+</div>
+<!--footer-->
+<footer>
+    <div class="under_info">
+        <ul>
+            <li><a href="index.html">POPUP DAY</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객지원</a></li>
+        </ul>
+        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
+    </div>
+    <div class="under_fix">
+        <div class="css-footer-buttons">
+            <a href="index.html">
+                <img src="front/images/home.svg">
+                <span>홈</span>
+            </a>
+            <a href="category.html">
+                <img src="front/images/list.svg">
+                <span>카테고리</span>
+            </a>
+            <a href="#찜 목록으로_넘어가기">
+                <img src="front/images/zzem.svg">
+                <span>찜 목록</span>
+            </a>
+            <a href="#마이페이지로_넘어가기">
+                <img src="front/images/person.svg">
+                <span>마이페이지</span>
+            </a>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
