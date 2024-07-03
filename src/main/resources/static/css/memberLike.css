@@ -33,36 +33,41 @@ form {
 }
 fieldset {
     display: flex;
-    justify-content: space-between;
-}
-form .field1 {
-    display: flex;
+    padding: 15px;
 }
 form .popImg {
     width: 150px;
     height: 180px;
+    margin-right: 25px;
 }
 form .popImg img {
     width: 150px;
     height: 180px;
 }
-form .field2 {
+form .Acc {
+    margin-right: 145px;
+}
+form .popAcc {
     display: flow;
 }
 form .popAcc h5 {
     font-size: 1.6em;
+    padding: 10px 0;
 }
 form .popAcc p {
     font-size: 1.2em;
+    margin: 0 20px 10px 5px;
 }
 form .tags {
     display: flex;
-    list-style: none;
+    margin: 20px 20px 0 5px;
 }
 form .tags .tag{
     border-radius: 30px;
     border: 1px #8B8BDA solid;
     background-color: #FDFEFF;
+    padding: 6px 10px;
+    margin-right: 15px;
 }
 form .popIcon {
     display: flex;
