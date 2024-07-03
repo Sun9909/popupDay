@@ -1,4 +1,64 @@
+@charset "utf-8";
 h2 {
     font-size: 1.8em;
     margin: 20px 0 20px 30px;
+}
+span {
+    color: #d9d9d9;
+    margin: 20px 0 20px 30px;
+}
+
+/* 찜한 팝업이 없을 때 */
+h4 {
+    color: #8F8CB8;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 30px;
+}
+/* 찜한 팝업이 있을 때 */
+form {
+    margin: 20px;
+}
+fieldset {
+    display: flex;
+    padding: 15px;
+}
+form .pop {
+    display: flex;
+}
+form .popImg {
+    width: 150px;
+    height: 180px;
+    margin-right: 25px;
+}
+form .popImg img {
+    width: 150px;
+    height: 180px;
+}
+form .Acc {
+    display: flow;
+}
+form .popAcc {
+    display: flow;
+}
+form .popAcc h5 {
+    font-size: 1.6em;
+    padding: 10px 0;
+}
+form .popAcc p {
+    font-size: 1.2em;
+    margin: 0 20px 10px 5px;
+}
+form ul {
+    display: flex;
+    list-style: none;
+    margin: 20px 20px 0 5px;
+    padding: 0;
+}
+form ul .tag{
+    border-radius: 30px;
+    border: 1px #8B8BDA solid;
+    background-color: #FDFEFF;
+    padding: 6px 10px;
+    margin-right: 15px;
 }
