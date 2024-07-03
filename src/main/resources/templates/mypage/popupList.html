@@ -3,212 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>페이지 기본</title>
+    <title>팝업 리스트</title>
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <link rel="stylesheet" href="../../static/css/popupList.css">
 </head>
-<style>
-    * {
-        margin: 0;
-    }
-
-    header {
-        margin: 0 auto;
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        background-color: #8B8BDA;
-        width: 720px;
-        height: 40px;
-    }
-
-    .container {
-        padding-top: 40px;
-        margin: 0 auto;
-        background-color: #F9F8FF;
-        width: 720px;
-        height: 900px;
-    }
-    .main_title {
-        margin: 40px;
-    }
-
-    header >img {
-        position: absolute;
-    }
-
-    .images {
-        position: relative;
-        height: 40px;
-        display: flex;
-        align-items: center;
-    }
-
-    .logo {
-        margin-left: 20px;
-        height: 30px;
-        width: 160px;
-    }
-
-    .user {
-        height: 20px;
-        width: 20px;
-    }
-
-    .category{
-        height: 30px;
-        width: 30px;
-    }
-
-    .images>div{
-        width: 720px;
-        margin-right: 20px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        height: 40px;
-        flex-direction: row-reverse;
-    }
-
-    footer {
-        margin: 0 auto;
-        width: 720px;
-        border-top: 3px solid #8F8CB8;
-        background-color: #F9F8FF;
-        padding: 10px 0 60px;
-    }
-
-    .under_info {
-        padding-top: 10px;
-    }
-
-    .under_info > p {
-        padding: 20px;
-    }
-
-    ul {
-        display: flex;
-        list-style:none;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        margin-bottom: 10px
-    }
-    
-     .under_fix {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 720px;
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        background-color: #8B8BDA;
-    }
-
-    .under_fix .css-footer-buttons {
-        width: 100%;
-        max-width: 960px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    img {
-        height: 30px;
-        overflow: clip;
-        color: #fff;
-    }
-
-    .under_fix .css-footer-buttons > a > span {
-        font-size: 13px;
-        font-weight: 200;
-        color: #fff;
-    }
-
-    .under_fix .css-footer-buttons a {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-        cursor: pointer;
-    }
-</style>
-<!-- 클래스 이름주는거 정해서할까요 아니면 각자 알아서? -->
 <body>
-    <header>
-        <div class="images">
-            <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
+<header>
+    <div class="images">
+        <img class="logo" src="../../static/images/POPUP%20DAY.svg" alt="로고">
+        <div>
+            <img class="user" src="../../static/images/Group.svg" alt="회원">
+            <img class="category" src="../../static/images/Vector.svg" alt="카테고리">
+        </div>
+    </div>
+</header>
+<div class="container">
+    <!-- 팝업 리스트 페이지 -->
+    <h2>팝업 리스트</h2>
+    <p>전체 개수</p>
+
+    <!-- 팝업이 없을 때 -->
+    <h3>현재 등록된 팝업이 없습니다</h3>
+
+    <!-- 팝업이 있을 때 -->
+    <form>
+        <fieldset>
+            <img src="" alt="popupImage1">
+            <p>동방신기 팝업1</p>
+            <p>08.10.19 ~ 24.12.16</p>
+            <p>주소</p>
             <div>
-                <img class="user" src="images/Group.svg" alt="회원">
-                <img class="category" src="images/Vector.svg" alt="카테고리">
+                <ul>
+                    <li><a href="#" class="tag" title="해시태그">#아이돌</a></li>
+                    <li><a href="#" class="tag" title="해시태그">#굿즈</a></li>
+                    <li><a href="#" class="tag" title="해시태그">#컴백</a></li>
+                </ul>
             </div>
-        </div>
-    </header>
-    <div class="container">
-        <!-- 팝업 리스트 페이지 -->
-        <h2>팝업 리스트</h2>
-        <p>전체 개수</p>
-
-        <!-- 팝업이 없을 때 -->
-        <h3>현재 등록된 팝업이 없습니다</h3>
-
-        <!-- 팝업이 있을 때 -->
-        <form>
-            <fieldset>
-                <img src="" alt="popupImage1">
-                <p>동방신기 팝업1</p>
-                <p>08.10.19 ~ 24.12.16</p>
-                <p>주소</p>
-                <div>
-                    <ul>
-                        <li><a href="#" class="tag" title="해시태그">#아이돌</a></li>
-                        <li><a href="#" class="tag" title="해시태그">#굿즈</a></li>
-                        <li><a href="#" class="tag" title="해시태그">#컴백</a></li>
-                    </ul>
-                </div>
-            </fieldset>
-        </form>
+        </fieldset>
+    </form>
+</div>
+<footer>
+    <div class="under_info">
+        <ul>
+            <li><a href="main.html">POPUP DAY</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객지원</a></li>
+        </ul>
+        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
     </div>
-    <footer>
-        <div class="under_info">
-            <ul>
-                <li><a href="main.html">POPUP DAY</a></li>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">개인정보 처리방침</a></li>
-                <li><a href="#">고객지원</a></li>
-            </ul>
-            <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
-        </div>
-    </footer>
-    <!-- 처음 div만 이름 바꿨어용 -->
-    <div class="under_fix">
-        <div class="css-footer-buttons">
-            <a href="#메인페이지로_넘어가기">
-                <img src="images/home.svg">
-                <span>홈</span>
-            </a>
-            <a href="#카테고리로_넘어가기">
-                <img src="images/list.svg">
-                <span>카테고리</span>
-            </a>
-            <a href="#찜 목록으로_넘어가기">
-                <img src="images/heart_bold.svg">
-                <span>찜 목록</span>
-            </a>
-            <a href="#마이페이지로_넘어가기">
-                <img src="images/person.svg">
-                <span>마이페이지</span>
-            </a>
-        </div>
+</footer>
+<!-- 처음 div만 이름 바꿨어용 -->
+<div class="under_fix">
+    <div class="css-footer-buttons">
+        <a href="#메인페이지로_넘어가기">
+            <img src="../../static/images/home.svg">
+            <span>홈</span>
+        </a>
+        <a href="#카테고리로_넘어가기">
+            <img src="../../static/images/list.svg">
+            <span>카테고리</span>
+        </a>
+        <a href="#찜 목록으로_넘어가기">
+            <img src="../../static/images/heart_bold.svg">
+            <span>찜 목록</span>
+        </a>
+        <a href="#마이페이지로_넘어가기">
+            <img src="../../static/images/person.svg">
+            <span>마이페이지</span>
+        </a>
     </div>
+</div>
 </body>
 </html>

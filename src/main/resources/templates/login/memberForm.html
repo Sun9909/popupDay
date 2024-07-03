@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>개인 회원가입</title>
 </head>
+<link rel="stylesheet" type="text/css" href="front/css/index.css">
+<link rel="stylesheet" type="text/css" href="css/individualJoin.css">
 <script>
     // 체크박스 전체 선택
     $(".checkbox_group").on("click", "#check_all", function () {
@@ -22,11 +24,24 @@
     });
 </script>
 <body>
-    <div class="individual_join">
-        <h1>POP UP DAY</h1><BR>
-        <span>회원 가입을 위해 아래 정보들을 입력해주세요</span><br><br>
+<!--header-->
+<!--main.html-->
+<header>
+    <div class="images">
+        <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
+        <div>
+            <img class="user" src="images/Group.svg" alt="회원">
+            <img class="category" src="images/Vector.svg" alt="카테고리">
+        </div>
     </div>
-    <form>
+</header>
+<!-- https://getbootstrap.kr/docs/5.3/components/carousel/ 쓰고싶다-->
+<div class="individual_join">
+    <h1>POP UP <br> DAY</h1><br>
+    <span>회원 가입을 위해 아래 정보들을 입력해주세요</span><br><br>
+</div>
+<div>
+    <div class="individual_join_form">
         <table>
             <tr>
                 <td>이메일을 입력해주세요.</td>
@@ -51,18 +66,59 @@
                 <td><input type="text" name="name"></td>
             </tr>
         </table>
-    </form>
-    <div class="checkbox_group">
-        <input type="checkbox" id="check_all">
-        <label for="check_all">전체 동의</label>
-
-        <input type="checkbox" id="check_1" class="normal">
-        <label for="check_1">~~ 동의</label>
-
-        <input type="checkbox" id="check_2" class="normal">
-        <label for="check_2">~~ 동의</label>
     </div>
+</div>
+<div class="checkbox_group">
+    <input type="checkbox" id="check_all">
+    <label for="check_all">전체 동의</label>
+
+    <input type="checkbox" id="check_1" class="normal">
+    <label for="check_1">~~ 동의</label>
+
+    <input type="checkbox" id="check_2" class="normal">
+    <label for="check_2">~~ 동의</label>
+</div>
+<div class="div1">
+    약관 내용 넣기!~~
+</div>
+<div class="div2">
+    약관 내용 넣기 2!!
+</div>
+<div class="individual_last">
     <input type="submit" value="가입하기">
     <input type="reset" value="다시 입력">
+</div>
+<!--footer-->
+<footer>
+    <div class="under_info">
+        <ul>
+            <li><a href="index.html">POPUP DAY</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객지원</a></li>
+        </ul>
+        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
+    </div>
+    <div class="under_fix">
+        <div class="css-footer-buttons">
+            <a href="index.html">
+                <img src="front/images/home.svg">
+                <span>홈</span>
+            </a>
+            <a href="category.html">
+                <img src="front/images/list.svg">
+                <span>카테고리</span>
+            </a>
+            <a href="#찜 목록으로_넘어가기">
+                <img src="front/images/zzem.svg">
+                <span>찜 목록</span>
+            </a>
+            <a href="#마이페이지로_넘어가기">
+                <img src="front/images/person.svg">
+                <span>마이페이지</span>
+            </a>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

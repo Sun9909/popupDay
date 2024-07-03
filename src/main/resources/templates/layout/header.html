@@ -1,25 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"		>
-	<header th:fragment="header">
-		<table width="100%">
-			<tr>
-				<td>
-					<a th:href="@{/main.do}">
-						<img th:src="@{/images/0.png}" alt="">
-					</a>
-				</td>	
-				<td>
-					<h1>이젠 아카데미 컴퓨터</h1>
-				</td>
-				<td th:if="${session.isLogOn==true and session.member != null}"> <!-- 로그인했을때 -->
-					<h3 th:text="'환영합니다 ' + ${session.member.name} + '님!!'"></h3>
-					<a th:href="@{/member/logout.do}">로그아웃</a>
-				</td>
-				<td th:unless="${session.isLogOn==true and session.member != null}">
-					<a th:href="@{/member/loginForm.do}">로그인</a>
-				</td>
-			</tr>
-		</table>
-	</header>
+<html lang="ko"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<header th:fragment="header">
+	<div class="images">
+		<img class="logo" th:src="@{../../static/images/POPUPDAY.svg}" alt="로고">
+		<div>
+			<img class="user" th:src="@{../../static/images/Group.svg}" alt="회원">
+			<img class="category" th:src="@{../../static/images/Vector.svg}" alt="카테고리">
+		</div>
+	</div>
+</header>
 </html>
