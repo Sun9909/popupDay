@@ -1,4 +1,7 @@
 @charset "utf-8";
+body {
+    height: 1090px;
+}
 h2 {
     font-size: 1.8em;
     margin: 20px 0 20px 30px;
@@ -23,9 +26,13 @@ h2 {
     width: 30px;
     height: 30px;
 }
+.profile .business {
+    display: flow;
+    margin: 10px 410px 10px 10px;
+}
 .profile p {
     font-size: 1.3em;
-    margin: 15px 420px 0 15px;
+    margin-top: 5px;
 }
 .profile a img {
     margin: 20px 30px 0 15px;
@@ -43,10 +50,10 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 50px;
+    margin: 20px 50px 30px;
 }
 .wrote article {
-    width: 200px;
+    width: 310px;
     height: 120px;
     text-align: center;
 }
@@ -59,49 +66,15 @@ h2 {
     font-size: 1.1em;
 }
 .wrote .review {
-    border-right: 3px #8B8BDA solid;
     border-left: 3px #8B8BDA solid;
     padding: 0 15px;
 }
 /* 내가 작성 영역 끝 */
 
-/* 최근 본 팝업 영역 */
-#recentArea {
-    margin-top: 30px;
-    border-top: 3px #d9d9d9 solid;
-    border-bottom: 3px #d9d9d9 solid;
-    position: relative;
-}
-#recentArea .recent {
-    padding: 30px 35px 10px;
-}
-#recentArea .recent h3 {
-    font-size: 1.3em;
-}
-#recentArea .recentImage {
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#recentArea .recent img {
-    width: 200px;
-    height: 230px;
-    margin: 2px 5px;
-}
-#recentArea .recent a {
-    display: inline-block;
-    margin: 2px 5px;
-}
-#recentArea .more {
-    position: absolute;
-    top: 35px;
-    right: 35px;
-    color: #d9d9d9;
-}
-/* 최근 본 팝업 영역 끝 */
-
 /* 내 활동 영역 */
+.activity {
+    border-top: 3px #d9d9d9 solid;
+}
 .activity h3 {
     font-size: 1.3em;
     margin: 30px 35px 20px;
@@ -112,14 +85,30 @@ h2 {
 }
 .activity li {
     font-size: 1.2em;
-    margin: 20px 10px;
+    margin: 20px 10px 25px;
 }
 /* 내 활동 영역 끝 */
 
-/* 고객 센터 영역 */
-.service {
+/* 게시판 영역 */
+.board {
     border-top: 3px #d9d9d9 solid;
+    border-bottom: 3px #d9d9d9 solid;
 }
+.board h3 {
+    font-size: 1.3em;
+    margin: 30px 35px 20px;
+}
+.board ul {
+    display: flow;
+    list-style: none;
+}
+.board li {
+    font-size: 1.2em;
+    margin: 20px 10px;
+}
+/* 게시판 영역 끝 */
+
+/* 고객 센터 영역 */
 .service h3 {
     font-size: 1.3em;
     margin: 30px 35px 20px;
