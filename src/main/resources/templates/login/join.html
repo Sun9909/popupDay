@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/layout"
->
+      layout:decorate="/layout/layout">
 <head>
     <meta charset="UTF-8">
     <title>메인페이지</title>
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/join.css}" />
 </head>
 <body>
 <!-- content 부분에 동적으로 레이아웃 배치 하겠다. -->
@@ -26,7 +26,7 @@
     <br>
     <div class="join">
         <span>회원가입을 하시고 다양한 서비스를 이용해보세요.</span><br><br>
-        <button onclick="/join.html">회원가입</button>
+        <button onclick="/choiceForm.html">회원가입</button>
     </div>
     <br>
     <br>
