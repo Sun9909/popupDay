@@ -3,138 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>페이지 기본111</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/my.css">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <link rel="stylesheet" href="../../static/css/my.css">
 </head>
 <!-- 클래스 이름주는거 정해서할까요 아니면 각자 알아서? -->
 <body>
-    <!-- 헤더 영역 -->
-    <header>
-        <div class="images">
-            <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
-            <div>
-                <img class="user" src="images/Group.svg" alt="회원">
-                <img class="category" src="images/Vector.svg" alt="카테고리">
+<!-- 헤더 영역 -->
+<header>
+    <div class="images">
+        <img class="logo" src="../../static/images/POPUP%20DAY.svg" alt="로고">
+        <div>
+            <img class="user" src="../../static/images/Group.svg" alt="회원">
+            <img class="category" src="../../static/images/Vector.svg" alt="카테고리">
+        </div>
+    </div>
+</header>
+<!-- 콘텐츠 영역 -->
+<div class="container">
+    <h2>마이페이지</h2>
+    <!-- 프로필 영역 -->
+    <div class="profile">
+        <span><img class="profileImg" src="../../static/images/Group.svg" alt="프로필"></span>
+        <p>???님</p>
+        <a href="setting.html"><img src="../../static/images/setting.svg" alt="설정"></a>
+    </div>
+    <!-- 내가 작성한 것들 보는 영역 -->
+    <div class="wrote">
+        <article class="comment">
+            <a href="#">
+                <h5>댓글</h5>
+                <p>??개</p>
+            </a>
+        </article>
+        <article class="review">
+            <a href="#">
+                <h5>내가 쓴 후기</h5>
+                <p>??개</p>
+            </a>
+        </article>
+        <article class="inquiry">
+            <a href="#">
+                <h5>문의</h5>
+                <p>??개</p>
+            </a>
+        </article>
+    </div>
+    <!-- 프로필, 작성부분 영역 끝 -->
+
+    <!-- 최근 본 팝업 영역 -->
+    <div id="recentArea">
+        <section class="recent">
+            <h3>최근 본 팝업</h3>
+            <div class="recentImage">
+                <a href="#">
+                    <img src="" alt="팝업 이미지1">
+                </a>
+                <a href="#">
+                    <img src="" alt="팝업 이미지2">
+                </a>
+                <a href="#">
+                    <img src="" alt="팝업 이미지3">
+                </a>
             </div>
-        </div>
-    </header>
-    <!-- 콘텐츠 영역 -->
-    <div class="container">
-        <h2>마이페이지</h2>
-        <!-- 프로필 영역 -->
-        <div class="profile">
-            <span><img class="profileImg" src="images/Group.svg" alt="프로필"></span>
-            <p>???님</p>
-            <a href="modify.html"><img src="images/setting.svg" alt="설정"></a>
-        </div>
-        <!-- 내가 작성한 것들 보는 영역 -->
-        <div class="wrote">
-            <article class="comment">
-                <a href="#">
-                    <p>댓글</p>
-                    <p>??개</p>
-                </a>
-            </article>
-            <article class="review">
-                <a href="#">
-                    <p>내가 쓴 후기</p>
-                    <p>??개</p>
-                </a>
-            </article>
-            <article class="inquiry">
-                <a href="#">
-                    <p>문의</p>
-                    <p>??개</p>
-                </a>
-            </article>
-        </div>
-        <!-- 프로필, 작성부분 영역 끝 -->
-
-        <!-- 최근 본 팝업 영역 -->
-        <div id="recentArea">
-            <section class="recent">
-                <h3>최근 본 팝업</h3>
-                <div class="recentImage">
-                    <a href="#">
-                        <img src="" alt="팝업 이미지1">
-                    </a>
-                    <a href="#">
-                        <img src="" alt="팝업 이미지2">
-                    </a>
-                    <a href="#">
-                        <img src="" alt="팝업 이미지3">
-                    </a>
-                </div>
-                <a href="#" class="more" title="최근 본 팝업 더보기">더보기 &gt;</a>
-            </section>
-        </div>
-        <!-- 최근 본 팝업 영역 끝 -->
-
-        <!-- 내 활동 영역 -->
-        <div class="activity">
-            <h3>내 활동</h3>
-            <ul>
-                <li><a href="#">찜</a></li>
-                <li><a href="#">내가 쓴 댓글</a></li>
-                <li><a href="#">내가 쓴 후기</a></li>
-            </ul>
-        </div>
-        <!-- 내 활동 영역 끝 -->
-
-        <!-- 이벤트 영역 -->
-        <div class="event">
-            <h3>이벤트</h3>
-            <ul>
-                <li><a href="#">진행 중인 이벤트</a></li>
-                <li><a href="#">참여한 이벤트</a></li>
-            </ul>
-        </div>
-        <!-- 이벤트 영역 끝 -->
-
-        <!-- 고객센터 영역 -->
-        <div class="service">
-            <h3>고객센터</h3>
-            <ul>
-                <li><a href="#">문의사항</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Q&A</a></li>
-                <li><a href="#">설정</a></li>
-            </ul>
-        </div>
-        <!-- 고객센터 영역 끝 -->
+            <a href="#" class="more" title="최근 본 팝업 더보기">더보기 &gt;</a>
+        </section>
     </div>
-    <footer>
-        <div class="under_info">
-            <ul>
-                <li><a href="main.html">POPUP DAY</a></li>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">개인정보 처리방침</a></li>
-                <li><a href="#">고객지원</a></li>
-            </ul>
-            <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
-        </div>
-    </footer>
-    <!-- 처음 div만 이름 바꿨어용 -->
-    <div class="under_fix">
-        <div class="css-footer-buttons">
-            <a href="#메인페이지로_넘어가기">
-                <img src="images/home.svg">
-                <span>홈</span>
-            </a>
-            <a href="#카테고리로_넘어가기">
-                <img src="images/list.svg">
-                <span>카테고리</span>
-            </a>
-            <a href="#찜 목록으로_넘어가기">
-                <img src="images/heart_bold.svg">
-                <span>찜 목록</span>
-            </a>
-            <a href="#마이페이지로_넘어가기">
-                <img src="images/person.svg">
-                <span>마이페이지</span>
-            </a>
-        </div>
+    <!-- 최근 본 팝업 영역 끝 -->
+
+    <!-- 내 활동 영역 -->
+    <div class="activity">
+        <h3>내 활동</h3>
+        <ul>
+            <li><a href="#">찜</a></li>
+            <li><a href="#">내가 쓴 댓글</a></li>
+            <li><a href="#">내가 쓴 후기</a></li>
+        </ul>
     </div>
+    <!-- 내 활동 영역 끝 -->
+
+    <!-- 이벤트 영역
+    <div class="event">
+        <h3>이벤트</h3>
+        <ul>
+            <li><a href="#">진행 중인 이벤트</a></li>
+            <li><a href="#">참여한 이벤트</a></li>
+        </ul>
+    </div>
+    이벤트 영역 끝 -->
+
+    <!-- 고객센터 영역 -->
+    <div class="service">
+        <h3>고객센터</h3>
+        <ul>
+            <li><a href="#">문의사항</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Q&A</a></li>
+            <li><a href="setting.html">설정</a></li>
+        </ul>
+    </div>
+    <!-- 고객센터 영역 끝 -->
+</div>
+<footer>
+    <div class="under_info">
+        <ul>
+            <li><a href="index.html">POPUP DAY</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객지원</a></li>
+        </ul>
+        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
+    </div>
+</footer>
+<!-- 처음 div만 이름 바꿨어용 -->
+<div class="under_fix">
+    <div class="css-footer-buttons">
+        <a href="#메인페이지로_넘어가기">
+            <img src="../../static/images/home.svg">
+            <span>홈</span>
+        </a>
+        <a href="#카테고리로_넘어가기">
+            <img src="../../static/images/list.svg">
+            <span>카테고리</span>
+        </a>
+        <a href="#찜 목록으로_넘어가기">
+            <img src="../../static/images/heart_bold.svg">
+            <span>찜 목록</span>
+        </a>
+        <a href="#마이페이지로_넘어가기">
+            <img src="../../static/images/person.svg">
+            <span>마이페이지</span>
+        </a>
+    </div>
+</div>
 </body>
 </html>
