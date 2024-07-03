@@ -9,11 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PopupController {
 
-    @GetMapping("/join.do")
-    public ModelAndView join(HttpServletRequest request,
+    @GetMapping("/main.do")
+    public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("/login/join");
+        mav.setViewName("/main");
         return mav;
     }
 }
