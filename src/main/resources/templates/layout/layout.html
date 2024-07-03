@@ -8,9 +8,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}">
 </head>
 <body>
-<div id="container">
-    <header th:replace="layout/header :: header"></header>
-    <footer th:replace="layout/footer :: footer"></footer>
-</div>
+    <div id="container">
+        <header th:replace="layout/header :: header"></header>
+        <div id="content" layout:fragment="content"></div>
+        <footer th:replace="layout/footer :: footer"></footer>
+    </div>
 </body>
 </html>
