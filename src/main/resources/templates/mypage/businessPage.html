@@ -3,247 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>페이지 기본</title>
+    <title>마이페이지(사업자)</title>
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <link rel="stylesheet" href="../../static/css/businesspage.css">
 </head>
-<style>
-    * {
-        margin: 0;
-    }
-
-    header {
-        margin: 0 auto;
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        background-color: #8B8BDA;
-        width: 720px;
-        height: 40px;
-    }
-
-    .container {
-        padding-top: 40px;
-        margin: 0 auto;
-        background-color: #F9F8FF;
-        width: 720px;
-        height: 900px;
-    }
-    .main_title {
-        margin: 40px;
-    }
-
-    header >img {
-        position: absolute;
-    }
-
-    .images {
-        position: relative;
-        height: 40px;
-        display: flex;
-        align-items: center;
-    }
-
-    .logo {
-        margin-left: 20px;
-        height: 30px;
-        width: 160px;
-    }
-
-    .user {
-        height: 20px;
-        width: 20px;
-    }
-
-    .category{
-        height: 30px;
-        width: 30px;
-    }
-
-    .images>div{
-        width: 720px;
-        margin-right: 20px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        height: 40px;
-        flex-direction: row-reverse;
-    }
-
-    footer {
-        margin: 0 auto;
-        width: 720px;
-        border-top: 3px solid #8F8CB8;
-        background-color: #F9F8FF;
-        padding: 10px 0 60px;
-    }
-
-    .under_info {
-        padding-top: 10px;
-    }
-
-    .under_info > p {
-        padding: 20px;
-    }
-
-    ul {
-        display: flex;
-        list-style:none;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        margin-bottom: 10px
-    }
-    
-     .under_fix {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 720px;
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        background-color: #8B8BDA;
-    }
-
-    .under_fix .css-footer-buttons {
-        width: 100%;
-        max-width: 960px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    img {
-        height: 30px;
-        overflow: clip;
-        color: #fff;
-    }
-
-    .under_fix .css-footer-buttons > a > span {
-        font-size: 13px;
-        font-weight: 200;
-        color: #fff;
-    }
-
-    .under_fix .css-footer-buttons a {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-        cursor: pointer;
-    }
-</style>
-<!-- 클래스 이름주는거 정해서할까요 아니면 각자 알아서? -->
 <body>
-    <header>
-        <div class="images">
-            <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
-            <div>
-                <img class="user" src="images/Group.svg" alt="회원">
-                <img class="category" src="images/Vector.svg" alt="카테고리">
-            </div>
+<header>
+    <div class="images">
+        <img class="logo" src="../../static/images/POPUP%20DAY.svg" alt="로고">
+        <div>
+            <img class="user" src="../../static/images/Group.svg" alt="회원">
+            <img class="category" src="../../static/images/Vector.svg" alt="카테고리">
         </div>
-    </header>
-    <!-- 콘텐츠 영역 -->
-    <div class="container">
-        <h2>마이페이지</h2>
-        <!-- 프로필 영역 -->
-        <div class="profile">
-            <img src="" alt="프로필">
-            <p>사업자</p>
+    </div>
+</header>
+<!-- 콘텐츠 영역 -->
+<div class="container">
+    <h2>마이페이지</h2>
+    <!-- 프로필 영역 -->
+    <div class="profile">
+        <span><img class="profileImg" src="../../static/images/Group.svg" alt="프로필"></span>
+        <div class="business">
+            <h4>사업자</h4>
             <p>???님</p>
-            <a href="modify.html"><img src="images/setting.svg" alt="설정"></a>
-            <!-- 내가 작성한 것들 보는 영역 -->
-            <div class="wrote">
-                <article class="comment">
-                    <a href="#">
-                        <p>등록된 팝업</p>
-                        <p>??개</p>
-                    </a>
-                </article>
-                <article class="review">
-                    <a href="#">
-                        <p>신청 팝업 현황</p>
-                        <p>??중</p>
-                    </a>
-                </article>
-            </div>
         </div>
-        <!-- 프로필, 작성부분 영역 끝 -->
-
-        <!-- 내 활동 영역 -->
-        <div class="activity">
-            <h3>내 활동</h3>
-            <ul>
-                <li><a href="#">팝업 등록하기</a></li>
-                <li><a href="#">팝업 신청 결과 확인</a></li>
-                <li><a href="#">팝업 리스트</a></li>
-            </ul>
-        </div>
-        <!-- 내 활동 영역 끝 -->
-
-        <!-- 게시판 영역 -->
-        <div class="event">
-            <h3>게시판</h3>
-            <ul>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">진행 중인 이벤트</a></li>
-            </ul>
-        </div>
-        <!-- 이벤트 영역 끝 -->
-
-        <!-- 고객센터 영역 -->
-        <div class="service">
-            <h3>고객센터</h3>
-            <ul>
-                <li><a href="#">문의사항</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Q&A</a></li>
-                <li><a href="#">설정</a></li>
-            </ul>
-        </div>
-        <!-- 고객센터 영역 끝 -->
+        <a href="../act/setting.html"><img src="../../static/images/setting.svg" alt="설정"></a>
     </div>
-    <footer>
-        <div class="under_info">
-            <ul>
-                <li><a href="main.html">POPUP DAY</a></li>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">개인정보 처리방침</a></li>
-                <li><a href="#">고객지원</a></li>
-            </ul>
-            <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
-        </div>
-    </footer>
-    <!-- 처음 div만 이름 바꿨어용 -->
-    <div class="under_fix">
-        <div class="css-footer-buttons">
-            <a href="#메인페이지로_넘어가기">
-                <img src="images/home.svg">
-                <span>홈</span>
+    <!-- 내가 작성한 것들 보는 영역 -->
+    <div class="wrote">
+        <article class="comment">
+            <a href="#">
+                <h5>등록된 팝업</h5>
+                <p>??개</p>
             </a>
-            <a href="#카테고리로_넘어가기">
-                <img src="images/list.svg">
-                <span>카테고리</span>
+        </article>
+        <article class="review">
+            <a href="#">
+                <h5>신청 팝업 현황</h5>
+                <p>??중</p>
             </a>
-            <a href="#찜 목록으로_넘어가기">
-                <img src="images/heart_bold.svg">
-                <span>찜 목록</span>
-            </a>
-            <a href="#마이페이지로_넘어가기">
-                <img src="images/person.svg">
-                <span>마이페이지</span>
-            </a>
-        </div>
+        </article>
     </div>
+    <!-- 프로필, 작성부분 영역 끝 -->
+
+    <!-- 내 활동 영역 -->
+    <div class="activity">
+        <h3>내 활동</h3>
+        <ul>
+            <li><a href="#">팝업 등록하기</a></li>
+            <li><a href="#">팝업 신청 결과 확인</a></li>
+            <li><a href="#">팝업 리스트</a></li>
+        </ul>
+    </div>
+    <!-- 내 활동 영역 끝 -->
+
+    <!-- 게시판 영역 -->
+    <div class="board">
+        <h3>게시판</h3>
+        <ul>
+            <li><a href="#">공지사항</a></li>
+            <li><a href="#">진행 중인 이벤트</a></li>
+        </ul>
+    </div>
+    <!-- 게시판 영역 끝 -->
+
+    <!-- 고객센터 영역 -->
+    <div class="service">
+        <h3>고객센터</h3>
+        <ul>
+            <li><a href="#">문의사항</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Q&A</a></li>
+            <li><a href="#">설정</a></li>
+        </ul>
+    </div>
+    <!-- 고객센터 영역 끝 -->
+</div>
+<footer>
+    <div class="under_info">
+        <ul>
+            <li><a href="main.html">POPUP DAY</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객지원</a></li>
+        </ul>
+        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
+    </div>
+</footer>
+<!-- 처음 div만 이름 바꿨어용 -->
+<div class="under_fix">
+    <div class="css-footer-buttons">
+        <a href="#메인페이지로_넘어가기">
+            <img src="../../static/images/home.svg">
+            <span>홈</span>
+        </a>
+        <a href="#카테고리로_넘어가기">
+            <img src="../../static/images/list.svg">
+            <span>카테고리</span>
+        </a>
+        <a href="#찜 목록으로_넘어가기">
+            <img src="../../static/images/heart_bold.svg">
+            <span>찜 목록</span>
+        </a>
+        <a href="#마이페이지로_넘어가기">
+            <img src="../../static/images/person.svg">
+            <span>마이페이지</span>
+        </a>
+    </div>
+</div>
 </body>
 </html>
