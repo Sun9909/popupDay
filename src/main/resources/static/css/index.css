@@ -2,9 +2,6 @@
     margin: 0;
     box-sizing: border-box;
 }
-.body {
-    height: 1090px;
-}
 
 .body a {
     text-decoration: none;
@@ -67,6 +64,7 @@ header >img {
 
 .containers {
     padding-top: 50px;
+    padding-bottom: 10px;
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
@@ -77,19 +75,15 @@ header >img {
     height: 300px;
 }
 
-.upper {
-    position: relative;
-    width: 720px;
-    margin: 0 auto;
-}
 .up {
     position: absolute;
-    bottom: -16px;
-    right: 43px;
+    bottom: 130px;
+    right: 48px;
 }
 
 .arrow_up {
     height: 40px;
+    z-index: 99;
     position: fixed;
     background-color:white;
     padding: 5px;
