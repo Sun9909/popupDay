@@ -4,6 +4,8 @@
       layout:decorate="/layout/layout">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/join.css}">
     <title>메인페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{css/layout.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{css/join.css}" />
@@ -11,15 +13,28 @@
 <body>
 <!-- content 부분에 동적으로 레이아웃 배치 하겠다. -->
 <th:block layout:fragment="content">
-    <a href="메인 창">
-        <h2>POP UP <br>DAY</h2>
-    </a>
-    <br>
-    <br>
-    <br>
-    <div class="login">
-        <span>이미 가입 하셨다면,</span><br><br>
-        <button onclick="/join.html">로그인</button>
+    <div class="containers">
+        <a href="메인 창">
+            <h2>POP UP <br>DAY</h2>
+        </a>
+        <br>
+        <br>
+        <br>
+        <div class="login">
+            <span>이미 가입 하셨다면,</span><br><br>
+            <button onclick="/join.html">로그인</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="join">
+            <span>회원가입을 하시고 다양한 서비스를 이용해보세요.</span><br><br>
+            <button onclick="/join.html">회원가입</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
     <br>
     <br>
