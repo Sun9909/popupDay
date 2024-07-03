@@ -1,0 +1,62 @@
+body {
+    height: 1060px;
+    width: 1440px;
+    margin: 0 auto;
+}
+
+
+#admin_header {
+    width: 1440px;
+}
+
+header {
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #8B8BDA;
+    width: 720px;
+    height: 40px;
+    z-index: 9999;
+}
+
+header >img {
+    position: absolute;
+}
+
+.logo {
+    margin-left: 20px;
+    height: 30px;
+    width: 160px;
+}
+
+.admin_home {
+    overflow: hidden;
+}
+.admin_container{
+    float: left;
+    padding-top: 50px;
+    margin: 0 auto;
+    background-color: #8B8BDA;
+    width: 720px;
+    height: 100%;
+}
+
+.container {
+    float: right;
+    padding-top: 50px;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    height: 100%;
+}
+
+footer {
+    float: inline-end;
+    margin: 0px auto;
+    width: 100%;
+    background-color: #8B8BDA;
+    padding: 30px 0;
+    text-align: center;
+}
