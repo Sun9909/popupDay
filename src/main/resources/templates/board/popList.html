@@ -4,20 +4,116 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet"/>
-    <link  th:href="@{/css/index.css}" rel="stylesheet"/>
-    <link  th:href="@{/css/popList.css}" rel="stylesheet"/>
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Popup Day</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/popList.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div class="containers">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="images/Rectangle4.png" class="d-block w-100 slidimg" alt="...">
+    <div class="body">
+        <div class="containers" id="small-containers">
+            <!-- Popular Pop-ups Section -->
+            <section class="popular-section">
+                <h2>인기팝업</h2>
+                <ul>
+                    <li>동방신기팝업</li>
+                    <li>키티키티</li>
+                    <li>이젠한번봐</li>
+                    <li>이클립스맛좀봐</li>
+                </ul>
+            </section>
+
+            <!-- Detailed Search Section -->
+            <section class="search-section">
+                <h2>상세조회</h2>
+                <ul>
+                    <li>지역 : 전체, 서울, 경기</li>
+                    <li>날짜 : 오늘, 직접선택</li>
+                    <li>전체, 진행 중, 예정팝업, 종료팝업</li>
+                    <li>카테고리 : 아이돌, 만화</li>
+                    <li>해시태그 : #귀여워 #아이돌 #상큼</li>
+                </ul>
+            </section>
+
+            <!-- Ongoing Pop-ups Section -->
+            <section class="popup-section">
+                <h2>진행중 / 전체보기(2)</h2>
+                <div class="popup-list">
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
                 </div>
-            </div>
+                <div class="popup-list">
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upcoming Pop-ups Section -->
+            <section class="popup-section">
+                <h2>예정 중 / 전체보기(2)</h2>
+                <div class="popup-list">
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Completed Pop-ups Section -->
+            <section class="popup-section">
+                <h2>종료 / 전체보기(1)</h2>
+                <div class="popup-list">
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                    <div class="popup-item">
+                        <div class="popup-image"></div>
+                        <p>동방신기 팝업</p>
+                        <p>24.09.08 ~ 24.10.01</p>
+                        <p>서울특별시 강남구 루루쌤빌딩</p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </th:block>
