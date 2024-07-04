@@ -60,6 +60,7 @@ layout:decorate="layout/layout">
     }
 </script>
 <body>
+<th:block layout:fragment="content">
 <div class="popTitle">
     <h2>팝업 정보</h2>
     <form class="Full">
@@ -141,7 +142,7 @@ layout:decorate="layout/layout">
 
         <div>
             <label>팝업스토어 소개 : </label>
-            <input type="text" id="popupnote" class="normal">
+                <textarea id="popupnote"></textarea>
         </div>
 
         <div>
@@ -152,5 +153,6 @@ layout:decorate="layout/layout">
     <span>페이지 미리보기</span>
     <a href="#우리 상세페이지 예시 링크로 보여주기 우떱니까.. 이미지 너무 꺠집니당..">🖱️🖱</a>
 </div>
+</th:block>
 </body>
 </html>

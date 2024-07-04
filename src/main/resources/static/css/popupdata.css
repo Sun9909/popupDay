@@ -20,3 +20,10 @@
 .popAddress {
     margin-top: -20px;
 }
+#popupnote {
+    margin-right: auto;
+    margin-left: auto;
+    overflow-y: scroll;
+    width: 400px;
+    height: 100px;
+}
