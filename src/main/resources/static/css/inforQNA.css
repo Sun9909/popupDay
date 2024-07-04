@@ -150,3 +150,33 @@
     font-size: 16px; /* 글꼴 크기 조절 */
     width: 170px; /* 선택 요소의 너비 조절 */
 }
+
+/*후기작성공간, 후기가이드*/
+.myreview {
+    padding: 100px;
+}
+
+.reviewguide {
+    padding: 10px 20px 10px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.reviewguide  h3 ul  {
+    width: 100%;
+}
+
+.reviewguide h3 {
+    padding: 20px 20px 10px 20px ;
+}
+
+.reviewguid-list {
+    display: flex;
+    padding: 00px 20px 10px 20px ;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+}
