@@ -13,7 +13,7 @@ public class PopupController {
     public ModelAndView join(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("/board/search"); // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
+        mav.setViewName("/board/popList"); // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
         return mav;
     }
 
