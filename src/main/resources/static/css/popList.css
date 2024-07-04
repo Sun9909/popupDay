@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+#carouselExampleIndicators {
+    width: 600px;
+    position: relative;
+    height: 300px;
+    top: 59px;
+    left: 60px;
+    background: black;
+}

@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입창</title>
 </head>
-<link rel="stylesheet" type="text/css" href="css/join.css">
-<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" th:href="@{css/layout.css}">
+<link rel="stylesheet" type="text/css" th:href="@{css/loginForm.css}"/>
 <body>
+<th:block layout:fragment="content">
     <a href="메인 창">
         <h2>POP UP <br>DAY</h2>
     </a>
@@ -27,5 +31,6 @@
         <span>회원가입을 하시고 다양한 서비스를 이용해보세요.</span><br><br>
         <button onclick="join.html">회원가입</button>
     </div>
+</th:block>
 </body>
 </html>
