@@ -1,7 +1,7 @@
 @charset "utf-8";
 /*검색, 공지사항*/
 
-.content {
+.contentFAQ {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
@@ -145,5 +145,18 @@
     margin: 5px;
     padding: 20px;
     background-color: #e1dfdf;
-
 }
+/*페이지설정*/
+.page-area {
+    padding-top: 0; /* 상단 여백 제거 */
+    margin-top: 0;
+    height: 300px;/* 필요한 경우 높이 조정 */
+    background-color: #F9F8FF;
+    text-align-last: auto;
+    position: relative;
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+
