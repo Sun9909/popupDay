@@ -68,8 +68,11 @@ header >img {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
-    height: 100%;
+    min-height: 1700px;
+    height:calc(100vh - 100px);
+    max-height: 5000px;
 }
+
 
 .slidimg {
     height: 300px;
@@ -103,6 +106,15 @@ footer {
     padding-top: 10px;
 }
 
+.under_info a {
+    text-decoration: none;
+    color: black;
+}
+
+.under_info a:hover {
+    color: #8F8CB8;
+}
+
 .under_info > p {
     padding: 20px;
 }
@@ -115,7 +127,9 @@ footer {
     padding: 0 20px;
     margin-bottom: 10px
 }
-
+ul {
+    display: block;
+}
 .under_fix {
     position: fixed;
     z-index: 98;
@@ -127,6 +141,10 @@ footer {
     display: flex;
     justify-content: center;
     background-color: #8B8BDA;
+}
+
+.under_fix a {
+    text-decoration: none;
 }
 
 .under_fix .css-footer-buttons {
