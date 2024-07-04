@@ -3,7 +3,7 @@
     <footer th:fragment="footer">
         <div class="under_info">
             <ul>
-                <li><a href="index.html">POPUP DAY</a></li>
+                <li><a href="#">POPUP DAY</a></li>
                 <li><a href="#">이용약관</a></li>
                 <li><a href="#">개인정보 처리방침</a></li>
                 <li><a href="#">고객지원</a></li>
@@ -12,24 +12,24 @@
         </div>
         <div class="under_fix">
             <div class="css-footer-buttons">
-                <a href="index.html">
-                    <img src="images/home.svg">
+                <a href="#">
+                    <img th:src="@{images/home.svg}">
                     <span>홈</span>
                 </a>
-                <a href="category.html">
-                    <img src="images/list.svg">
+                <a href="#">
+                    <img th:src="@{/images/list.svg}">
                     <span>카테고리</span>
                 </a>
                 <a href="#">
-                    <img src="images/zzem.svg">
+                    <img th:src="@{/images/zzem.svg}">
                     <span>찜 목록</span>
                 </a>
                 <a href="#">
-                    <img src="images/person.svg">
+                    <img th:src="@{/images/person.svg}">
                     <span>마이페이지</span>
                 </a>
             </div>
-            <a class="up" href="#"><img class="arrow_up" src="images/arror_up.svg"></a>
+            <a class="up" href="#"><img class="arrow_up" th:src="@{/images/arror_up.svg}"></a>
         </div>
     </footer>
 
