@@ -9,11 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PopupController {
 
-    @GetMapping("/main.do")
-    public ModelAndView main(HttpServletRequest request,
+    @GetMapping("/setting.do")
+    public ModelAndView setting(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("/main");
+        mav.setViewName("act/setting");
         return mav;
     }
 }

@@ -1,34 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/setting.css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
     <title>설정페이지</title>
 </head>
 <body>
-<div class="containers">
-    <div class="setting_title">
-        <a href="#"><img src="images/ltr.svg" alt="뒤로가기"></a>
-        <h1>설정</h1>
-        <img src="images/setting.svg" alt="설정아이콘">
+<th:block layout:fragment="content">
+    <div class="body">
+        <div class="containers">
+            <div class="setting_title">
+                <a href="#"><img th:src="@{/images/ltr.svg}" alt="뒤로가기"></a>
+                <h1>설정</h1>
+                <img th:src="@{/images/setting.svg}" alt="설정아이콘">
+            </div>
+            <div class="setting_info">
+                <h2>내 정보</h2>
+                <ul>
+                    <li>회원 정보 수정</li>
+                    <li>비밀 번호 수정</li>
+                </ul>
+            </div>
+            <div class="under_bar"></div>
+            <div class="setting_info">
+                <ul>
+                    <li>로그 아웃</li>
+                    <li>회원 탈퇴</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="setting_info">
-        <h2>내 정보</h2>
-        <ul>
-            <li>회원 정보 수정</li>
-            <li>비밀 번호 수정</li>
-        </ul>
-    </div>
-    <div class="under_bar"></div>
-    <div class="setting_info">
-        <ul>
-            <li>로그 아웃</li>
-            <li>회원 탈퇴</li>
-        </ul>
-    </div>
-</div>
+</th:block>
 </body>
 </html>

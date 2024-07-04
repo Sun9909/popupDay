@@ -11,12 +11,13 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>메인페이지</title>
 </head>
-<body class="body">
+<body>
 <th:block layout:fragment="content">
     <div class="body">
-        <div class="containers">
+        <div class="containers" id="small-containers">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -27,19 +28,19 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="images/Rectangle4.png" class="d-block w-100 slidimg" alt="...">
+                        <img th:src="@{/images/Rectangle4.png}" class="d-block w-100 slidimg" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="images/Rectangle4.png" class="d-block w-100 slidimg" alt="...">
+                        <img th:src="@{/images/Rectangle4.png}" class="d-block w-100 slidimg" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="images/Rectangle4.png" class="d-block w-100 slidimg" alt="...">
+                        <img th:src="@{/images/Rectangle4.png}" class="d-block w-100 slidimg" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="images/Rectangle4.png" class="d-block w-100 slidimg" alt="...">
+                        <img th:src="@{/images/Rectangle4.png}" class="d-block w-100 slidimg" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="images/Rectangle4.png" class="d-block w-100 slidimg" alt="...">
+                        <img th:src="@{/images/Rectangle4.png}" class="d-block w-100 slidimg" alt="...">
                     </div>
                 </div>
             </div>
@@ -50,10 +51,10 @@
                 <a class="hash_tag" href="#">#사전예약</a>
             </div>
             <div class="popup_images">
-                <span>1<img class="zzem" src="images/heart_empty.svg" alt="찜"></span>
-                <span>2<img class="zzem" src="images/heart_empty.svg" alt="찜"></span>
-                <span>3<img class="zzem" src="images/heart_empty.svg" alt="찜"></span>
-                <span>4<img class="zzem" src="images/heart_empty.svg" alt="찜"></span>
+                <span>1<img class="zzem" th:src="@{/images/heart_empty.svg}" alt="찜"></span>
+                <span>2<img class="zzem" th:src="@{/images/heart_empty.svg}" alt="찜"></span>
+                <span>3<img class="zzem" th:src="@{/images/heart_empty.svg}" alt="찜"></span>
+                <span>4<img class="zzem" th:src="@{/images/heart_empty.svg}" alt="찜"></span>
             </div>
             <div class="popup_more_link">
                 <a class="popup_more" href="#">팝업 더보기</a>
@@ -128,12 +129,12 @@
             <div class="info">
                 <div class="eventbanner">
                     <h3>EVENT</h3>
-                    <a href="#"><img class="event" src="images/coffee.png" alt="커피쿠폰이벤트"></a>
+                    <a href="#"><img class="event" th:src="@{images/coffee.png}" alt="커피쿠폰이벤트"></a>
                 </div>
                 <div class="quick-link">
-                    <a class="link_baro" href="#"><span>페이지 이용안내</span><img src="images/arrow-right.svg" alt="페이지 이용안내"></a>
-                    <a class="link_baro" href="#">FAQ<img src="images/arrow-right.svg" alt="FAQ"></a>
-                    <a class="link_baro" href="#">Q&A<img src="images/arrow-right.svg" alt="Q&A"></a>
+                    <a class="link_baro" href="#"><span>페이지 이용안내</span><img th:src="@{/images/arrow-right.svg}" alt="페이지 이용안내"></a>
+                    <a class="link_baro" href="#">FAQ<img th:src="@{/images/arrow-right.svg}" alt="FAQ"></a>
+                    <a class="link_baro" href="#">Q&A<img th:src="@{/images/arrow-right.svg}" alt="Q&A"></a>
                 </div>
             </div>
         </div>
