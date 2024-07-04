@@ -1,115 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultag.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지(사업자)</title>
-    <link rel="stylesheet" href="../../static/css/index.css">
-    <link rel="stylesheet" href="../../static/css/businesspage.css">
+    <link rel="stylesheet" th:href="@{css/index.css}">
+    <link rel="stylesheet" th:href="@{css/business.css}">
 </head>
 <body>
-<header>
-    <div class="images">
-        <img class="logo" src="../../static/images/POPUP%20DAY.svg" alt="로고">
-        <div>
-            <img class="user" src="../../static/images/Group.svg" alt="회원">
-            <img class="category" src="../../static/images/Vector.svg" alt="카테고리">
+<th:block layout:fragment="content">
+    <div class="body">
+        <!-- 콘텐츠 영역 -->
+        <div class="container">
+            <h2>마이페이지</h2>
+            <!-- 프로필 영역 -->
+            <div class="profile">
+                <span><img class="profileImg" th:src="@{images/Group.svg}" alt="프로필"></span>
+                <div class="business">
+                    <h4>사업자</h4>
+                    <p>???님</p>
+                </div>
+                <a th:href="@{act/setting.html}"><img th:src="@{images/setting.svg}" alt="설정"></a>
+            </div>
+            <!-- 내가 작성한 것들 보는 영역 -->
+            <div class="wrote">
+                <article class="comment">
+                    <a href="#">
+                        <h5>등록된 팝업</h5>
+                        <p>??개</p>
+                    </a>
+                </article>
+                <article class="review">
+                    <a href="#">
+                        <h5>신청 팝업 현황</h5>
+                        <p>??중</p>
+                    </a>
+                </article>
+            </div>
+            <!-- 프로필, 작성부분 영역 끝 -->
+
+            <!-- 내 활동 영역 -->
+            <div class="activity">
+                <h3>내 활동</h3>
+                <ul>
+                    <li><a href="#">팝업 등록하기</a></li>
+                    <li><a href="#">팝업 신청 결과 확인</a></li>
+                    <li><a href="#">팝업 리스트</a></li>
+                </ul>
+            </div>
+            <!-- 내 활동 영역 끝 -->
+
+            <!-- 게시판 영역 -->
+            <div class="board">
+                <h3>게시판</h3>
+                <ul>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">진행 중인 이벤트</a></li>
+                </ul>
+            </div>
+            <!-- 게시판 영역 끝 -->
+
+            <!-- 고객센터 영역 -->
+            <div class="service">
+                <h3>고객센터</h3>
+                <ul>
+                    <li><a href="#">문의사항</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Q&A</a></li>
+                    <li><a href="#">설정</a></li>
+                </ul>
+            </div>
+            <!-- 고객센터 영역 끝 -->
         </div>
     </div>
-</header>
-<!-- 콘텐츠 영역 -->
-<div class="container">
-    <h2>마이페이지</h2>
-    <!-- 프로필 영역 -->
-    <div class="profile">
-        <span><img class="profileImg" src="../../static/images/Group.svg" alt="프로필"></span>
-        <div class="business">
-            <h4>사업자</h4>
-            <p>???님</p>
-        </div>
-        <a href="../act/setting.html"><img src="../../static/images/setting.svg" alt="설정"></a>
-    </div>
-    <!-- 내가 작성한 것들 보는 영역 -->
-    <div class="wrote">
-        <article class="comment">
-            <a href="#">
-                <h5>등록된 팝업</h5>
-                <p>??개</p>
-            </a>
-        </article>
-        <article class="review">
-            <a href="#">
-                <h5>신청 팝업 현황</h5>
-                <p>??중</p>
-            </a>
-        </article>
-    </div>
-    <!-- 프로필, 작성부분 영역 끝 -->
-
-    <!-- 내 활동 영역 -->
-    <div class="activity">
-        <h3>내 활동</h3>
-        <ul>
-            <li><a href="#">팝업 등록하기</a></li>
-            <li><a href="#">팝업 신청 결과 확인</a></li>
-            <li><a href="#">팝업 리스트</a></li>
-        </ul>
-    </div>
-    <!-- 내 활동 영역 끝 -->
-
-    <!-- 게시판 영역 -->
-    <div class="board">
-        <h3>게시판</h3>
-        <ul>
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">진행 중인 이벤트</a></li>
-        </ul>
-    </div>
-    <!-- 게시판 영역 끝 -->
-
-    <!-- 고객센터 영역 -->
-    <div class="service">
-        <h3>고객센터</h3>
-        <ul>
-            <li><a href="#">문의사항</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Q&A</a></li>
-            <li><a href="#">설정</a></li>
-        </ul>
-    </div>
-    <!-- 고객센터 영역 끝 -->
-</div>
-<footer>
-    <div class="under_info">
-        <ul>
-            <li><a href="main.html">POPUP DAY</a></li>
-            <li><a href="#">이용약관</a></li>
-            <li><a href="#">개인정보 처리방침</a></li>
-            <li><a href="#">고객지원</a></li>
-        </ul>
-        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
-    </div>
-</footer>
-<!-- 처음 div만 이름 바꿨어용 -->
-<div class="under_fix">
-    <div class="css-footer-buttons">
-        <a href="#메인페이지로_넘어가기">
-            <img src="../../static/images/home.svg">
-            <span>홈</span>
-        </a>
-        <a href="#카테고리로_넘어가기">
-            <img src="../../static/images/list.svg">
-            <span>카테고리</span>
-        </a>
-        <a href="#찜 목록으로_넘어가기">
-            <img src="../../static/images/heart_bold.svg">
-            <span>찜 목록</span>
-        </a>
-        <a href="#마이페이지로_넘어가기">
-            <img src="../../static/images/person.svg">
-            <span>마이페이지</span>
-        </a>
-    </div>
-</div>
+</th:block>
 </body>
 </html>
