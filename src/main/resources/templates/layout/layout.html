@@ -2,10 +2,10 @@
 <html
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
+<head> <!-- 타임리프 적용 , 타임리프 레아이웃적용 -->
 <meta charset="UTF-8">
 <title>레이아웃 페이지</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" /> <!-- 레이아웃 css -->
 </head>
 <body>
 <!--    <div id="container">-->
@@ -14,9 +14,9 @@
 <!--        <footer th:replace="layout/footer :: footer"></footer>-->
 <!--    </div>-->
     <div id="container">
-        <header th:replace="layout/header :: header"></header>
-        <div id="content" layout:fragment="content"></div>
-        <footer th:replace="layout/footer :: footer"></footer>
+        <header th:replace="layout/header :: header"></header> <!-- 헤더 추가 -->
+        <div id="content" layout:fragment="content"></div> <!-- 컨텐츠 .html  -->
+        <footer th:replace="layout/footer :: footer"></footer> <!-- 푸터 -->
     </div>
 </body>
 </html>
