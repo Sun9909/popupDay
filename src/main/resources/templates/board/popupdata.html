@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>팝업 등록, 수정 폼</title>
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{css/layout.css}">
+<link rel="stylesheet" type="text/css" th:href="@{css/popupdata.css}">
+<!-- 우편번호 API -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 실무에서는 js 폴더 만들어서 연동 -->
+<script>
+    function kakaopost() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                document.querySelector("#zipcode").value=data.zonecode;
+                document.querySelector("#address").value=data.address;
+            }
+        }).open();
+    }
+</script>
+<script>
+    function count_check(obj){
+        var chkBox = document.getElementsByName("chk"); //name 값 chk를 불러오기
+        var chkCnt = 0; //chkCnt 변수에 초기값을 0으로 설정
+        for(var i=0; i<chkBox.length; i++) { //반복문으로 초기값, 조건식, 증감식 설정
+            if(chkBox[i].checked) { //조건문으로 chkBox가 checked 됐을 경우
+                chkCnt++; //1씩 증가
+            }
+        }
+        if(chkCnt > 3) { //조건문으로 chkCnt가 3개보다 클 경우
+            alert("3개까지 체크할 수 있습니다."); //alert를 띄우기
+            obj.checked = false;  //false을 주어 alert를 띄운 뒤에 check 되지 않도록 설정
+            return false;
+        }
+    }
+</script>
+<script>
+    //이미지 미리보기 구현
+    function readImage(input) {
+        if(input.files && input.files[0]) {
+            let reader=new FileReader();
+            reader.onload=function (event) {
+                $('#preview').attr('src', event.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }else {
+            $('#preview').attr('src', '#');
+        }
+    }
+
+    //여러 개의 이미지 추가
+    let count=1; //초기값 지정
+    function fn_addFile() { //이미지 여러개 올리기 위한 함수
+        $('#dock_file').append('<input type="file" name="imgFile' + count + '"><br>');
+        count++;
+    }
+</script>
+<body>
+<div class="popTitle">
+    <h2>팝업 정보</h2>
+    <form class="Full">
+        <div class="popup">
+            <label>팝업스토어 이름</label>
+            <input type="text" id="popname">
+        </div>
+
+        <div>
+            <label>팝업스토어 이미지</label>
+            <input type="button" value="파일추가" onclick="fn_addFile()">
+        </div>
+
+        <div>
+            <label>팝업스토어 운영 기간</label>
+            <input type="date">~<input type="date">
+        </div>
+
+        <div>
+            <label>팝업스토어 주소 : </label>
+            <a href="#" class="findZipcode" onclick="kakaopost()">우편번호 찾기</a>
+            <input type="tel" id="zipcode" name="zipcode" maxlength="5" size="6" title="우편번호">
+        </div>
+        <div class="popAddress">
+            <input type="text" id="address" name="address" maxlength="100" size="60" placeholder="입력 예)서울시 강남구 서초동 11">
+        </div>
+
+        <div>
+            <label>팝업스토어 한줄 설명</label>
+            <input type="text" id="poptext">
+        </div>
+
+        <label>팝업스토어 해시태그</label>
+        <div class="checkbox_tag">
+            <input type="checkbox" id="check1" name="chk" onclick="count_check(this);" value="1">
+            <label for="check1">#1</label>
+
+            <input type="checkbox" id="check2" name="chk" onclick="count_check(this);" value="2">
+            <label for="check2">#2</label>
+
+            <input type="checkbox" id="check3" name="chk" onclick="count_check(this);" value="3">
+            <label for="check3">#3</label>
+
+            <input type="checkbox" id="check4" name="chk" onclick="count_check(this);" value="4">
+            <label for="check4">#4</label>
+
+            <input type="checkbox" id="check5" name="chk" onclick="count_check(this);" value="5">
+            <label for="check5">#5</label>
+
+            <input type="checkbox" id="check6" name="chk" onclick="count_check(this);" value="6">
+            <label for="check6">#6</label>
+
+            <input type="checkbox" id="check7" name="chk" onclick="count_check(this);" value="7">
+            <label for="check7">#7</label>
+
+            <input type="checkbox" id="check8" name="chk" onclick="count_check(this);" value="8">
+            <label for="check8">#8</label>
+
+            <input type="checkbox" id="check9" name="chk" onclick="count_check(this);" value="9">
+            <label for="check9">#9</label>
+
+            <input type="checkbox" id="check10" name="chk" onclick="count_check(this);" value="10">
+            <label for="check10">#10</label>
+
+            <input type="checkbox" id="check11" name="chk" onclick="count_check(this);" value="11">
+            <label for="check11">#11</label>
+
+            <input type="checkbox" id="check12" name="chk" onclick="count_check(this);" value="12">
+            <label for="check12">#12</label>
+        </div>
+
+        <div>
+            <label>팝업스토어 운영 시간 : </label>
+            <span>월~목</span>
+            <input type="time">~<input type="time">
+            <span>금~일</span>
+            <input type="time">~<input type="time">
+        </div>
+
+        <div>
+            <label>팝업스토어 소개 : </label>
+            <input type="text" id="popupnote" class="normal">
+        </div>
+
+        <div>
+            <label>브랜드 홈페이지 링크</label>
+            <input type="url" placeholder="브랜드 홈페이지 링크를 적어주세요">
+        </div>
+    </form>
+    <span>페이지 미리보기</span>
+    <a href="#우리 상세페이지 예시 링크로 보여주기 우떱니까.. 이미지 너무 꺠집니당..">🖱️🖱</a>
+</div>
+</body>
+</html>
