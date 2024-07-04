@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{css/layout.css}" />
+  <link rel="stylesheet" th:href="@{/css/inforReview.css}">
+  <title>후기페이지</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+  <!-- 검색창 -->
+  <div class="content">
+    <div class="search">
+      <form action="/search.jsp" method="get">
+        <div class="input-wrapper">
+          <input type="text" name="searchbox" id="searchbox">
+          <button type="submit" id="searchButton">
+            <img th:src="@{images/search.svg}" alt="돋보기">
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- 공지사항 -->
+    <div class="submenu-wrap">
+      <section id="submenu">
+        <a class="contact" href="inforNotic.html">
+          <h2>공지사항</h2>
+        </a>
+        <a class="fnq" href="inforFAQ.html">
+          <h2>FAQ</h2>
+        </a>
+        <a class="qna" href="inforQNA.html">
+          <h2>Q&A</h2>
+        </a>
+        <a class="review" href="inforReview.html">
+          <h2>후기</h2>
+        </a>
+      </section>
+    </div>
+
+    <!-- revㅑiew-->
+    <div class="contentreview">
+      <nav class="reviewlist">
+        <a href="#" class="custom-button active">후기작성</a>
+        <a href="#" class="custom-button">후기내역</a>
+      </nav>
+    </div>
+    <!-- 페이지 수-->
+    <div class="page-area">
+      <ul>
+        <li>
+          <a class="on">1</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</th:block>
+</body>
+</html>

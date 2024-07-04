@@ -1,11 +1,13 @@
 @charset "utf-8";
 /*검색, 공지사항*/
-
-.search {
+.content {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
     height: auto;
+}
+
+.search {
     padding-top: 40px;
     height:auto;
     text-align: center;
@@ -51,7 +53,7 @@
 .submenu-wrap {
     padding-top: 0; /* 상단 여백 제거 */
     margin-top: 0;
-    height: 100px; /* 필요한 경우 높이 조정 */
+    height: 60px; /* 필요한 경우 높이 조정 */
     background-color: #F9F8FF;
     text-align: center;
     position: relative;
@@ -96,58 +98,55 @@
     color: white; /* 원하는 색상으로 변경 */
 }
 
-/* 공지사항 상세페이지 */
-/*공지메뉴별로 class바꿔서 넣어줘야함*/
-/*공지메뉴별로 class바꿔서 넣어줘야함*/
-.contact {
+/*Q&A상세페이지*/
+.qna {
     color: white;
 }
-.contact-wrap {
-    padding-top: 0; /* 상단 여백 제거 */
-    margin-top: 0;
-    height: 200px; /* 필요한 경우 높이 조정 */
-    background-color: #F9F8FF;
-    text-align: center; /* 텍스트 가운데 정렬 */
-    position: relative;
+.selectbox {
     display: flex;
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px black solid;
+}
+.selectLayer {
+    display: inline-block;
 }
 
-.contact-wrap .table-board {
-    width: 520px;
-    max-width: 100%; /* 너비가 화면 크기를 넘지 않도록 설정 */
-    border-collapse: collapse; /* 셀 테두리를 합침 */
-    text-align: left; /* 테이블 콘텐츠 왼쪽 정렬 */
+.listnotice {
+    display: block;
+    padding: 12px 20px 12px 20px;
+    background: #f9f9f9;
 }
 
-.contact-wrap .table-board h3 {
-    font-size: 22px;
-    font-weight: bold;
-    border-bottom: 2px solid black; /* 헤더 아래에 검은색 테두리 추가 */
-    padding-bottom: 10px;
+/*공지 글*/
+.sbj {
     margin-bottom: 10px;
 }
-
-.contact-wrap .table-board td {
-    padding: 10px 0px; /* 셀 안의 내용 여백 설정 */
-    font-size: 18px; /* 셀 안의 폰트 크기 */
-    text-align: left; /* 셀 안의 텍스트 왼쪽 정렬 */
+.subject {
+    font-size: 20px;
+    color: blue;
+    font-weight: bold;
 }
 
-.contact-wrap .table-board tr:last-child td {
-    border-bottom: none; /* 마지막 행 셀의 아래 테두리 제거 */
+.listPost {
+    font-size: 20px;
+}
+.regdate {
+    font-size: 18px;
+}
+.catInfo {
+    padding: 0 20px 12px 20px;
+    border-bottom: 1px solid black;
+    line-height: 20px;
+    background: #f9f9f9;
+    font-size: 18px;
+    color: #787777;
 }
 
-/*페이지설정*/
-.page-area {
-    padding-top: 0; /* 상단 여백 제거 */
-    margin-top: 0;
-    height: 300px;/* 필요한 경우 높이 조정 */
-    background-color: #F9F8FF;
-    text-align-last: auto;
-    position: relative;
-    display: flex;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
+.selectbox select {
+    padding: 5px; /* 선택 요소의 내부 여백 */
+    font-size: 16px; /* 글꼴 크기 조절 */
+    width: 170px; /* 선택 요소의 너비 조절 */
 }
