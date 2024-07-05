@@ -1,22 +1,13 @@
-@charset "ut-8";
-
-/*회원정보 수정 */
-.loginmodify {
-    padding-top: 40px;
-    margin: 0 auto;
-    background-color: #F9F8FF;
-    width: 720px;
-    height: 900px;
-}
+@charset "utf-8";
 
 /*회원정보수정 메인 타이틀*/
 .main_title {
     display: flex;
     justify-content: flex-start;
+    margin-top: 10px;
 
 }
 .main_title img {
-    margin-left: -15px;
     margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
     width: 30px;
     height: 30px;
@@ -56,19 +47,20 @@
 
 /*아이디,비밀번호 이메일*/
 #joinForm {
-    margin-top: 50px;
-    margin-left: 70px;
     text-align: left; /* 내부 요소 가운데 정렬 */
     display: flex;
     flex-direction: column; /* 요소들을 세로로 배치 */
-    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
 }
 
 #joinForm p {
+    margin: 0 auto;
     font-size: 20px;
     font-weight: bold;
     margin-inline-end: auto;
-    margin-bottom: 30px;
 }
 
 #joinForm label {
@@ -110,4 +102,9 @@ margin-bottom: 15px;
     font-weight: bold;
     cursor: pointer;
 }
+
+.containers {
+    min-height: 900px;
+}
+
 
