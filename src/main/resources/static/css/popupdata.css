@@ -1,0 +1,29 @@
+@charset "utf-8";
+.popTitle {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    padding: 50px;
+}
+.Full {
+    display: flex;
+    margin: auto;
+    text-align: center;
+    flex-direction: column;
+}
+.Full>div {
+    margin-bottom: 20px;
+}
+.popup {
+    margin-top: 20px;
+}
+.popAddress {
+    margin-top: -20px;
+}
+#popupnote {
+    margin-right: auto;
+    margin-left: auto;
+    overflow-y: scroll;
+    width: 400px;
+    height: 100px;
+}

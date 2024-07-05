@@ -122,3 +122,7 @@ h2 {
     margin: 20px 10px;
 }
 /* 고객 센터 영역 끝 */
+
+.containers {
+    min-height: 1150px;
+}
