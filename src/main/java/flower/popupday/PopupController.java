@@ -12,7 +12,7 @@ public class PopupController {
     @GetMapping("/main.do")
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
-        ModelAndView mav=new ModelAndView();
+        ModelAndView mav=new ModelAndView("notice/boardDetail");
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
 
     // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
