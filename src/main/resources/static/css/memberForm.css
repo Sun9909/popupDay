@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+.individual_join {
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    margin-top: 0;
+    padding-top: 100px;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+    border-spacing: 20px;
+
+}
+.checkbox_group{
+    text-align: center;
+    padding-bottom: 30px;
+}
+.individual_last{
+    text-align: center;
+    padding-bottom: 30px;
+}
+.div1 {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: scroll;
+    width: 400px;
+    height: 100px;
+    margin-bottom: 30px;
+}
+.div2{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: scroll;
+    width: 400px;
+    height: 100px;
+    margin-bottom: 30px;
+}
