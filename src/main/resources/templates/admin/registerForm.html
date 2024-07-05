@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultag.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팝업 신청 관리</title>
+    <link rel="stylesheet" th:href="@{css/index.css}">
+    <link rel="stylesheet" th:href="@{css/registerForm.css}">
+</head>
+<body>
+<div class="container">
+    <!-- 팝업 신청 관리 페이지 -->
+    <h2>팝업 신청 관리</h2>
+
+    <!-- 팝업 정보 -->
+    <div class="popImg">
+        <h4>팝업 이미지</h4>
+        <img src="" alt="팝업 이미지">
+    </div>
+    <div class="popInfo">
+        <h4>팝업 정보</h4>
+    </div>
+    <div class="popTime">
+        <h4>팝업 운영 시간(을 정보에 같이 넣어야하나?)</h4>
+    </div>
+    <div class="popEx">
+        <h4>팝업 소개</h4>
+    </div>
+    <div class="brandUrl">
+        <h4>브랜드 홈페이지</h4>
+    </div>
+    <form>
+        <label><input type="radio" name="register" value="ok"> 승인</label>
+        <label><input type="radio" name="register" value="ckeck"> 확인 중</label>
+        <label><input type="radio" name="register" value="refuse"> 반려</label>
+    </form>
+</div>
+</body>
+</html>
