@@ -2,7 +2,7 @@
 
     "use strict";
 
-    // Setup the calendar with the current date
+    // Setup the calendar with the current date 달력
     $(document).ready(function(){
         var date = new Date();
         var today = date.getDate();
@@ -18,7 +18,7 @@
         show_events(events, months[date.getMonth()], today);
     });
 
-// Initialize the calendar by appending the HTML dates
+// Initialize the calendar by appending the HTML dates 달력
     function init_calendar(date) {
         $(".tbody").empty();
         $(".events-container").empty();
