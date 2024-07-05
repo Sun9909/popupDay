@@ -4,10 +4,20 @@ a>h2 {
     text-align: center;
     color: black;
     margin-top: 0;
-    padding-top: 100px;
+    padding-top: 80px;
 }
 .login_box {
     text-align: center;
     margin-bottom: 30px;
-    margin-top: -10px;
+    margin-top: 20px;
+}
+.loginText>input{
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    height: 30px;
+    width: 230px;
+}
+.loginButton {
+    margin-top: 20px;
 }
