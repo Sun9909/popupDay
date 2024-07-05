@@ -2,6 +2,7 @@
 /*검색, 공지사항*/
 
 .container {
+    display: flex;
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
@@ -12,6 +13,7 @@
 .content {
     display: none;
 }
+
 
 .content.active {
     display: block;
@@ -31,21 +33,17 @@
 }
 .search form {
     display: inline-block;
+
 }
 
-.search input[type="text"] {
-    vertical-align: middle;
+.review-content {
+    display: none;
 }
 
-.search input[type="text"] {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 650px; /* 필요에 따라 너비 조정 */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+.review-content.active {
+    display: block;
 }
+
 .input-wrapper {
     position: relative;
     display: inline-block;
@@ -83,7 +81,6 @@
     transform: translate(-50%, 0);
     background-color: #8B8BDA;
     width: 720px;
-    height: 40px;
     display: flex; /* Flexbox 사용 */
     justify-content: center; /* 가운데 정렬 */
     align-items: center; /* 수직 가운데 정렬 */

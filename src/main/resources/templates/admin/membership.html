@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultag.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 관리 페이지</title>
+    <link rel="stylesheet" th:href="@{css/index.css}">
+    <link rel="stylesheet" th:href="@{css/membership.css}">
+</head>
+<body>
+<div class="container">
+    <!-- 회원 관리 -->
+    <h2>회원 관리</h2>
+
+    <!-- db 회원 게시판 가져오기 -->
+    <table>
+        <tr class="tr_title">
+            <th>No</th><th>이메일</th><th>아이디</th><th>비밀번호</th><th>이름</th><th>가입일</th><th>수정</th><th class="del">삭제</th>
+        </tr>
+        <!-- 회원 없을 때 -->
+        <tr>
+            <td colspan="8">
+                <h4>회원이 없습니다</h4>
+            </td>
+        </tr>
+        <tr>
+            <td text="email"></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
