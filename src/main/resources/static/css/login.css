@@ -4,7 +4,7 @@ a>h2 {
     text-align: center;
     color: black;
     margin-top: 0;
-    padding-top: 80px;
+    padding-top: 40px;
 }
 .login_box {
     text-align: center;
@@ -12,12 +12,19 @@ a>h2 {
     margin-top: 20px;
 }
 .loginText>input{
-    text-align: center;
-    padding: 10px;
+    padding: 20px 10px;
     margin: 10px;
     height: 30px;
     width: 230px;
 }
 .loginButton {
     margin-top: 20px;
+}
+.loginButton>input {
+    margin: 0 10px;
+
+}
+.loginBack>a>img {
+    padding-left: 20px;
+    padding-top: 10px;
 }
