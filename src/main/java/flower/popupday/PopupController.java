@@ -10,11 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PopupController {
 
     @GetMapping("/main.do")
-    public ModelAndView memberPage(HttpServletRequest request,
+    public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("login/login");
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
+        mav.setViewName("main");
+
         return mav;
     }
 
