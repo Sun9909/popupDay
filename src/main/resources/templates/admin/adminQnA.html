@@ -8,29 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 관리 페이지</title>
     <link rel="stylesheet" th:href="@{css/index.css}">
-    <link rel="stylesheet" th:href="@{css/membership.css}">
+    <link rel="stylesheet" th:href="@{css/adminQnA.css}">
 </head>
 <body>
 <div class="container">
-    <!-- 회원 관리 -->
-    <h2>회원 관리</h2>
+    <!-- Q&a -->
+    <h2>Q&A</h2>
 
-    <!-- db 회원 게시판 가져오기 -->
+    <!-- db 질문 가져오기 -->
     <table>
         <tr class="tr_title">
-            <th>No</th><th>이메일</th><th>아이디</th><th>비밀번호</th><th>이름</th><th>가입일</th><th>수정</th><th class="del">삭제</th>
+            <th>No</th><th>질문</th><th>수정</th><th>삭제</th>
         </tr>
-        <!-- 회원 없을 때 -->
+        <!-- 질문 없을 때 -->
         <tr>
-            <td colspan="8">
-                <h4>회원이 없습니다</h4>
+            <td colspan="4">
+                <h4>질문이 없습니다</h4>
             </td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
             <td></td>
             <td></td>
             <td><a href="">수정</a></td>
