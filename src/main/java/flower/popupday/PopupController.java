@@ -16,4 +16,5 @@ public class PopupController {
         mav.setViewName("/notice/boardDetail"); // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
         return mav;
     }
+
 }
