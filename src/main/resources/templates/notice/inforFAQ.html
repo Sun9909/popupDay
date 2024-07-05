@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/infor_faq.css">
+    <link rel="stylesheet" type="text/css" th:href="@{css/layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/inforFAQ.css}">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <title>공지사항 상세 페이지</title>
+    <title>FAQ</title>
     <script>
         $(function () {
             let sw=[false,false,false];
-            let inded;
+            let index;
             $('.answerop').click(function() {
                 index=$(this).parent().index();
                 //alert(index);
@@ -23,268 +27,81 @@
                 }
             });
         });
-
-
     </script>
 </head>
-<style>
-    * {
-        margin: 0;
-    }
 
-    header {
-        margin: 0 auto;
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        background-color: #8B8BDA;
-        width: 720px;
-        height: 40px;
-    }
-
-    .main_title {
-        .main_title
-        margin: 40px;
-    }
-
-    header >img {
-        position: absolute;
-    }
-
-    .images {
-        position: relative;
-        height: 40px;
-        display: flex;
-        align-items: center;
-    }
-
-    .logo {
-        margin-left: 20px;
-        height: 30px;
-        width: 160px;
-    }
-
-    .user {
-        height: 20px;
-        width: 20px;
-    }
-
-    .category{
-        height: 30px;
-        width: 30px;
-    }
-
-    .images>div{
-        width: 720px;
-        margin-right: 20px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        height: 40px;
-        flex-direction: row-reverse;
-    }
-
-    footer {
-        margin: 0 auto;
-        width: 720px;
-        border-top: 3px solid #8F8CB8;
-        background-color: #F9F8FF;
-        padding: 10px 0 60px;
-    }
-
-    .under_info {
-        padding-top: 10px;
-    }
-
-    .under_info > p {
-        padding: 20px;
-    }
-
-    ul {
-        display: flex;
-        list-style:none;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        margin-bottom: 10px
-    }
-
-    .under_fix {
-        position: fixed;
-        bottom: auto;/*0인걸 수정함*/
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 720px;
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        background-color: #8B8BDA;
-    }
-
-    .under_fix .css-footer-buttons {
-        width: 100%;
-        max-width: 960px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    img {
-        height: 30px;
-        overflow: clip;
-        color: #fff;
-    }
-
-    .under_fix .css-footer-buttons > a > span {
-        font-size: 13px;
-        font-weight: 200;
-        color: #fff;
-    }
-
-    .under_fix .css-footer-buttons a {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-        cursor: pointer;
-    }
-
-    /*페이지설정*/
-    .page-area {
-        padding-top: 0; /* 상단 여백 제거 */
-        margin-top: 0;
-        height: 300px;/* 필요한 경우 높이 조정 */
-        background-color: #F9F8FF;
-        text-align-last: auto;
-        position: relative;
-        display: flex;
-        justify-content: center; /* 가운데 정렬 */
-        align-items: center; /* 수직 가운데 정렬 */
-    }
-</style>
-<!-- 클래스 이름주는거 정해서할까요 아니면 각자 알아서? -->
 <body>
-<header>
-    <div class="images">
-        <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
-        <div>
-            <img class="user" src="images/Group.svg" alt="회원">
-            <img class="category" src="images/Vector.svg" alt="카테고리">
+<th:block layout:fragment="content">
+    <div class="contentFAQ">
+        <div class="search">
+            <form action="/search.jsp" method="get">
+                <div class="input-wrapper">
+                    <input type="text" name="searchbox" id="searchbox">
+                    <button type="submit" id="searchButton">
+                        <img  th:src="@{images/search.svg}" alt="돋보기">
+                    </button>
+                </div>
+            </form>
         </div>
-    </div>
-</header>
+        <!-- 공지사항 -->
+        <div class="submenu-wrap">
+            <section id="submenu">
+                <a class="contact" href="inforNotic.html">
+                    <h2>공지사항</h2>
+                </a>
+                <a class="fnq" href="inforFAQ.html">
+                    <h2>FAQ</h2>
+                </a>
+                <a class="qna" href="inforQNA.html">
+                    <h2>Q&A</h2>
+                </a>
+                <a class="review" href="inforReview.html">
+                    <h2>후기</h2>
+                </a>
+            </section>
+        </div>
 
-<!-- 검색창 -->
-<div class="content">
-    <div class="search">
-        <form action="/search.jsp" method="get">
-            <div class="input-wrapper">
-                <input type="text" name="searchbox" id="searchbox">
-                <button type="submit" id="searchButton">
-                    <img src="images/search.svg" alt="돋보기">
-                </button>
+        <!-- 자주하는질문 상세페이지-->
+        <div class="contact2-wrap">
+            <div class="faq-list-wrap">
+                <ul>
+                    <li>
+                        <p class="faq-category">이용</p>
+                        <a class="answerop" >
+                            <span>팝업스토어를 공유하려면 어떻게 해야 하나요?</span>
+                            <a><img id="toggle0"  th:src="@{images/angle-down-solid.svg}" alt="내려보기"></a>
+                        </a>
+                        <div class="answer" style="display: none;">'메인 - CONTACT - 팝업스토어 제보'에서 회원님이 알고 계신 팝업스토어를 제보해주세요!</div>
+                    </li>
+                    <li>
+                        <p class="faq-category">이용</p>
+                        <a class="answerop" >
+                            <span>팝업스토어 찜목록을 사용 하려면 어떻게 해야 하나요?</span>
+                            <a><img id="toggle1"  th:src="@{images/angle-down-solid.svg}" alt="내려보기"></a>
+                        </a>
+                        <div class="answer" style="display: none;">'회원가입'을 하시면 이용하실 수 있으며, 마이페이지에서 찜 목록 확인도 할 수 있습니다!</div>
+                    </li>
+                    <li>
+                        <p class="faq-category">기업</p>
+                        <a class="answerop" >
+                            <span>팝업스토어를 열려고 하는데 홍보가 가능한가요?</span>
+                            <a><img id="toggle2"  th:src="@{images/angle-down-solid.svg}" alt="내려보기"></a>
+                        </a>
+                        <div class="answer" style="display: none;">'메인 - 회원가입 - 사업자'를 통해서 가입하신 후 입점가능한지 확인이 가능합니다!</div>
+                    </li>
+                </ul>
             </div>
-        </form>
-    </div>
-    <!-- 공지사항 -->
-    <div class="submenu-wrap">
-        <section id="submenu">
-            <a class="contact" href="infor-notic.html">
-                <h2>공지사항</h2>
-            </a>
-            <a class="fnq" href="infor-faq.html">
-                <h2>FAQ</h2>
-            </a>
-            <a class="qna" href="infor-qa.html">
-                <h2>Q&A</h2>
-            </a>
-            <a class="review" href="infor-review.html">
-                <h2>후기</h2>
-            </a>
-        </section>
-    </div>
+        </div>
 
-    <!-- 자주하는질문 상세페이지-->
-    <div class="contact2-wrap">
-        <div class="faq-list-wrap">
+        <!-- 페이지 수-->
+        <div class="page-area">
             <ul>
                 <li>
-                    <p class="faq-category">이용</p>
-                    <a class="answerop" >
-                        <span>팝업스토어를 공유하려면 어떻게 해야 하나요?</span>
-                        <a><img id="toggle0" src="images/angle-down-solid.svg" alt="내려보기"></a>
-                    </a>
-                    <div class="answer" style="display: none;">'메인 - CONTACT - 팝업스토어 제보'에서 회원님이 알고 계신 팝업스토어를 제보해주세요!</div>
-                </li>
-                <li>
-                    <p class="faq-category">이용</p>
-                    <a class="answerop" >
-                        <span>팝업스토어 찜목록을 사용 하려면 어떻게 해야 하나요?</span>
-                        <a><img id="toggle1" src="images/angle-down-solid.svg" alt="내려보기"></a>
-                    </a>
-                    <div class="answer" style="display: none;">'회원가입'을 하시면 이용하실 수 있으며, 마이페이지에서 찜 목록 확인도 할 수 있습니다!</div>
-                </li>
-                <li>
-                    <p class="faq-category">기업</p>
-                    <a class="answerop" >
-                        <span>팝업스토어를 열려고 하는데 홍보가 가능한가요?</span>
-                        <a><img id="toggle2" src="images/angle-down-solid.svg" alt="내려보기"></a>
-                    </a>
-                    <div class="answer" style="display: none;">'메인 - 회원가입 - 사업자'를 통해서 가입하신 후 입점가능한지 확인이 가능합니다!</div>
+                    <a class="on">1</a>
                 </li>
             </ul>
         </div>
     </div>
-
-    <!-- 페이지 수-->
-    <div class="page-area">
-        <ul>
-            <li>
-                <a class="on">1</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<footer>
-    <div class="under_info">
-        <ul>
-            <li><a href="main.html">POPUP DAY</a></li>
-            <li><a href="#">이용약관</a></li>
-            <li><a href="#">개인정보 처리방침</a></li>
-            <li><a href="#">고객지원</a></li>
-        </ul>
-        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
-    </div>
-</footer>
-<!-- 처음 div만 이름 바꿨어용 -->
-<div class="under_fix">
-    <div class="css-footer-buttons">
-        <a href="#메인페이지로_넘어가기">
-            <img src="images/home.svg">
-            <span>홈</span>
-        </a>
-        <a href="#카테고리로_넘어가기">
-            <img src="images/list.svg">
-            <span>카테고리</span>
-        </a>
-        <a href="#찜 목록으로_넘어가기">
-            <img src="images/heart_bold.svg">
-            <span>찜 목록</span>
-        </a>
-        <a href="#마이페이지로_넘어가기">
-            <img src="images/person.svg">
-            <span>마이페이지</span>
-        </a>
-    </div>
-</div>
+</th:block>
 </body>
 </html>

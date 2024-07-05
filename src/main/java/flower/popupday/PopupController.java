@@ -9,11 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PopupController {
 
-    @GetMapping("/popList.do")
-    public ModelAndView popList(HttpServletRequest request,
+    @GetMapping("/main.do") // (매핑이름) ex : ("/popupList.do)
+    public ModelAndView join(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("board/popList"); // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
+        // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
+        mav.setViewName("main");
         return mav;
     }
 
