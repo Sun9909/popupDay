@@ -4,20 +4,20 @@ a>h2 {
     text-align: center;
     color: black;
     margin-top: 0;
-    padding-top: 100px;
+    padding-top: 80px;
 }
 .login_box {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    width: 300px;
-    gap: 10px;
+    text-align: center; 
+    margin-bottom: 30px;
+    margin-top: 20px;
 }
-.containers {
-    min-height: 500px;
+.loginText>input{
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    height: 30px;
+    width: 230px;
 }
-.login_content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.loginButton {
+    margin-top: 20px;
 }
