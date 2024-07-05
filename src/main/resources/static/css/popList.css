@@ -4,6 +4,13 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.content {
+    max-width: 720px;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+}
+
 .search-section, .popup-section {
     border-bottom: 3px solid #8F8CB8;
 }
@@ -84,8 +91,10 @@ ul>li {
     cursor: pointer;
 }
 
+
 #small-containers {
     min-height: 2000px;
 }
+
 
 

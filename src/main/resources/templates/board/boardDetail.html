@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/boarddetial.css">
+    <title>팝업상세보기</title>
+</head>
+<style>
+    * {
+        margin: 0;
+    }
+
+    header {
+        margin: 0 auto;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background-color: #8B8BDA;
+        width: 720px;
+        height: 40px;
+    }
+
+    .main_title {
+        margin: 40px;
+    }
+
+    header >img {
+        position: absolute;
+    }
+
+    .images {
+        position: relative;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        margin-left: 20px;
+        height: 30px;
+        width: 160px;
+    }
+
+    .user {
+        height: 20px;
+        width: 20px;
+    }
+
+    .category{
+        height: 30px;
+        width: 30px;
+    }
+
+    .images>div{
+        width: 720px;
+        margin-right: 20px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        height: 40px;
+        flex-direction: row-reverse;
+    }
+
+    footer {
+        margin: 0 auto;
+        width: 720px;
+        border-top: 3px solid #8F8CB8;
+        background-color: #F9F8FF;
+        padding: 10px 0 60px;
+    }
+
+    .under_info {
+        padding-top: 10px;
+    }
+
+    .under_info > p {
+        padding: 20px;
+    }
+
+    ul {
+        display: flex;
+        list-style:none;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-bottom: 10px
+    }
+
+    .under_fix {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 720px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        background-color: #8B8BDA;
+    }
+
+    .under_fix .css-footer-buttons {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    img {
+        height: 30px;
+        overflow: clip;
+        color: #fff;
+    }
+
+    .under_fix .css-footer-buttons > a > span {
+        font-size: 13px;
+        font-weight: 200;
+        color: #fff;
+    }
+
+    .under_fix .css-footer-buttons a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+</style>
+<!-- 클래스 이름주는거 정해서할까요 아니면 각자 알아서? -->
+<body>
+<header>
+    <div class="images">
+        <img class="logo" src="images/POPUP%20DAY.svg" alt="로고">
+        <div>
+            <img class="user" src="images/Group.svg" alt="회원">
+            <img class="category" src="images/Vector.svg" alt="카테고리">
+        </div>
+    </div>
+</header>
+
+<!-- 검색창 -->
+<div class="search">
+    <form action="/search.jsp" method="get">
+        <div class="input-wrapper">
+            <input type="text" name="searchbox" id="searchbox">
+            <button type="submit" id="searchButton">
+                <img src="images/search.svg" alt="돋보기">
+            </button>
+        </div>
+    </form>
+    <!--팝업 상세페이지-->
+    <div class="popupdetial">
+        <div class="popupdetail-wrap">
+            <article class="main-article">
+                <div class="popupdetail-banner">
+                    <img src="images/mainviewimgex01.png" alt="사진1">
+                    <img src="images/mainviewimgex02.png" alt="사진2">
+                    <img src="images/mainviewimgex03.png" alt="사진3">
+                </div>
+            </article>
+        </div>
+
+        <div class="popupdetail-inner">
+            <div class="popupdetail-title">
+                <ul class="popupdetail-title-top">
+                    <li><!--팝업카테고리-->
+                        <p class="popup-catagory">아이돌 팝업</p>
+                        <img src="images/rtl.svg" alt="오른쪽화살표">
+                    </li>
+                </ul>
+            </div>
+            <div class="popupdetail-title-infor">
+                <h1 class="tit">동방신기 팝업</h1>
+                <p class="date"><img src="images/date.svg" alt="달력">24.07.08 - 24.07.30</p>
+                <p class="location"><img src="images/location.svg" alt="위치">서울특별시 강남구 주류성빌딩</p>
+                <div class="search-box-inner">
+                    <a href="#" class="tag" title="해시태그"># 아이돌</a>
+                    <a href="#" class="tag" title="해시태그"># 굿즈</a>
+                    <a href="#" class="tag" title="해시태그"># 컴백</a>
+                </div>
+            </div>
+            <div class="pop-like-Icon">
+                <img class="heart" src="images/heart_bold.svg" alt="찜">
+            </div>
+            <div class="popup-Icon">
+                <img class="heart" src="images/eye.svg" alt="조회수눈">
+                <a href="#"><img class="heart" src="images/send.svg" alt="보내기"></a> <!-- 카카오 보내기 혹은 url-->
+            </div>
+
+            <!--리뷰보러가기-->
+            <div class="see-review">
+                <a href="#">
+                    <p class="see-review-go"><img src="images/talk.svg" alt="말풍선">리뷰 보러가기<img src="images/angle-down-solid.svg" alt="아래화살표"></p>
+                </a>
+            </div>
+
+            <!--주차 입장료 여부-->
+            <div class="popupdetial-icon-area">
+                <P class="parking"><img src="images/parking.svg" alt="주차">주자가능</P>
+                <P class="ticket"><img src="images/ticket.svg" alt="주차">입장료무료</P>
+            </div>
+
+            <!--운영시간-->
+            <div class="popupdetial-time">
+                <header>
+                    <h3 class="infor-tit">운영시간</h3>
+                    <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                </header>
+                <ul class="open">
+                    <li>월 : </li>
+                    <li>화 : </li>
+                    <li>수 : </li>
+                    <li>목 : </li>
+                    <li>금 :</li>
+                    <li>토 : </li>
+                    <li>일 : </li>
+                </ul>
+            </div>
+
+            <!-- 팝업스토어 소개글 -->
+            <div class="popupdetial-info-inner">
+                <p>동방신기 팝업</p>
+                <p>루루라라ㅏ라시나나나나나</p>
+                <p>호호호호홓호호호호호</p>
+                <p>사랑스러우어 머리부터 발끝까지 사랑스럴워 우오오아이니량렁ㄹ이ㅏ러</p>
+                <p>야댜거아ㅣ렁나ㅣ러미;러;ㅁㅇ니러ㅏㅁㅇ니렁ㄴ렁내ㅔ렁내ㅔ러야렁나ㅣ러ㅏ이러러</p>
+                <p>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+                <p>- 전페품 10%할인</p>
+                <p>- 싸다구 싸대기</p>
+            </div>
+            <!--안내및주의사항-->
+            <div class="popupdetial-caution">
+                <h3 class="infor-tit">안내 및 주의사항<s/h3>
+                    <p>- 전페품 10%할인</p>
+                    <p>- 싸다구 싸대기</p>
+                    <div></div>
+            </div>
+            <!--오시는길-->
+            <div class="popupdetial-map">
+                <h3 class="infor-tit">오시는 길</h3>
+                <article class="map-area-wrap">
+                    <div class="map-area"></div>
+                </article>
+                <ul>
+                    <li><p>서울특별시 강남구 주유성빌딩</p></li>
+                    <li><button type="button">주소복사</button></li>
+                </ul>
+            </div>
+            <!--주변 카페 및 놀거리-->
+            <div class="popupdetial-play">
+                <header>
+                    <h3 class="infor-tit">주변 카페 및 놀거리</h3>
+                    <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                </header>
+                <a class="play">
+                    <img src="images/mapplayex.png" alt="놀거리지도">
+                    <p>1. 파이브가이즈 (300m)</p>
+                    <p>2. 하이디라오 (500m)</p>
+                    <p>1. 자라 (400m)</p>
+                </a>
+            </div>
+            <!--리뷰-->
+            <div class="popupdetial-review">
+                <header>
+                    <h3 class="infor-tit">리뷰</h3>
+                    <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                </header>
+                <ul class="open">
+                    <p>리뷰남겨요</p>
+                    <p>리뷰남겨요</p>
+                </ul>
+            </div>
+
+            <!--사업자정보-->
+            <div class="popupdetial-business">
+                <header>
+                    <h3 class="infor-tit">사업자정보</h3>
+                    <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                </header>
+                <ul class="open">
+                    <p>회사명 : </p>
+                    <p>대표명 : </p>
+                </ul>
+            </div>
+
+            <!--사업자 문의-->
+            <div class="popupdetial-business-info">
+                <header>
+                    <h3 class="infor-tit">사업자문의</h3>
+                    <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                </header>
+                <ul class="open">
+                    <a href="#">사업자문의는 전화 혹은 Q&A이용해주시길 바랍니다.</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</footer>
+<!-- 처음 div만 이름 바꿨어용 -->
+<div class="under_fix">
+    <div class="css-footer-buttons">
+        <a href="#메인페이지로_넘어가기">
+            <img src="images/home.svg">
+            <span>홈</span>
+        </a>
+        <a href="#카테고리로_넘어가기">
+            <img src="images/list.svg">
+            <span>카테고리</span>
+        </a>
+        <a href="#찜 목록으로_넘어가기">
+            <img src="images/heart_bold.svg">
+            <span>찜 목록</span>
+        </a>
+        <a href="#마이페이지로_넘어가기">
+            <img src="images/person.svg">
+            <span>마이페이지</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

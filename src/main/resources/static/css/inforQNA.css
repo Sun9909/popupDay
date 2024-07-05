@@ -1,10 +1,10 @@
 @charset "utf-8";
 /*검색, 공지사항*/
-
-.search, .submenu-wrap, .contact-wrap, .page-area {
+.content {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
+    height: auto;
 }
 
 .search {
@@ -53,7 +53,7 @@
 .submenu-wrap {
     padding-top: 0; /* 상단 여백 제거 */
     margin-top: 0;
-    height: 900px; /* 필요한 경우 높이 조정 */
+    height: 60px; /* 필요한 경우 높이 조정 */
     background-color: #F9F8FF;
     text-align: center;
     position: relative;
@@ -98,3 +98,85 @@
     color: white; /* 원하는 색상으로 변경 */
 }
 
+/*Q&A상세페이지*/
+.qna {
+    color: white;
+}
+.selectbox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px black solid;
+}
+.selectLayer {
+    display: inline-block;
+}
+
+.listnotice {
+    display: block;
+    padding: 12px 20px 12px 20px;
+    background: #f9f9f9;
+}
+
+/*공지 글*/
+.sbj {
+    margin-bottom: 10px;
+}
+.subject {
+    font-size: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
+.listPost {
+    font-size: 20px;
+}
+.regdate {
+    font-size: 18px;
+}
+.catInfo {
+    padding: 0 20px 12px 20px;
+    border-bottom: 1px solid black;
+    line-height: 20px;
+    background: #f9f9f9;
+    font-size: 18px;
+    color: #787777;
+}
+
+.selectbox select {
+    padding: 5px; /* 선택 요소의 내부 여백 */
+    font-size: 16px; /* 글꼴 크기 조절 */
+    width: 170px; /* 선택 요소의 너비 조절 */
+}
+
+/*후기작성공간, 후기가이드*/
+.myreview {
+    padding: 100px;
+}
+
+.reviewguide {
+    padding: 10px 20px 10px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.reviewguide  h3 ul  {
+    width: 100%;
+}
+
+.reviewguide h3 {
+    padding: 20px 20px 10px 20px ;
+}
+
+.reviewguid-list {
+    display: flex;
+    padding: 00px 20px 10px 20px ;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+}
