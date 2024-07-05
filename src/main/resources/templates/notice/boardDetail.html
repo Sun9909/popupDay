@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/layout.css}" />
     <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>팝업상세페이지</title>
@@ -66,7 +67,8 @@
 <body>
 <th:block layout:fragment="content">
     <!--팝업 상세페이지-->
-    <div class="popupdetail">
+    <div class="containers">
+    <div class="popupdetial">
         <div class="popupdetail-wrap">
             <article class="main-article">
                 <div class="popupdetail-banner">
@@ -250,6 +252,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </th:block>
 </body>
