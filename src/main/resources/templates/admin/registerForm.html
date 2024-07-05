@@ -16,27 +16,38 @@
     <h2>팝업 신청 관리</h2>
 
     <!-- 팝업 정보 -->
+    <div class="popName">
+        <h4>팝업 이름</h4>
+        <p>팝업 스토어 이름</p>
+    </div>
     <div class="popImg">
         <h4>팝업 이미지</h4>
         <img src="" alt="팝업 이미지">
     </div>
     <div class="popInfo">
         <h4>팝업 정보</h4>
-    </div>
-    <div class="popTime">
-        <h4>팝업 운영 시간(을 정보에 같이 넣어야하나?)</h4>
-    </div>
-    <div class="popEx">
-        <h4>팝업 소개</h4>
+        <ul>
+            <li>팝업 운영 기간</li>
+            <li>팝업 주소</li>
+            <li>팝업 한 줄 설명</li>
+            <li>팝업 해시태그</li>
+            <li>팝업 운영 시간</li>
+            <li>팝업 소개</li>
+        </ul>
     </div>
     <div class="brandUrl">
         <h4>브랜드 홈페이지</h4>
+        <a href=""></a>
     </div>
     <form>
         <label><input type="radio" name="register" value="ok"> 승인</label>
         <label><input type="radio" name="register" value="ckeck"> 확인 중</label>
         <label><input type="radio" name="register" value="refuse"> 반려</label>
     </form>
+    <div class="check">
+        <button type="submit" value="submit">저장</button>
+        <button type="reset" value="reset">취소</button>
+    </div>
 </div>
 </body>
 </html>

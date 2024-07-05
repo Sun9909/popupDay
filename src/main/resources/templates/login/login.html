@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/layout">
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
     <link rel="stylesheet" th:href="@{/css/index.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{css/layout.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/login.css}"/>
-    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-        <div class="login_content">
-            <a href="메인 창">
-                <h2>POP UP <br>DAY</h2>
-            </a>
+        <a href="메인 창">
+            <h2>POP UP <br>DAY</h2>
+        </a>
 
-            <div class="login_box">
-                아이디 : <input type="text" name="id">
-                비밀번호 : <input type="password" name="pwd">
+        <div class="login_box">
+            <div class="loginText">
+                <input type="text" name="id" placeholder="아이디" required><br>
+                <input type="password" name="pwd" placeholder="비밀번호" required><br>
+            </div>
+            <div class="loginButton">
                 <input type="submit" value="로그인">
                 <input type="reset" value="다시 입력">
             </div>
