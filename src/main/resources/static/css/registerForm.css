@@ -1,0 +1,27 @@
+@charset "utf-8";
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin: 20px 0;
+}
+/* 팝업 신청 */
+.container div {
+    margin: 30px;
+    font-size: 1.3em;
+}
+h4 {
+    color: #4B4B65;
+    margin-top: 30px;
+}
+
+form {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+form label {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-right: 10px;
+}
