@@ -9,7 +9,26 @@
     height:auto;
     text-align: center;
 }
+.content {
+    display: none;
+}
 
+.content.active {
+    display: block;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    padding: 40px 0px 80px 0px;
+    text-align: center
+}
+
+.review-content {
+    display: none;
+}
+
+.review-content.active {
+    display: block;
+}
 .search form {
     display: inline-block;
 }
@@ -37,20 +56,21 @@
 }
 
 /*돋보기*/
-.input-wrapper img {
+.input-wrapper button {
     position: absolute;
     top: 40%;
     right: 30px; /* 조정 필요한 경우 여백 조절 */
     transform: translateY(-10%);
-    width: 20px; /* 이미지의 너비 */
-    height: auto; /* 높이 자동 조정 */
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 /*공지사항 전체틀*/
 .submenu-wrap {
     padding-top: 0; /* 상단 여백 제거 */
     margin-top: 0;
-    height: 100px; /* 필요한 경우 높이 조정 */
+    height: 65px; /* 필요한 경우 높이 조정 */
     background-color: #F9F8FF;
     text-align: center;
     position: relative;
@@ -95,18 +115,11 @@
     color: white; /* 원하는 색상으로 변경 */
 }
 
-/**공지사항*****************************************************************/
 .contact-wrap {
-    padding-top: 0; /* 상단 여백 제거 */
-    padding-bottom: 300px;
-    margin-top: 0;
-    height: 200px; /* 필요한 경우 높이 조정 */
-    background-color: #F9F8FF;
-    text-align: center; /* 텍스트 가운데 정렬 */
-    position: relative;
     display: flex;
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center;
+    align-items: center;
+    height: 200px;
 }
 
 .contact-wrap .table-board {
@@ -131,7 +144,7 @@
 }
 
 .contact-wrap .table-board tr:last-child td {
-    border-bottom: none; /* 마지막 행 셀의 아래 테두리 제거 */
+    border-bottom: none; /* 마지막*/
 }
 
 /**FAQ*****************************************************************/
@@ -179,8 +192,8 @@
     margin: 5px;
     padding: 20px;
     background-color: #e1dfdf;
-
 }
+
 
 /**QNA**********************************************************************/
 
@@ -342,4 +355,21 @@
 }
 .ball {
     padding: 50px;
+}
+
+
+/*페이지설정*/
+.page-area {
+    display: block;
+    margin: 0 auto;
+    width: 720px;
+    background-color: #F9F8FF;
+    padding: 10px 0px 20px 0;
+    text-align: center;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+.page-area ul {
+    align-items: center;
+    justify-content: center;
 }
