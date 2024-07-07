@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/layout"
->
+      layout:decorate="/layout/layout">
 <head>
     <meta charset="UTF-8">
     <title>사업자 회원가입</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/businessForm.css}">
 </head>
-<link rel="stylesheet" type="text/css" th:href="@{css/layout.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{css/businessperson.css}">
 <script>
     // 체크박스 전체 선택
     $(".checkbox_group").on("click", "#check_all", function () {
