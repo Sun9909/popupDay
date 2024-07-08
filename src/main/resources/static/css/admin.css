@@ -1,5 +1,5 @@
 body {
-    height: 1060px;
+    height: 650px;
     width: 1440px;
     margin: 0 auto;
 }
@@ -39,7 +39,10 @@ body {
 }
 .admin_container .logout {
     display: flex;
-    margin: 520px 35px 30px;
+    margin: 230px 35px 30px;
+}
+.admin_container .logout a {
+    text-decoration: none;
 }
 .admin_container .logout img {
     width: 50px;
