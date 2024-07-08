@@ -54,20 +54,20 @@
         <!--리뷰보러가기-->
         <div class="see-review">
             <a href="#">
-                <p class="see-review-go"><img src="images/talk.svg" alt="말풍선">리뷰 보러가기<img src="images/angle-down-solid.svg" alt="아래화살표"></p>
+                <p class="see-review-go"><img th:src="@{images/talk.svg}" alt="말풍선">리뷰 보러가기<img th:src="@{images/angle-down-solid.svg}" alt="아래화살표"></p>
             </a>
         </div>
 
         <!--주차 입장료 여부-->
         <div class="popupdetial-icon-area">
-            <P class="parking"><img src="images/parking.svg" alt="주차">주자가능</P>
-            <P class="ticket"><img src="images/ticket.svg" alt="주차">입장료무료</P>
+            <P class="parking"><img th:src="@{images/parking.svg}" alt="주차">주자가능</P>
+            <P class="ticket"><img th:src="@{images/ticket.svg}" alt="주차">입장료무료</P>
         </div>
 
         <div class="popupdetial-time">
             <a>
                 <h3 class="infor-tit">운영시간</h3>
-                <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                <img class="open"th:src="@{images/angle-down-solid.svg}" alt="아래화살표">
             </a>
             <ul class="open">
                 <li>월 : </li>
@@ -112,11 +112,11 @@
         <div class="popupdetial-play">
             <div class="popodetail-pc">
                 <h3 class="infor-tit">주변 카페 및 놀거리</h3>
-                <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                <img class="open" th:src="@{images/angle-down-solid.svg}" alt="아래화살표">
 
                 </header>
                 <div class="play">
-                    <img src="images/mapplayex.png" alt="놀거리지도">
+                    <img th:src="@{images/mapplayex.png}" alt="놀거리지도">
                     <p>1. 파이브가이즈 (300m)</p>
                     <p>2. 하이디라오 (500m)</p>
                     <p>1. 자라 (400m)</p>
@@ -126,7 +126,7 @@
         <div class="popupdetial-review">
             <a>
                 <h3 class="infor-tit">리뷰</h3>
-                <img class="open" src="images/angle-down-solid.svg" alt="아래화살표">
+                <img class="open" th:src="@{images/angle-down-solid.svg}" alt="아래화살표">
             </a>
             <ul class="open">
                 <p>리뷰남겨요</p>
@@ -138,7 +138,7 @@
         <div class="popupdetial-business">
             <a>
                 <h3 class="infor-tit">사업자정보</h3>
-                <img class="open" src="/images/angle-down-solid.svg" alt="아래화살표">
+                <img class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
             </a>
             <ul class="open">
                 <p>회사명 : </p>
@@ -150,7 +150,7 @@
         <div class="popupdetial-business-info">
             <a>
                 <h3 class="infor-tit">사업자문의</h3>
-                <img class="open" src="/images/angle-down-solid.svg" alt="아래화살표">
+                <img class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
             </a>
             <ul class="open">
                 <a href="#">사업자문의는 전화 혹은 Q&A이용해주시길 바랍니다.</a>
