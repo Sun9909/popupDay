@@ -1,10 +1,20 @@
 @charset "utf-8";
 a>h2 {
+    font-size: 35px;
     text-align: center;
     color: black;
     margin-top: 0;
     padding-top: 40px;
 }
+.login-submit {
+    width: 640px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 60px auto;
+    height: 650px;
+}
+
 .loginMain a {
     text-decoration: none;
 }
@@ -16,24 +26,35 @@ a>h2 {
 .loginText>input{
     padding: 20px 10px;
     margin: 10px;
-    height: 30px;
-    width: 230px;
+    height: 60px;
+    width: 400px;
+    font-size: 16px;
 }
 .loginButton {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .loginButton>input {
     margin: 0 10px;
+    width: 400px;
+    height: 50px;
+    padding: 10px 5px;
+    font-size: 20px;
 
 }
 .loginBack>a>img {
-    padding-left: 20px;
-    padding-top: 10px;
+    margin: 15px;
+    width: 35px;
+    height: 35px;
 }
 .loginButton a {
+    margin: 5px;
     text-decoration: none;
     color: black;
 }
 .loginButton a:hover {
     color: #8B8BDA;
+}
+
+.containers {
+    min-height: 800px;
 }
