@@ -27,6 +27,8 @@ fieldset {
 }
 form .pop {
     display: flex;
+    align-items: center;
+    gap: 40px;
 }
 form .popImg {
     width: 150px;

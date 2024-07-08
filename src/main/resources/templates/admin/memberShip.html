@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultag.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 관리 페이지</title>
-    <link rel="stylesheet" th:href="@{css/index.css}">
-    <link rel="stylesheet" th:href="@{css/membership.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/membership.css}">
 </head>
 <body>
-<div class="container">
+<th:block layout:fragment="content">
+<div class="containers">
     <!-- 회원 관리 -->
     <h2>회원 관리</h2>
 
@@ -27,10 +28,18 @@
             </td>
         </tr>
         <tr>
-            <td text="email"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="">수정</a></td>
+            <td><a href="">삭제</a></td>
         </tr>
 
     </table>
 </div>
+</th:block>
 </body>
 </html>

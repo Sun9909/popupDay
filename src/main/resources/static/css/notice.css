@@ -328,6 +328,7 @@
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
+
 .reviewguide li:last-child {
     border-bottom: none;
 }

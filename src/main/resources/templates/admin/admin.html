@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
     <title>관리자 페이지</title>
 </head>
 <body>
-<header id="admin_header">
-    <div class="images">
-        <a href="index.html"><img class="logo" src="images/POPUP%20DAY.svg" alt="로고"></a>
-    </div>
-</header>
+<th:block layout:fragment="content">
 <div class="admin_container">
-
+    <h2>관리자 페이지</h2>
+    <ul>
+        <a href="#"><li>팝업 신청 검토</a></li>
+        <a href="#"><li>커뮤니티</a></li>
+        <a href="#"><li>회원관리</a></li>
+        <a href="#"><li>문의사항 내역</a></li>
+    </ul>
+    <div class="logout">
+        <a href="#">
+            <img th:src="@{images/person.svg}">
+            <h5>로그아웃</h5>
+        </a>
+    </div>
 </div>
 <div class="container">
+    <object type="" th:data="@{main.html}">
 
+    </object>
 </div>
-<footer>
-    <div class="under_info">
-        <p>Copyright 2024. POPUP DAY. All rights reserved.</p>
-    </div>
-</footer>
+</th:block>
 </body>
 </html>
