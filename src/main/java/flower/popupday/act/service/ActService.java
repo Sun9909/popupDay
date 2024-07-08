@@ -1,6 +1,6 @@
 package flower.popupday.act.service;
 
-import com.springboot.act.dto.ActDTO;
+import flower.popupday.act.dto.ActDTO;
 import org.springframework.dao.DataAccessException;
 
 public interface ActService {

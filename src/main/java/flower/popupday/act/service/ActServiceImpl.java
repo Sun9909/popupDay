@@ -1,7 +1,7 @@
 package flower.popupday.act.service;
 
-import com.springboot.act.dao.ActDAO;
-import com.springboot.act.dto.ActDTO;
+import flower.popupday.act.dao.ActDAO;
+import flower.popupday.act.dto.ActDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
