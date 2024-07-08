@@ -1,10 +1,9 @@
-.popupdetail {
-    padding-top: 40px;
+.popupdetial {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
     height: auto;
-    overflow: hidden; /* 넘치는 부분 숨기기 */
+    overflow: hidden;
 }
 
 .popupdetail-banner img {
@@ -44,8 +43,10 @@
 .popupdetail-inner {
     padding: 10px 40px 10px 40px;
 }
-
-.popupdetail-title-li {
+.popupdetail-title ul {
+    padding: 0;
+}
+.popupdetail-title li {
     display: flex;
     flex-direction: row;
 }
@@ -53,7 +54,15 @@
 .popupdetail-title img {
     width: 20px;
 }
-
+.date, .location {
+    display: flex;
+}
+.date img, .location img {
+    margin: 5px;
+}
+.date p, .location p {
+    margin: 10px;
+}
 .heart {
     width: 30px;
 }
@@ -88,7 +97,8 @@
     margin-right: 10px;
 }
 .search-box-inner {
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-bottom: 1px solid black;
 }
 .see-review {
