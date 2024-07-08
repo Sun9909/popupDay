@@ -1,6 +1,5 @@
 @charset "utf-8";
 /*검색, 공지사항*/
-
 .container {
     display: flex;
     margin: 0 auto;
@@ -370,4 +369,5 @@
 .page-area ul {
     align-items: center;
     justify-content: center;
+    list-style: none;
 }
