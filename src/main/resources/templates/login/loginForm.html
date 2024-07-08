@@ -7,23 +7,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입창</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/join.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/loginForm.css}"/>
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="login_banner">
-            <a class="login_header" href="메인 창">
-                <h2>POP UP <br>DAY</h2>
-            </a>
-            <div class="join">
-                <p>이미 가입 하셨다면,</p>
-                <button onclick="join.html">로그인</button>
+            <div class="loginFormMain">
+                <a class="login_header" href="메인 창">
+                    <h2>POP UP DAY</h2>
+                </a>
             </div>
-            <div class="join">
+            <div class="login">
+                <p>이미 가입 하셨다면,</p>
+                <button href="login.html">로그인</button>
+            </div>
+            <div class="choice">
                 <p>회원가입을 하시고 다양한 서비스를 이용해보세요.</p>
-                <button onclick="join.html">회원가입</button>
+                <button href="choiceForm.html">회원가입</button>
             </div>
         </div>
     </div>

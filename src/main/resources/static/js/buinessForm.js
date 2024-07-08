@@ -1,29 +1,27 @@
+function checkSelectAll()  {
+    // 전체 체크박스
+    const checkboxes
+        = document.querySelectorAll('input[name="animal"]');
+    // 선택된 체크박스
+    const checked
+        = document.querySelectorAll('input[name="animal"]:checked');
+    // select all 체크박스
+    const selectAll
+        = document.querySelector('input[name="selectall"]');
 
-    // 체크박스 전체 선택
-    $(".checkboxGroup").on(
-        "click",
-        "#check_all",
-        function () {
-    $(this).parents(
-        ".checkbox_group").find('input').prop(
-            "checked",
-        $(this).is(
-            ":checked"
-    ));
-});
+    if(checkboxes.length === checked.length)  {
+        selectAll.checked = true;
+    }else {
+        selectAll.checked = false;
+    }
 
-    // 체크박스 개별 선택
-    $(".checkboxGroup").on(
-        "click",
-        ".normal",
-        function() {
-            let is_checked = true;
+}
 
-            $(".checkbox_group .normal").each(function(){
-    is_checked = is_checked && $(this).is(":checked");
-});
+function selectAll(selectAll)  {
+    const checkboxes
+        = document.getElementsByName('animal');
 
-    $("#check_all").prop(
-        "checked",
-        is_checked);
-});
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+    })
+}
