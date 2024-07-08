@@ -10,9 +10,14 @@ $(document).ready(function(){
     });
 });
 
-const myCarouselElement = document.querySelector('#myCarousel')
+$(document).ready(function(){
+    $("#search-banner .search").click(function() {
+        var submenu = $(this).next("div");
 
-const carousel = new bootstrap.Carousel(myCarouselElement, {
-    interval: 2000,
-
-})
+        if(submenu.is(":visible")) {
+            submenu.slideUp();
+        }else{
+            submenu.slideDown();
+        }
+    });
+});
