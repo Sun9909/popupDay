@@ -51,3 +51,7 @@ form label {
     padding: 5px 10px;
     margin: 10px;
 }
+
+.containers {
+    min-height: 900px;
+}
