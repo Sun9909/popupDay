@@ -14,7 +14,7 @@ public class PopupController {
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
-        mav.setViewName("notice/qnaForm");
+        mav.setViewName("act/setting");
         return mav;
     }
 }
