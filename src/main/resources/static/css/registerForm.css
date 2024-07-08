@@ -5,7 +5,8 @@ h2 {
     margin: 20px 0;
 }
 /* 팝업 신청 */
-.container div {
+
+.containers div {
     margin: 20px;
     font-size: 1.3em;
 }
@@ -13,20 +14,20 @@ h4 {
     color: #4B4B65;
     margin: 20px 10px 15px;
 }
-.container .popName {
+.containers .popName {
     display: flex;
 }
-.container .popName p {
+.containers .popName p {
     margin: 20px 10px 15px;
 }
-.container img {
+.containers img {
     margin: 15px;
 
 }
-.container .popInfo ul {
+.containers .popInfo ul {
     list-style: none;
 }
-.container .popInfo li {
+.containers .popInfo li {
     margin: 5px;
 }
 
@@ -41,11 +42,11 @@ form label {
     font-weight: bold;
     margin-right: 10px;
 }
-.container .check {
+.containers .check {
     display: flex;
     justify-content: center;
 }
-.container button {
+.containers button {
     font-size: 1.2em;
     padding: 5px 10px;
     margin: 10px;
