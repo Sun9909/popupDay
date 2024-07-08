@@ -6,23 +6,21 @@
 <head>
     <meta charset="UTF-8">
     <title>사업자 or 개인 회원가입</title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{css/choiceForm.css}">
 </head>
+<link rel="stylesheet" type="text/css" th:href="@{css/layout.css}">
+<link rel="stylesheet" type="text/css" th:href="@{css/choiceForm.css}">
 <body>
 <th:block layout:fragment="content">
-    <div class="containers">
-        <a href="메인 창">
-            <h2>POP UP DAY</h2>
-        </a>
-        <div class="individual">
-            <span>개인 회원이시라면,</span><br>
-            <button>개인 회원</button>
-        </div>
-        <div class="businessperson">
-            <span>사업자이시라면,</span><br>
-            <button>사업자</button>
-        </div>
+    <a href="메인 창">
+        <h2>POP UP DAY</h2>
+    </a>
+    <div class="individual">
+        <span>개인 회원이시라면,</span><br>
+        <button>개인 회원</button>
+    </div>
+    <div class="businessperson">
+        <span>사업자이시라면,</span><br>
+        <button>사업자</button>
     </div>
 </th:block>
 </body>
