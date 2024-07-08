@@ -45,22 +45,21 @@ h2 {
     padding-bottom: 10px;
 }
 
-ul {
+.containers ul {
     display: block;
     list-style-type: none;
     padding: 0;
 }
 
-ul, li {
+.containers ul, li {
     padding: 3px;
     margin-left: 10px;
 }
 
-ul>li {
-    display: flex;
-    flex-direction: column;
+.containers ul>li {
     margin-bottom: 10px;
     color: #333;
+    list-style: square;
 
 }
 
@@ -72,7 +71,7 @@ ul>li {
 }
 
 .popup-item {
-
+    position: relative;
     padding: 10px;
     flex: 1 1 calc(33% - 20px);
     box-sizing: border-box;
@@ -86,14 +85,19 @@ ul>li {
 }
 
 .favorite {
-    color: #ff6b6b;
-    font-size: 1.2em;
     cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 13px;
 }
 
 
 #small-containers {
     min-height: 2000px;
+}
+
+.containers {
+    min-height: 1950px;
 }
 
 
