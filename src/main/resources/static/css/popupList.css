@@ -4,7 +4,6 @@ h2 {
     margin: 20px 0 20px 30px;
 }
 
-
 .num {
     color: #d9d9d9;
     margin: 20px 0 20px 30px;
@@ -44,6 +43,7 @@ form .Acc {
 }
 form .popAcc {
     display: flow;
+    margin-left: 30px;
 }
 form .popAcc h5 {
     font-size: 1.6em;
