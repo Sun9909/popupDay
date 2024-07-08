@@ -30,7 +30,7 @@
         <!-- 내가 작성한 것들 보는 영역 -->
         <div class="wrote">
             <article class="comment">
-                <a href="#">
+                <a th:href="@{/mypage/popupList.html}">
                     <h5>등록된 팝업</h5>
                     <p>??개</p>
                 </a>
@@ -48,9 +48,9 @@
         <div class="activity">
             <h3>내 활동</h3>
             <ul>
-                <li><a href="#">팝업 등록하기</a></li>
+                <li><a th:href="@{/board/popupdata.html}">팝업 등록하기</a></li>
                 <li><a href="#">팝업 신청 결과 확인</a></li>
-                <li><a href="#">팝업 리스트</a></li>
+                <li><a th:href="@{/mypage/popupList.html}">팝업 리스트</a></li>
             </ul>
         </div>
         <!-- 내 활동 영역 끝 -->
