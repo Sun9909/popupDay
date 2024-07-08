@@ -32,7 +32,10 @@ table .tr_title {
 }
 tr h4 {
     color: #4B4B65;
-    font-size: 1.5em;
+    font-size: 1.3em;
     text-align: center;
     margin: 15px;
+}
+.containers {
+    min-height: 500px;
 }
