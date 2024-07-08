@@ -40,6 +40,9 @@ layout:decorate="layout/layout">
                     <input type="text" id="address" name="address" maxlength="100" size="60" placeholder="입력 예)서울시 강남구 서초동 11">
                 </div>
 
+                <!-- 지도를 표시할 div 입니다 -->
+                <div id="map" style="width:100%;height:350px;"></div>
+
                 <div class="fillout-form">
                     <label>팝업스토어 한줄 설명</label>
                     <input class="text-fill" type="text" id="poptext" placeholder="한줄설명을 작성해주세요">
@@ -124,6 +127,8 @@ layout:decorate="layout/layout">
     <script th:src="@{/js/popupdata.js}"></script>
     <!-- 우편번호 API -->
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+    <script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=29ef8158c63da01112c17dca9d93271e}"></script>
+    <script th:src="@{js/map.js}" ></script>
 </th:block>
 </body>
 </html>

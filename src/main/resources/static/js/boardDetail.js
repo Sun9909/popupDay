@@ -20,7 +20,9 @@ $(document).ready(function() {
         });
     }
 });
-    //토글을 이용하여 게시글 보기
+
+
+    /*토글을 이용하여 게시글 보기
     $(document).ready(function() {
         let sw = [false, false, false, false, false]; // toggle 상태를 저장할 배열
 
@@ -39,3 +41,39 @@ $(document).ready(function() {
             }
         });
     });
+$(function () {
+    let sw=[false,false,false,false,false];
+    let index;
+    $('.popupdetail-total').click(function() {
+        index=$(this).parent().index();
+        //alert(index);
+        sw[index]=!sw[index];
+        if(sw[index]) {
+            $(this).parent().find('.answer').css('display','block');
+            $('#toggle'+index).attr('src','images/angle-up-solid.svg');
+        }else {
+            $(this).parent().find('.answer').css('display','none');
+            $('#toggle'+index).attr('src','images/angle-down-solid.svg');
+        }
+    });
+});*/
+
+
+$(document).ready(function() {
+    let sw = [false, false, false, false, false]; // toggle 상태를 저장할 배열
+
+    // 각 토글 이미지를 클릭했을 때 toggle 이벤트 처리
+    $('.popupdetail-total').click(function() {
+        let index = $(this).parent().index();
+        sw[index] = !sw[index]; // 상태 반전
+
+        // 상태에 따라 해당 섹션을 보이거나 숨김
+        if (sw[index]) {
+            $(this).next('.answer').slideDown();
+            $('#toggle'+index).attr('src', '/images/angle-up-solid.svg'); // Thymeleaf 경로를 적절히 수정
+        } else {
+            $(this).next('.answer').slideUp();
+            $('#toggle'+index).attr('src', '/images/angle-down-solid.svg'); // Thymeleaf 경로를 적절히 수정
+        }
+    });
+});
