@@ -7,26 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class PopupController {
+public class PopupDayController {
 
     @GetMapping("/main.do") // (매핑이름) ex : ("/popupList.do)
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
-        mav.setViewName("login/login");
+        mav.setViewName("notice/faqForm");
+
         return mav;
     }
 
-
-    @GetMapping("/main2.do") // (매핑이름) ex : ("/popupList.do)
-    public ModelAndView main2(HttpServletRequest request,
-                             HttpServletResponse response) throws Exception {
-        ModelAndView mav=new ModelAndView();
-        // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
-        mav.setViewName("main");
-        return mav;
-    }
 
 
 

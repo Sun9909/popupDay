@@ -7,5 +7,6 @@
  		<mapper resource="mybatis/mappers/member.xml"/> <!-- 회원관리 -->
  		<mapper resource="mybatis/mappers/board.xml"/> <!-- 게시판관리 -->
 		<mapper resource="mybatis/mappers/popup.xml"/>
+		<mapper resource="mybatis/mappers/faq.xml"/>
  	</mappers>
  </configuration>
