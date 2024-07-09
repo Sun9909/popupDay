@@ -14,19 +14,10 @@ public class PopupController {
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
-        mav.setViewName("login/login");
-        return mav;
-    }
-
-
-    @GetMapping("/main2.do") // (매핑이름) ex : ("/popupList.do)
-    public ModelAndView main2(HttpServletRequest request,
-                             HttpServletResponse response) throws Exception {
-        ModelAndView mav=new ModelAndView();
-        // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
         mav.setViewName("main");
         return mav;
     }
+
 
 
 
