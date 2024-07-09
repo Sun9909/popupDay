@@ -11,27 +11,28 @@
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-        <div class="loginBack">
-        <a href="choiceForm.html"><img th:src="@{/images/ltr.svg}"></a>
-            <div class="loginMain">
-                <a href="메인 창">
-                    <h2>POP UP <br>DAY</h2>
-                </a>
+        <div class="login-submit">
+            <div class="loginBack">
+                <a href="choiceForm.html"><img th:src="@{/images/ltr.svg}"></a>
+                <div class="loginMain">
+                    <a href="메인 창">
+                        <h2>POP UP <br>DAY</h2>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="login_box">
-            <div class="loginText">
-                <input type="text" name="id" placeholder="아이디" required><br>
-                <input type="password" name="pwd" placeholder="비밀번호" required><br>
-            </div>
-            <div class="loginButton">
-                <input type="submit" value="로그인">
-                <input type="reset" value="다시 입력">
-            </div>
-            <div class="loginButton">
-                <a href="#아이디 찾기로 고고씽">아이디찾기</a>
-                <a href="#아이디 찾기로 고고씽">비밀번호찾기</a>
+            <div class="login_box">
+                <div class="loginText">
+                    <input type="text" name="id" placeholder="아이디" required><br>
+                    <input type="password" name="pwd" placeholder="비밀번호" required><br>
+                </div>
+                <div class="loginButton">
+                    <input type="submit" value="로그인">
+                </div>
+                <div class="loginButton">
+                    <a href="#아이디 찾기로 고고씽">아이디찾기</a>
+                    <a href="#아이디 찾기로 고고씽">비밀번호찾기</a>
+                </div>
             </div>
         </div>
     </div>

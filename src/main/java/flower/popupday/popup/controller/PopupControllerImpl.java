@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller("popupController")
-public class PopupControllerImpl implements PopupController{
+public class PopupControllerImpl implements PopupController {
 
     @Autowired
     private PopupService popupService;
