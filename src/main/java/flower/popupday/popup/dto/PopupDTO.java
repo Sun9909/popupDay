@@ -22,7 +22,9 @@ public class PopupDTO {
     }
 
     // Default constructor
-    public PopupDTO() {}
+    public PopupDTO() {
+
+    }
 
     // Constructor with all fields
     public PopupDTO(Long popupId, String title, String info, LocalDateTime time, String content, String map, String brandPage, Role role, Long userId) {

@@ -11,26 +11,24 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<div class="admin_container">
-    <h2>관리자 페이지</h2>
-    <ul>
-        <a href="#"><li>팝업 신청 검토</a></li>
-        <a href="#"><li>커뮤니티</a></li>
-        <a href="#"><li>회원관리</a></li>
-        <a href="#"><li>문의사항 내역</a></li>
-    </ul>
-    <div class="logout">
-        <a href="#">
-            <img th:src="@{images/person.svg}">
-            <h5>로그아웃</h5>
-        </a>
+    <div class="admin_container">
+        <h2>관리자 페이지</h2>
+        <ul>
+            <a href="#"><li>팝업 신청 검토</a></li>
+            <a href="#"><li>커뮤니티</a></li>
+            <a href="#"><li>회원관리</a></li>
+            <a href="#"><li>문의사항 내역</a></li>
+        </ul>
+        <div class="logout">
+            <a href="#">
+                <img th:src="@{images/person.svg}">
+                <h5>로그아웃</h5>
+            </a>
+        </div>
     </div>
-</div>
-<div class="container">
-    <object type="" data="">
 
-    </object>
-</div>
+        <!-- iframe 태그를 사용하여 다른 HTML 파일을 불러옴 -->
+        <object data="http://www.naver.com"></object>
 </th:block>
 </body>
 </html>

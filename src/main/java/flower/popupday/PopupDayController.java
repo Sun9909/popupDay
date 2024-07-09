@@ -14,11 +14,7 @@ public class PopupDayController {
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
-<<<<<<< HEAD:src/main/java/flower/popupday/PopupController.java
-        mav.setViewName("main");
-=======
-        mav.setViewName("login/login");
->>>>>>> origin/Flower:src/main/java/flower/popupday/PopupDayController.java
+        mav.setViewName("board/popupForm");
         return mav;
     }
 

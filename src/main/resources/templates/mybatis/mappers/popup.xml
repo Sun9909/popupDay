@@ -13,8 +13,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="content" column="content"/>
         <result property="map" column="map"/>
         <result property="brandPage" column="brand_page"/>
-        <result property="role" column="role" javaType="flower.popupday.popup.dto.PopupDTO.Role"/>
+        <result property="role" column="role" />
         <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <resultMap type="imageDTO" id="imgResult">
+        <result property="popup_image_id" column="popup_image_id"/>
+        <result property="popup_id" column="popup_id"/>
+        <result property="image_file_name" column="image_file_name"/>
     </resultMap>
 
     <!-- 팝업 id를 가지고 특정 정보 -->
