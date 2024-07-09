@@ -6,16 +6,12 @@
 <meta charset="UTF-8">
 <title>레이아웃 페이지</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" /> <!-- 레이아웃 css -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/category.css}">
 <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
 <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
 <link th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto&display=swap}" rel="stylesheet">
 </head>
 <body>
-<!--    <div id="container">-->
-<!--        <header th:replace="layout/header :: header"></header>-->
-<!--        <div id="content" layout:fragment="content"></div>-->
-<!--        <footer th:replace="layout/footer :: footer"></footer>-->
-<!--    </div>-->
     <div id="container">
         <header th:replace="layout/header :: header"></header> <!-- 헤더 추가 -->
         <div id="content" layout:fragment="content"></div> <!-- 컨텐츠 .html  -->
