@@ -39,12 +39,6 @@ header >img {
     height: 20px;
     width: 20px;
 }
-
-.category{
-    height: 30px;
-    width: 30px;
-}
-
 .images {
     position: relative;
     height: 40px;
@@ -176,7 +170,7 @@ img {
     align-items: center;
     gap: 6px;
 }
-
+/* 검색창 js css */
 .search {
     display: flex;
     background-color: #F9F8FF;
@@ -190,7 +184,6 @@ img {
     width: 650px;
     height: 28px;
 }
-
 /* 헤더부분 */
 .popup li {
     padding: 3px;
