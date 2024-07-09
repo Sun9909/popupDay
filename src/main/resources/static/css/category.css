@@ -1,48 +1,47 @@
 @charset "utf-8";
-.category_logo a {
-    font-weight: bold;
-    text-decoration: none;
-    color: #8B8BDA;
+.category {
+    display: inline-block;
 }
-.category_down ul li a {
-    text-decoration: none;
-    color: black;
+
+.category > a {
+    color: white;
+    font-size: 15px;
 }
+
+.category-info {
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    left: 165px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .category_box>a {
     text-decoration: none;
     text-align: center;
     color: black;
 }
-.category_header_a {
-    float: right;
+.category_box>li>a {
+    font-size: 20px;
+    font-weight: 800;
+    color: black;
+}
+.businessperson_box>li>a {
+    font-size: 20px;
+    font-weight: 800;
     text-decoration: none;
     color: black;
-    font-weight: bold;
-}
-.category_down ul li {
-    margin-bottom: 20px;
-}
-.category_down, .businessperson_box {
-}
-.category_box>li>a {
-    font-size: 30px;
-    font-weight: bold;
 }
 .category_box, .businessperson_box {
     list-style: none;
     padding: 20px;
-}
-.businessperson_box>li {
-    margin-bottom: 20px;
-}
-.businessperson_box>li>a {
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
+    margin: 0;
     color: black;
 }
-.category_box>li {
+.businessperson_box>li {
+    margin-bottom: 10px;
 }
+
 .category_box>li::after {
     display:block;/*a요소를 블록 요소라고 선언*/
     content: '';
