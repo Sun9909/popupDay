@@ -7,5 +7,5 @@ import java.util.zip.DataFormatException;
 
 public interface FaqService {
 
-    public int addFaq(Map articleMap) throws DataFormatException;
+    public void addFaq(FaqDTO faqDTO) throws DataFormatException;
 }

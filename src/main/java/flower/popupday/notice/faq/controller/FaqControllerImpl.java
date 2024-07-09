@@ -1,6 +1,7 @@
 package flower.popupday.notice.faq.controller;
 import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.faq.service.FaqService;
+import flower.popupday.notice.faq.service.FaqServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,43 +17,33 @@ import java.util.Map;
 
 @Controller("faqController")
 public class FaqControllerImpl implements FaqController {
-
-
-   @Autowired
-   private FaqService faqService;
-
     @Autowired
     private FaqDTO faqDTO;
+    @Autowired
+    private FaqServiceImpl faqService;
 
 
-    
-    //Faq 작성한 글 저장하기
-//    @Override
-//    @PostMapping("/notice/addFaq.do")
-//    public ModelAndView addFaq(@ModelAttribute("faqDTO") FaqDTO faqDTO, HttpServletRequest request, HttpServletResponse response)
-//            throws Exception {
-//        request.setCharacterEncoding("utf-8");
-//        //faqService.addFaq(faqDTO);
-//        ModelAndView mav=new ModelAndView("redirect:/notice/notice.do");
-//        //ModelAndView mav=new ModelAndView("notice/notice");
-//        return mav; // 포워딩
-//    }
-
-//    String title=(String)articleMap.get("title");
-//    String content=(String)articleMap.get("content");
-//		articleDTO.setTitle(title); // 세팅
-//		articleDTO.setContent(content);
-
-    @RequestMapping("/notice/addFaq.do")
-    public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map<String, Object> articleMap = new HashMap<String, Object>();
-        String title = (String)articleMap.get("title");
-        String content = (String)articleMap.get("content");
-        faqDTO.setTitle(title);
-        faqDTO.setContent(content);
-        int articleNo=faqService.addFaq(faqDTO); // 업데이트 수행(글번호로 해당 폴더 생성)
-        ModelAndView mav=new ModelAndView("notice/notice");
+    //Faq작성 폼으로 이동
+    @Override
+    @RequestMapping("notice/getFaq.do")
+    public ModelAndView faqForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("notice/faqForm");
         return mav;
     }
+
+    @Override
+    @RequestMapping("notice/addFaq.do")
+    public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        faqDTO.setTitle(title);
+        faqDTO.setContent(content);
+        faqService.addFaq(faqDTO);
+        ModelAndView mav = new ModelAndView("redirect:notice/getFaq.do");
+        return mav;
+    }
+
 
 }
