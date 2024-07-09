@@ -1,4 +1,4 @@
-$(function(){
+$(document).ready(function(){
     $("#search-banner .search").click(function() {
         var submenu = $(this).next("div");
 

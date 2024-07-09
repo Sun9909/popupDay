@@ -1,8 +1,13 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Roboto','Noto Sans KR';
 }
-
+a {
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+}
 .body a {
     text-decoration: none;
     color: black;
@@ -103,6 +108,7 @@ footer {
 .under_info a {
     text-decoration: none;
     color: black;
+    font-weight: 600;
 }
 
 .under_info a:hover {
@@ -159,7 +165,7 @@ img {
 
 .under_fix .css-footer-buttons > a > span {
     font-size: 15px;
-    font-weight: 200;
+    font-weight: 500;
     color: #fff;
 }
 

@@ -1,6 +1,6 @@
 package flower.popupday.act.dao;
 
-import com.springboot.act.dto.ActDTO;
+import flower.popupday.act.dto.ActDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
