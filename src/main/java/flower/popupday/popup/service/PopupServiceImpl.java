@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service("popupService")
 public class PopupServiceImpl implements PopupService {
 
-    @Autowired
-    private PopupDAO popupDAO;
+    //@Autowired
+    //private PopupDAO popupDAO;
 
 }

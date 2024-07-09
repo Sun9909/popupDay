@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Component("memberDTO")
+@Component("popupDTO")
 public class PopupDTO {
     private Long popupId;
     private String title;
