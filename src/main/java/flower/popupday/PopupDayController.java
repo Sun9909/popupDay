@@ -17,7 +17,7 @@ public class PopupDayController {
 <<<<<<< HEAD:src/main/java/flower/popupday/PopupController.java
         mav.setViewName("main");
 =======
-        mav.setViewName("login/login");
+        mav.setViewName("notice/notice");
 >>>>>>> origin/Flower:src/main/java/flower/popupday/PopupDayController.java
         return mav;
     }
