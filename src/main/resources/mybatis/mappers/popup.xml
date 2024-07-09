@@ -8,13 +8,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <id property="popupId" column="popup_id"/>
         <result property="title" column="title"/>
         <result property="info" column="info"/>
-        <result property="time" column="time"/>
+        <result property="time" column="timepop"/>
         <result property="content" column="content"/>
         <result property="map" column="map"/>
-        <result property="brandPage" column="brand_page"/>
+        <result property="brandPage" column="brandPage"/>
         <result property="role" column="role"/>
         <result property="userId" column="user_id"/>
+        <result property="created_date" column="created_date"/>
     </resultMap>
+
+
+    <select id="selectAllPopup" resultMap="popResult">
+        select * from popup_tbl
+    </select>
+
+    <!-- 글번호 생성 -->
+    <select id="getNewPopupId" resultType="int">
+      <![CDATA[
+        SELECT IFNULL(MAX(popup_id), 0) + 1 FROM popup_tbl
+        ]]>
+   </select>
+
+    <insert id="insertNewPopup" parameterType="java.util.Map">
+    <![CDATA[
+        insert into popup_tbl (popup_id, title, info, timepop, content, map, brandPage, role, user_id, created_date)
+        values (#{popupId}, #{title}, #{info}, '조아용', #{content}, '우리집', #{brandPage}, '미승인', '1', now())
+        ]]>
+</insert>
+
+
+
+
+
+
+
+
     <!-- javaType="flower.popupday.popup.dto.PopupDTO.Role" -->
     <!-- 팝업 id를 가지고 특정 정보 -->
 <!--    <select id="getPopupById" parameterType="long" resultMap="PopupMap">-->

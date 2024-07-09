@@ -2,6 +2,7 @@ package flower.popupday.popup.dto;
 
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Component("popupDTO")
@@ -9,12 +10,22 @@ public class PopupDTO {
     private Long popupId;
     private String title;
     private String info;
-    private LocalDateTime time;
+    private String time;
     private String content;
     private String map;
     private String brandPage;
     private Role role;
     private Long userId;
+
+    public Date getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
+    }
+
+    private Date created_date;
 
     // Enum for role
     public enum Role {
@@ -27,7 +38,7 @@ public class PopupDTO {
     }
 
     // Constructor with all fields
-    public PopupDTO(Long popupId, String title, String info, LocalDateTime time, String content, String map, String brandPage, Role role, Long userId) {
+    public PopupDTO(Long popupId, String title, String info, String time, String content, String map, String brandPage, Role role, Long userId) {
         this.popupId = popupId;
         this.title = title;
         this.info = info;
@@ -37,6 +48,7 @@ public class PopupDTO {
         this.brandPage = brandPage;
         this.role = role;
         this.userId = userId;
+        this.created_date = created_date;
     }
 
     // Getters and Setters
@@ -64,11 +76,11 @@ public class PopupDTO {
         this.info = info;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -125,6 +137,7 @@ public class PopupDTO {
                 ", brandPage='" + brandPage + '\'' +
                 ", role=" + role +
                 ", userId=" + userId +
+                ", created_date=" + created_date +
                 '}';
     }
 }
