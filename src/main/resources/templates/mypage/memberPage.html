@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지</title>
-    <link rel="stylesheet" th:href="@{css/my.css}">
+    <link rel="stylesheet" th:href="@{/css/my.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
 </head>
 <body>
@@ -19,7 +19,7 @@
         <!-- 프로필 영역 -->
         <div class="profile">
             <span><img class="profileImg" th:src="@{/images/Group.svg}" alt="프로필"></span>
-            <p th:each="member : ${membersList}" th:text="${member.user_nikname}">님</p>
+            <p th:text="${my.user_nikname}">님</p>
             <a href="../act/setting.html"><img th:src="@{/images/setting.svg}" alt="설정"></a>
         </div>
         <!-- 내가 작성한 것들 보는 영역 -->
@@ -100,7 +100,7 @@
     </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{/js/search.js}"></script>
 </th:block>
 </body>

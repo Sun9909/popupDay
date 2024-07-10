@@ -1,15 +1,14 @@
 package flower.popupday.mypage.dao;
 
+import flower.popupday.mypage.dto.MyDTO;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component("myDAO")
+@Mapper
 public interface MyDAO {
-    public List findAllList() throws DataAccessException;
+   // public List findAllList() throws DataAccessException;
 
-    public void findId(Long id) throws DataAccessException;
-
-    public void findName(String user_nikname) throws DataAccessException;
+    public MyDTO getName(MyDTO myDTO) throws DataAccessException;
 }
