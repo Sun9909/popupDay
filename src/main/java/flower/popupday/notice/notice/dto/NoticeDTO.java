@@ -2,6 +2,7 @@ package flower.popupday.notice.notice.dto;
 
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Component("noticeDTO")
@@ -10,14 +11,14 @@ public class NoticeDTO {
     private Long user_id;
     private String title;
     private String content;
-    private LocalDateTime date_created;
+    private Date date_created;
     private String write;
 
     // NoiticeDTO 선언
     public NoticeDTO() {}
 
     // 모든 필드를 포함하는 생성자
-    public  NoticeDTO(Long notice_id, Long user_id, String title, String content, LocalDateTime date_created, String write) {
+    public  NoticeDTO(Long notice_id, Long user_id, String title, String content, Date date_created, String write) {
         this.notice_id = notice_id;
         this.user_id = user_id;
         this.title = title;
@@ -59,11 +60,11 @@ public class NoticeDTO {
         this.content = content;
     }
 
-    public LocalDateTime getDate_created() {
+    public Date getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(LocalDateTime date_created) {
+    public void setDate_created(Date date_created) {
         this.date_created = date_created;
     }
 

@@ -2,23 +2,30 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="flower.popupday.notice.dao.NotcieDAO">
+<mapper namespace="flower.popupday.notice.notice.dao.NoticeDAO">
 
-    <resultMap  type="NoticeDTO" id="noticeResult">
-        <id property="notice_id" column="notice_id"/>
+    <resultMap  type="noticeDTO" id="noticeResult">
+        <id property="notice_id" column="notice_id"/> <!-- id 인 이유 : PK컬럼이라 -->
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="date_created" column="date_created"/>
         <result property="write" column="write"/>
     </resultMap>
+
+    <resultMap type="noticeImageDTO" id="imgResult">
+        <result property="notice_image_id" column="notice_image_id"/>
+        <result property="imageFileName" column="imageFileName"/>
+        <result property="notice_id" column="notice_id"/>
+    </resultMap>
+
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
-    <select id="selectAllArticles" resultMap="articleResult" parameterType="int">
-        select notice_id, title, content, date_created from notice_tbl order by notice_id desc LIMIT #{count}, 10
+    <select id="selectAllNotice" resultMap="noticeResult" parameterType="int">
+        select notice_id, title from notice_tbl order by notice_id
     </select>
 
     <!-- 전체 글 목록 수 조회 -->
-    <select id="selectToArticles" resultType="int">
+    <select id="selectTotalArticles" resultType="int">
       <![CDATA[
         select count(*) from notice_tbl
         ]]>
@@ -33,7 +40,7 @@
 
     <!-- 선택한 글 상세 내용 메서드 -->
     <!-- param 글번호(int)를 받아 articleDTO로 보내줌 -->
-    <select id="selectArticles" resultType="articleDTO" parameterType="int">
+    <select id="selectArticles" resultType="noticeDTO" parameterType="int">
       <![CDATA[
         select * from notice_tbl where notice_id=#{notice_id}
         ]]>
