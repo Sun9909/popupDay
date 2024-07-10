@@ -14,7 +14,7 @@ public class PopupDayController {
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
-        mav.setViewName("/mypage/memberPage");
+        mav.setViewName("board/popupForm");
         return mav;
     }
 
