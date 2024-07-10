@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PopupDayController {
 
-    @GetMapping("/main.do") // (매핑이름) ex : ("/popupList.do)
+    @GetMapping("/main.do") // (매핑이름)
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
