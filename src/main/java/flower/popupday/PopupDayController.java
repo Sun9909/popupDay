@@ -15,6 +15,7 @@ public class PopupController {
         ModelAndView mav=new ModelAndView();
         // "/폴더이름/파일이름 " ex ) ("/mypage/popupList")
         mav.setViewName("board/popupdata");
+
         return mav;
     }
 }
