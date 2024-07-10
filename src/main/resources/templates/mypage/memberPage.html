@@ -19,7 +19,7 @@
         <!-- 프로필 영역 -->
         <div class="profile">
             <span><img class="profileImg" th:src="@{/images/Group.svg}" alt="프로필"></span>
-            <p>???님</p>
+            <p th:each="member : ${membersList}" th:text="${member.user_nikname}">님</p>
             <a href="../act/setting.html"><img th:src="@{/images/setting.svg}" alt="설정"></a>
         </div>
         <!-- 내가 작성한 것들 보는 영역 -->
