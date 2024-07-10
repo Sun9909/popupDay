@@ -6,37 +6,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
     <link rel="stylesheet" th:href="@{/css/adminNotice.css}">
     <link rel="stylesheet" th:href="@{css/jquery-ui.min.css}">
     <title>공지사항 작성하기</title>
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div class="containers">
-        <h2>공지사항 작성하기</h2>
-        <div class="notice-form">
-            <div class="select">
-                <label>구분</label>
-                <select name="kind" id="kind">
-                    <option value="inform">공지사항</option>
-                    <option value="event">이벤트</option>
-                </select>
-            </div>
-            <div class="notice">
-                <input type="text" placeholder="제목">
-            </div>
-            <div class="notice">
-                <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
-            </div>
-            <div class="notice-button">
-                <button type="reset">취소</button>
-                <button type="submit">등록</button>
+    <div th:fragment="childFragment">
+        <div class="containers">
+            <h2>공지사항 작성하기</h2>
+            <div class="notice-form">
+                <div class="select">
+                    <label>구분</label>
+                    <select name="kind" id="kind">
+                        <option value="inform">공지사항</option>
+                        <option value="event">이벤트</option>
+                    </select>
+                </div>
+                <div class="notice">
+                    <input type="text" placeholder="제목">
+                </div>
+                <div class="notice">
+                    <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
+                </div>
+                <div class="notice-button">
+                    <button type="reset">취소</button>
+                    <button type="submit">등록</button>
+                </div>
             </div>
         </div>
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/search.js"></script>
     </div>
+<<<<<<< HEAD
     <script th:src="@{js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{js/jquery-ui.min.js}"></script>
     <script th:src="@{js/search.js}"></script>
+=======
+>>>>>>> origin/sin
 </th:block>
 </body>
 </html>
