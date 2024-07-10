@@ -24,7 +24,6 @@ public class AdminControllerImpl implements AdminController {
     public ModelAndView memberShip(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List membersList = adminService.memberShip();
         ModelAndView mav = new ModelAndView();
-        //System.out.println(membersList);
         mav.setViewName("/admin/memberShip");
         mav.addObject("membersList", membersList);
         return mav;

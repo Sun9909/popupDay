@@ -9,5 +9,5 @@ public interface MyService {
 
     public void findId(Long id) throws DataAccessException;
 
-    public void findName(String user_nikname) throw DataAccessException;
+    public void findName(String user_nikname) throws DataAccessException;
 }
