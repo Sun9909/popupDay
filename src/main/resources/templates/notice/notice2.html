@@ -62,7 +62,7 @@
         <div class="contact2-wrap">
             <div class="faq-list-wrap">
                 <ul>
-                    <li th:each="faq: ${faqForm.faqList}">
+                    <li th:each="faq: ${faqList}">
                         <p class="faq-category">이용</p>
                         <a class="answerop">
                             <span th:text="${faq.title}"></span>

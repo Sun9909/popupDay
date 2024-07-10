@@ -1,5 +1,6 @@
 package flower.popupday.notice.notice.controller;
 
+import flower.popupday.notice.notice.dao.NoticeDAO;
 import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.notice.dto.NoticeimageDTO;
 import flower.popupday.notice.notice.service.NoticeService;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,9 @@ public class NotcieControllerImpl implements NoticeController {
 
     @Autowired
     private NoticeDTO noticeDTO;
+    @Qualifier("noticeDAO")
+    @Autowired
+    private NoticeDAO noticeDAO;
 
     //페이징 처리 해보자
     @Override
@@ -53,6 +58,11 @@ public class NotcieControllerImpl implements NoticeController {
         ModelAndView mav = new ModelAndView(); // ModeAndView 객체를 생성
         mav.setViewName("/dmin/adminNotice"); // 뷰이름을 설정 (여러개의 이미지와 글을 작성하는 폼)
         return  mav;
+    }
+
+    @Override
+    public ModelAndView adminNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
     }
 
     //글쓰기에 여러개 이미지 추가
@@ -129,6 +139,16 @@ public class NotcieControllerImpl implements NoticeController {
         return mav;
     }
 
+    @Override
+    public ModelAndView modArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+        return null;
+    }
+
+    @Override
+    public ModelAndView removeArticle(Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
+    }
+
     // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
     private String fileUpoad(MultipartHttpServletRequest multipartrequest) throws Exception{
         String imageFileName=null;
@@ -172,5 +192,4 @@ public class NotcieControllerImpl implements NoticeController {
         } // while end
         return fileList;
     }
-ㅋ
 } // class end
