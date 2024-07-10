@@ -20,11 +20,8 @@
         select * from user_tbl
     </select>
 
-    <select id="findId" parameterType="Long">
-        select * from user_tbl where id=#{id}
-    </select>
-    <select id="findName" parameterType="String">
-        select * from user_tbl where user_nikname=#{user_nikname}
+    <select id="getName" parameterType="myDTO">
+        select * from user_tbl where id='123'
     </select>
 
 </mapper>
