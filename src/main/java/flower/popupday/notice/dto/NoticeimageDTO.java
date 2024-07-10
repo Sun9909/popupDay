@@ -10,7 +10,6 @@ public class NoticeimageDTO {
     private String imageFileName;
     private Long notice_id; //articleNo  이미지번호
 
-
     public Long getNotice_image_id() {return notice_image_id;}
 
     public void setNotice_image_id(Long notice_image_id) { this.notice_image_id = notice_image_id;}

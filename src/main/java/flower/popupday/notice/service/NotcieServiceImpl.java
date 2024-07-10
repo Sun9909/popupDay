@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("noticeService")
-public class NotcieServiceImpl implements NoticeService{
+public class NotcieServiceImpl implements NoticeService {
 
     @Autowired
     private NoticeDTO noticeDAO;
