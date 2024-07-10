@@ -17,9 +17,14 @@ public class PopupDayController {
 <<<<<<< HEAD
         mav.setViewName("board/popupForm");
 =======
+<<<<<<< HEAD
         mav.setViewName("notice/faqForm");
 
 >>>>>>> origin/sin
+=======
+        mav.setViewName("notice/notice");
+>>>>>>> origin/Flower:src/main/java/flower/popupday/PopupDayController.java
+>>>>>>> origin/yoni
         return mav;
     }
 
