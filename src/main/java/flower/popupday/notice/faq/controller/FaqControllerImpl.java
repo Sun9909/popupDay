@@ -25,15 +25,24 @@ public class FaqControllerImpl implements FaqController {
 
     //Faq작성 폼으로 이동
     @Override
-    @RequestMapping("notice/getFaq.do")
+    @RequestMapping("/notice/getFaq.do")
     public ModelAndView faqForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/faqForm");
         return mav;
     }
 
+    //Faq 리스트로 이동
     @Override
-    @RequestMapping("notice/addFaq.do")
+    @RequestMapping("/notice/faqList.do")
+    public ModelAndView faqList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("notice/notice");
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/notice/addFaq.do")
     public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
@@ -41,7 +50,7 @@ public class FaqControllerImpl implements FaqController {
         faqDTO.setTitle(title);
         faqDTO.setContent(content);
         faqService.addFaq(faqDTO);
-        ModelAndView mav = new ModelAndView("redirect:notice/getFaq.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/faqList.do");
         return mav;
     }
 

@@ -11,4 +11,6 @@ public interface FaqController {
     public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView faqForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView faqList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
