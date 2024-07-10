@@ -127,7 +127,8 @@ layout:decorate="layout/layout">
     <script th:src="@{/js/popupdata.js}"></script>
     <!-- 우편번호 API -->
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
-    <script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=29ef8158c63da01112c17dca9d93271e}"></script>
+    <!-- 지도 API -->
+    <script th:type="@{text/javascript}" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=29ef8158c63da01112c17dca9d93271e}"></script>
     <script th:src="@{js/map.js}" ></script>
 </th:block>
 </body>
