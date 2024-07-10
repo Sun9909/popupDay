@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/adminNotice.css}">
     <title>관리자 페이지</title>
 </head>
 <body>
@@ -26,9 +27,16 @@
             </a>
         </div>
     </div>
+<<<<<<< HEAD
 
         <!-- iframe 태그를 사용하여 다른 HTML 파일을 불러옴 -->
         <object data="http://www.naver.com"></object>
+=======
+</div>
+<div class="container">
+    <div th:include="admin/adminNotice :: childFragment"></div>
+</div>
+>>>>>>> origin/sin
 </th:block>
 </body>
 </html>
