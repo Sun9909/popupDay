@@ -13,15 +13,15 @@ layout:decorate="layout/layout">
     <div class="containers">
         <div class="popTitle">
             <h2>팝업 신청</h2>
-            <form class="Full">
+            <form class="Full" action="/popup/addPopup.do" method="post" enctype="multipart/form-data">
                 <div class="popup-store fillout-form">
                     <label>팝업스토어 이름</label>
-                    <input type="text" id="popname" placeholder="팝업스토어 이름을 적어주세요" required>
+                    <input type="text" id="popname" name="title" placeholder="팝업스토어 이름을 적어주세요" required>
                 </div>
 
                 <div class="fillout-form">
                     <label>팝업스토어 이미지 *크기 width: 960, height: 480 권장</label>
-                    <input type="button" value="파일추가" onclick="fn_addFile()">
+                    <input type="button" value="파일추가" name="imageFileName" onclick="fn_addFile()">
                 </div>
 
                 <div class="fillout-form">
@@ -41,11 +41,11 @@ layout:decorate="layout/layout">
                 </div>
 
                 <!-- 지도를 표시할 div 입니다 -->
-                <div id="map" style="width:100%;height:350px;"></div>
+                <div name="map" id="map" style="width:100%;height:350px;"></div>
 
                 <div class="fillout-form">
                     <label>팝업스토어 한줄 설명</label>
-                    <input class="text-fill" type="text" id="poptext" placeholder="한줄설명을 작성해주세요">
+                    <input name="info" class="text-fill" type="text" id="poptext" placeholder="한줄설명을 작성해주세요">
                 </div>
 
                 <label>팝업스토어 해시태그</label>
@@ -103,12 +103,12 @@ layout:decorate="layout/layout">
 
                 <div class="fillout-form">
                     <label>팝업스토어 소개 </label>
-                    <textarea id="popupnote" required></textarea>
+                    <textarea id="popupnote" name="content" required></textarea>
                 </div>
 
                 <div class="fillout-form">
                     <label>브랜드 홈페이지 링크</label>
-                    <input class="url-link" type="url" placeholder="홈페이지 url링크를 적어주세요">
+                    <input name="brandPage" class="url-link" type="url" placeholder="홈페이지 url링크를 적어주세요">
                 </div>
                 <span>페이지 미리보기</span>
                 <a href="#우리 상세페이지 예시 링크로 보여주기 우떱니까.. 이미지 너무 꺠집니당..">🖱️🖱</a>
