@@ -1,4 +1,6 @@
 body {
+    overflow: hidden;
+    overflow-y: scroll;
     height: 650px;
     width: 1440px;
     margin: 0 auto;
@@ -10,7 +12,8 @@ body {
     margin: 0 auto;
     background-color: #8B8BDA;
     width: 710px;
-    /*height: 700px;*/
+    min-height: 900px;
+    max-height: 1600px;
     position: fixed;
 }
 
