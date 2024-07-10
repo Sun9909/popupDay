@@ -10,9 +10,8 @@ $(document).ready(function(){
     });
 });
 
-const myCarouselElement = document.querySelector('#myCarousel')
-
-const carousel = new bootstrap.Carousel(myCarouselElement, {
-    interval: 2000,
-
-})
+$(function(){
+    $(".css-footer-buttons .category").click(function() {
+        $(".category-info").slideToggle();
+    });
+});
