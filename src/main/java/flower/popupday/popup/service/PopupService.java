@@ -1,5 +1,6 @@
 package flower.popupday.popup.service;
 
+public interface PopupService {
 import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.dao.DataAccessException;
 
@@ -16,5 +17,4 @@ public interface PopupService {
     // 로그인 안 했을때는 list로
 
     public List popupList() throws DataAccessException;
-
 }
