@@ -45,5 +45,5 @@ public interface NoticeDAO {
     public void deleteArticle(Long notice_id) throws DataAccessException;
 
     public void deleteImage(Long notice_id) throws DataAccessException;
-
+ㅋ
 }
