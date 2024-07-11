@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class PopupController {
+public class PopupDayController {
 
     @GetMapping("/main.do") 
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("board/popupForm");
+        mav.setViewName("login/memberForm");
         return mav;
     }
 }

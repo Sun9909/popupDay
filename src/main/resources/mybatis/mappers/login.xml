@@ -20,7 +20,16 @@
 
     <!-- sql문 중복 제거 -->
     <sql id="sr">
-        select * from user_tbl
+        <![CDATA[
+            select * from user_tbl
+        ]]>
     </sql>
+
+
+    <insert id="insertLogin" parameterType="loginDTO">
+        <![CDATA[
+            insert into user_tbl values(#{id}, #{user_id}, '흥민1', #{name}, #{pwd}, #{email}, now(), '010-1121-1111', '일반', 'active')
+             ]]>
+    </insert>
 
 </mapper>
