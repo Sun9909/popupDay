@@ -23,4 +23,16 @@ public class LoginServiceImpl implements LoginService {
     public LoginDTO memberLogin(LoginDTO loginDTO) throws DataAccessException {
         return loginDAO.memberLoginCheck(loginDTO);
     }
+
+    @Override
+    public void addBusinessLogin(LoginDTO loginDTO) throws DataAccessException {
+        System.out.println(loginDTO.toString());
+        loginDAO.insertLogin2(loginDTO);
+    }
+
+
+    @Override
+    public LoginDTO businessLogin(LoginDTO loginDTO) throws DataAccessException {
+        return loginDAO.memberLoginCheck(loginDTO);
+    }
 }

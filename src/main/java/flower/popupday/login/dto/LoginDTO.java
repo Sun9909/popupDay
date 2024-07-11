@@ -15,7 +15,7 @@ public class LoginDTO {
     private String pwd;
     private String email;
     private Date reg_date;
-    private String tel;
+    private String business_num;
     private Role role;
     private Status status;
 
@@ -38,7 +38,7 @@ public class LoginDTO {
         this.pwd = pwd;
         this.email = email;
         this.reg_date = reg_date;
-        this.tel = tel;
+        this.business_num = business_num;
         this.role = Role.valueOf(role);
         this.status = Status.valueOf(status);
     }
@@ -116,12 +116,12 @@ public class LoginDTO {
 
     public String getTel() {
 
-        return tel;
+        return business_num;
     }
 
     public void setTel(String tel) {
 
-        this.tel = tel;
+        this.business_num = business_num;
     }
 
     public Role getRole() {

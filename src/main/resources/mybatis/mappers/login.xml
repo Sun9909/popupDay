@@ -13,7 +13,7 @@
         <result property="pwd" column="pwd" />
         <result property="email" column="email" />
         <result property="reg_date" column="reg_date" />
-        <result property="tel" column="tel" />
+        <result property="business_num" column="business_num" />
         <result property="role" column="role" />
         <result property="status" column="status" />
     </resultMap>
@@ -28,8 +28,14 @@
 
     <insert id="insertLogin" parameterType="loginDTO">
         <![CDATA[
-            insert into user_tbl values(#{id}, #{user_id}, '흥민1', #{name}, #{pwd}, #{email}, now(), '010-1121-1111', '일반', 'active')
+            insert into user_tbl values(#{id}, #{user_id}, '흥민1', #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
              ]]>
+    </insert>
+
+    <insert id="insertLogin2" parameterType="loginDTO">
+        <![CDATA[
+        insert into user_tbl values(#{id}, #{user_id}, '흥민8', #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
+        ]]>
     </insert>
 
     <select id="memberLoginCheck" parameterType="loginDTO" resultType="loginDTO">
