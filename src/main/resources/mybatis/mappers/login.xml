@@ -32,4 +32,11 @@
              ]]>
     </insert>
 
+    <select id="memberLoginCheck" parameterType="loginDTO" resultType="loginDTO">
+        <include refid="sr" />
+        <where>
+            user_id=#{user_id} and pwd=#{pwd}
+        </where>
+    </select>
+
 </mapper>

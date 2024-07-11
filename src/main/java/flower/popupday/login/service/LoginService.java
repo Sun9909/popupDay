@@ -7,4 +7,7 @@ public interface LoginService {
 
     //회원 가입 메서드
     public void addLogin(LoginDTO loginDTO) throws DataAccessException;
+
+    //로그인.html
+    public LoginDTO memberLogin(LoginDTO loginDTO) throws DataAccessException;
 }
