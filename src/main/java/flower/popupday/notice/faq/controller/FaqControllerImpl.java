@@ -41,7 +41,8 @@ public class FaqControllerImpl implements FaqController {
         mav.addObject("faqList", faqList);
         return mav;
     }
-
+    
+    //Faq 작성저장
     @Override
     @RequestMapping("/notice/addFaq.do")
     public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {

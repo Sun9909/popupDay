@@ -283,6 +283,13 @@
     align-items: center;
     padding: 70px 10px 70px 10px;
 }
+
+.myreview textarea {
+    width: 600px;
+    height: 300px;
+    resize: none;
+}
+
 .input-wrapper-review {
     display: flex;
     align-items: center;

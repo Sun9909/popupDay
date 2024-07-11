@@ -1,8 +1,11 @@
 package flower.popupday.notice.review.controller;
 
-import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
+import flower.popupday.notice.review.service.ReviewService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,23 +17,41 @@ import java.util.*;
 @Controller("reviewController")
 public class ReviewControllerImpl implements ReviewController {
 
+    @Autowired
+    private ReviewService reviewService;
+
     // 이미지 저장 경로
-    private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload";
+    private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
+
+    //    로그인 하면 세션값으로 쓸 메서드
+    //    public ModelAndView listArticles(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
+    //    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception
 
     @Override
-    @RequestMapping("")
+    @RequestMapping("/notice/reviewList.do")
+    public ModelAndView reviewList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        List reviewList = reviewService.reviewList();
+        mav.setViewName("notice/notice2"); // 여기로감
+        mav.addObject("reviewList", reviewList); // 글목록 넘겨줌
+        return mav; // 포워딩
+    }
+
+    //Qna 작성저장
+    @Override
+    @RequestMapping("/notice/addReview.do")
     public ModelAndView addReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
         String imageFileName=null;
         multipartRequest.setCharacterEncoding("utf-8");
-        Map<String, Object> articleMap=new HashMap<String, Object>();
+        Map<String, Object> reviewMap=new HashMap<String, Object>();
         Enumeration enu=multipartRequest.getParameterNames(); // <td> 의 name 을 가져옴 (객체취급)
         while (enu.hasMoreElements()) {
             String name=(String) enu.nextElement();
             String value=multipartRequest.getParameter(name);
-            articleMap.put(name, value); // 이미지 파일 name 까지 집어넣음
+            reviewMap.put(name, value); // 이미지 파일 name 까지 집어넣음
         } // while end
         List<String> fileList=multiFileUpload(multipartRequest); // 멀티파일로 가져옴
-        List<ReviewImageDTO> imageFileList=new ArrayList<>(); // 여러개의 이미지를 담음
+        List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>(); // 여러개의 이미지를 담음
 
         // 두개의 테이블을 동시에 이용
         if(fileList != null && fileList.size() != 0 ) {
@@ -39,9 +60,34 @@ public class ReviewControllerImpl implements ReviewController {
                 reviewImageDTO.setImage_file_name(fileName);
                 imageFileList.add(reviewImageDTO);
             }
-            articleMap.put("imageFileList", imageFileList); // 이미지가 있을때만 put
+            reviewMap.put("imageFileList", imageFileList); // 이미지가 있을때만 put
         }
-        return null;
+        reviewMap.put("id","Flower");
+        try {
+            int imageId=reviewService.addReview(reviewMap);
+            if(imageFileList != null && imageFileList.size() != 0) {
+                for(ReviewImageDTO reviewImageDTO : imageFileList) {
+                    imageFileName=reviewImageDTO.getImage_file_name();
+                    File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
+                    File destDir=new File(ARTICLE_IMG_REPO + "\\" + imageId);
+                    FileUtils.moveFileToDirectory(srcFile, destDir, true);
+                }
+            }
+        }catch (Exception e) {
+            //글쓰기 수행 중 오류
+            if(imageFileList != null && imageFileList.size() != 0) {
+                for(ReviewImageDTO reviewImageDTO : imageFileList) {
+                    imageFileName=reviewImageDTO.getImage_file_name();
+                    File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
+                    //오류 발생 시 temp폴더의 이미지를 모두 삭제
+                    srcFile.delete();
+                }
+            }
+            e.printStackTrace();
+
+        }
+        ModelAndView mav= new ModelAndView("redirect:/notice/reviewList.do");
+        return mav;
     }
 
 

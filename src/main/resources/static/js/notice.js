@@ -1,4 +1,3 @@
-
     function openTab(tabId) {
     // 모든 탭의 내용을 비활성화
     var contents = document.getElementsByClassName('content');
@@ -60,4 +59,11 @@
     }
 });
 });
+
+    // 여러개 이미지 추가 함수
+    let count=1;
+    function fn_addFile() { // cnt가 1이면 이미지 1개
+        $('#dock_file').append('<input type="file" name="imgFile' + count + '"><br>');
+        count++;
+    }
 
