@@ -4,22 +4,20 @@ import flower.popupday.notice.notice.dto.NoticeDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Mapper
-@Repository("noticeDAO") // DB처리
+@Mapper // DB처리
 public interface NoticeDAO {
 
     // board.xml 쿼리문을 직접적으로 인터페이스에 연결을 위해 설정
 
     // 전체 글 조회 (매개변수받아 이름 재정의)
-    public List selectAllArticles(@Param("count") int count) throws DataAccessException;
+    public List selectAllNotice(@Param("count") int count) throws DataAccessException;
 
     // 페이징 (전체 글번호를 조회해서)
-    public int selectToArticles() throws DataAccessException;
+    public int selectTotalArticles() throws DataAccessException;
 
     // 글 번호 생성
     public int getNewArticleNo() throws DataAccessException;
@@ -36,13 +34,13 @@ public interface NoticeDAO {
     public List selectImageFileList(Long notice_id) throws DataAccessException;
 
     // 여러개의 이미지 "글" 수정 board tbl
-    public void updateArticle(Map articleMap) throws DataAccessException;
+    public void updateNotice(Map articleMap) throws DataAccessException;
 
     // 여러개의 "이미지" 수정 image tbl
     public void updateImage(Map articleMap) throws DataAccessException;
 
     // 글 삭제
-    public void deleteArticle(Long notice_id) throws DataAccessException;
+    public void deleteNotice(Long notice_id) throws DataAccessException;
 
     public void deleteImage(Long notice_id) throws DataAccessException;
 

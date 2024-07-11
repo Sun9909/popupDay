@@ -16,9 +16,6 @@ public class PopupDTO {
     private String brandPage;
     private Role role;
     private Long userId;
-
-
-
     private Date created_date;
 
     // Enum for role
@@ -32,7 +29,7 @@ public class PopupDTO {
     }
 
     // Constructor with all fields
-    public PopupDTO(Long popupId, String title, String info, String time, String content, String map, String brandPage, Role role, Long userId) {
+    public PopupDTO(Long popupId, String title, String info, String time, String content, String map, String brandPage, Role role, Long userId , Date created_date) {
         this.popupId = popupId;
         this.title = title;
         this.info = info;

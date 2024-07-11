@@ -29,11 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 글번호 생성 -->
-    <select id="getNewPopupId" resultType="int">
-      <![CDATA[
-        SELECT IFNULL(MAX(popup_id), 0) + 1 FROM popup_tbl
-        ]]>
-   </select>
+<!--    <select id="getNewPopupId" resultType="int">-->
+<!--      <![CDATA[-->
+<!--        SELECT IFNULL(MAX(popup_id), 0) + 1 FROM popup_tbl-->
+<!--        ]]>-->
+<!--   </select>-->
 
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
