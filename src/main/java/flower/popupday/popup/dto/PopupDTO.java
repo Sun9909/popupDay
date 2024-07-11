@@ -17,13 +17,7 @@ public class PopupDTO {
     private Role role;
     private Long userId;
 
-    public Date getCreated_date() {
-        return created_date;
-    }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
-    }
 
     private Date created_date;
 
@@ -122,6 +116,14 @@ public class PopupDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Date getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
     }
 
     // 값이 전달 안 될때 toString 호출해서 확인

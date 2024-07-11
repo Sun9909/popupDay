@@ -21,7 +21,8 @@ layout:decorate="layout/layout">
 
                 <div class="fillout-form">
                     <label>팝업스토어 이미지 *크기 width: 960, height: 480 권장</label>
-                    <input type="button" value="파일추가" name="imageFileName" onclick="fn_addFile()">
+                    <input type="button" value="파일추가" name="image_file_name" onclick="fn_addFile()">
+                    <td><div id="dock_file"></div></td>
                 </div>
 
                 <div class="fillout-form">
@@ -37,7 +38,7 @@ layout:decorate="layout/layout">
                     <input type="tel" id="zipcode" name="zipcode" maxlength="5" size="6" title="우편번호">
                 </div>
                 <div class="popAddress">
-                    <input type="text" id="address" name="address" maxlength="100" size="60" placeholder="입력 예)서울시 강남구 서초동 11">
+                    <input type="text" id="address" name="map" maxlength="100" size="60" placeholder="입력 예)서울시 강남구 서초동 11">
                 </div>
 
                 <!-- 지도를 표시할 div 입니다 -->

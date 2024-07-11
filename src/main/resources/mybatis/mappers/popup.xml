@@ -8,13 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <id property="popupId" column="popup_id"/>
         <result property="title" column="title"/>
         <result property="info" column="info"/>
-        <result property="time" column="timepop"/>
+        <result property="time" column="popup_hours"/>
         <result property="content" column="content"/>
         <result property="map" column="map"/>
         <result property="brandPage" column="brandPage"/>
         <result property="role" column="role"/>
         <result property="userId" column="user_id"/>
         <result property="created_date" column="created_date"/>
+    </resultMap>
+
+    <resultMap type="imageDTO" id="imgResult">
+        <result property="popup_image_id" column="popup_image_id"/>
+        <result property="image_file_name" column="image_file_name"/>
+        <result property="popup_id" column="popup_id"/>
     </resultMap>
 
 
@@ -31,10 +37,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
-        insert into popup_tbl (popup_id, title, info, timepop, content, map, brandPage, role, user_id, created_date)
+        insert into popup_tbl (popup_id, title, info, popup_hours, content, map, brandPage, role, user_id, created_date)
         values (#{popupId}, #{title}, #{info}, '조아용', #{content}, '우리집', #{brandPage}, '미승인', '1', now())
         ]]>
-</insert>
+    </insert>
+
+    <insert id="insertNewImages" parameterType="java.util.Map">
+        insert into popup_image_tbl values
+        <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
+            (#{item.popup_image_id}, #{item.image_file_name}, '1')
+        </foreach> <!-- values에 있는 값 업데이트 -->
+    </insert>
 
 
 

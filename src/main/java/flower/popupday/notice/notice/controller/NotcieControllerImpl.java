@@ -172,5 +172,4 @@ public class NotcieControllerImpl implements NoticeController {
         } // while end
         return fileList;
     }
-ㅋ
 } // class end
