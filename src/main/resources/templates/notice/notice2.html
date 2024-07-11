@@ -167,7 +167,9 @@
         <!-- 후기 내역 공간 -->
         <div class="review-content review-history">
             <div class="myreview-history">
-
+                    <a th:each="review : ${reviewList}">
+                        <p th:text="${review.title}"></p><span th:text="${review.created_date}"></span>
+                    </a>
                 <!--후기 리스트가 없을때 -->
 <!--                <tr th:if="${membersList == null or membersList.isEmpty()}">-->
 <!--                        <p>작성한 후기가 없습니다.</p>-->
