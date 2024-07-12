@@ -13,7 +13,7 @@ public class PopupController {
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("notice/notice2");
+        mav.setViewName("mypage/businessPage");
         return mav;
     }
 }
