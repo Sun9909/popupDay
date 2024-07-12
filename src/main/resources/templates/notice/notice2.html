@@ -60,20 +60,53 @@
 
     <div id="tab2" class="content">
         <div class="contact2-wrap">
+            <button><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
             <div class="faq-list-wrap">
                 <ul>
-                    <li th:each="faq: ${faqForm.faqList}">
-                        <p class="faq-category">이용</p>
+                    <li class="faqitem" th:each="faq: ${faqList}">
+                        <p class="faq-category">이용안내</p>
                         <a class="answerop">
                             <span th:text="${faq.title}"></span>
-                            <a><img id="toggle0" th:src="@{/images/angle-down-solid.svg}" alt="내려보기"></a>
+                            <img id="toggle" th:src="@{/images/angle-down-solid.svg}" alt="내려보기">
                         </a>
                         <div class="answer" style="display: none;"><p th:text="${faq.content}"></p></div>
                     </li>
-
                 </ul>
+                <!-- 페이징 처리 -->
+                <div align="center" th:if="${faqArticles.totArticles > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
+
+                    <div th:if="${faqArticles.totArticles > 100}"> <!-- 하나에 페이지에 10개씩 글을 담는데 섹션이 100개를 담을 수 있으니 글이 100개를 넘을때 수행 , 삼항연산자 ?(true):?(false)-->
+                        <span th:each="num : ${#numbers.sequence(1, (articleMap.section > articleMap.totArticles / 100 ? (articleMap.totArticles % 100) / 10 + 1 : 10))}"> <!-- 324 / 100 : 24 -> 24/10 -> 2.4 + 1 -> 3.4 3페이지까지 -->
+					<span th:if="${articleMap.section > 1 and num == 1}"> <!-- 페이지번호 뿌려주기 -->
+						<a th:href="@{/board/listArticles.do(section=${articleMap.section - 1}, pageNum=${(articleMap.section - 1) * 10})}">prev</a>
+					</span>
+					<span th:if="${num == (articleMap.pageNum % 10 == 0 ? 10 : articleMap.pageNum % 10)}">
+						<a class="target" th:href="@{/board/listArticles.do(section=${articleMap.section}, pageNum=${(articleMap.section - 1) * 10 + num})}" th:text="${(articleMap.section-1)*10+num}">}</a>
+					</span>
+					<span th:unless="${num == (articleMap.pageNum % 10 == 0 ? 10 : articleMap.pageNum % 10)}">
+						<a classs="noLine" th:href="@{/board/listArticles.do(section=${articleMap.section}, pageNum=${(articleMap.section - 1) * 10 + num})}"  th:text="${(articleMap.section-1)*10+num}"></a>
+					</span>
+					<span th:if="${num == 10}">
+						<a th:href="@{/board/listArticles.do(section=${articleMap.section + 1}, pageNum=${articleMap.section * 10 + 1})}">next</a>
+					</span>
+				</span>
+                    </div>
+
+                    <div th:if="${articleMap.totArticles <= 100}">	<!-- 섹션이 안넘어감 -->
+                        <!-- num : 반복문 매개변수 , #numbers.sequence(for문)숫자를 순차적으로 읽음(1,(totArticles/10+1)) 10+1 한 이유 글이 35개일때 4번째 페이지까지 보여야 해서 -->
+                        <span th:each="num : ${#numbers.sequence(1,(articleMap.totArticles/10+1))}">
+					<span th:if="${num==articleMap.pageNum}"> <!-- 현재 보고있는 페이지를 강조하기 위한 class -->
+							<a class="target" th:href="@{/board/listArticles.do(section=${articleMap.section},pageNum=${num})}" th:text="${num}"></a>
+					</span> <!-- 페이지 번호를 클릭하면 pageNum과 section값을 가지고 listArticles.do를 가서 페이지 보이게 하기 -->
+					<span th:unless="${num==articleMap.pageNum}"> <!-- 보고있지 않은 페이지 -->
+							<a class="noLine" th:href="@{/board/listArticles.do(section=${articleMap.section},pageNum=${num})}" th:text="${num}"></a>
+					</span>
+				</span>
+                    </div>
+
+                </div>
+
             </div>
-            <button><a th:href="@{/notice/getFaq.do}">작성</a></button>
         </div>
     </div>
 
@@ -152,13 +185,14 @@
 
         <!--후기 작성공간-->
         <div class="review-content write-review active">
-            <div class="myreview">
-                <!-- 후기 작성 폼 -->
-                <form>
-                    <div class="input-wrapper-review">
-                        <textarea placeholder="후기를 작성해주세요"></textarea>
-                        <button type="submit">제출</button>
-                    </div>
+            <div class="myreview" id="write-review">
+                <form action="/notice/addReview.do" method="post" enctype="multipart/form-data">
+                    <input name="review_title" placeholder="후기 제목을 입력해주세요">
+                    <textarea placeholder="후기를 작성해주세요" rows="15" cols="200" name="review_content"></textarea>
+                    <input type="button" name="image_file_name" value="이미지 추가" onclick="fn_addFile()">
+                    <div id="dock_file"></div>
+                    <!-- 후기 작성 폼 -->
+                    <button type="submit">후기 작성하기</button>
                 </form>
             </div>
         </div>
@@ -166,7 +200,14 @@
         <!-- 후기 내역 공간 -->
         <div class="review-content review-history">
             <div class="myreview-history">
-                <p>작성한 후기가 없습니다.</p>
+                    <a href="#" class="review-list" th:each="review : ${reviewList}">
+                        <p th:text="${review.review_title}"></p><span th:text="${review.created_date}"></span>
+                    </a>
+                <!--후기 리스트가 없을때 -->
+<!--                <tr th:if="${membersList == null or membersList.isEmpty()}">-->
+<!--                        <p>작성한 후기가 없습니다.</p>-->
+<!--                </tr>-->
+
             </div>
         </div>
 
@@ -192,7 +233,7 @@
     </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script th:src="@{/js/search.js}"></script>

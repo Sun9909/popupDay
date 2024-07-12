@@ -18,6 +18,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into popup_day.faq_tbl(user_id, title, content, writer) values ('1', #{title}, #{content}, '관리자1')
     </insert>
 
+    <!-- 등록된 faq 리스트 화면출력 -->
+    <select id="selectAllFaqList" resultMap="faqResult">
+        select * from popup_day.faq_tbl order by created_date
+    </select>
 
-
+    <!-- 등록된 faq 개수 가져오기 -->
+    <select id="selectToArticles" resultMap="faqResult">
+        select count(*) from popup_day.faq_tbl
+    </select>
 </mapper>
