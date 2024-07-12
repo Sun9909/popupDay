@@ -86,6 +86,7 @@
 }
 
 .submenu-wrap a {
+    flex-grow: 25;
     display: inline-block;
     text-align: center;
     padding: 0 10px; /* 좌우 패딩 추가 */
@@ -154,7 +155,6 @@
 .faq-list-wrap {
     width: 100%;
     height: auto;
-    padding: 0 0 300px 5px;
 }
 .faq-list-wrap ul {
     text-align: left;
@@ -165,6 +165,7 @@
     position: relative;
 }
 .faq-list-wrap li {
+    list-style: none;
     width: 100%;
     padding: 10px;
 }
@@ -177,17 +178,16 @@
     float: left;
     margin-top: 10px;
 }
-
-#toggle0, #toggle1, #toggle2  {
-    margin-right: 40px;
-    float: right;
+.answerop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .answer {
-    width: 85%;
-    margin: 5px;
-    padding: 20px;
-    background-color: #e1dfdf;
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(139, 139, 218, 0.3);
 }
 
 
@@ -283,6 +283,13 @@
     align-items: center;
     padding: 70px 10px 70px 10px;
 }
+
+.myreview textarea {
+    width: 600px;
+    height: 300px;
+    resize: none;
+}
+
 .input-wrapper-review {
     display: flex;
     align-items: center;
@@ -348,10 +355,21 @@
     justify-content: center;
 }
 .myreview-history {
-    padding: 90px;
+    padding: 60px;
 }
 .ball {
     padding: 50px;
+}
+
+.review-list {
+    display: flex;
+    margin-bottom: 7px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.review-list:hover {
+    color: #6f42c1;
 }
 
 

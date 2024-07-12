@@ -6,6 +6,7 @@
  	<mappers>
  		<mapper resource="mybatis/mappers/login.xml"/> <!-- 회원관리 -->
  		<mapper resource="mybatis/mappers/faq.xml"/> <!-- 게시판관리 -->
+		<mapper resource="mybatis/mappers/review.xml"/>
 		<mapper resource="mybatis/mappers/popup.xml"/>
 		<mapper resource="mybatis/mappers/admin.xml"/>
 		<mapper resource="mybatis/mappers/mypage.xml"/>
