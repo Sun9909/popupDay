@@ -1,0 +1,82 @@
+@charset "utf-8";
+h2 {
+    font-size: 1.8em;
+    margin: 20px 0 20px 30px;
+}
+h3 {
+    font-size: 1.3em;
+    margin: 20px 0 20px 30px;
+}
+.all {
+    display: flex;
+    margin: 20px 0 20px 30px;
+}
+.all p {
+    color: #d9d9d9;
+    margin-right: 520px;
+}
+.all button {
+    color: #d9d9d9;
+    border: 1px #d9d9d9 solid;
+    padding: 3px;
+}
+
+/* 찜한 팝업이 없을 때 */
+h4 {
+    color: #8F8CB8;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 30px;
+}
+/* 찜한 팝업이 있을 때 */
+form {
+    margin: 20px;
+    background-color: #FDFEFF;
+}
+fieldset {
+    display: flex;
+    padding: 15px;
+}
+form .popImg {
+    width: 150px;
+    height: 180px;
+    margin-right: 25px;
+}
+form .popImg img {
+    width: 150px;
+    height: 180px;
+}
+form .Acc {
+    margin-right: 138px;
+}
+form .popAcc {
+    display: flow;
+    margin-left: 30px;
+}
+form .popAcc h5 {
+    font-size: 1.6em;
+    padding: 10px 0;
+}
+form .popAcc p {
+    font-size: 1.2em;
+    margin: 0 20px 10px 5px;
+}
+form .tags {
+    display: flex;
+}
+form .tags .tag{
+    border-radius: 30px;
+    border: 2px #8B8BDA solid;
+    background-color: #FEFEDF;
+    padding: 6px 12px;
+    margin-right: 15px;
+}
+form .popIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.containers {
+    min-height: 450px;
+}

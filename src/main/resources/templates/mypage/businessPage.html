@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지(사업자)</title>
+    <link rel="stylesheet" th:href="@{/css/business.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+</head>
+<body>
+<!-- 콘텐츠 영역 -->
+<th:block layout:fragment="content">
+    <div class="body">
+        <div class="containers">
+            <h2>마이페이지</h2>
+            <!-- 프로필 영역 -->
+            <div class="profile">
+                <!--            <span><img class="profileImg" th:src="@{/images/Group.svg}" alt="프로필"></span>-->
+                <div class="business">
+                    <h4>사업자</h4>
+                    <p th:text="${my.user_nikname}">님</p>
+                </div>
+                <a href="../act/setting.html"><img th:src="@{/images/setting.svg}" alt="설정"></a>
+            </div>
+            <!-- 내가 작성한 것들 보는 영역 -->
+            <div class="wrote">
+                <article class="comment">
+                    <a th:href="@{/templates/mypage/myPopup.html}">
+                        <h5>등록된 팝업</h5>
+                        <p>??개</p>
+                    </a>
+                </article>
+                <article class="review">
+                    <a href="#">
+                        <h5>신청 팝업 현황</h5>
+                        <p>??중</p>
+                    </a>
+                </article>
+            </div>
+            <!-- 프로필, 작성부분 영역 끝 -->
+
+            <!-- 내 활동 영역 -->
+            <div class="activity">
+                <h3>내 활동</h3>
+                <ul>
+                    <li><a th:href="@{/templates/board/popupForm.html}">팝업 등록하기</a></li>
+                    <li><a href="#">팝업 신청 결과 확인</a></li>
+                    <li><a th:href="@{/templates/mypage/myPopup.html}">팝업 리스트</a></li>
+                </ul>
+            </div>
+            <!-- 내 활동 영역 끝 -->
+
+            <!-- 게시판 영역 -->
+            <div class="board">
+                <h3>게시판</h3>
+                <ul>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">진행 중인 이벤트</a></li>
+                </ul>
+            </div>
+            <!-- 게시판 영역 끝 -->
+
+            <!-- 고객센터 영역 -->
+            <div class="service">
+                <h3>고객센터</h3>
+                <ul>
+                    <li><a href="#">문의사항</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Q&A</a></li>
+                    <li><a href="#">설정</a></li>
+                </ul>
+            </div>
+            <!-- 고객센터 영역 끝 -->
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+</th:block>
+</body>
+</html>

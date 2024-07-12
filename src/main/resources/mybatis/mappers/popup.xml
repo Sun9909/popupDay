@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="flower.popupday.popup.dao.PopupDAO">
+
+    <resultMap type="popupDTO" id="popResult">
+        <id property="popupId" column="popup_id"/>
+        <result property="title" column="title"/>
+        <result property="info" column="info"/>
+        <result property="time" column="popup_hours"/>
+        <result property="content" column="content"/>
+        <result property="map" column="map"/>
+        <result property="brandPage" column="brandPage"/>
+        <result property="role" column="role"/>
+        <result property="userId" column="user_id"/>
+        <result property="created_date" column="created_date"/>
+    </resultMap>
+
+    <resultMap type="imageDTO" id="imgResult">
+        <result property="popup_image_id" column="popup_image_id"/>
+        <result property="image_file_name" column="image_file_name"/>
+        <result property="popup_id" column="popup_id"/>
+    </resultMap>
+
+
+    <select id="selectAllPopup" resultMap="popResult">
+        select * from popup_tbl
+    </select>
+
+    <!-- 글번호 생성 -->
+<!--    <select id="getNewPopupId" resultType="int">-->
+<!--      <![CDATA[-->
+<!--        SELECT IFNULL(MAX(popup_id), 0) + 1 FROM popup_tbl-->
+<!--        ]]>-->
+<!--   </select>-->
+
+    <insert id="insertNewPopup" parameterType="java.util.Map">
+    <![CDATA[
+        insert into popup_tbl (popup_id, title, info, popup_hours, content, map, brandPage, role, user_id, created_date)
+        values (#{popupId}, #{title}, #{info}, '조아용', #{content}, '우리집', #{brandPage}, '미승인', '1', now())
+        ]]>
+    </insert>
+
+    <insert id="insertNewImages" parameterType="java.util.Map">
+        insert into popup_image_tbl values
+        <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
+            (#{item.popup_image_id}, #{item.image_file_name}, '1')
+        </foreach> <!-- values에 있는 값 업데이트 -->
+    </insert>
+
+
+
+
+
+
+
+
+    <!-- javaType="flower.popupday.popup.dto.PopupDTO.Role" -->
+    <!-- 팝업 id를 가지고 특정 정보 -->
+<!--    <select id="getPopupById" parameterType="long" resultMap="PopupMap">-->
+<!--        SELECT * FROM popup WHERE popup_id = #{popupId}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 모든 팝업 정보 &ndash;&gt;-->
+<!--    <select id="getAllPopups" resultMap="PopupMap">-->
+<!--        SELECT * FROM popup-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 팝업 등록 &ndash;&gt;-->
+<!--    <insert id="insertPopup" parameterType="flower.popupday.popup.dto.PopupDTO" useGeneratedKeys="true" keyProperty="popupId">-->
+<!--        INSERT INTO popup (title, info, time, content, map, brand_page, role, user_id)-->
+<!--        VALUES (#{title}, #{info}, #{time}, #{content}, #{map}, #{brandPage}, #{role}, #{userId})-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 업데이트 &ndash;&gt;-->
+<!--    <update id="updatePopup" parameterType="flower.popupday.popup.dto.PopupDTO">-->
+<!--        UPDATE popup-->
+<!--        SET title = #{title}, info = #{info}, time = #{time}, content = #{content}, map = #{map}, brand_page = #{brandPage}, role = #{role}, user_id = #{userId}-->
+<!--        WHERE popup_id = #{popupId}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 삭제 &ndash;&gt;-->
+<!--    <delete id="deletePopup" parameterType="long">-->
+<!--        DELETE FROM popup WHERE popup_id = #{popupId}-->
+<!--    </delete>-->
+
+</mapper>
