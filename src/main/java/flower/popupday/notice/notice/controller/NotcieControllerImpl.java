@@ -174,7 +174,8 @@ public class NotcieControllerImpl implements NoticeController {
     }
 
     // 여러개의 이미지파일 업로드
-    private List<String> multiFileUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
+    // 원래 public이 아니라 private 임
+    public List<String> multiFileUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
         List<String> fileList = new ArrayList<String>();
         Iterator<String> fileNames = multipartRequest.getFileNames();
         while (fileNames.hasNext()) {
