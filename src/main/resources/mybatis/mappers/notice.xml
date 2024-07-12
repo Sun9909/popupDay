@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="flower.popupday.notice.dao.NotcieDAO">
+<mapper namespace="flower.popupday.notice.notice.dao.NotcieDAO">
 
-    <resultMap  type="NoticeDTO" id="noticeResult">
+    <resultMap  type="noticeDTO" id="noticeResult">
         <id property="notice_id" column="notice_id"/>
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
@@ -13,9 +13,9 @@
         <result property="write" column="write"/>
     </resultMap>
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
-    <select id="selectAllArticles" resultMap="articleResult" parameterType="int">
-        select notice_id, title, content, date_created from notice_tbl order by notice_id desc LIMIT #{count}, 10
-    </select>
+<!--    <select id="selectAllArticles" resultMap="articleResult" parameterType="int">-->
+<!--        select notice_id, title, content, date_created from notice_tbl order by notice_id desc LIMIT #{count}, 10-->
+<!--    </select>-->
 
     <!-- 전체 글 목록 수 조회 -->
     <select id="selectToArticles" resultType="int">
@@ -33,11 +33,11 @@
 
     <!-- 선택한 글 상세 내용 메서드 -->
     <!-- param 글번호(int)를 받아 articleDTO로 보내줌 -->
-    <select id="selectArticles" resultType="articleDTO" parameterType="int">
-      <![CDATA[
-        select * from notice_tbl where notice_id=#{notice_id}
-        ]]>
-   </select>
+<!--    <select id="selectArticles" resultType="articleDTO" parameterType="int">-->
+<!--      <![CDATA[-->
+<!--        select * from notice_tbl where notice_id=#{notice_id}-->
+<!--        ]]>-->
+<!--   </select>-->
 
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
     <insert id="insertNewArticle" parameterType="java.util.Map">
@@ -46,9 +46,9 @@
         ]]>
    </insert>
 
-    <select id="selectImageFileList" resultMap="imgResult" parameterType="int"> <!-- 글번호 받음 -->
-        select * from imagefile_tbl where articleNo=#{notice_id}
-    </select>
+<!--    <select id="selectImageFileList" resultMap="imgResult" parameterType="int"> &lt;!&ndash; 글번호 받음 &ndash;&gt;-->
+<!--        select * from imagefile_tbl where articleNo=#{notice_id}-->
+<!--    </select>-->
 
     <!-- insert all : 오라클 및 여러 데이터베이스에서 insert문 반복 수행
     <insert id="insertNewImages" parameterType="java.util.Map">  serparator 구분자 , dual : 임시테이블 , item에 넣어서 for문 돌림
@@ -82,17 +82,17 @@
 
     <!-- delete -->
     <!-- 글삭제 , 글번호를 받아서 (내용)-->
-    <delete id="deleteArticle" parameterType="int">
-      <![CDATA[
-        delete from notice_tbl where articleNo=#{notice_id}
-        ]]>
-   </delete>
+<!--    <delete id="deleteArticle" parameterType="int">-->
+<!--      <![CDATA[-->
+<!--        delete from notice_tbl where articleNo=#{notice_id}-->
+<!--        ]]>-->
+<!--   </delete>-->
 
     <!-- 글삭제 , 글번호를 받아서 (이미지)-->
-    <delete id="deleteImage" parameterType="int">
-      <![CDATA[
-        delete from imageFile_tbl where articleNo=#{notice_id}
-        ]]>
-   </delete>
+<!--    <delete id="deleteImage" parameterType="int">-->
+<!--      <![CDATA[-->
+<!--        delete from imageFile_tbl where articleNo=#{notice_id}-->
+<!--        ]]>-->
+<!--   </delete>-->
 
 </mapper>

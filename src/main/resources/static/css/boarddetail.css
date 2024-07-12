@@ -31,9 +31,9 @@
 }
 /*
 .popupdetail-banner .banner-img {
-    flex: 0 0 auto; /* 이미지 크기 고정 */
-margin-right: 10px; /* 이미지 사이 간격 조정 */
-cursor: pointer; /* 포인터 커서로 변경 *
+    flex: 0 0 auto;  이미지 크기 고정
+margin-right: 10px; 이미지 사이 간격 조정
+cursor: pointer; 포인터 커서로 변경
 }*/
 
 /* 팝업 정보 */
