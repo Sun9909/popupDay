@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/inforFAQ.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
+    <title>Notice</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <!--검색, 서브메뉴-->
+    <div class="containers">
+        <div class="contact-wrap">
+            <table class="table-board">
+                <tbody>
+                <tr>
+                    <td><h3>공지사항</h3></td>
+                    <td><h3>날짜</h3></td>
+                </tr>
+                <tr>
+                    <td><a href="/contact/3"> 팝업데이 팝업스토어 후기 이벤트 </a></td>
+                    <td>2024-07-20</td>
+                </tr>
+                <tr>
+                    <td><a href="/contact/2"> 팝업데이 팝업스토어 어워즈 개최 </a></td>
+                    <td>2024-07-15</td>
+                </tr>
+                <tr>
+                    <td><a href="/contact/1"> 팝업데이 홈페이지 알림 </a></td>
+                    <td>2024-07-12</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>
+
+</body>

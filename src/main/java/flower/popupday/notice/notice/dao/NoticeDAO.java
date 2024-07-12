@@ -35,13 +35,13 @@ public interface NoticeDAO {
     public List selectImageFileList(Long notice_id) throws DataAccessException;
 
     // 여러개의 이미지 "글" 수정 board tbl
-    public void updateArticle(Map articleMap) throws DataAccessException;
+    public void updateNotice(Map articleMap) throws DataAccessException;
 
     // 여러개의 "이미지" 수정 image tbl
     public void updateImage(Map articleMap) throws DataAccessException;
 
     // 글 삭제
-    public void deleteArticle(Long notice_id) throws DataAccessException;
+    public void deleteNotice(Long notice_id) throws DataAccessException;
 
     public void deleteImage(Long notice_id) throws DataAccessException;
 

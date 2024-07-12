@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Component("noticeDTO")
 public class NoticeDTO {
-    private Long notice_id;
+    private Long  notice_id;
     private Long user_id;
     private String title;
     private String content;
@@ -28,17 +28,12 @@ public class NoticeDTO {
     }
 
     //  Getter,Setter 생상
-    public Long getNotice_id() {
-        return notice_id;
-    }
-
-    public void setNotice_id(Long notice_id) {
+    public long getNotice_id() {return notice_id; }
+    public void setNotice_id(long notice_id) {
         this.notice_id = notice_id;
     }
 
-    public Long getUser_id() {
-        return user_id;
-    }
+    public Long getUser_id() {return user_id;}
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;

@@ -13,36 +13,66 @@
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-        <h2>공지사항 작성하기</h2>
-        <form action="/notice/addArticle.do" method="post" enctype="multipart/form-data">
-            <div class="notice-form">
-                <div class="select">
-                    <label>구분</label>
-                    <select name="kind" id="kind">
-                        <option value="inform">공지사항</option>
-                        <option value="event">이벤트</option>
-                    </select>
+        <h2>공지사항상세보기</h2>
+        <form name="frmArticle" action="" method="post" enctype="multipart/form-data">
+            <table align="center">
+                <tr>
+                    <td width="150" align="center" bgcolor="#ff9933">글번호</td>
+                    <td><input type="text" th:value="${articleMap.article.articleNo}" disabled></td> <!-- disabled 서버로 값을 안가지고감 -->
+                    <input type="hidden" name="articleNo" th:value="${articleMap.article.articleNo}"> <!-- 삭제, 수정 할 때 where 조건때문에 hidden으로 값 가져감 -->
+                </tr>
+                <tr>
+                    <td width="150" align="center" bgcolor="#ff9933">작성자아이디</td>
+                    <td><input type="text" th:value="${articleMap.article.id}" disabled></td>
+                </tr>
+                <tr>
+                    <td width="150" align="center" bgcolor="#ff9933">제목</td>
+                    <td><input type="text" id="id_title" name="title" th:value="${articleMap.article.title}" disabled></td>
+                </tr>
+                <tr>
+                    <td width="150" align="center" bgcolor="#ff9933">내용</td>
+                    <td><textarea rows="10" cols="50" id="id_content" name="content" th:text="${articleMap.article.content}" disabled></textarea></td>
+                </tr>
+
+                <!--  이미지가 존재 할 때 -->
+                <div th:if="${not #strings.isEmpty(articleMap.imageFileList)}">
+                    <div th:each="imgList, status : ${articleMap.imageFileList}">
+                        <tr> <!-- 이미지 갯수만큼 status : 카운트값 같은걸 담음 (반복횟수) -->
+                            <td width="150" align="center" bgcolor="#ff9933" rowspan="2">이미지<span th:text="${status.count}"></span></td>
+                            <td>
+                                <input type="hidden" th:name="'originalFileName' + ${status.count}" th:value="${imgList.imageFileName}"> <!-- 이름이 하나로 고정 -->
+                                <input type="hidden" th:name="'imageFileNo' + ${status.count}" th:value="${imgList.imageFileNo}"> <!-- 파일 번호가져감 -->
+                                <img th:id="'preview' + ${status.count}" th:src="@{/download.do(articleNo=${imgList.articleNo},imageFileName=${imgList.imageFileName})}" width="200">
+                            </td>
+                        </tr>
+                        <!-- <tr th:each="imgList, status : ${articleMap.imageFileList}">  이거 넣으면 이미지 갯수만큼 파일선택 type=file 뜸 -->
+                        <td><input type="file" class="id_imgFile" th:name="'imageFileName' + ${status.count}" th:onchange="readImage(this,${status.count})" disabled></td>
+                        </tr>				<!-- th:id="'id_imgFile' + ${status.count}"  -->
+                    </div>
                 </div>
-                <div class="notice">
-                    <input type="text" placeholder="제목">
-                </div>
-                <div class="notice">
-                    <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
-                </div>
-                <!--
-                <div class="notice">
-                    <tr>
-                        <td class="notice">이미지 파일 첨부 : </td>
-                        <td><input type="button" value="파일추가" onclick="fn_addFile()"></td>
-                        <td><div id="dock_file"</div></td>
-                    </tr>
-                </div>
-                -->
-                <div class="notice-button">
-                    <button type="reset">취소</button>
-                    <button type="submit">등록</button>
-                </div>
-            </div>
+
+                <tr>
+                    <td width="150" align="center" bgcolor="#ff9933">등록일자</td>
+                    <td><input type="text" th:value="${articleMap.article.writeDate}" disabled></td>
+                </tr>
+                <tr id="tr_button_modify">
+                    <td align="center" colspan="2">
+                        <input type="button" value="수정반영하기" onclick="fn_modify_article(frmArticle)"> <!-- form 이름 적어도 됨 -->
+                        <input type="button" value="취소" onclick="toList(frmArticle)">
+                    </td>
+                </tr>
+                <tr id="tr_button">
+                    <td align="center" colspan="2"> <!-- null 비교자체에서 에러 -->
+                        <!-- 현재 로그인한 사람이 맞는지 articlemap의 아이디가 세션의 아이디값이랑 같은지
+                             오류난거 해석 session.member를 적음 id값을 비교해야하는데 + 스크립트를 헤더안에 안넣어서 버튼작동이 안함 -->
+                        <span th:if="${articleMap != null && articleMap.article != null && session.member != null && articleMap.article.id == session.member.id}">
+							<input type="button" value="수정하기" onclick="fn_enable(this.form)">
+							<input type="button" value="삭제하기" th:onclick="|fn_remove_article('/board/removeArticle.do', ${articleMap.article.articleNo})|"> <!-- Thymeleaf 표현식을 사용하여 onclick 속성 설정 -->
+						</span>
+                        <input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
     <script src="js/jquery-3.7.1.min.js"></script>

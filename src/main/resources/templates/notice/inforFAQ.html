@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/inforFAQ.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
+    <title>FAQ</title>
+
+    <script>
+        $(function () {
+            let sw=[false,false,false];
+            let index;
+            $('.answerop').click(function() {
+                index=$(this).parent().index();
+                //alert(index);
+                sw[index]=!sw[index];
+                if(sw[index]) {
+                    $(this).parent().find('.answer').css('display','block');
+                    $('#toggle'+index).attr('src','images/angle-up-solid.svg');
+                }else {
+                    $(this).parent().find('.answer').css('display','none');
+                    $('#toggle'+index).attr('src','images/angle-down-solid.svg');
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <!--검색, 서브메뉴-->
+    <div class="containers">
+
+        <!-- faq -->
+        <div class="contact2-wrap">
+            <div class="faq-list-wrap">
+                <ul>
+                    <li>
+                        <p class="faq-category">이용</p>
+                        <a class="answerop" >
+                            <span>팝업스토어를 공유하려면 어떻게 해야 하나요?</span>
+                            <a><img id="toggle0" src="images/angle-down-solid.svg" alt="내려보기"></a>
+                        </a>
+                        <div class="answer" style="display: none;">'메인 - CONTACT - 팝업스토어 제보'에서 회원님이 알고 계신 팝업스토어를 제보해주세요!</div>
+                    </li>
+                    <li>
+                        <p class="faq-category">이용</p>
+                        <a class="answerop" >
+                            <span>팝업스토어 찜목록을 사용 하려면 어떻게 해야 하나요?</span>
+                            <a><img id="toggle1" src="images/angle-down-solid.svg" alt="내려보기"></a>
+                        </a>
+                        <div class="answer" style="display: none;">'회원가입'을 하시면 이용하실 수 있으며, 마이페이지에서 찜 목록 확인도 할 수 있습니다!</div>
+                    </li>
+                    <li>
+                        <p class="faq-category">기업</p>
+                        <a class="answerop" >
+                            <span>팝업스토어를 열려고 하는데 홍보가 가능한가요?</span>
+                            <a><img id="toggle2" src="images/angle-down-solid.svg" alt="내려보기"></a>
+                        </a>
+                        <div class="answer" style="display: none;">'메인 - 회원가입 - 사업자'를 통해서 가입하신 후 입점가능한지 확인이 가능합니다!</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</th:block>
+</body>

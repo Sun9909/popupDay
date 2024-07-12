@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/inforReview.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
+    <title>Review</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <!--검색, 서브메뉴-->
+    <div id="tab4" class="content">
+        <div class="contentreview">
+            <nav class="reviewlist">
+                <a class="custom-button active" onclick="switchReviewTab('write-review')">후기작성</a>
+                <a class="custom-button" onclick="switchReviewTab('review-history')">후기내역</a>
+            </nav>
+        </div>
+
+        <!--후기 작성공간-->
+        <div class="review-content write-review active">
+            <div class="myreview">
+                <!-- 후기 작성 폼 -->
+                <form>
+                    <div class="input-wrapper-review">
+                        <textarea placeholder="후기를 작성해주세요"></textarea>
+                        <button type="submit">제출</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 후기 내역 공간 -->
+        <div class="review-content review-history">
+            <div class="myreview-history">
+                <p>작성한 후기가 없습니다.</p>
+            </div>
+        </div>
+
+        <!-- 후기 가이드 -->
+        <div class="reviewguide">
+            <h3 class="reviewguide-notice">후기작성안내</h3>
+            <ul class="reviewguid-list">
+                <li>팝업데이 후기는 이벤트는 꼭 해시태그를 함께 기입해주시기 바랍니다.</li>
+                <li>후기 작성은 관리자가 삭제할 수 있음을 안내해드립니다.</li>
+                <li>현재 진행중인 팝업에만 후기를 작성하실 수 있습니다.</li>
+            </ul>
+        </div>
+        <div class="ball"></div>
+    </div>
+    </div>
+</th:block>
+</body>

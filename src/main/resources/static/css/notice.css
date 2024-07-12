@@ -355,7 +355,7 @@
 }
 
 
-/*페이지설정*/
+/*페이지설정
 .page-area {
     display: block;
     margin: 0 auto;
@@ -363,11 +363,16 @@
     background-color: #F9F8FF;
     padding: 10px 0px 20px 0;
     text-align: center;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 가운데 정렬 *
+    align-items: center; /* 수직 가운데 정렬
 }
 .page-area ul {
     align-items: center;
     justify-content: center;
     list-style: none;
+}*/
+
+/*페이징처리*/
+.number {
+    text-align: center;
 }

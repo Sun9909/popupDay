@@ -49,3 +49,8 @@ h2 {
 .containers {
     min-height: 800px;
 }
+
+/*이미지첨부파일*/
+.imagefile {
+    text-align: center;
+}
