@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller("faqController")
@@ -36,8 +37,10 @@ public class FaqControllerImpl implements FaqController {
     @Override
     @RequestMapping("/notice/faqList.do")
     public ModelAndView faqList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List faqList = faqService.listFaq();
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/notice");
+        mav.setViewName("notice/faq");
+        mav.addObject("faqList", faqList);
         return mav;
     }
 
