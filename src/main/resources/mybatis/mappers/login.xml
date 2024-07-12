@@ -13,14 +13,36 @@
         <result property="pwd" column="pwd" />
         <result property="email" column="email" />
         <result property="reg_date" column="reg_date" />
-        <result property="tel" column="tel" />
+        <result property="business_num" column="business_num" />
         <result property="role" column="role" />
         <result property="status" column="status" />
     </resultMap>
 
     <!-- sql문 중복 제거 -->
     <sql id="sr">
+        <![CDATA[
         select * from user_tbl
+        ]]>
     </sql>
+
+
+    <insert id="insertLogin" parameterType="loginDTO">
+        <![CDATA[
+        insert into user_tbl values(#{id}, #{user_id}, '흥민1', #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
+        ]]>
+    </insert>
+
+    <insert id="insertLogin2" parameterType="loginDTO">
+        <![CDATA[
+        insert into user_tbl values(#{id}, #{user_id}, '흥민15', #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
+        ]]>
+    </insert>
+
+    <select id="memberLoginCheck" parameterType="loginDTO" resultType="loginDTO">
+        <include refid="sr" />
+        <where>
+            user_id=#{user_id} and pwd=#{pwd}
+        </where>
+    </select>
 
 </mapper>
