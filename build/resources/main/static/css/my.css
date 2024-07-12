@@ -1,0 +1,139 @@
+@charset "utf-8";
+h2 {
+    font-size: 1.8em;
+    margin: 20px 0 20px 30px;
+}
+/* 프로필 영역 */
+.profile {
+    display: flex;
+    padding-left: 30px;
+}
+.profile span {
+    background-color: #d9d9d9;
+    border-radius: 9999px;
+    padding: 30px;
+    display: flex;
+    margin: 10px 10px 10px 30px;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+}
+.profile .profileImg {
+    width: 30px;
+    height: 30px;
+}
+.profile p {
+    font-size: 1.3em;
+    margin: 15px 420px 0 15px;
+}
+.profile a img {
+    margin: 20px 30px 0 15px;
+    width: 35px;
+    height: 35px;
+}
+/* 프로필 영역 끝 */
+
+/* 내가 작성 영역 */
+.wrote {
+    border: 1px #FDFEFF solid;
+    border-radius: 10px;
+    background-color: #FDFEFF;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 50px;
+}
+.wrote article {
+    width: 200px;
+    height: 120px;
+    text-align: center;
+}
+.wrote article a h5 {
+    font-size: 1.2em;
+    color: #8F8CB8;
+    margin: 20px 20px 30px;
+}
+.wrote article a p {
+    font-size: 1.1em;
+}
+.wrote .review {
+    border-right: 3px #8B8BDA solid;
+    border-left: 3px #8B8BDA solid;
+    padding: 0 15px;
+}
+/* 내가 작성 영역 끝 */
+
+/* 최근 본 팝업 영역 */
+#recentArea {
+    margin-top: 30px;
+    border-top: 3px #d9d9d9 solid;
+    border-bottom: 3px #d9d9d9 solid;
+    position: relative;
+}
+#recentArea .recent {
+    padding: 30px 35px 10px;
+}
+#recentArea .recent h3 {
+    font-size: 1.3em;
+}
+#recentArea .recentImage {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#recentArea .recent img {
+    width: 200px;
+    height: 230px;
+    margin: 2px 5px;
+}
+#recentArea .recent a {
+    display: inline-block;
+    margin: 2px 5px;
+}
+#recentArea .more {
+    position: absolute;
+    top: 35px;
+    right: 35px;
+    color: #d9d9d9;
+}
+/* 최근 본 팝업 영역 끝 */
+
+/* 내 활동 영역 */
+.activity h3 {
+    font-size: 1.3em;
+    margin: 30px 35px 20px;
+}
+.activity ul {
+    display: flow;
+    list-style: none;
+}
+.activity li {
+    font-size: 1.2em;
+    margin: 20px 10px;
+}
+/* 내 활동 영역 끝 */
+
+/* 고객 센터 영역 */
+.service {
+    border-top: 3px #d9d9d9 solid;
+}
+.service h3 {
+    font-size: 1.3em;
+    margin: 30px 35px 20px;
+}
+.service ul {
+    display: flow;
+    list-style: none;
+}
+.service li {
+    font-size: 1.2em;
+    margin: 20px 10px;
+}
+/* 고객 센터 영역 끝 */
+
+.containers {
+    min-height: 1100px;
+}

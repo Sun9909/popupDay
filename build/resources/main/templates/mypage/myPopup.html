@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팝업 리스트</title>
+    <link rel="stylesheet" th:href="@{css/popupList.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="body">
+    <div class="containers">
+        <!-- 팝업 리스트 페이지 -->
+        <h2>팝업 리스트</h2>
+        <p class="num">전체 개수</p>
+
+        <!-- 팝업이 없을 때 -->
+        <h4>현재 등록된 팝업이 없습니다</h4>
+
+        <!-- 팝업이 있을 때 -->
+        <form>
+            <fieldset>
+                <a href="#" class="pop" title="팝업">
+                    <div class="popImg">
+                        <img src="" alt="popupImage1">
+                    </div>
+                    <div class="Acc">
+                        <div class="popAcc">
+                            <h5>동방신기 팝업1</h5>
+                            <p>08.10.19 ~ 24.12.16</p>
+                            <p>서울시 강남구 서초구</p>
+                        </div>
+                        <ul>
+                            <li class="tag" title="해시태그"># 아이돌</li>
+                            <li class="tag" title="해시태그"># 굿즈</li>
+                            <li class="tag" title="해시태그"># 컴백</li>
+                        </ul>
+                    </div>
+                </a>
+            </fieldset>
+        </form>
+    </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+</th:block>
+</body>
+</html>

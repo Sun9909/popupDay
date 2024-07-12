@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="flower.popupday.login.dao.LoginDAO">
+    <!-- user_tbl -->
+    <resultMap type="LoginDTO" id="LogResult">
+        <result property="id" column="id" />
+        <result property="user_id" column="user_id" />
+        <result property="user_nikname" column="user_nikname" />
+        <result property="name" column="name" />
+        <result property="pwd" column="pwd" />
+        <result property="email" column="email" />
+        <result property="reg_date" column="reg_date" />
+        <result property="business_num" column="business_num" />
+        <result property="role" column="role" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <!-- sql문 중복 제거 -->
+    <sql id="sr">
+        <![CDATA[
+            select * from user_tbl
+        ]]>
+    </sql>
+
+
+    <insert id="insertLogin" parameterType="loginDTO">
+        <![CDATA[
+            insert into user_tbl values(#{id}, #{user_id}, '흥민1', #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
+             ]]>
+    </insert>
+
+    <insert id="insertLogin2" parameterType="loginDTO">
+        <![CDATA[
+        insert into user_tbl values(#{id}, #{user_id}, '흥민8', #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
+        ]]>
+    </insert>
+
+    <select id="memberLoginCheck" parameterType="loginDTO" resultType="loginDTO">
+        <include refid="sr" />
+        <where>
+            user_id=#{user_id} and pwd=#{pwd}
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,373 @@
+@charset "utf-8";
+/*검색, 공지사항*/
+.container {
+    display: flex;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    padding-top: 40px;
+    height:auto;
+    text-align: center;
+}
+.content {
+    display: none;
+}
+
+
+.content.active {
+    display: block;
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    padding: 40px 0px 80px 0px;
+    text-align: center
+}
+
+.review-content {
+    display: none;
+}
+
+.review-content.active {
+    display: block;
+}
+.search form {
+    display: inline-block;
+
+}
+
+.review-content {
+    display: none;
+}
+
+.review-content.active {
+    display: block;
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-wrapper input {
+    padding-right: 30px; /* 이미지 너비 + 오른쪽 여백 */
+}
+
+/*돋보기*/
+.input-wrapper button {
+    position: absolute;
+    top: 40%;
+    right: 30px; /* 조정 필요한 경우 여백 조절 */
+    transform: translateY(-10%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/*공지사항 전체틀*/
+.submenu-wrap {
+    padding-top: 0; /* 상단 여백 제거 */
+    margin-top: 0;
+    height: 65px; /* 필요한 경우 높이 조정 */
+    background-color: #F9F8FF;
+    text-align: center;
+    position: relative;
+}
+
+#submenu {
+    padding-top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #8B8BDA;
+    width: 720px;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+.submenu-wrap a {
+    display: inline-block;
+    text-align: center;
+    padding: 0 10px; /* 좌우 패딩 추가 */
+    border-right: 3px white solid;
+    line-height: 40px; /* a 태그 높이와 맞추기 위해 사용 */
+}
+
+.submenu-wrap a:last-child {
+    border-right: none; /* 마지막 a 태그의 border-right 제거 */
+}
+
+.submenu-wrap h2 {
+    margin: 0px 48px;
+}
+
+/* h2 태그들이 submenu 안에서 가운데 가로정렬 배치 */
+#submenu h2 {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.submenu-wrap a:hover h2 {
+    color: white; /* 원하는 색상으로 변경 */
+}
+
+.contact-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.contact-wrap .table-board {
+    width: 520px;
+    max-width: 100%; /* 너비가 화면 크기를 넘지 않도록 설정 */
+    border-collapse: collapse; /* 셀 테두리를 합침 */
+    text-align: left; /* 테이블 콘텐츠 왼쪽 정렬 */
+}
+
+.contact-wrap .table-board h3 {
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 2px solid black; /* 헤더 아래에 검은색 테두리 추가 */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.contact-wrap .table-board td {
+    padding: 10px 0px; /* 셀 안의 내용 여백 설정 */
+    font-size: 18px; /* 셀 안의 폰트 크기 */
+    text-align: left; /* 셀 안의 텍스트 왼쪽 정렬 */
+}
+
+.contact-wrap .table-board tr:last-child td {
+    border-bottom: none; /* 마지막*/
+}
+
+/**FAQ*****************************************************************/
+.contact2-wrap ul {
+    box-sizing: border-box;
+}
+.contact2-wrap> div {
+    display: block;
+    unicode-bidi: isolate;
+}
+.faq-list-wrap {
+    width: 100%;
+    height: auto;
+    padding: 0 0 300px 5px;
+}
+.faq-list-wrap ul {
+    text-align: left;
+    padding-right: 20px;
+    align-items: flex-start;
+    font-size: 22px;
+    flex-direction: column;
+    position: relative;
+}
+.faq-list-wrap li {
+    width: 100%;
+    padding: 10px;
+}
+.faq-category {
+    font-size: 18px;
+    color: #ccc;
+}
+
+.faq-category span {
+    float: left;
+    margin-top: 10px;
+}
+
+#toggle0, #toggle1, #toggle2  {
+    margin-right: 40px;
+    float: right;
+}
+
+.answer {
+    width: 85%;
+    margin: 5px;
+    padding: 20px;
+    background-color: #e1dfdf;
+}
+
+
+/**QNA**********************************************************************/
+
+.selectbox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px black solid;
+}
+.selectLayer {
+    display: inline-block;
+}
+
+.listnotice {
+    display: block;
+    padding: 12px 20px 12px 20px;
+    background: #f9f9f9;
+}
+
+.sbj {
+    margin-bottom: 10px;
+    text-align: left;
+}
+.subject {
+    font-size: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
+.listPost {
+    font-size: 20px;
+}
+.regdate {
+    font-size: 18px;
+    text-align: left;
+}
+.catInfo {
+    padding: 0 20px 12px 20px;
+    border-bottom: 1px solid black;
+    line-height: 20px;
+    background: #f9f9f9;
+    font-size: 18px;
+    color: #787777;
+    text-align: left;
+}
+.catInfo:last-of-type {
+    border-bottom: none;
+}
+
+.selectbox select {
+    padding: 5px; /* 선택 요소의 내부 여백 */
+    font-size: 16px; /* 글꼴 크기 조절 */
+    width: 170px; /* 선택 요소의 너비 조절 */
+}
+
+/**후기후기후기후기ㅣ기************************/
+.reviewlist {
+    display: flex;
+    top: 50px;
+    left: 0;
+    z-index: 500;
+    width: 100%;
+    height: 45px;
+}
+
+.reviewlist > a {
+    display: flex;
+    position: relative;
+    padding: 0 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #b3b3b3;
+    text-align: center;
+    flex: 1 1;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-button:hover {
+    color: #000; /* 호버 시 글자색 변경 */
+    border-bottom: 2px solid #000; /* 호버 시 밑줄 추가 */
+}
+/*후기작성공간, 후기가이드*/
+.myreview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 10px 70px 10px;
+}
+.input-wrapper-review {
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper-review textarea {
+    width: 500px;
+    height: 30px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: center;
+    align-content: center;
+}
+
+.input-wrapper-review button {
+    background-color: #D9D9D9;
+    width: 100px;
+    height: 50px;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px; /* 버튼과 텍스트 입력창 사이의 간격 설정 */
+}
+
+.myreview button:hover {
+    background-color: #FEFEDF;
+}
+
+.myreview button[type="submit"] {
+    background-color: #8B8BDA;
+    color: white;
+}
+
+.reviewguide {
+    padding: 30px 20px 30px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.reviewguide li:last-child {
+    border-bottom: none;
+}
+.reviewguide  h3 ul  {
+    width: 100%;
+}
+
+.reviewguide h3 {
+    padding: 20px 20px 10px 20px ;
+    text-align: left;
+}
+
+.reviewguid-list {
+    display: flex;
+    padding: 00px 20px 10px 20px ;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.myreview-history {
+    padding: 90px;
+}
+.ball {
+    padding: 50px;
+}
+
+
+/*페이지설정*/
+.page-area {
+    display: block;
+    margin: 0 auto;
+    width: 720px;
+    background-color: #F9F8FF;
+    padding: 10px 0px 20px 0;
+    text-align: center;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+.page-area ul {
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}

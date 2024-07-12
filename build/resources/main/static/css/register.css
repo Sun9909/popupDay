@@ -1,0 +1,29 @@
+@charset "utf-8";
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin: 20px 0;
+}
+/* 찜한 팝업이 없을 때 */
+h4 {
+    color: #4B4B65;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 50px 0;
+}
+/* 찜한 팝업이 있을 때 */
+form {
+    margin: 20px;
+}
+fieldset {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+form p {
+    font-size: 1.5em;
+}
+
+.containers {
+    min-height: 500px;
+}
