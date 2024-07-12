@@ -16,15 +16,48 @@
         <result property="status" column="status"/>
     </resultMap>
 
-    <select id="findAllList" resultMap="memResult">
-        select * from user_tbl
+    <resultMap type="myreviewDTO" id="revResult">
+        <result property="review_id" column="review_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="review_title" column="review_title"/>
+        <result property="review_content" column="review_content"/>
+        <result property="date" column="date"/>
+        <result property="write" column="write"/>
+        <result property="created_date" column="created_date"/>
+    </resultMap>
+
+    <select id="getName" parameterType="myDTO">
+        select * from user_tbl where id='123'
     </select>
 
-    <select id="findId" parameterType="Long">
-        select * from user_tbl where id=#{id}
-    </select>
-    <select id="findName" parameterType="String">
-        select * from user_tbl where user_nikname=#{user_nikname}
+<!--    <select id="selectAllReview" resultMap="revResult">-->
+<!--        select count(*) from review_tbl where user_id='123'-->
+<!--    </select>-->
+
+    <select id="getReviewCount" resultType="Long" parameterType="Long">
+        select count(*) from review_tbl join user_tbl on review_tbl.user_id = user_tbl.id
+        where review_tbl.user_id=#{user_id} group by review_tbl.user_id
     </select>
 
+    <select id="getreCommentCount" parameterType="String" resultType="String">
+<!--        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id-->
+<!--        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id-->
+        select count(*) from review_comment where writer=#{user_nikname}
+
+<!--        SELECT-->
+<!--        COALESCE(SUM(a.comment_count), 0) AS total_comments_a,-->
+<!--        COALESCE(SUM(b.comment_count), 0) AS total_comments_b,-->
+<!--        COALESCE(SUM(a.comment_count), 0) + COALESCE(SUM(b.comment_count), 0) AS total_comments_combined-->
+<!--        FROM-->
+<!--        (SELECT member_id, COUNT(*) AS comment_count FROM a_comments GROUP BY member_id) AS a-->
+<!--        FULL JOIN-->
+<!--        (SELECT member_id, COUNT(*) AS comment_count FROM b_comments GROUP BY member_id) AS b-->
+<!--        ON-->
+<!--        a.member_id = b.member_id-->
+<!--        WHERE-->
+<!--        a.member_id = 'your_member_id';-->
+    </select>
+    <select id="getpopCommentCount" parameterType="String" resultType="String">
+        select count(*) from popup_comment_tbl where writer=#{user_nikname}
+    </select>
 </mapper>
