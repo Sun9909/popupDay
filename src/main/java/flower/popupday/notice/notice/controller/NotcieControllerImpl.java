@@ -194,6 +194,6 @@ public class NotcieControllerImpl implements NoticeController {
         }
         return fileList;
 
-    } // class end
-}
+    }
+} // class end
 
