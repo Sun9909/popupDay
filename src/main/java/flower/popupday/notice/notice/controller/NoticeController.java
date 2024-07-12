@@ -20,15 +20,13 @@ public interface NoticeController {
 
     //글저장(이미지 첨부가능)
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws  Exception;
-    default List<String> multiFileUpload(MultipartHttpServletRequest multipartRequest) {
-        return null;
-    }
+
     //상세글보기
     public ModelAndView adminNoticeView(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //글수정(이미지 수정가능)
-   public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+    public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
     //글삭제(글번호를 받아서)
-   public ModelAndView removeNotice(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView removeNotice(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
