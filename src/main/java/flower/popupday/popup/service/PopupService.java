@@ -1,11 +1,10 @@
 package flower.popupday.popup.service;
 
-public interface PopupService {
-import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 import java.util.Map;
+
 
 public interface PopupService {
 
