@@ -38,7 +38,7 @@ dependencies {
     implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
     implementation 'commons-io:commons-io:2.16.1'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 
