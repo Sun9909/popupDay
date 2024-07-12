@@ -15,4 +15,6 @@ public interface FaqDAO {
     public void insertFaq(FaqDTO faqDTO) throws DataAccessException;
 
     public List selectAllFaqList() throws DataAccessException;
+
+    public int selectToFaq() throws DataAccessException;
 }

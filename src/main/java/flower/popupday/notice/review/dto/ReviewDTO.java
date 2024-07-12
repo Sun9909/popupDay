@@ -14,6 +14,19 @@ public class ReviewDTO {
     private String write;
     private Date created_date;
 
+    public ReviewDTO() {}
+
+    public ReviewDTO(long review_id, long user_id, String review_title, String review_content,Date date, String write, Date created_date) {
+        this.review_id = review_id;
+        this.user_id = user_id;
+        this.review_title = review_title;
+        this.review_content = review_content;
+        this.date = date;
+        this.write = write;
+        this.created_date = created_date;
+    }
+
+
     public long getReview_id() {
         return review_id;
     }

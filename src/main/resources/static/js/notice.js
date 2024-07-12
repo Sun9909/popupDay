@@ -42,23 +42,23 @@
     activeReviewTabButton.classList.add('active');
 }
 
-    //토글을 이용하여 게시글 보기
-    $(function () {
-    let sw=[false,false,false];
-    let index;
-    $('.answerop').click(function() {
-    index=$(this).parent().index();
-    //alert(index);
-    sw[index]=!sw[index];
-    if(sw[index]) {
-        $(this).parent().find('.answer').css('display','block');
-        $('#toggle'+index).attr('src','images/angle-up-solid.svg');
-    }else {
-        $(this).parent().find('.answer').css('display','none');
-        $('#toggle'+index).attr('src','images/angle-down-solid.svg');
-    }
-});
-});
+//     //토글을 이용하여 게시글 보기
+//     $(function () {
+//     let sw=[false,false,false];
+//     let index;
+//     $('.answerop').click(function() {
+//     index=$(this).parent().index();
+//     //alert(index);
+//     sw[index]=!sw[index];
+//     if(sw[index]) {
+//         $(this).parent().find('.answer').css('display','block');
+//         $('#toggle'+index).attr('src','images/angle-up-solid.svg');
+//     }else {
+//         $(this).parent().find('.answer').css('display','none');
+//         $('#toggle'+index).attr('src','images/angle-down-solid.svg');
+//     }
+// });
+// });
 
     // 여러개 이미지 추가 함수
     let count=1;
@@ -66,4 +66,20 @@
         $('#dock_file').append('<input type="file" name="imgFile' + count + '"><br>');
         count++;
     }
+
+    //FAQ 토글
+    $(function(){
+        $(".answerop").click(function() {
+            $(this).closest(".faqitem").find(".answer").slideToggle();
+
+            // 이미지도 토글
+            var img = $(this).closest('.answerop').find('#toggle');
+            if (img.attr('src') === '/images/angle-up-solid.svg') {
+                img.attr('src', '/images/angle-down-solid.svg');
+            } else {
+                img.attr('src', '/images/angle-up-solid.svg');
+            }
+        });
+    });
+
 

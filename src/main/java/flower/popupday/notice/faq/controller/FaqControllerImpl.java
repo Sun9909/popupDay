@@ -1,4 +1,5 @@
 package flower.popupday.notice.faq.controller;
+import flower.popupday.notice.faq.dao.FaqDAO;
 import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.faq.service.FaqService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,8 @@ public class FaqControllerImpl implements FaqController {
 
     @Autowired
     private FaqService faqService;
+    @Autowired
+    private FaqDAO faqDAO;
 
 
     //Faq작성 폼으로 이동
@@ -35,6 +38,7 @@ public class FaqControllerImpl implements FaqController {
     @Override
     @RequestMapping("/notice/faqList.do")
     public ModelAndView faqList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         List faqList = faqService.listFaq();
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/notice2");
