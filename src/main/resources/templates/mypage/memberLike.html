@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>찜 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/memberLike.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="body">
+        <div class="containers">
+            <!-- 찜 목록 페이지 -->
+            <h2>찜</h2>
+            <h3>찜 목록 보기</h3>
+            <div class="all">
+                <p>전체 개수</p>
+                <button>전체 삭제</button>
+            </div>
+
+            <!-- 찜한 팝업이 없을 때 -->
+            <h4>찜한 팝업이 없습니다.</h4>
+
+            <!-- 찜한 팝업이 있을 때 -->
+            <form>
+                <fieldset>
+                    <a href="#" class="pop" title="팝업">
+                        <div class="popImg">
+                            <img src="" alt="popupImage1">
+                        </div>
+                        <div class="Acc">
+                            <div class="popAcc">
+                                <h5>동방신기 팝업1</h5>
+                                <p>08.10.19 ~ 24.12.16</p>
+                                <p>서울시 강남구 서초동</p>
+                            </div>
+                            <div class="tags">
+                                <a href="#" class="tag" title="해시태그"># 아이돌</a>
+                                <a href="#" class="tag" title="해시태그"># 굿즈</a>
+                                <a href="#" class="tag" title="해시태그"># 컴백</a>
+                            </div>
+                        </div>
+                        <div class="popIcon">
+                            <a href="#"><img class="delete" th:src="@{/images/x.svg}" alt="찜 삭제"></a>
+                            <a href="#"><img class="heart" th:src="@{/images/heart_fill.svg}" alt="찜"></a>
+                        </div>
+                    </a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+</th:block>
+</body>
+</html>

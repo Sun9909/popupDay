@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>사업자 or 개인 회원가입</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{css/choiceForm.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="containers">
+        <div class="mainTitle">
+            <a href="메인 창">
+                <h2>POP UP DAY</h2>
+            </a>
+        </div>
+        <div class="individual">
+            <span>개인 회원이시라면,</span><br>
+            <button th:href="@{/memberForm.html}">개인 회원</button>
+        </div>
+        <div class="businessperson">
+            <span>사업자이시라면,</span><br>
+            <button th:href="@{/businessForm.html}">사업자</button>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

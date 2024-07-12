@@ -1,0 +1,182 @@
+@charset "utf-8";
+/*검색, 공지사항*/
+.content {
+    margin: 0 auto;
+    background-color: #F9F8FF;
+    width: 720px;
+    height: auto;
+}
+
+.search {
+    padding-top: 40px;
+    height:auto;
+    text-align: center;
+}
+
+.search form {
+    display: inline-block;
+}
+
+.search input[type="text"] {
+    vertical-align: middle;
+}
+
+.search input[type="text"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 650px; /* 필요에 따라 너비 조정 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-wrapper input {
+    padding-right: 30px; /* 이미지 너비 + 오른쪽 여백 */
+}
+
+/*돋보기*/
+.input-wrapper img {
+    position: absolute;
+    top: 40%;
+    right: 30px; /* 조정 필요한 경우 여백 조절 */
+    transform: translateY(-10%);
+    width: 20px; /* 이미지의 너비 */
+    height: auto; /* 높이 자동 조정 */
+}
+
+/*공지사항 전체틀*/
+.submenu-wrap {
+    padding-top: 0; /* 상단 여백 제거 */
+    margin-top: 0;
+    height: 60px; /* 필요한 경우 높이 조정 */
+    background-color: #F9F8FF;
+    text-align: center;
+    position: relative;
+}
+
+#submenu {
+    padding-top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #8B8BDA;
+    width: 720px;
+    height: 40px;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+.submenu-wrap a {
+    display: inline-block;
+    text-align: center;
+    padding: 0 10px; /* 좌우 패딩 추가 */
+    border-right: 3px white solid;
+    line-height: 40px; /* a 태그 높이와 맞추기 위해 사용 */
+}
+
+.submenu-wrap a:last-child {
+    border-right: none; /* 마지막 a 태그의 border-right 제거 */
+}
+
+.submenu-wrap h2 {
+    margin: 0px 48px;
+}
+
+/* h2 태그들이 submenu 안에서 가운데 가로정렬 배치 */
+#submenu h2 {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.submenu-wrap a:hover h2 {
+    color: white; /* 원하는 색상으로 변경 */
+}
+
+/*Q&A상세페이지*/
+.qna {
+    color: white;
+}
+.selectbox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px black solid;
+}
+.selectLayer {
+    display: inline-block;
+}
+
+.listnotice {
+    display: block;
+    padding: 12px 20px 12px 20px;
+    background: #f9f9f9;
+}
+
+/*공지 글*/
+.sbj {
+    margin-bottom: 10px;
+}
+.subject {
+    font-size: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
+.listPost {
+    font-size: 20px;
+}
+.regdate {
+    font-size: 18px;
+}
+.catInfo {
+    padding: 0 20px 12px 20px;
+    border-bottom: 1px solid black;
+    line-height: 20px;
+    background: #f9f9f9;
+    font-size: 18px;
+    color: #787777;
+}
+
+.selectbox select {
+    padding: 5px; /* 선택 요소의 내부 여백 */
+    font-size: 16px; /* 글꼴 크기 조절 */
+    width: 170px; /* 선택 요소의 너비 조절 */
+}
+
+/*후기작성공간, 후기가이드*/
+.myreview {
+    padding: 100px;
+}
+
+.reviewguide {
+    padding: 10px 20px 10px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.reviewguide  h3 ul  {
+    width: 100%;
+}
+
+.reviewguide h3 {
+    padding: 20px 20px 10px 20px ;
+}
+
+.reviewguid-list {
+    display: flex;
+    padding: 00px 20px 10px 20px ;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+}
