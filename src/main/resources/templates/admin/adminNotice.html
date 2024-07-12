@@ -13,15 +13,9 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<<<<<<< HEAD
-    <div th:fragment="childFragment">
-        <div class="containers">
-            <h2>공지사항 작성하기</h2>
-=======
     <div class="containers">
         <h2>공지사항 작성하기</h2>
         <form action="/notice/addArticle.do" method="post" enctype="multipart/form-data">
->>>>>>> origin/yoni
             <div class="notice-form">
                 <div class="select">
                     <label>구분</label>
@@ -36,8 +30,6 @@
                 <div class="notice">
                     <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
                 </div>
-<<<<<<< HEAD
-=======
                 <!--
                 <div class="notice">
                     <tr>
@@ -47,27 +39,17 @@
                     </tr>
                 </div>
                 -->
->>>>>>> origin/yoni
                 <div class="notice-button">
                     <button type="reset">취소</button>
                     <button type="submit">등록</button>
                 </div>
             </div>
-<<<<<<< HEAD
-        </div>
+        </form>
         <script src="js/jquery-3.7.1.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/search.js"></script>
-=======
         </form>
->>>>>>> origin/yoni
     </div>
-<<<<<<< HEAD
-    <script th:src="@{js/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{js/jquery-ui.min.js}"></script>
-    <script th:src="@{js/search.js}"></script>
-=======
->>>>>>> origin/sin
 </th:block>
 </body>
 </html>
