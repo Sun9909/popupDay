@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="flower.popupday.login.dao.LoginDAO">
+    <!-- user_tbl -->
+    <resultMap type="LoginDTO" id="LogResult">
+        <result property="id" column="id" />
+        <result property="user_id" column="user_id" />
+        <result property="user_nikname" column="user_nikname" />
+        <result property="name" column="name" />
+        <result property="pwd" column="pwd" />
+        <result property="email" column="email" />
+        <result property="reg_date" column="reg_date" />
+        <result property="tel" column="tel" />
+        <result property="role" column="role" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <!-- sql문 중복 제거 -->
+    <sql id="sr">
+        select * from user_tbl
+    </sql>
+
+</mapper>
