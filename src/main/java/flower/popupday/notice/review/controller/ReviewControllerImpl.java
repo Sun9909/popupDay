@@ -32,12 +32,12 @@ public class ReviewControllerImpl implements ReviewController {
     public ModelAndView reviewList(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         List reviewList = reviewService.reviewList();
-        mav.setViewName("notice/notice2"); // 여기로감
+        mav.setViewName("notice/review"); // 여기로감
         mav.addObject("reviewList", reviewList); // 글목록 넘겨줌
         return mav; // 포워딩
     }
 
-    //Qna 작성저장
+    //후기 작성저장
     @Override
     @RequestMapping("/notice/addReview.do")
     public ModelAndView addReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {

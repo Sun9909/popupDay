@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
-    <title>공지사항페이지</title>
+    <title>후기</title>
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -17,22 +17,22 @@
         <!-- 공지사항 -->
         <div class="submenu-wrap">
             <section id="submenu">
-                <a class="contact active" onclick="openTab('tab1')">
+                <a class="contact" href="#">
                     <h2>공지사항</h2>
                 </a>
-                <a class="contact" onclick="openTab('tab2')">
+                <a class="contact" th:href="@{/notice/faqList.do}">
                     <h2>FAQ</h2>
                 </a>
-                <a class="contact" onclick="openTab('tab3')">
+                <a class="contact" href="#">
                     <h2>Q&A</h2>
                 </a>
-                <a class="contact" onclick="openTab('tab4')">
+                <a class="contact" th:href="@{/notice/reviewList.do}">
                     <h2>후기</h2>
                 </a>
             </section>
         </div>
 
-        <div id="tab4" class="content">
+        <div>
             <div class="contentreview">
                 <nav class="reviewlist">
                     <a class="custom-button active" onclick="switchReviewTab('write-review')">후기작성</a>
