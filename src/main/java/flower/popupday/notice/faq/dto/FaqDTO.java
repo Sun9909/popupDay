@@ -13,15 +13,18 @@ public class FaqDTO {
     private String writer;
     private Date created_date;
 
+    private int totFaq;
+
     public FaqDTO() {}
 
-    public FaqDTO(long faq_id, long user_id, String title, String content, String writer, Date created_date) {
+    public FaqDTO(long faq_id, long user_id, String title, String content, String writer, Date created_date, int totfaq) {
         this.faq_id = faq_id;
         this.user_id = user_id;
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.created_date = created_date;
+        this.totFaq = totfaq;
     }
 
     public long getFaq_id() {
@@ -70,5 +73,13 @@ public class FaqDTO {
 
     public void setWriter(String writer) {
         this.writer = writer;
+    }
+
+    public int getTotFaq() {
+        return totFaq;
+    }
+
+    public void setTotFaq(int totFaq) {
+        this.totFaq = totFaq;
     }
 }
