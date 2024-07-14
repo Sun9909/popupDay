@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface PopupService {
 
-    int addPopup(Map<String, Object> articleMap);
+    Long addPopup(Map<String, Object> popupMap);
 
     // 글목록 로그인 했을때는 map으로 확인
     //public Map listArticles(Map<String, Integer> pageingMap) throws DataAccessException;
