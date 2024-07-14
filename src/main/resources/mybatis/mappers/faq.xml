@@ -19,12 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <!-- 등록된 faq 리스트 화면출력 -->
-    <select id="selectAllFaqList" resultMap="faqResult">
-        select * from faq_tbl order by created_date
+    <select id="selectAllFaqList" resultMap="faqResult" parameterType="int">
+        select * from faq_tbl order by created_date LIMIT #{count}, 10
     </select>
 
     <!-- 등록된 faq 개수 가져오기 -->
-<!--    <select id="selectToArticles" resultMap="faqResult">-->
-<!--        select count(*) from popup_day.faq_tbl-->
-<!--    </select>-->
+    <select id="selectTofaq" resultType="int">
+        <![CDATA[
+            select count(*) from faq_tbl
+        ]]>
+    </select>
 </mapper>

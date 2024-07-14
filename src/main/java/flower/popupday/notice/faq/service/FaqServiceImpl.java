@@ -23,8 +23,16 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public List listFaq() throws DataAccessException {
-        List faqList=faqDAO.selectAllFaqList();
+    public List listFaq(int section, int pageNum) throws DataAccessException {
+
+        int count=(section-1)*100+(pageNum-1)*10;
+        List<FaqDTO> faqList=faqDAO.selectAllFaqList(count);
+
+        int totFaq=faqDAO.selectTofaq();
+        for (FaqDTO tfaq: faqList){
+            tfaq.setTotFaq(totFaq);
+        }
+
         return faqList;
     }
 

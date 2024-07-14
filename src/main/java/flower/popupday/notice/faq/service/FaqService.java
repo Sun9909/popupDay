@@ -11,5 +11,5 @@ public interface FaqService {
 
     public void addFaq(FaqDTO faqDTO) throws DataFormatException;
 
-    public List listFaq() throws DataAccessException;
+    public List listFaq(int section, int pageNum) throws DataAccessException;
 }
