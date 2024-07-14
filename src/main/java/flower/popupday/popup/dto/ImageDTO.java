@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 @Component("imageDTO")
 public class ImageDTO {
     private Long popup_image_id;
-    private String image_file_name;
     private Long popup_id;
+    private String image_file_name;
+
 
 
     public String getImage_file_name() {

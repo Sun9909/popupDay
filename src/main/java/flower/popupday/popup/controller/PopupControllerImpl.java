@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,21 +32,23 @@ public class PopupControllerImpl implements PopupController {
 //    public ModelAndView listArticles(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
 //    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception
     @Override
-    @RequestMapping("/board/popupList.do") // 글 목록 섹션 페이지넘에 값이없을때 초기값 null
-    public ModelAndView listArticles(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping("/board/popupList.do")
+    public ModelAndView popupList(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         List popupList = popupService.popupList();
-        mav.setViewName("/board/popupList"); // 여기로감
-        mav.addObject("popupList", popupList); // 글목록 넘겨줌
-        return mav; // 포워딩
+        mav.setViewName("/board/popupList"); // View 이름 설정
+        mav.addObject("popupList", popupList); // 모델에 데이터 추가
+        return mav; // ModelAndView 반환
     }
 
     @Override
     @RequestMapping("/popup/addPopup.do")
-    public ModelAndView addArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+    public ModelAndView addPopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
             throws Exception {
-        String imageFileName=null;
+        String image_file_name =null;
         multipartRequest.setCharacterEncoding("utf-8");
+
+        // HTTP 요청에서 파라미터들을 Map으로 변환
         Map<String, Object> popupMap=new HashMap<String, Object>();
         Enumeration enu=multipartRequest.getParameterNames();
         while(enu.hasMoreElements()) {
@@ -56,6 +56,15 @@ public class PopupControllerImpl implements PopupController {
             String value=multipartRequest.getParameter(name);
             popupMap.put(name, value);
         }
+
+        // 해시태그
+        String[] hashtags = multipartRequest.getParameterValues("hashtags");
+        if (hashtags != null && hashtags.length > 0) {
+            List<String> hashtagList = Arrays.asList(hashtags);
+            popupMap.put("hashtags", hashtagList);
+        }
+
+        // 파일 업로드 처리
         List<String> fileList=multiFileUpload(multipartRequest);
         List<ImageDTO> imageFileList=new ArrayList<ImageDTO>();
         if(fileList != null && fileList.size() != 0) {
@@ -68,12 +77,15 @@ public class PopupControllerImpl implements PopupController {
         }
         popupMap.put("id","Flower");
         try {
-            int imageId=popupService.addPopup(popupMap);
+            // 팝업 추가 서비스 호출
+            Long image_id =popupService.addPopup(popupMap);
+
+            // 이미지 파일 이동 처리
             if(imageFileList != null && imageFileList.size() != 0) {
                 for(ImageDTO imageDTO : imageFileList) {
-                    imageFileName=imageDTO.getImage_file_name();
-                    File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
-                    File destDir=new File(ARTICLE_IMG_REPO + "\\" + imageId);
+                    image_file_name =imageDTO.getImage_file_name();
+                    File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + image_file_name);
+                    File destDir=new File(ARTICLE_IMG_REPO + "\\" + image_id);
                     FileUtils.moveFileToDirectory(srcFile, destDir, true);
                 }
             }
@@ -81,8 +93,8 @@ public class PopupControllerImpl implements PopupController {
             //글쓰기 수행 중 오류
             if(imageFileList != null && imageFileList.size() != 0) {
                 for(ImageDTO imageDTO : imageFileList) {
-                    imageFileName=imageDTO.getImage_file_name();
-                    File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
+                    image_file_name =imageDTO.getImage_file_name();
+                    File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + image_file_name);
                     //오류 발생 시 temp폴더의 이미지를 모두 삭제
                     srcFile.delete();
                 }

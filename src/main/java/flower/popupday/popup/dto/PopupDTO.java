@@ -3,20 +3,20 @@ package flower.popupday.popup.dto;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 @Component("popupDTO")
 public class PopupDTO {
-    private Long popupId;
+    private Long popup_id;
     private String title;
     private String info;
     private String time;
     private String content;
-    private String map;
-    private String brandPage;
+    private String address;
+    private String brand_page;
     private Role role;
-    private Long userId;
+    private Long user_id;
     private Date created_date;
+    private Long hits;
 
     // Enum for role
     public enum Role {
@@ -29,26 +29,27 @@ public class PopupDTO {
     }
 
     // Constructor with all fields
-    public PopupDTO(Long popupId, String title, String info, String time, String content, String map, String brandPage, Role role, Long userId , Date created_date) {
-        this.popupId = popupId;
+    public PopupDTO(Long popup_id, String title, String info, String time, String content, String address, String brand_page, Role role, Long user_id , Date created_date, Long hits) {
+        this.popup_id = popup_id;
         this.title = title;
         this.info = info;
         this.time = time;
         this.content = content;
-        this.map = map;
-        this.brandPage = brandPage;
+        this.address = address;
+        this.brand_page = brand_page;
         this.role = role;
-        this.userId = userId;
+        this.user_id = user_id;
         this.created_date = created_date;
+        this.hits=hits;
     }
 
     // Getters and Setters
-    public Long getPopupId() {
-        return popupId;
+    public Long getPopup_id() {
+        return popup_id;
     }
 
-    public void setPopupId(Long popupId) {
-        this.popupId = popupId;
+    public void setPopup_id(Long popup_id) {
+        this.popup_id = popup_id;
     }
 
     public String getTitle() {
@@ -83,20 +84,20 @@ public class PopupDTO {
         this.content = content;
     }
 
-    public String getMap() {
-        return map;
+    public String getAddress() {
+        return address;
     }
 
-    public void setMap(String map) {
-        this.map = map;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getBrandPage() {
-        return brandPage;
+    public String getBrand_page() {
+        return brand_page;
     }
 
-    public void setBrandPage(String brandPage) {
-        this.brandPage = brandPage;
+    public void setBrand_page(String brand_page) {
+        this.brand_page = brand_page;
     }
 
     public Role getRole() {
@@ -107,12 +108,12 @@ public class PopupDTO {
         this.role = role;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public Date getCreated_date() {
@@ -123,20 +124,29 @@ public class PopupDTO {
         this.created_date = created_date;
     }
 
+    public Long getHits() {
+        return hits;
+    }
+
+    public void setHits(Long hits) {
+        this.hits = hits;
+    }
+
     // 값이 전달 안 될때 toString 호출해서 확인
     @Override
     public String toString() {
         return "PopupDTO{" +
-                "popupId=" + popupId +
+                "popup_id=" + popup_id +
                 ", title='" + title + '\'' +
                 ", info='" + info + '\'' +
                 ", time=" + time +
                 ", content='" + content + '\'' +
-                ", map='" + map + '\'' +
-                ", brandPage='" + brandPage + '\'' +
+                ", map='" + address + '\'' +
+                ", brand_page='" + brand_page + '\'' +
                 ", role=" + role +
-                ", userId=" + userId +
+                ", userId=" + user_id +
                 ", created_date=" + created_date +
+                ", hits=" + hits +
                 '}';
     }
 }
