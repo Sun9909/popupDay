@@ -14,5 +14,5 @@ public interface ReviewService {
 
     // 로그인 안 했을때는 list로
 
-    public List reviewList() throws DataAccessException;
+    public Map reviewList(Map<String, Integer> pagingMap) throws DataAccessException;
 }

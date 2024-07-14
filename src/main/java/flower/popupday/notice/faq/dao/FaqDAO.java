@@ -23,4 +23,5 @@ public interface FaqDAO {
 
     //전체 faq 개수 조회(페이징용)
     public int selectTofaq() throws DataAccessException;
+
 }

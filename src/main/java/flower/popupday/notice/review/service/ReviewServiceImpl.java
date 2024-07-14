@@ -1,10 +1,13 @@
 package flower.popupday.notice.review.service;
 
+import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.review.dao.ReviewDAO;
+import flower.popupday.notice.review.dto.ReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +31,17 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List reviewList() throws DataAccessException {
-        List reviewList=reviewDAO.selectAllReview();
-        return reviewList;
+    public Map reviewList(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map listMap=new HashMap<>();
+        int section=pagingMap.get("section");
+        int pageNum=pagingMap.get("pageNum");
+        int count=(section-1)*100+(pageNum-1)*10;
+
+        List<ReviewDTO> reviewList=reviewDAO.selectAllReview(count);
+        int totReview=reviewDAO.selectToReview();
+        listMap.put("reviewList",reviewList);
+        listMap.put("totReview",totReview);
+
+        return listMap;
     }
 }
