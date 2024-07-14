@@ -43,8 +43,8 @@
 
                 <!-- 지도를 표시할 div 입니다 -->
                 <div class="map_wrap">
-                    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-                    <div class="hAddr">
+                    <div id="map" style="width:500px;height:300px;position:relative;overflow:hidden;"></div>
+                    <div class="centerAddr">
                         <span class="title" th:text="${title}"></span>
                         <span id="centerAddr" th:text="${centerAddr}"></span>
                     </div>
@@ -135,8 +135,14 @@
     <!-- 우편번호 API -->
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
     <!-- 지도 API -->
-    <script th:src="@{|//dapi.kakao.com/v2/maps/sdk.js?appkey=089d852b497e6c513c79b8561670e3a0&libraries=services|}"></script>
+    <script type="text/javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=089d852b497e6c513c79b8561670e3a0&libraries=services,clusterer,drawing'}"></script>
     <script th:src="@{/js/map.js}"></script>
+    <script>
+        var script = document.createElement('script');
+        script.src = 'https://example.com/script.js';
+        script.async = true; // 또는 script.defer = true;
+        document.head.appendChild(script);
+    </script>
 </th:block>
 </body>
 </html>
