@@ -27,19 +27,34 @@
                 <article class="comment">
                     <a href="#">
                         <h5>댓글</h5>
-                        <p th:text="${recommentCount}+${popcommentCount}+'개'"></p>
+                        <div th:if="${recommentCount == null and popcommentCount == null}">
+                            <p th:text="'0개'"></p>
+                        </div>
+                        <div th:unless="${recommentCount == null and popcommentCount == null}">
+                            <p th:text="${recommentCount}+${popcommentCount}+'개'"></p>
+                        </div>
                     </a>
                 </article>
                 <article class="review">
                     <a href="#">
                         <h5>내가 쓴 후기</h5>
-                        <p th:text="${reviewCount}+'개'"></p>
+                        <div th:if="${reviewCount == null}">
+                            <p th:text="'0개'"></p>
+                        </div>
+                        <div th:unless="${reviewCount == null}">
+                            <p th:text="${reviewCount}+'개'"></p>
+                        </div>
                     </a>
                 </article>
                 <article class="inquiry">
                     <a href="#">
                         <h5>문의</h5>
-                        <p>??개</p>
+                        <div th:if="${qnaCount == null}">
+                            <p th:text="'0개'"></p>
+                        </div>
+                        <div th:unless="${qnaCount == null}">
+                            <p th:text="${qnaCount}+'개'"></p>
+                        </div>
                     </a>
                 </article>
             </div>

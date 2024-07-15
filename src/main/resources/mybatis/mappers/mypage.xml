@@ -26,6 +26,30 @@
         <result property="created_date" column="created_date"/>
     </resultMap>
 
+    <resultMap type="myqnaDTO" id="qnaResult">
+        <result property="qna_id" column="qna_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="created_date" column="created_date"/>
+        <result property="answer" column="answer"/>
+        <result property="answer_date" column="answer_date"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <resultMap type="mypopupDTO" id="popResult">
+        <result property="popup_id" column="popup_id"/>
+        <result property="title" column="title"/>
+        <result property="info" column="info"/>
+        <result property="popup_hours" column="popup_hours"/>
+        <result property="content" column="content"/>
+        <result property="map" column="map"/>
+        <result property="brandPage" column="brandPage"/>
+        <result property="role" column="role"/>
+        <result property="user_id" column="user_id"/>
+        <result property="created_date" column="created_date"/>
+    </resultMap>
+
     <select id="getName" parameterType="myDTO">
         select * from user_tbl where id='123'
     </select>
@@ -59,5 +83,18 @@
     </select>
     <select id="getpopCommentCount" parameterType="String" resultType="String">
         select count(*) from popup_comment_tbl where writer=#{user_nikname}
+    </select>
+
+    <select id="getQnaCount" parameterType="Long" resultType="Long">
+        select count(*) from qna_tbl join user_tbl on qna_tbl.user_id = user_tbl.id
+        where qna_tbl.user_id=#{user_id} group by qna_tbl.user_id
+    </select>
+
+    <select id="getPopup" parameterType="String" resultType="mypopupDTO">
+        select * from popup_tbl where user_id='359'
+    </select>
+
+    <select id="getPopupCount" resultType="Long" parameterType="Long">
+        select count(*) from popup_tbl where user_id='359'
     </select>
 </mapper>
