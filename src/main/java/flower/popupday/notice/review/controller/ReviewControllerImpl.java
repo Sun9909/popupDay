@@ -49,6 +49,16 @@ public class ReviewControllerImpl implements ReviewController {
         mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
         return mav; // 포워딩
     }
+
+    //후기 상세페이지로 이동
+    @Override
+    public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map reviewArticle = reviewService.showReview(review_id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("notice/reviewShow");
+        mav.addObject("reviewArticle", reviewArticle);
+        return null;
+    }
     
     //후기 작성페이지로 이동
     @Override
@@ -58,7 +68,8 @@ public class ReviewControllerImpl implements ReviewController {
         mav.setViewName("notice/reviewForm");
         return mav;
     }
-    
+
+
 
     //후기 작성저장
     @Override
