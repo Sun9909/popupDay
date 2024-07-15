@@ -39,16 +39,12 @@
                 </div>
                 <div class="popAddress">
                     <input type="text" id="address" name="address" maxlength="100" size="60" placeholder="입력 예)서울시 강남구 서초동 11">
+                    <button type="button" onclick="searchAddress()">주소 검색</button>
                 </div>
 
+
                 <!-- 지도를 표시할 div 입니다 -->
-                <div class="map_wrap">
-                    <div id="map" style="width:500px;height:300px;position:relative;overflow:hidden;"></div>
-                    <div class="centerAddr">
-                        <span class="title" th:text="${title}"></span>
-                        <span id="centerAddr" th:text="${centerAddr}"></span>
-                    </div>
-                </div>
+                <div id="map" style="width:100%;height:350px;"></div>
 
                 <div class="fillout-form">
                     <label>팝업스토어 한줄 설명</label>
@@ -114,3 +110,4 @@
 </th:block>
 </body>
 </html>
+
