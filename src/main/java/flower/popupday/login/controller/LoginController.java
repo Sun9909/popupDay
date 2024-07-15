@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.codehaus.groovy.runtime.powerassert.Value;
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,11 +19,11 @@ public interface LoginController {
                                  HttpServletResponse response) throws Exception;
 
     //login.html에서 정보 전달 받기
-    public ModelAndView login(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-                              @RequestParam(value = "action", required = false) String action,
-                              @RequestParam(value = "result", required = false) String result,
-                              HttpServletRequest request,
-                              HttpServletResponse response) throws Exception;
+    ModelAndView login(LoginDTO loginDTO,
+                       String action,
+                       String result,
+                       HttpServletRequest request,
+                       HttpServletResponse response) throws Exception;
 
     //로그인.html
     public ModelAndView memberLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
@@ -48,5 +49,20 @@ public interface LoginController {
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws Exception;
 
+    // 사람 이미지 클릭시 join.form이동
+    ModelAndView showjoin(HttpServletRequest request,
+                                HttpServletResponse response) throws Exception;
 
+
+    // join에서 choiceForm으로 이동
+    ModelAndView showChoiceForm(HttpServletRequest request,
+                                HttpServletResponse response) throws Exception;
+
+    // choiceForm에서 businessForm으로 이동
+    ModelAndView showbusinessForm(HttpServletRequest request,
+                                HttpServletResponse response) throws Exception;
+
+    // choiceForm에서 memberForm으로 이동
+    ModelAndView showmemberForm(HttpServletRequest request,
+                                HttpServletResponse response) throws Exception;
 }
