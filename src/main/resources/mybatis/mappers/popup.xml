@@ -19,10 +19,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap type="imageDTO" id="imgResult">
-        <result property="popup_image_id" column="popup_image_id"/>
+        <id property="popup_image_id" column="popup_image_id"/>
         <result property="image_file_name" column="image_file_name"/>
         <result property="popup_id" column="popup_id"/>
     </resultMap>
+
+    <resultMap id="hashTagDTO" type="hashTagDTO">
+        <id property="popup_id" column="popup_id" />
+        <result property="hash_tag" column="hash_tag" />
+    </resultMap>
+
+    <resultMap id="popupHashTagDTO" type="popupHashTagDTO">
+        <id property="popup_id" column="popup_id" />
+        <result property="hash_tag_id" column="hash_tag_id" />
+    </resultMap>
+
 
 
     <select id="selectAllPopup" resultMap="popResult">
@@ -39,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
         insert into popup_tbl (popup_id, title, info, popup_hours, content, address, brand_page, role, user_id, created_date)
-        values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', #{user_id}, now())
+        values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', '1', now())
         ]]>
     </insert>
 
@@ -51,14 +62,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <insert id="insertHashtag" parameterType="java.util.Map">
-        INSERT INTO hashtag_tbl (popup_id, hashtag)
+        INSERT INTO hash_tag_tbl (popup_id, hash_tag)
         VALUES
-        <foreach collection="hashtags" item="hashtag" separator=",">
+        <foreach collection="hashtag" item="hash_tag" separator=",">
             (#{popup_id}, #{hashtag})
         </foreach>
     </insert>
 
-
+    <insert id="insertPopupHashTag" parameterType="flower.popupday.popup.dto.PopupHashTagDTO">
+        INSERT INTO popup_hash_tag_tbl (popup_id, hash_tag_id)
+        VALUES (#{popup_id}, #{hash_tag_id})
+    </insert>
 
 
 
@@ -68,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- javaType="flower.popupday.popup.dto.PopupDTO.Role" -->
     <!-- 팝업 id를 가지고 특정 정보 -->
 <!--    <select id="getPopupById" parameterType="long" resultMap="PopupMap">-->
-<!--        SELECT * FROM popup WHERE popup_id = #{popupId}-->
+<!--        SELECT * FROM popup WHERE popup_id = #{popup_id}-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 모든 팝업 정보 &ndash;&gt;-->
@@ -77,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 팝업 등록 &ndash;&gt;-->
-<!--    <insert id="insertPopup" parameterType="flower.popupday.popup.dto.PopupDTO" useGeneratedKeys="true" keyProperty="popupId">-->
+<!--    <insert id="insertPopup" parameterType="flower.popupday.popup.dto.PopupDTO" useGeneratedKeys="true" keyProperty="popup_id">-->
 <!--        INSERT INTO popup (title, info, time, content, map, brand_page, role, user_id)-->
 <!--        VALUES (#{title}, #{info}, #{time}, #{content}, #{map}, #{brand_page}, #{role}, #{userId})-->
 <!--    </insert>-->
@@ -86,12 +100,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--    <update id="updatePopup" parameterType="flower.popupday.popup.dto.PopupDTO">-->
 <!--        UPDATE popup-->
 <!--        SET title = #{title}, info = #{info}, time = #{time}, content = #{content}, map = #{map}, brand_page = #{brand_page}, role = #{role}, user_id = #{userId}-->
-<!--        WHERE popup_id = #{popupId}-->
+<!--        WHERE popup_id = #{popup_id}-->
 <!--    </update>-->
 
 <!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 삭제 &ndash;&gt;-->
 <!--    <delete id="deletePopup" parameterType="long">-->
-<!--        DELETE FROM popup WHERE popup_id = #{popupId}-->
+<!--        DELETE FROM popup WHERE popup_id = #{popup_id}-->
 <!--    </delete>-->
 
 </mapper>
