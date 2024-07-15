@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>팝업 리스트</title>
-    <link rel="stylesheet" th:href="@{css/popupList.css}">
+    <link rel="stylesheet" th:href="@{/css/popupList.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
 </head>
 <body>
@@ -18,13 +18,20 @@
     <div class="containers">
         <!-- 팝업 리스트 페이지 -->
         <h2>팝업 리스트</h2>
-        <p class="num">전체 개수</p>
+        <div th:if="${PopupCount == null}">
+            <p class="num" th:text="'전체 0개'"></p>
+        </div>
+        <div th:unless="${PopupCount == null}">
+            <p class="num " th:text="'전체 '+${PopupCount}+'개'"></p>
+        </div>
 
         <!-- 팝업이 없을 때 -->
-        <h4>현재 등록된 팝업이 없습니다</h4>
+        <div th:if="${myPopup == null}">
+            <h4>현재 등록된 팝업이 없습니다</h4>
+        </div>
 
         <!-- 팝업이 있을 때 -->
-        <form>
+        <form th:each="popup : ${myPopup}">
             <fieldset>
                 <a href="#" class="pop" title="팝업">
                     <div class="popImg">
@@ -32,9 +39,9 @@
                     </div>
                     <div class="Acc">
                         <div class="popAcc">
-                            <h5>동방신기 팝업1</h5>
-                            <p>08.10.19 ~ 24.12.16</p>
-                            <p>서울시 강남구 서초구</p>
+                            <h5 th:text="${popup.title}"></h5>
+                            <p th:text="${popup.popup_hours}"></p>
+                            <p th:text="${popup.map}"></p>
                         </div>
                         <ul>
                             <li class="tag" title="해시태그"># 아이돌</li>
@@ -48,7 +55,7 @@
     </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{/js/search.js}"></script>
 </th:block>
 </body>
