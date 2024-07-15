@@ -6,9 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
     <link rel="stylesheet" th:href="@{/css/adminNotice.css}">
     <link rel="stylesheet" th:href="@{css/jquery-ui.min.css}">
-    <title>공지사항 작성하기 추가</title>
+    <title>공지사항 작성하기</title>
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -24,30 +25,29 @@
                     </select>
                 </div>
                 <div class="notice">
-                    <input type="text" placeholder="제목">
+                    <input type="text" placeholder="제목" name="title">
                 </div>
                 <div class="notice">
                     <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
                 </div>
-                <!--
-                <div class="notice">
-                    <tr>
-                        <td class="notice">이미지 파일 첨부 : </td>
-                        <td><input type="button" value="파일추가" onclick="fn_addFile()"></td>
-                        <td><div id="dock_file"</div></td>
-                    </tr>
-                </div>
-                -->
-                <div class="notice-button">
-                    <button type="reset">취소</button>
-                    <button type="submit">등록</button>
-                </div>
             </div>
-        </form>
+            <div class="imagefile">
+                <td>이미지파일 첨부</td>
+                <td><input th:type="file" value="파일추가" onclick="fn_addFile()"></td>
+                <td><div id="dock_file"></div></td>
+            </div>
+
+            <div class="notice-button">
+                <button type="reset">취소</button>
+                <button type="submit">등록</button>
+            </div>
     </div>
+    <form>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/search.js"></script>
+    </form>
+    </div>
 </th:block>
 </body>
 </html>

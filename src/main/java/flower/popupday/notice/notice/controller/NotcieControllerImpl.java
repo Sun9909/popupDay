@@ -16,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 import java.io.File;
 import java.util.*;
 
@@ -38,30 +36,40 @@ public class NotcieControllerImpl implements NoticeController {
     private NoticeDAO noticeDAO;
 
     //페이징 처리 해보자
+    //페이징 처리 해보자
     @Override
     @RequestMapping("/notice/noticeList.do") // 메인 화면에서 공지사항으로 이동했을때 매핑이름
-    public ModelAndView noticeList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
+    public ModelAndView noticeList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false) //매개변수 section,pageNum을 받으며 값이 없으면 기본적으로 null이 됨.
     String _pageNum, HttpServletRequest request, HttpServletResponse response) throws DataAccessException {
-        int section = Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        Map<String, Integer> pageingMap = new HashMap<String, Integer>();
-        pageingMap.put("section", section); // 1
-        pageingMap.put("pageNum", pageNum); // 1
-        Map noticeMap = noticeService.noticeList(pageingMap); // 서비스에서 글목록 받아오기
-        noticeMap.put("section", section);
-        noticeMap.put("pageNum", pageNum);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/notice"); // 여기로감
-        mav.addObject("noticeMap", noticeMap); // 글목록 넘겨줌
-        return mav; // 포워딩
+        int section = Integer.parseInt((_section == null) ? "1" : _section); // '_section'이 null이면 'section'을 1로 설정하고 그렇지 않으면, '_section'의 값을 정수로 변환하여 'section'에 저장
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum); // 위와 동일함.
+        Map<String, Integer> pageingMap = new HashMap<String, Integer>(); // 'section','pageNum'을 저장할 맵을 생성
+        pageingMap.put("section", section); // 1 맵에 section 값을 저장
+        pageingMap.put("pageNum", pageNum); // 1 맵에 pangNum 값을 저장
+        Map noticeMap = noticeService.noticeList(pageingMap); // 서비스에서 글목록 받아오기(공지사항 목록을 받아옴)
+        noticeMap.put("section", section); // noticMap에 section 값을 추가함
+        noticeMap.put("pageNum", pageNum); // noticMap에 pageNum 값을 추가함
+
+        // Debugging 로그 추가
+        System.out.println("noticeMap: " + noticeMap);
+
+        ModelAndView mav = new ModelAndView(); //ModelAndView 객체를 생성
+        mav.setViewName("/notice/notice"); // 이 뷰로 이동
+        mav.addObject("noticeMap", noticeMap); // notice을 mav에 추가하여 뷰로 전달 (글목록 넘겨줌)
+        return mav; // 객체를 변환하여 뷰로 포워딩
     }
 
+    // 오프셋 계산 메서드
+    //private int calculateOffset(int section, int pageNum) {
+    //   return (section - 1) * 100 + (pageNum - 1) * 10;
+    //}
+
     @Override
-    @RequestMapping("/admin/adminNotice.do") // 공지사항 글쓰기 폼으로 이동
+    @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
     public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("admin/adminNotice");
+        mav.setViewName("notice/noticeForm");
         return mav;
     }
 
@@ -126,17 +134,17 @@ public class NotcieControllerImpl implements NoticeController {
             } //if end
             e.printStackTrace();
         }//cath end
-        ModelAndView mav = new ModelAndView("redirect:/admin/adminNotice.do"); // 게시물 추가 및 파일 이동 작업 완료후, 관리자의 공지 목록 페이지로 리디렉션하도록 객체 생성.
+        ModelAndView mav = new ModelAndView("redirect:/notice/noticeForm.do"); // 게시물 추가 및 파일 이동 작업 완료후, 관리자의 공지 목록 페이지로 리디렉션하도록 객체 생성.
         return mav;
     }// method end
 
 
     //여러개의 이미지 상세 글보기
-    @RequestMapping("/admin/adminNoticeView.do")
+    @RequestMapping("/notice/notice.do")
     public ModelAndView adminNoticeView(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map noticeMap = noticeService.adminNoticeView(notice_id);
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/adminNotice");
+        mav.setViewName("/notice/notice");
         mav.addObject("noticeMap", noticeMap);
         return mav;
     }

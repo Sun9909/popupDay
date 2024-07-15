@@ -21,3 +21,4 @@ public interface NoticeService {
     // 글삭제
     public void removeNotice(Long notice_id) throws DataAccessException;
 }
+
