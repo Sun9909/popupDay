@@ -1,5 +1,6 @@
 package flower.popupday.popup.dao;
 
+import flower.popupday.popup.dto.HashTagDTO;
 import flower.popupday.popup.dto.PopupHashTagDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +14,7 @@ public interface PopupDAO {
 
     public List selectAllPopup() throws DataAccessException;
 
-    public int getNewPopupId() throws DataAccessException;
+    public Long getNewPopupId() throws DataAccessException;
 
     public void insertNewPopup(Map popupMap) throws DataAccessException;
 
@@ -21,8 +22,13 @@ public interface PopupDAO {
 
 //    public void insertHashtag(int popup_id, String hash_tag) throws DataAccessException;
 
-    public void insertPopupHashTag(Map popupMap) throws DataAccessException;
+//    public void insertPopupHashTag(Map popupMap) throws DataAccessException;
 
-    public void insertHashtag(int popup_id,String hashtag) throws DataAccessException;
+    public void insertHashTag(HashTagDTO hashTagDTO) throws  DataAccessException;
 
+    public Long getNewHashTagId() throws DataAccessException;
+
+    public void insertHashTag(List<String> hashTags) throws DataAccessException;
+
+    void insertPopupHashTag(PopupHashTagDTO popupHashTagDTO);
 }

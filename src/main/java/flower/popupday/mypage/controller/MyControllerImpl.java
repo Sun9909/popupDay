@@ -101,7 +101,7 @@ public class MyControllerImpl implements MyController {
 
 //    @Override
 //    public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        Long PopupCount = myService.getReviewCount(mypopupDTO.getPopup_id());
+//        Long PopupCount = myService.getReviewCount(mypopupDTO.getHash_tag_id());
 //        ModelAndView mav = new ModelAndView("/mypage/myPopup");
 //        mav.addObject("PopupCount", PopupCount);
 //        return mav;
