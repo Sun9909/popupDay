@@ -26,4 +26,6 @@ public interface FaqDAO {
 
     public void changeFaq(FaqDTO faqDTO) throws DataAccessException;
 
+    public void deleteFaq(int faq_id) throws DataAccessException;
+
 }

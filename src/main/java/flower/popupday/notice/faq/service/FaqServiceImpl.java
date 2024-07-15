@@ -41,5 +41,10 @@ public class FaqServiceImpl implements FaqService {
         faqDAO.changeFaq(faqDTO);
     }
 
+    @Override
+    public void removeFaq(int faq_id) throws DataAccessException {
+        faqDAO.deleteFaq(faq_id);
+    }
+
 
 }

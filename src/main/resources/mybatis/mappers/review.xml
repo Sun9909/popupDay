@@ -46,4 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ]]>
     </select>
 
+    <select id="selectReview" parameterType="int" resultType="reviewDTO">
+        select * from review_tbl where review_id = #{review_id}
+    </select>
+
+    <select id="selectImageList" parameterType="int" resultMap="imageResult">
+        select * from review_image_tbl where review_id = #{review_id}
+    </select>
+
 </mapper>

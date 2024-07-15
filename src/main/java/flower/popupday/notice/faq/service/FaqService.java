@@ -14,4 +14,6 @@ public interface FaqService {
     public List listFaq(int section, int pageNum) throws DataAccessException;
 
     public void modFaq(FaqDTO faqDTO) throws DataFormatException;
+
+    public void removeFaq(int faq_id) throws DataAccessException;
 }
