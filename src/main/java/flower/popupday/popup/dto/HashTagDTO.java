@@ -4,15 +4,15 @@ import org.springframework.stereotype.Component;
 
 @Component("hashTagDTO")
 public class HashTagDTO {
-    private int popup_id;
+    private Long hash_tag_id;
     private String hash_tag;
 
-    public int getPopup_id() {
-        return popup_id;
+    public Long getHash_tag_id() {
+        return hash_tag_id;
     }
 
-    public void setPopup_id(int popup_id) {
-        this.popup_id = popup_id;
+    public void setHash_tag_id(Long hash_tag_id) {
+        this.hash_tag_id = hash_tag_id;
     }
 
     public String getHash_tag() {
