@@ -139,9 +139,7 @@ public class LoginControllerImpl implements LoginController {
     @Override
     @GetMapping("/businessForm.do")
     public ModelAndView showBusinessForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView("/login/businessForm");
-        mav.addObject("loginDTO", new LoginDTO()); // DTO 객체를 초기화하여 뷰로 전달
-        return mav;
+        return new ModelAndView("/login/businessForm");
     }
 
     // choiceForm에서 memberForm으로 이동
@@ -151,5 +149,29 @@ public class LoginControllerImpl implements LoginController {
         ModelAndView mav = new ModelAndView("/login/memberForm");
         mav.addObject("loginDTO", new LoginDTO()); // DTO 객체를 초기화하여 뷰로 전달
         return mav;
+    }
+
+    // 아이디 중복 확인
+    @Override
+    @GetMapping("/check-id")
+    @ResponseBody
+    public boolean checkId(@RequestParam("user_id") String user_id) {
+        return loginService.checkId(user_id);
+    }
+
+    // 이메일 중복 확인
+    @Override
+    @GetMapping("/check-email")
+    @ResponseBody
+    public boolean checkEmail(@RequestParam("email") String email) {
+        return loginService.checkEmail(email);
+    }
+
+    // 닉네임 중복 확인
+    @Override
+    @GetMapping("/check-nikname")
+    @ResponseBody
+    public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
+        return loginService.checkNikname(user_nikname);
     }
 }

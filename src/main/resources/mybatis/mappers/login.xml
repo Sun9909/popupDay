@@ -6,16 +6,16 @@
 <mapper namespace="flower.popupday.login.dao.LoginDAO">
     <!-- user_tbl -->
     <resultMap type="LoginDTO" id="LogResult">
-        <result property="id" column="id" />
-        <result property="user_id" column="user_id" />
-        <result property="user_nikname" column="user_nikname" />
-        <result property="name" column="name" />
-        <result property="pwd" column="pwd" />
-        <result property="email" column="email" />
-        <result property="reg_date" column="reg_date" />
-        <result property="business_num" column="business_num" />
-        <result property="role" column="role" />
-        <result property="status" column="status" />
+        <result property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="user_nikname" column="user_nikname"/>
+        <result property="name" column="name"/>
+        <result property="pwd" column="pwd"/>
+        <result property="email" column="email"/>
+        <result property="reg_date" column="reg_date"/>
+        <result property="business_num" column="business_num"/>
+        <result property="role" column="role"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <!-- sql문 중복 제거 -->
@@ -24,7 +24,6 @@
         select * from user_tbl
         ]]>
     </sql>
-
 
     <insert id="insertLogin" parameterType="loginDTO">
         <![CDATA[
@@ -39,10 +38,36 @@
     </insert>
 
     <select id="memberLoginCheck" parameterType="loginDTO" resultType="loginDTO">
-        <include refid="sr" />
+        <include refid="sr"/>
         <where>
             user_id=#{user_id} and pwd=#{pwd}
         </where>
     </select>
 
+    <!-- 아이디 중복 확인 쿼리 -->
+    <select id="checkId" parameterType="String" resultType="boolean">
+        <![CDATA[
+        select count(*) > 0
+        from user_tbl
+        where user_id = #{user_id}
+        ]]>
+    </select>
+
+    <!-- 이메일 중복 확인 쿼리 -->
+    <select id="checkEmail" parameterType="String" resultType="boolean">
+        <![CDATA[
+        select count(*) > 0
+        from user_tbl
+        where email = #{email}
+        ]]>
+    </select>
+
+    <!-- 닉네임 중복 확인 쿼리 -->
+    <select id="checkNikname" parameterType="String" resultType="boolean">
+        <![CDATA[
+        select count(*) > 0
+        from user_tbl
+        where user_nikname = #{user_nikname}
+        ]]>
+    </select>
 </mapper>

@@ -23,13 +23,15 @@
                     <table>
                         <tr>
                             <td>이메일을 입력해주세요.</td>
-                            <td><input type="email" name="email" required></td>
-                            <td><a href="중복확인">중복 확인</a></td>
+                            <td><input type="email" class="user_email" name="email" check_result="fail" required></td>
+                            <td><button type="button" class="email_overlap_button" onclick="email_overlap_check()">중복 확인</button></td>
+                            <td><img id="id_check_sucess" style="display: none;"></td>
                         </tr>
                         <tr>
                             <td>아이디를 입력해주세요.</td>
-                            <td><input type="text" name="user_id" required></td>
-                            <td><a href="중복확인">중복 확인</a></td>
+                            <td><input type="text" class="user_id" name="user_id" check_result="fail" required></td>
+                            <td><button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복 확인</button></td>
+                            <td><img id="id_check_sucess2" style="display: none;"></td>
                         </tr>
                         <tr>
                             <td>비밀번호를 입력해주세요.</td>
@@ -41,8 +43,9 @@
                         </tr>
                         <tr>
                             <td>닉네임</td>
-                            <td><input type="text" name="user_nikname" required></td>
-                            <td><a href="중복확인">중복 확인</a></td>
+                            <td><input type="text" class="user_nikname" name="user_nikname" check_result="fail" required></td>
+                            <td><button type="button" class="user_nikname_overlap_button" onclick="user_nikname_overlap_check()">중복 확인</button></td>
+                            <td><img id="id_check_sucess3" style="display: none;"></td>
                         </tr>
                         <tr>
                             <td>이름을 입력해주세요.</td>
@@ -85,6 +88,7 @@
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{/js/businessForm.js}"></script>
+    <script th:src="@{/js/overlapCheck.js}"></script>
 </th:block>
 </body>
 </html>

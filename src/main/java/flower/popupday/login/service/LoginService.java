@@ -17,6 +17,14 @@ public interface LoginService {
     //businessForm.html에서 찐 로그인용
     public LoginDTO businessLogin(LoginDTO loginDTO) throws DataAccessException;
 
+    // 아이디 중복 확인
+    boolean checkId(String user_id);
+
+    // 이메일 중복 확인
+    boolean checkEmail(String email);
+
+    // 닉네임 중복 확인
+    boolean checkNikname(String user_nikname);
 
 
 }
