@@ -17,19 +17,19 @@ public interface NoticeDAO {
     public List selectAllNotice(@Param("count") int count) throws DataAccessException;
 
     // 페이징 (전체 글번호를 조회해서)
-    public int selectTotalArticles() throws DataAccessException;
+    public int selectTotalNotice() throws DataAccessException;
 
     // 글 번호 생성
-    public int getNewArticleNo() throws DataAccessException;
+    public int getNewNoticeNo() throws DataAccessException;
 
     // 새 글 추가 (글번호 생성 후 새 글 추가 호출) xml 에서는 Map,DTO(둘중하나)로 받고 줄때는 DTO로 (여러개 이미지)
-    public void insertNewArticle(Map articleMap) throws DataAccessException;
+    public void insertNewNotice(Map articleMap) throws DataAccessException;
 
     // 이미지 손대는 메서드
     public void insertNewImages(Map articleMap) throws DataAccessException;
 
     // 상세 글 보기(글번호를 받아서 해당 글번호에 글 조회)
-    public NoticeDTO selectArticles(Long notice_id) throws DataAccessException;
+    public NoticeDTO selectNotice(Long notice_id) throws DataAccessException;
 
     public List selectImageFileList(Long notice_id) throws DataAccessException;
 
@@ -45,3 +45,4 @@ public interface NoticeDAO {
     public void deleteImage(Long notice_id) throws DataAccessException;
 
 }
+
