@@ -42,3 +42,4 @@ function searchAddress() {
         alert('주소를 입력해주세요.'); // 주소 값이 비어있는 경우 경고 메시지를 표시합니다.
     }
 }
+
