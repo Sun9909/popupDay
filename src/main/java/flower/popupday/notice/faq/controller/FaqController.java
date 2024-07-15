@@ -15,4 +15,6 @@ public interface FaqController {
 
     public ModelAndView faqList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     String _pageNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView modFaq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

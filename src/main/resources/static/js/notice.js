@@ -42,23 +42,6 @@
     activeReviewTabButton.classList.add('active');
 }
 
-//     //토글을 이용하여 게시글 보기
-//     $(function () {
-//     let sw=[false,false,false];
-//     let index;
-//     $('.answerop').click(function() {
-//     index=$(this).parent().index();
-//     //alert(index);
-//     sw[index]=!sw[index];
-//     if(sw[index]) {
-//         $(this).parent().find('.answer').css('display','block');
-//         $('#toggle'+index).attr('src','images/angle-up-solid.svg');
-//     }else {
-//         $(this).parent().find('.answer').css('display','none');
-//         $('#toggle'+index).attr('src','images/angle-down-solid.svg');
-//     }
-// });
-// });
 
     // 여러개 이미지 추가 함수
     let count=1;
@@ -81,5 +64,32 @@
             }
         });
     });
+    
+    //제이쿼리로 써야한다
+    $(function() {
+        $(".modify_button").click(function() {
+            // 클릭된 버튼의 부모 요소를 선택합니다.
+            let mparent = $(this).parent();
+
+            // 부모 요소의 이전 형제 요소의 스타일을 변경합니다.
+            mparent.prev().css("display", "block");
+
+            // 부모 요소의 스타일을 변경합니다.
+            mparent.css("display", "none");
+
+            // 총 부모 요소()를 선택합니다.
+            let tparent = mparent.parent();
+
+            // tparent 내에서 closest 메서드를 사용하여 원하는 요소를 찾고 disabled 속성을 해제합니다.
+            tparent.find(".answerop #faq_title").prop("disabled", false);
+            tparent.find(".answer #faq_content").prop("disabled", false);
+        });
+    });
+
+    // 수정 반영하기
+    function faq_modify(obj) {
+        obj.action="/notice/modFaq.do";
+        obj.submit();
+    }
 
 
