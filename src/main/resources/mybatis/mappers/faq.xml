@@ -29,4 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             select count(*) from faq_tbl
         ]]>
     </select>
+
+    <update id="changeFaq" parameterType="faqDTO">
+        update faq_tbl set title=#{title}, content=#{content} where faq_id = #{faq_id}
+    </update>
+
 </mapper>

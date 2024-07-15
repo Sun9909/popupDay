@@ -37,18 +37,26 @@
                 <button><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
                 <div class="faq-list-wrap">
                     <ul>
-                        <li class="faqitem" th:each="faq: ${faqList}">
-                            <p class="faq-category">이용안내</p>
-                            <a class="answerop">
-                                <span th:text="${faq.title}"></span>
-                                <img id="toggle" th:src="@{/images/angle-down-solid.svg}" alt="내려보기">
-                            </a>
-                            <div class="answer" style="display: none;"><p th:text="${faq.content}"></p></div>
-                            <div>
-                                <input type="button" value="수정" onclick="">
-                                <input type="button" value="삭제" onclick="">
-                            </div>
-                        </li>
+                        <form name="faqArticle">
+                            <li class="faqitem" th:each="faq: ${faqList}">
+                                <p class="faq-category">이용안내</p>
+                                <a class="answerop">
+                                    <span><input id="faq_title" type="text" name="title" th:value="${faq.title}" disabled></span>
+                                    <input type="hidden" name="faq_id" th:value="${faq.faq_id}">
+                                    <img id="toggle" th:src="@{/images/angle-down-solid.svg}" alt="내려보기">
+                                </a>
+                                <div class="answer" style="display: none;">
+                                    <input id="faq_content" type="text" name="content" th:value="${faq.content}" disabled>
+                                </div>
+                               <div id="modify_submit_btn">
+                                   <input type="button" value="수정반영하기" onclick="faq_modify(faqArticle)">
+                               </div>
+                                <div id="rewrite_btn">
+                                    <input type="button" value="수정" class="modify_button">
+                                    <input type="button" value="삭제">
+                                </div>
+                            </li>
+                        </form>
                     </ul>
                      <!--페이징 처리-->
                     <div th:each="faq: ${faqList[0]}">

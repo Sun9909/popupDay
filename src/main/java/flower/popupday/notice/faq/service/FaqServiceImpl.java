@@ -36,5 +36,10 @@ public class FaqServiceImpl implements FaqService {
         return faqList;
     }
 
+    @Override
+    public void modFaq(FaqDTO faqDTO) throws DataFormatException {
+        faqDAO.changeFaq(faqDTO);
+    }
+
 
 }
