@@ -27,25 +27,6 @@
     text-align: center
 }
 
-.review-content {
-    display: none;
-}
-
-.review-content.active {
-    display: block;
-}
-.search form {
-    display: inline-block;
-
-}
-
-.review-content {
-    display: none;
-}
-
-.review-content.active {
-    display: block;
-}
 
 .input-wrapper {
     position: relative;

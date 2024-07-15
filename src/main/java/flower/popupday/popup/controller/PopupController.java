@@ -7,10 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface PopupController {
 
-    public ModelAndView addArticle(MultipartHttpServletRequest multipartRequest,
+    public ModelAndView addPopup(MultipartHttpServletRequest multipartRequest,
                                    HttpServletResponse response) throws Exception;
 
-    public ModelAndView listArticles(HttpServletRequest request,
+    public ModelAndView popupList(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception;
 
 }

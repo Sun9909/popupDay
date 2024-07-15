@@ -14,6 +14,7 @@ public class ReviewDTO {
     private String write;
     private Date created_date;
 
+
     public ReviewDTO() {}
 
     public ReviewDTO(long review_id, long user_id, String review_title, String review_content,Date date, String write, Date created_date) {
@@ -82,4 +83,5 @@ public class ReviewDTO {
     public void setCreated_date(Date created_date) {
         this.created_date = created_date;
     }
+
 }

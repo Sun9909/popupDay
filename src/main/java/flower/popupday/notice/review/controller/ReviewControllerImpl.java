@@ -1,5 +1,7 @@
 package flower.popupday.notice.review.controller;
 
+import flower.popupday.notice.faq.dto.FaqDTO;
+import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
 import flower.popupday.notice.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,13 +32,33 @@ public class ReviewControllerImpl implements ReviewController {
 
     @Override
     @RequestMapping("/notice/reviewList.do")
-    public ModelAndView reviewList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView reviewList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
+    String _pageNum,HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int section=Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        Map<String, Integer> pagingMap=new HashMap<String, Integer>();
+        pagingMap.put("section", section); // 1
+        pagingMap.put("pageNum", pageNum); // 1
+
+        Map reviewMap = reviewService.reviewList(pagingMap);
+        reviewMap.put("section", section);
+        reviewMap.put("pageNum", pageNum);
+
         ModelAndView mav = new ModelAndView();
-        List reviewList = reviewService.reviewList();
         mav.setViewName("notice/review"); // 여기로감
-        mav.addObject("reviewList", reviewList); // 글목록 넘겨줌
+        mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
         return mav; // 포워딩
     }
+    
+    //후기 작성페이지로 이동
+    @Override
+    @RequestMapping("/notice/reviewForm.do")
+    public ModelAndView reviewForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("notice/reviewForm");
+        return mav;
+    }
+    
 
     //후기 작성저장
     @Override
@@ -89,7 +112,6 @@ public class ReviewControllerImpl implements ReviewController {
         ModelAndView mav= new ModelAndView("redirect:/notice/reviewList.do");
         return mav;
     }
-
 
 
     // 여러개의 이미지파일 업로드

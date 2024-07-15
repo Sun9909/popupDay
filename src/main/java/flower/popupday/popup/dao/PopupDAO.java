@@ -12,9 +12,11 @@ public interface PopupDAO {
 
     public List selectAllPopup() throws DataAccessException;
 
-    public int getNewPopupId() throws DataAccessException;
+    public Long getNewPopupId() throws DataAccessException;
 
     public void insertNewPopup(Map articleMap) throws DataAccessException;
 
     public void insertNewImages(Map articleMap) throws DataAccessException;
+
+    public void insertHashtag(Long popupId, String hashtag) throws DataAccessException;
 }

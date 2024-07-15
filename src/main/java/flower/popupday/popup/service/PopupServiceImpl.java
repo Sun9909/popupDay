@@ -14,16 +14,27 @@ public class PopupServiceImpl implements PopupService {
     @Autowired
     private PopupDAO popupDAO;
 
-    @Override
-    public int addPopup(Map popupMap) throws DataAccessException {
-        int popupNo=popupDAO.getNewPopupId(); // 글번호 받아오는 메서드
-        popupMap.put("articleNo",popupNo); // 얻어온 번호 주입
+    public Long addPopup(Map<String, Object> popupMap) throws DataAccessException {
+        Long popup_id = popupDAO.getNewPopupId(); // 새로운 팝업 ID 가져오기
+        popupMap.put("popup_id", popup_id); // Map에 팝업 ID 매핑
+
+        // 팝업 등록
         popupDAO.insertNewPopup(popupMap);
-        // imagefile_tbl 이용
-        if(popupMap.get("imageFileList") != null) { // 이미지가 들어있을때
-            popupDAO.insertNewImages(popupMap); // Map 데이터 가지고 수행
+
+        // 이미지 파일 등록 처리
+        if (popupMap.get("imageFileList") != null) {
+            popupDAO.insertNewImages(popupMap);
         }
-        return popupNo;
+
+        // 해시태그 등록 처리
+        List<String> hashtags = (List<String>) popupMap.get("hashtags");
+        if (hashtags != null && !hashtags.isEmpty()) {
+            for (String hashtag : hashtags) {
+                popupDAO.insertHashtag(popup_id, hashtag);
+            }
+        }
+
+        return popup_id; // 등록된 팝업 ID 반환
     }
 
     @Override

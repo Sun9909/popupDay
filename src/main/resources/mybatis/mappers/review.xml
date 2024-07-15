@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <select id="selectAllReview" resultMap="reviewResult">
-        select * from review_tbl
+        select * from review_tbl order by created_date LIMIT #{count}, 10
     </select>
 
     <select id="getNewReviewId" parameterType="int">
@@ -36,9 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into review_image_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
-            (#{item.review_image_id},'1', #{item.image_file_name})
+            (#{item.review_image_id},'2', #{item.image_file_name})
         </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
 
+    <select id="selectToReview" resultType="int">
+        <![CDATA[
+            select count(*) from review_tbl
+        ]]>
+    </select>
 
 </mapper>
