@@ -50,6 +50,7 @@ public class FaqControllerImpl implements FaqController {
         return mav;
     }
 
+    //FAQ 글 추가하기
     @Override
     @RequestMapping("/notice/addFaq.do")
     public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -63,5 +64,19 @@ public class FaqControllerImpl implements FaqController {
         return mav;
     }
 
+    //FAQ 수정반영하기
+    @Override
+    @RequestMapping("/notice/modFaq.do")
+    public ModelAndView modFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String faq_id = request.getParameter("faq_id");
+        faqDTO.setTitle(title);
+        faqDTO.setContent(content);
+        faqDTO.setFaq_id(Long.parseLong(faq_id));
+        faqService.modFaq(faqDTO);
+        ModelAndView mav = new ModelAndView("redirect:/notice/faqList.do");
+        return mav;
+    }
 
 }

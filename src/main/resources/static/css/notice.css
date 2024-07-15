@@ -169,10 +169,27 @@
     align-items: center;
 }
 
+.answerop  input {
+    background-color: unset;
+    border: none;
+    font-size: 24px;
+    font-weight: 400;
+}
+
 .answer {
     width: 100%;
     padding: 15px;
     background-color: rgba(139, 139, 218, 0.3);
+}
+
+.answer > input {
+    border: none;
+    background-color: unset;
+    font-size: 18px;
+}
+
+#modify_submit_btn {
+    display: none;
 }
 
 
