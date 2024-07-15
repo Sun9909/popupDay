@@ -29,9 +29,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             select count(*) from faq_tbl
         ]]>
     </select>
-
+    <!-- faq 글 수정하기 -->
     <update id="changeFaq" parameterType="faqDTO">
         update faq_tbl set title=#{title}, content=#{content} where faq_id = #{faq_id}
     </update>
-
+    <!-- faq 글 삭제하기 -->
+    <delete id="deleteFaq" parameterType="int">
+        delete from faq_tbl where faq_id = #{faq_id}
+    </delete>
 </mapper>

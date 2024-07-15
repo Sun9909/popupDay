@@ -53,7 +53,7 @@
                                </div>
                                 <div id="rewrite_btn">
                                     <input type="button" value="수정" class="modify_button">
-                                    <input type="button" value="삭제">
+                                    <input type="button" value="삭제" th:onclick="|fn_remove_faq('/notice/removeFaq.do', ${faq.faq_id})|">
                                 </div>
                             </li>
                         </form>
