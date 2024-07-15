@@ -29,11 +29,12 @@ public class LoginControllerImpl implements LoginController {
     }
 
     //login.html에서 정보를 전달용
+    @Override
     @GetMapping("/login/login.do")
     public ModelAndView login(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-            @RequestParam(value = "action", required = false) String action,
+                              @RequestParam(value = "action", required = false) String action,
                               @RequestParam(value = "result", required = false) String result,
-                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+                              HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         session.setAttribute("action", action);
         ModelAndView mav = new ModelAndView();
@@ -123,6 +124,34 @@ public class LoginControllerImpl implements LoginController {
     }
 
 
+    @Override
+    @GetMapping("/login/join.do")
+    public ModelAndView showjoin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/login/join");
+        return modelAndView;
+    }
+
+
+    @Override
+    @GetMapping("/login/choiceForm.do")
+    public ModelAndView showChoiceForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/login/choiceForm");
+        return modelAndView;
+    }
+
+    @Override
+    @GetMapping("/login/businessForm.do")
+    public ModelAndView showbusinessForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/login/businessForm");
+        return modelAndView;
+    }
+
+    @Override
+    @GetMapping("/login/memberForm.do")
+    public ModelAndView showmemberForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/login/memberForm");
+        return modelAndView;
+    }
 
 
 }

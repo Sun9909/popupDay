@@ -6,12 +6,24 @@
     margin-top: 0;
     padding-top: 40px;
 }
+.login {
+    text-align: center;
+    margin: 30px auto;
+}
 .join {
     text-align: center;
     margin: 30px auto;
 }
+.login > p {
+    margin-bottom: 40px;
+}
 .join > p {
     margin-bottom: 40px;
+}
+.login > button {
+    width: 100px;
+    height: 40px;
+    border: none;
 }
 .join > button {
     width: 100px;
