@@ -51,8 +51,8 @@ public class ReviewServiceImpl implements ReviewService {
         Map listMap=new HashMap<>();
         ReviewDTO reviewDTO = reviewDAO.selectReview(review_id); // 선택한 글번호의 정보 가져오기
         List<ReviewImageDTO> imageFiles = reviewDAO.selectImageList(review_id); //선택한 글번호의 이미지
-        listMap.put("imageFileList",imageFiles);
-        listMap.put("reviewDTO",reviewDTO);
+        listMap.put("imageFiles",imageFiles);
+        listMap.put("review",reviewDTO);
         return listMap;
     }
 }
