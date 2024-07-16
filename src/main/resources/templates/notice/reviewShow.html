@@ -43,13 +43,14 @@
                     </div>
                 </div>
                 <div class="review-mbtn">
-                    <input type="button" value="수정반영하기">
+                    <input type="button" value="수정반영하기" onclick="fn_modify_article()">
+                    <input type="button" value="취소" onclick="toList()">
                 </div>
                 <div class="review-btn">
-                    <input type="button" value="수정하기">
+                    <input type="button" value="수정하기" onclick="fn_enable(this.form)">
                     <input type="button" value="삭제하기">
                 </div>
-                <input type="button" value="리스트로 돌아가기">
+                <input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
             </form>
         </div>
     </div>

@@ -92,4 +92,18 @@
         obj.submit();
     }
 
+    //삭제 반영하기
+    function fn_remove_faq(url, faq_id){
+        let del_form = document.createElement("form");
+        del_form.setAttribute("action", url);
+        del_form.setAttribute("method","post");
+        let faqNoInput = document.createElement("input");
+        faqNoInput.setAttribute("type","hidden");
+        faqNoInput.setAttribute("name","faq_id");
+        faqNoInput.setAttribute("value", faq_id);
+        del_form.appendChild(faqNoInput);
+        document.body.appendChild(del_form);
+        del_form.submit();
+    }
+
 
