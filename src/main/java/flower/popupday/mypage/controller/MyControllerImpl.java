@@ -58,7 +58,7 @@ public class MyControllerImpl implements MyController {
         Long qnaCount = myService.getQnaCount(myDTO.getId());
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
-        ModelAndView mav = new ModelAndView("mypage/memberPage");
+        ModelAndView mav = new ModelAndView("/mypage/memberPage");
         mav.addObject("my", myDTO);
         mav.addObject("reviewCount", reviewCount);
         mav.addObject("recommentCount", recommentCount);
@@ -94,6 +94,7 @@ public class MyControllerImpl implements MyController {
         Long PopupCount = myService.getPopupCount(mypopupDTO.getUser_id());
 
         ModelAndView mav = new ModelAndView("/mypage/myPopup");
+
         mav.addObject("myPopup", myPopup);
         mav.addObject("PopupCount", PopupCount);
         return mav;

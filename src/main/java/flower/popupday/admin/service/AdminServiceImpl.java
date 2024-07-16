@@ -1,6 +1,7 @@
 package flower.popupday.admin.service;
 
 import flower.popupday.admin.dao.AdminDAO;
+import flower.popupday.admin.dto.AdminDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,17 @@ public class AdminServiceImpl implements AdminService {
     public List memberShip() throws DataAccessException {
         List membersList=adminDAO.selectAllMembersList();
         return membersList;
+    }
+
+    @Override
+    public AdminDTO findMember(Long id) throws DataAccessException {
+        AdminDTO adminDTO=adminDAO.selectMemberById(id);
+        return adminDTO;
+    }
+
+    @Override
+    public void updateMember(AdminDTO adminDTO) throws DataAccessException {
+        adminDAO.updateMember(adminDTO);
     }
 
     @Override
