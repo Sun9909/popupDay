@@ -46,14 +46,22 @@ public class PopupControllerImpl implements PopupController {
         Enumeration enu = multipartRequest.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
-            String value = multipartRequest.getParameter(name);
+            String[] value = multipartRequest.getParameterValues(name);
+            if (value.length == 1) {
+                // 단일 값인 경우
+                popupMap.put(name, value[0]);
+            } else {
+                // 다중 값인 경우 (해시태그)
+                List<String> valueList = Arrays.asList(value);
+                popupMap.put(name, valueList);
+            }
             // 해시태그 처리 시작
 
 //            if (name.equals("hash_tag")) {
 //                List<String> hashTagList = popupMap.containsKey("hash_tag")
 //                        ? (List<String>) popupMap.get("hash_tag")
 //                        : new ArrayList<>();
-//                hashTagList.add(value); // 해시태그 값을 리스트에 추가
+//                hashTagList.add(value[]); // 해시태그 값을 리스트에 추가
 //                popupMap.put("hash_tag", hashTagList); // 해시태그를 리스트로 추가
 //            } else {
 //                popupMap.put(name, value); // 기타 파라미터는 그대로 추가

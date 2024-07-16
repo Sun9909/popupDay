@@ -9,6 +9,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,37 +23,57 @@ public class PopupServiceImpl implements PopupService {
     @Transactional
     @Override
     public Long addPopup(Map<String, Object> popupMap) throws DataAccessException {
-
-
         Long popup_id = popupDAO.getNewPopupId(); // 새로운 팝업 ID 가져오기
         popupMap.put("popup_id", popup_id); // Map에 팝업 ID 매핑
-
         // 팝업 등록
         popupDAO.insertNewPopup(popupMap);
-
-
         // 이미지 파일 등록 처리
         if (popupMap.get("imageFileList") != null) {
             popupDAO.insertNewImages(popupMap);
         }
-
         // 해시태그 등록 처리
         List<String> hashTags = (List<String>) popupMap.get("hash_tag");
-
-        logger.info("해시태그 리스트: {}", hashTags);
-
         if (hashTags != null && !hashTags.isEmpty()) {
-            popupDAO.insertHashTag(hashTags);
+            List<String> nonExistingHashTags = new ArrayList<>();
+            for (String tag : hashTags) {
+                if (!popupDAO.checkHashTagExists(tag)) {
+                    nonExistingHashTags.add(tag);
+                }
+            }
+            if (!nonExistingHashTags.isEmpty()) {
+                // Map 형태로 변환하여 DAO에 전달
+                List<Map<String, Object>> tagMapList = new ArrayList<>();
+                for (String tag : nonExistingHashTags) {
+                    Map<String, Object> tagMap = new HashMap<>();
+                    tagMap.put("tag", tag);
+                    tagMapList.add(tagMap);
+                }
+                popupDAO.insertHashTag(tagMapList);  // DAO에서는 List<Map<String, Object>>을 처리할 수 있도록 구현되어야 함
+            }
         }
-
+        // 해시태그 등록 처리
 //        List<String> hashTags = (List<String>) popupMap.get("hash_tag");
 //        if (hashTags != null && !hashTags.isEmpty()) {
 //            for (String tag : hashTags) {
-//                HashTagDTO hashTagDTO = new HashTagDTO();
-//                //hashTagDTO.setHash_tag_id(popup_id);
-//                hashTagDTO.setHash_tag(tag);
-//                popupDAO.insertHashTag(hashTagDTO);
+//                if (!popupDAO.checkHashTagExists(tag)) {  // DB에 존재하는지 확인
+//                    Long hash_tag_id = popupDAO.getNewHashTagId(); // 새로운 해시태그 ID 생성
+//                    popupDAO.insertHashTag(tag);  // 새로운 해시태그 DB에 삽입
 //
+//                    // 팝업과 해시태그의 연결 정보 추가
+//                    Map<String, Object> paramMap = new HashMap<>();
+//                    paramMap.put("popup_id", popup_id);
+//                    paramMap.put("hash_tag_id", hash_tag_id);
+//                    popupDAO.insertPopupHashTag(paramMap);
+//                } else {
+//                    // 이미 존재하는 해시태그의 ID 가져오기
+//                    Long hash_tag_id = popupDAO.getHashTagIdByTag(tag);
+//
+//                    // 팝업과 해시태그의 연결 정보 추가
+//                    Map<String, Object> paramMap = new HashMap<>();
+//                    paramMap.put("popup_id", popup_id);
+//                    paramMap.put("hash_tag_id", hash_tag_id);
+//                    popupDAO.insertPopupHashTag(paramMap);
+//                }
 //            }
 //        }
 

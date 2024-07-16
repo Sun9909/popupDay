@@ -42,10 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 글번호 생성 -->
     <select id="getNewPopupId" resultType="Long">
-      <![CDATA[
-            select max(popup_id)+1 from popup_tbl
+    <![CDATA[
+        select COALESCE(max(popup_id) + 1, 1) from popup_tbl
         ]]>
-   </select>
+</select>
 
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 해시태그 번호 생성 -->
     <select id="getNewHashTagId" resultType="Long">
-        select max(hash_tag_id)+1 from hash_tag_tbl
+        select COALESCE(max(hash_tag_id) + 1, 1) from hash_tag_tbl
     </select>
 
 <!--    <insert id="insertHashTag" parameterType="flower.popupday.popup.dto.HashTagDTO">-->
@@ -78,18 +78,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--        </foreach>-->
 <!--    </insert>-->
 
-    <insert id="insertHashTag" parameterType="java.util.Map">
-        <foreach collection="hashTags" item="tag" separator=",">
+<!--    <insert id="insertHashTag" parameterType="java.util.List">-->
+<!--        <foreach collection="list" item="tagMap" separator=",">-->
+<!--            INSERT INTO hash_tag_tbl (hash_tag)-->
+<!--            VALUES (#{tagMap.tag})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+    <insert id="insertHashTag" parameterType="java.util.List">
+        <foreach collection="tagMapList" item="tag" separator=";">
             INSERT INTO hash_tag_tbl (hash_tag)
-            VALUES (#{tag})
+            VALUES (#{tag.tag})
         </foreach>
     </insert>
 
-    <insert id="insertPopupHashTag" parameterType="flower.popupday.popup.dto.PopupHashTagDTO">
-        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)
-        VALUES (#{hash_tag_id}, #{popup_id})
-    </insert>
+<!--    <insert id="insertHashTag" parameterType="java.util.List">-->
+<!--        <foreach collection="list" item="tagMap" separator=";">-->
+<!--            INSERT INTO hash_tag_tbl (hash_tag)-->
+<!--            SELECT #{tagMap.tag}-->
+<!--            FROM dual-->
+<!--            WHERE NOT EXISTS (-->
+<!--            SELECT 1 FROM hash_tag_tbl WHERE hash_tag = #{tagMap.tag}-->
+<!--            )-->
+<!--        </foreach>-->
+<!--    </insert>-->
 
+    <select id="checkHashTagExists" resultType="boolean" parameterType="String">
+        SELECT EXISTS (
+            SELECT 1 FROM hash_tag_tbl WHERE hash_tag = #{tag}
+        )
+    </select>
+
+<!--    <insert id="insertPopupHashTag" parameterType="flower.popupday.popup.dto.PopupHashTagDTO">-->
+<!--        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)-->
+<!--        VALUES (#{hash_tag_id}, #{popup_id})-->
+<!--    </insert>-->
+
+<!--    <select id="getHashTagIdByTag" resultType="Long" parameterType="String">-->
+<!--        SELECT hash_tag_id-->
+<!--        FROM hash_tag_tbl-->
+<!--        WHERE hash_tag = #{tag}-->
+<!--    </select>-->
 
 
 
