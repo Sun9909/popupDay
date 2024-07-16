@@ -55,4 +55,14 @@ public class ReviewServiceImpl implements ReviewService {
         listMap.put("review",reviewDTO);
         return listMap;
     }
+
+    //후기 수정반영하기
+    @Override
+    public void modReview(Map reviewMap) throws DataAccessException {
+        reviewDAO.updateReview(reviewMap);
+        reviewDAO.updateImage(reviewMap);
+    }
+
+
+
 }

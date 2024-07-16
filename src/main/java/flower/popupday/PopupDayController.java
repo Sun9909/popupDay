@@ -13,7 +13,7 @@ public class PopupDayController {
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("board/popupForm");
+        mav.setViewName("main");
         return mav;
     }
 }
