@@ -16,4 +16,8 @@ public interface AdminDAO {
     public void updateMember(AdminDTO adminDTO) throws DataAccessException;
 
     public void delMember(Long id) throws DataAccessException;
+
+    boolean checkId(String user_id) throws DataAccessException;
+
+    boolean checkNikname(String user_nikname) throws DataAccessException;
 }

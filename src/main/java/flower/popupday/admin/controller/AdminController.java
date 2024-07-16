@@ -16,5 +16,9 @@ public interface AdminController {
 
     public ModelAndView delMember(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //아이디 중복 확인
+    boolean checkId(String user_id);
 
+    //닉네임 중복 확인
+    boolean checkNikname(String user_nikname);
 }
