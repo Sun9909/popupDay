@@ -20,6 +20,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from user_tbl
     </select>
 
+    <select id="selectMemberById" parameterType="Long" resultType="adminDTO">
+        select * from user_tbl where id=#{id}
+    </select>
+
+    <update id="updateMember" parameterType="adminDTO">
+        update user_tbl set user_id=#{user_id}, user_nikname=#{user_nikname} where id=#{id}
+    </update>
+
     <delete id="delMember" parameterType="Long">
         delete from user_tbl where id=#{id}
     </delete>
