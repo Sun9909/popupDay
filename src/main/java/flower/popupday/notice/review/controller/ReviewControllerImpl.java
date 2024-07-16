@@ -50,7 +50,7 @@ public class ReviewControllerImpl implements ReviewController {
         return mav; // 포워딩
     }
 
-    //후기 상세페이지로 이동
+    //후기 상세보기
     @Override
     public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map reviewArticle = reviewService.showReview(review_id);
