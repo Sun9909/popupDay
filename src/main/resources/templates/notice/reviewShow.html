@@ -35,21 +35,21 @@
                     <div th:each="imgList, status: ${reviewArticle.imageFiles}">
                         <div>
                             <div>
-                                <input type="hidden" th:name="'originFileName''+ ${status.count}" th:value="${imgList.image_file_name}">
+                                <input type="hidden" th:name="'originFileName'+ ${status.count}" th:value="${imgList.image_file_name}">
                                 <input type="hidden" th:name="'review_image_id' + ${status.count}" th:value="${imgList.review_image_id}">
                                 <img th:id="'preview' + ${status.count}" th:src="@{/download.do(articleNo=${imgList.review_image_id},imageFileName=${imgList.image_file_name})}">
                             </div>
-                            <div><input type="file" class="id_imgFile" th:name="'image_file_name' + ${status.count}" th:onchange="readImage(this,${status.count})" disabled></div>
+                            <div><input type="file" id="id_imgFile" th:name="'image_file_name' + ${status.count}" th:onchange="readImage(this,${status.count})" disabled></div>
                         </div>
                     </div>
                 </div>
-                <div class="review-mbtn">
+                <div id="review-mbtn">
                     <input type="button" value="수정반영하기" onclick="review_modify(reviewArticle)">
                     <input type="button" value="취소" onclick="toList(reviewArticle)">
                 </div>
-                <div class="review-btn">
+                <div id="review-btn">
                     <input type="button" value="수정하기" onclick="review_enable(this.form)">
-                    <input type="button" value="삭제하기">
+                    <input type="button" value="삭제하기" th:onclick="|fn_remove_review('/notice/removeReview.do', ${reviewArticle.review.review_id})|">
                 </div>
                 <input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
             </form>
