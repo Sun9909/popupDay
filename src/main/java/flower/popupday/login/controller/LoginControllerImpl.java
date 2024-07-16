@@ -30,7 +30,7 @@ public class LoginControllerImpl implements LoginController {
 
     // 로그인 폼 이동
     @Override
-    @RequestMapping ("/login/login.do")
+    @RequestMapping ("/login.do")
     public ModelAndView login(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                               @RequestParam(value = "action", required = false) String action,
                               @RequestParam(value = "result", required = false) String result,
@@ -45,7 +45,7 @@ public class LoginControllerImpl implements LoginController {
 
     // 로그인 값저장
     @Override
-    @PostMapping("/login/log.do")
+    @PostMapping("/log.do")
     public ModelAndView memberLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                                     RedirectAttributes rAttr,
                                     HttpServletRequest request,

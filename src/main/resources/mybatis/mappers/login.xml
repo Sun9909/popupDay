@@ -27,7 +27,7 @@
 
     <insert id="insertLogin" parameterType="loginDTO">
         <![CDATA[
-        insert into user_tbl values(#{id}, #{user_id}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
+        insert into user_tbl values(#{id}, #{user_id}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), '일반', 'active')
         ]]>
     </insert>
 
