@@ -409,6 +409,10 @@
     font-weight: 600;
 }
 
+.review-mbtn {
+    display: none;
+}
+
 
 
 /*페이지설정*/

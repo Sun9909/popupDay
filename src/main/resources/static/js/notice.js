@@ -65,7 +65,7 @@
         });
     });
     
-    //제이쿼리로 써야한다
+    //FAQ제이쿼리로 써야한다
     $(function() {
         $(".modify_button").click(function() {
             // 클릭된 버튼의 부모 요소를 선택합니다.
@@ -86,13 +86,13 @@
         });
     });
 
-    // 수정 반영하기
+    // FAQ수정 반영하기
     function faq_modify(obj) {
         obj.action="/notice/modFaq.do";
         obj.submit();
     }
 
-    //삭제 반영하기
+    //FAQ삭제 반영하기
     function fn_remove_faq(url, faq_id){
         let del_form = document.createElement("form");
         del_form.setAttribute("action", url);
@@ -104,6 +104,24 @@
         del_form.appendChild(faqNoInput);
         document.body.appendChild(del_form);
         del_form.submit();
+    }
+
+    // 후기 수정하기
+    function review_enable(obj) {
+        document.getElementById("review-mbtn").style.display="block";
+        document.getElementById("review_btn").style.display="none";
+        document.getElementById("review_title").disabled=false;
+        document.getElementById("review_content").disabled=false;
+        let imgName=document.getElementById("id_imgFile");
+        if(imgName != null) {
+            imgName.disabled=false;
+        } // if end
+    }
+
+    //후기 수정 반영하기
+    function review_modify(obj) {
+        obj.action="/notice/modReview.do";
+        obj.submit();
     }
 
 
