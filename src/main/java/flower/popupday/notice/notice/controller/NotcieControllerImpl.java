@@ -175,13 +175,14 @@ public class NotcieControllerImpl implements NoticeController {
                     noticeimageDTO.setImage_file_name(fileName);
 
                     noticeimageDTO.setImage_file_name(fileName);
-
+                    // 오류나서 주석처리 했음
                     //noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
                     imageFileList.add(noticeimageDTO);
                 }
                 noticeMap.put("imageFileList", imageFileList);
             }
             noticeMap.put("notice_id", "kim");
+            // 오류나서 주석처리 했음
             //(imageFileList != null && imageFileList.size() != 0)
             try  {
                 int cnt=0;
