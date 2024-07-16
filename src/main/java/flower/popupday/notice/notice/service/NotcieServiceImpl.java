@@ -38,9 +38,9 @@ public class NotcieServiceImpl implements NoticeService {
 
     // 여러 개의 이미지 추가
     public int addNotice(Map<String, Object> noticeMap) throws DataAccessException {
-//        int notice_id = noticeDAO.getNewNoticeNo();
-//        noticeMap.put("notice_id", notice_id);
-        int notice_id = noticeDAO.insertNewNotice(noticeMap);
+        int notice_id = noticeDAO.getNewNoticeNo();
+        noticeMap.put("notice_id", notice_id);
+        noticeDAO.insertNewNotice(noticeMap);
         if (noticeMap.get("imagesFileList") != null) {
             noticeDAO.insertNewImages(noticeMap);
         }
