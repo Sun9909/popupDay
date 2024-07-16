@@ -174,4 +174,9 @@ public class LoginControllerImpl implements LoginController {
     public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
         return loginService.checkNikname(user_nikname); // 닉네임 중복 확인 서비스 호출
     }
+
+    @Override
+    public ModelAndView removeNotice(int noticeNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
+    }
 }

@@ -178,13 +178,14 @@ public class NotcieControllerImpl implements NoticeController {
 
                     noticeimageDTO.setImage_file_name(fileName);
 
-                    noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
+                    //noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
                     imageFileList.add(noticeimageDTO);
                 }
                 noticeMap.put("imageFileList", imageFileList);
             }
             noticeMap.put("notice_id", "kim");
-            try {imageFileList != null && imageFileList.size() != 0) {
+            //(imageFileList != null && imageFileList.size() != 0)
+            try  {
                 int cnt=0;
                 for(NoticeimageDTO noticeimageDTO : imageFileList) {
                     cnt++;
@@ -198,7 +199,7 @@ public class NotcieControllerImpl implements NoticeController {
                         File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
                     }
                 }//for end
-            }//if end
+            //if end
 
         }catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
 			/*if(imageFileList != null && imageFileList.size() != 0) {
@@ -212,6 +213,11 @@ public class NotcieControllerImpl implements NoticeController {
             } // catch end
         ModelAndView mav=new ModelAndView("redirect:/notic/noticeList.do");
         return mav;
+    }
+
+    @Override
+    public ModelAndView removeNotice(Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
     }
 
     //이미지삭제
