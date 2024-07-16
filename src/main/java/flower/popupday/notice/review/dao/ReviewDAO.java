@@ -24,4 +24,8 @@ public interface ReviewDAO {
     public ReviewDTO selectReview(int review_id) throws DataAccessException;
 
     public List selectImageList(int review_id) throws DataAccessException;
+
+    public void updateReview(Map reviewMap) throws DataAccessException;
+
+    public void updateImage(Map reviewMap) throws DataAccessException;
 }

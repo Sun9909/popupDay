@@ -305,3 +305,13 @@
     ];
 
 })(jQuery);
+
+function fn_articleForm(isLogOn, articleForm, loginForm) {
+    if(isLogOn===true) {
+        location.href=articleForm;
+    }else {
+        alert("isLogOn : " + isLogOn);
+        alert("로그인 후 사용가능합니다.");
+        location.href=loginForm + '?action=/main.do';
+    }
+}
