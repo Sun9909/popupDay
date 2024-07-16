@@ -52,12 +52,13 @@ public class ReviewControllerImpl implements ReviewController {
 
     //후기 상세보기
     @Override
+    @RequestMapping("/notice/showReview.do")
     public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map reviewArticle = reviewService.showReview(review_id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/reviewShow");
         mav.addObject("reviewArticle", reviewArticle);
-        return null;
+        return mav;
     }
     
     //후기 작성페이지로 이동
