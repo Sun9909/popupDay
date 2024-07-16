@@ -45,45 +45,20 @@ public class PopupControllerImpl implements PopupController {
         Enumeration enu = multipartRequest.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
-            String value = multipartRequest.getParameter(name);
-            // 해시태그 처리 시작
-
-            if (name.equals("hash_tag")) {
-                List<String> hashTagList = popupMap.containsKey("hash_tag")
-                        ? (List<String>) popupMap.get("hash_tag")
-                        : new ArrayList<>();
-                hashTagList.add(value); // 해시태그 값을 리스트에 추가
-                popupMap.put("hash_tag", hashTagList); // 해시태그를 리스트로 추가
+            String[] value = multipartRequest.getParameterValues(name);
+            if (value.length == 1) {
+                // 단일 값인 경우
+                popupMap.put(name, value[0]);
             } else {
-                popupMap.put(name, value); // 기타 파라미터는 그대로 추가
+                // 다중 값인 경우 (해시태그)
+                List<String> valueList = Arrays.asList(value);
+                popupMap.put(name, valueList);
             }
-//            Map<String, Object> popupMap = new HashMap<>();
-//            Enumeration enu = multipartRequest.getParameterNames();
-//            while (enu.hasMoreElements()) {
-//                String name = (String) enu.nextElement();
-//                String[] values = multipartRequest.getParameterValues(name);
-//
-//                if (values != null && values.length > 0) {
-//                    // 해시태그 처리
-//                    if (name.equals("hash_tag")) {
-//                        List<String> hashTagList = Arrays.asList(values); // values를 리스트로 변환
-//                        popupMap.put("hash_tag", hashTagList);
-//                    } else {
-//                        // 기타 파라미터는 그대로 추가
-//                        popupMap.put(name, values); // values 배열 전체를 저장
-//                    }
-//                }
-//            // 해시태그 처리 끝
-//            List<String> hashList = multiFileUpload(multipartRequest);
-//            List<HashTagDTO> hashTagList = new ArrayList<>();
-//            if (hashTagList != null && !hashList.isEmpty()) {
-//                for (String hashTag : hashList) {
-//                    HashTagDTO hashTagDTO = new HashTagDTO();
-//                    hashTagDTO.setHash_tag(hashTag);
-//                    hashTagList.add(hashTagDTO);
-//                }
-//                popupMap.put("hashTagList", hashTagList);
-//            }
+        }
+        // 해시태그 처리 , id
+        String[] hashTags = multipartRequest.getParameterValues("hash_tag");
+        if (hashTags != null && hashTags.length > 0) {
+            popupMap.put("hash_tag", Arrays.asList(hashTags));
         }
 
         // 파일 업로드 처리

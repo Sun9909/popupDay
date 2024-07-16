@@ -1,9 +1,7 @@
 package flower.popupday.popup.dao;
 
 import flower.popupday.popup.dto.HashTagDTO;
-import flower.popupday.popup.dto.PopupHashTagDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -28,7 +26,15 @@ public interface PopupDAO {
 
     public Long getNewHashTagId() throws DataAccessException;
 
-    public void insertHashTag(List<String> hashTags) throws DataAccessException;
+    //public void insertHashTag(List<String> hashTags) throws DataAccessException;
 
-    void insertPopupHashTag(PopupHashTagDTO popupHashTagDTO);
+    public void insertPopupHashTag(Map<String, Object> paramMap) throws DataAccessException;
+
+    public void insertHashTag(List tagMapList) throws  DataAccessException;
+
+    public boolean checkHashTagExists(String tag) throws  DataAccessException;
+
+    public Long getHashTagIdByTag(String tag) throws  DataAccessException;
+
+    public void insertHashTag(String tag) throws  DataAccessException;
 }
