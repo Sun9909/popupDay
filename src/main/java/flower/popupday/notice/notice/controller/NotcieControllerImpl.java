@@ -1,18 +1,15 @@
 package flower.popupday.notice.notice.controller;
 
-import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.notice.dao.NoticeDAO;
 import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.notice.dto.NoticeimageDTO;
 import flower.popupday.notice.notice.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,21 +59,24 @@ public class NotcieControllerImpl implements NoticeController {
         return mav; // 객체를 변환하여 뷰로 포워딩
     }
 
-
+    // 오프셋 계산 메서드
+    //private int calculateOffset(int section, int pageNum) {
+    //   return (section - 1) * 100 + (pageNum - 1) * 10;
+    //}
 
     @Override
     @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
     public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("/notice/noticeForm");
+        mav.setViewName("notice/noticeForm");
         return mav;
     }
 
 
     //글쓰기에 여러개 이미지 추가
     @Override
-    @RequestMapping("/notice/addNotice.do")
+    @RequestMapping("/admin/addNotice.do")
     //addArticle메서드는(adminNotice.html(<여기안에있음)) MultipartHttpServletRequest 객체를 사용하여 다중 파일 업로드 처리.
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
         //인코딩 설정 및 초기화
@@ -91,6 +91,7 @@ public class NotcieControllerImpl implements NoticeController {
             String value = multipartRequest.getParameter(name);
             noticeMap.put(name, value);
         }//while end
+
         //파일 업로드 처리
         List<String> fileList = multiFileUpload(multipartRequest);
         List<NoticeimageDTO> imageFileList = new ArrayList<>();
@@ -99,27 +100,25 @@ public class NotcieControllerImpl implements NoticeController {
         if (fileList != null && fileList.size() != 0) { // fileList가 비어 있지 않을 때  = if (fileList != null && !fileList.isEmpty())
             for (String fileName : fileList) {
                 NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
-                noticeimageDTO.setImage_file_name(fileName);
+                noticeimageDTO.setImageFileName(fileName);
                 imageFileList.add(noticeimageDTO); // NoticeimageDTO 객체에 저장
             }
             noticeMap.put("imageFileList", imageFileList);
         }
 
-        //세션에서 사용자 정보 가져오기(로그인 해서 들어가야함.)
-
-        HttpSession session = multipartRequest.getSession();
-        // 회원정보DTO user테이블에 있는 아이디를 가지고 와야함 회원정보? 아마??
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
-        String user_id = String.valueOf(loginDTO.getId());
-        noticeMap.put("user_id", user_id);
-
+//        //세션에서 사용자 정보 가져오기
+//        HttpSession session = multipartRequest.getSession();
+//        // 회원정보DTO user테이블에 있는 아이디를 가지고 와야함 회원정보? 아마??
+//        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+//        String id = memberDTO.getId();
+//        noticeMap.put("id", id);
+//
         //게시글 추가 및 이미지 파일 이동
         try {
-            System.out.println(noticeMap);
             long notice_id = noticeService.addNotice(noticeMap); // 메서드를 호출해서 DB에 추가 및 새로운 게시물 ID받아  notice_id에 저장
             if (imageFileList != null && imageFileList.size() != 0) { //!imageFileList.isEmpty()
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
-                    imageFileName = noticeimageDTO.getImage_file_name(); // imageFileList 각 항목을 돌면서 NoticeimageDTO 객체에 이미지 파일 이름을 가져옴
+                    imageFileName = noticeimageDTO.getImageFileName(); // imageFileList 각 항목을 돌면서 NoticeimageDTO 객체에 이미지 파일 이름을 가져옴
                     File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileName); //원본파일(임시) 경로지정
                     File destFile = new File(ARRICLE_IMG_REPO + "\\" + notice_id); //대상파일(최종) 경로 지정
                     FileUtils.moveToDirectory(srcFile, destFile, true); // //메서드를 사용하여 파일을 임시 디렉터리에 최종 저장 후 디렉터리 이동
@@ -128,7 +127,7 @@ public class NotcieControllerImpl implements NoticeController {
         } catch (Exception e) {
             if (imageFileList != null && imageFileList.size() != 0) { //!imageFileList.isEmpty()
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
-                    imageFileName = noticeimageDTO.getImage_file_name();
+                    imageFileName = noticeimageDTO.getImageFileName();
                     File SrcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileList); //원본파일(임시) 경로 지정
                     SrcFile.delete(); // 예외 발생 시 임시 디렉터리 파일 삭제
                 } //for end
@@ -151,83 +150,14 @@ public class NotcieControllerImpl implements NoticeController {
     }
 
     @Override
-    @RequestMapping("/notice/modNotice.do")
     public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-        String image_file_name = null;
-        multipartRequest.setCharacterEncoding("utf-8");
-        Map<String, Object> noticeMap = new HashMap<>();
-        Enumeration enu = multipartRequest.getParameterNames();
-        while (enu.hasMoreElements()) {
-            String name = (String) enu.nextElement();
-            String value = multipartRequest.getParameter(name);
-            System.out.println(name + " : " + value);
-            noticeMap.put(name, value);
-        } // while end
-
-            List<String> fileList = multiFileUpload(multipartRequest);
-            String noticeNo = (String) noticeMap.get("noticeNo");
-            List<NoticeimageDTO> imageFileList = new ArrayList<>();
-            int modityNumber = 0;
-
-            //두개의 테이블을 동시에 사용
-            if(fileList != null && fileList.size() !=0) {
-                for(String fileName:fileList) {
-                    modityNumber++;
-                    NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
-                    noticeimageDTO.setImage_file_name(fileName);
-
-                    noticeimageDTO.setImage_file_name(fileName);
-
-                    noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
-                    imageFileList.add(noticeimageDTO);
-                }
-                noticeMap.put("imageFileList", imageFileList);
-            }
-            noticeMap.put("notice_id", "kim");
-            try {imageFileList != null && imageFileList.size() != 0) {
-                int cnt=0;
-                for(NoticeimageDTO noticeimageDTO : imageFileList) {
-                    cnt++;
-                    image_file_name = noticeimageDTO.getImage_file_name();
-                    if(image_file_name != null && image_file_name != "") {
-                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name);
-                        File desDir = new File(ARRICLE_IMG_REPO + "\\" + noticeNo);
-                        FileUtils.moveFileToDirectory(srcFile, desDir, true);
-                        String OrginalFileName=(String)noticeMap.get("OrginalFileName" + cnt);
-                        System.out.println("이전 이미지 " + OrginalFileName);
-                        File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
-                    }
-                }//for end
-            }//if end
-
-        }catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
-			/*if(imageFileList != null && imageFileList.size() != 0) {
-				for(NoticeimageDTO noticeimageDTO : imageFileList) { // 이미지 전부
-					image_file_name = noticeimageDTO.getImage_file_name();
-					File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileList);
-					srcFile.delete(); // 오류 발생시 temp 이미지 삭제
-				} // for end
-			} // if end*/
-                e.printStackTrace(); // 글쓰기 수행중 오류 temp에 있는 이미지가 붕뜸
-            } // catch end
-        ModelAndView mav=new ModelAndView("redirect:/notic/noticeList.do");
-        return mav;
+        return null;
     }
 
-    //이미지삭제
     @Override
-    @PostMapping("/notice/removeNotice.do")
-    public ModelAndView removeNotice(@RequestParam("noticeNo") int noticeNo, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-       noticeService.removeNotice((long) noticeNo);
-       File imgDir = new File(ARRICLE_IMG_REPO + " \\" + noticeNo);
-       if(imgDir.exists()) {
-           FileUtils.deleteDirectory(imgDir); // 이 디렉토리(폴더)를 삭제
-        }
-        ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
-        return mav;
+    public ModelAndView removeNotice(Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
     }
-
 
     // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
     public String fileUpoad(MultipartHttpServletRequest multipartrequest) throws Exception {
