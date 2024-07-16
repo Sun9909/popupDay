@@ -15,12 +15,12 @@
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="question-form">
-            <form action="" method="post">
+            <form action="/notice/addQna.do" method="post">
                 <div class="question">
-                    <input  id="title" type="text" placeholder="문의 제목" >
+                    <input name="title" id="title" type="text" placeholder="문의 제목" > <!-- name이 가져감.-->
                 </div>
                 <div class="question">
-                    <textarea  id="content" placeholder="문의내용을 입력하세요" rows="15" cols="200"></textarea>
+                    <textarea name="content" id="content" placeholder="문의내용을 입력하세요" rows="15" cols="200"></textarea>
                 </div>
                 <div class="question">
                     <textarea id="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100"></textarea>

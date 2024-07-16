@@ -12,6 +12,12 @@
         <result property="date_created" column="date_created"/>
         <result property="write" column="write"/>
     </resultMap>
+
+    <resultMap type="NotcieimageDTO" id="imgResult">
+        <result property="notice_id" column="notice_id"/>
+        <result property="imageFileName" column="imageFileName"/>
+        <result property="notice_image_id" column="notice_image_id"/>
+    </resultMap>
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
 <!--    <select id="selectAllArticles" resultMap="articleResult" parameterType="int">-->
 <!--        select notice_id, title, content, date_created from notice_tbl order by notice_id desc LIMIT #{count}, 10-->
@@ -68,7 +74,7 @@
 
     <!-- 이미지 여러개 글 수정 (제목과 내용만 수정하면 돼서 간단함) -->
     <update id="updateArticle" parameterType="java.util.Map">
-        update notice_tbl set title=#{title}, content=#{content} where articleNo=#{notice_id}
+        update notice_tbl set title=#{title}, content=#{content} where notice_id=#{notice_id}
     </update>
 
     <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update-->

@@ -59,24 +59,21 @@ public class NotcieControllerImpl implements NoticeController {
         return mav; // 객체를 변환하여 뷰로 포워딩
     }
 
-    // 오프셋 계산 메서드
-    //private int calculateOffset(int section, int pageNum) {
-    //   return (section - 1) * 100 + (pageNum - 1) * 10;
-    //}
+
 
     @Override
     @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
     public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("notice/noticeForm");
+        mav.setViewName("/notice/noticeForm");
         return mav;
     }
 
 
     //글쓰기에 여러개 이미지 추가
     @Override
-    @RequestMapping("/admin/addNotice.do")
+    @RequestMapping("/notice/addNotice.do")
     //addArticle메서드는(adminNotice.html(<여기안에있음)) MultipartHttpServletRequest 객체를 사용하여 다중 파일 업로드 처리.
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
         //인코딩 설정 및 초기화
