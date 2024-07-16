@@ -151,7 +151,66 @@ public class NotcieControllerImpl implements NoticeController {
 
     @Override
     public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-        return null;
+        String image_file_name = null;
+        multipartRequest.setCharacterEncoding("utf-8");
+        Map<String, Object> noticeMap = new HashMap<>();
+        Enumeration enu = multipartRequest.getParameterNames();
+        while (enu.hasMoreElements()) {
+            String name = (String) enu.nextElement();
+            String value = multipartRequest.getParameter(name);
+            System.out.println(name + " : " + value);
+            noticeMap.put(name, value);
+        } // while end
+
+            List<String> fileList = multiFileUpload(multipartRequest);
+            String noticeNo = (String) noticeMap.get("noticeNo");
+            List<NoticeimageDTO> imageFileList = new ArrayList<>();
+            int modityNumber = 0;
+
+            //두개의 테이블을 동시에 사용
+            if(fileList != null && fileList.size() !=0) {
+                for(String fileName:fileList) {
+                    modityNumber++;
+                    NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
+                    noticeimageDTO.setImage_file_name(fileName);
+
+                    noticeimageDTO.setImage_file_name(fileName);
+
+                    //noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
+                    imageFileList.add(noticeimageDTO);
+                }
+                noticeMap.put("imageFileList", imageFileList);
+            }
+            noticeMap.put("notice_id", "kim");
+            //(imageFileList != null && imageFileList.size() != 0)
+            try  {
+                int cnt=0;
+                for(NoticeimageDTO noticeimageDTO : imageFileList) {
+                    cnt++;
+                    image_file_name = noticeimageDTO.getImage_file_name();
+                    if(image_file_name != null && image_file_name != "") {
+                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name);
+                        File desDir = new File(ARRICLE_IMG_REPO + "\\" + noticeNo);
+                        FileUtils.moveFileToDirectory(srcFile, desDir, true);
+                        String OrginalFileName=(String)noticeMap.get("OrginalFileName" + cnt);
+                        System.out.println("이전 이미지 " + OrginalFileName);
+                        File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
+                    }
+                }//for end
+            //if end
+
+        }catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
+			/*if(imageFileList != null && imageFileList.size() != 0) {
+				for(NoticeimageDTO noticeimageDTO : imageFileList) { // 이미지 전부
+					image_file_name = noticeimageDTO.getImage_file_name();
+					File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileList);
+					srcFile.delete(); // 오류 발생시 temp 이미지 삭제
+				} // for end
+			} // if end*/
+                e.printStackTrace(); // 글쓰기 수행중 오류 temp에 있는 이미지가 붕뜸
+            } // catch end
+        ModelAndView mav=new ModelAndView("redirect:/notic/noticeList.do");
+        return mav;
     }
 
     @Override
