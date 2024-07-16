@@ -9,11 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface QnaController {
     ModelAndView qnaForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
-    ModelAndView qnaList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 
     // Qna 목록 가져오기
-    @RequestMapping("/notice/qnaList.do")
-    ModelAndView qnaList(
+
+    public ModelAndView qnaList(
             @RequestParam(value = "section", required = false) String _section,
             @RequestParam(value = "pageNum", required = false) String _pageNum,
             HttpServletRequest request, HttpServletResponse response) throws Exception;

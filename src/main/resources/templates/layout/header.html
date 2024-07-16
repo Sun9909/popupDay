@@ -4,7 +4,15 @@
 <header id="admin_header" th:fragment="header">
 	<div class="images">
 		<a th:href="@{/main.do}"><img class="logo" th:src="@{/images/POPUP_DAY.svg}" alt="로고"></a>
-		<div>
+		<div th:if="${session.isLogOn==true and session.loginDTO.user_nikname != null}">
+			<div class="naming-bar">
+				<p th:text="${session.loginDTO.user_nikname} + '님'"></p>
+				<a th:href="@{/mypage/memberPage.do}">
+					<img class="user" th:src="@{/images/Group.svg}" alt="회원">
+				</a>
+			</div>
+		</div>
+		<div th:unless="${session.isLogOn==true and session.loginDTO.user_nikname != null}">
 			<a href="/login/join.do">
 				<img class="user" th:src="@{/images/Group.svg}" alt="회원">
 			</a>

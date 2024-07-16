@@ -18,4 +18,7 @@ public interface ReviewService {
 
     //후기 상세보기
     public Map showReview(int review_id) throws DataAccessException;
+
+    // 여러개의 이미지 글 수정
+    public void modReview(Map reviewMap) throws DataAccessException;
 }
