@@ -55,28 +55,11 @@ public class PopupControllerImpl implements PopupController {
                 List<String> valueList = Arrays.asList(value);
                 popupMap.put(name, valueList);
             }
-            // 해시태그 처리 시작
-
-//            if (name.equals("hash_tag")) {
-//                List<String> hashTagList = popupMap.containsKey("hash_tag")
-//                        ? (List<String>) popupMap.get("hash_tag")
-//                        : new ArrayList<>();
-//                hashTagList.add(value[]); // 해시태그 값을 리스트에 추가
-//                popupMap.put("hash_tag", hashTagList); // 해시태그를 리스트로 추가
-//            } else {
-//                popupMap.put(name, value); // 기타 파라미터는 그대로 추가
-//            }
-//            // 해시태그 처리 끝
-//            List<String> hashList = multiFileUpload(multipartRequest);
-//            List<HashTagDTO> hashTagList = new ArrayList<>();
-//            if (hashTagList != null && !hashList.isEmpty()) {
-//                for (String hashTag : hashList) {
-//                    HashTagDTO hashTagDTO = new HashTagDTO();
-//                    hashTagDTO.setHash_tag(hashTag);
-//                    hashTagList.add(hashTagDTO);
-//                }
-//                popupMap.put("hashTagList", hashTagList);
-//            }
+        }
+        // 해시태그 처리 , id
+        String[] hashTags = multipartRequest.getParameterValues("hash_tag");
+        if (hashTags != null && hashTags.length > 0) {
+            popupMap.put("hash_tag", Arrays.asList(hashTags));
         }
 
         // 파일 업로드 처리

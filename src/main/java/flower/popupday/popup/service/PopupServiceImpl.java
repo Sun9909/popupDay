@@ -50,33 +50,15 @@ public class PopupServiceImpl implements PopupService {
                 }
                 popupDAO.insertHashTag(tagMapList);  // DAO에서는 List<Map<String, Object>>을 처리할 수 있도록 구현되어야 함
             }
+            // 팝업과 해시태그 연결 정보 삽입
+            for (String tag : hashTags) {
+                Long hash_tag_id = popupDAO.getHashTagIdByTag(tag);
+                Map<String, Object> paramMap = new HashMap<>();
+                paramMap.put("popup_id", popup_id);
+                paramMap.put("hash_tag_id", hash_tag_id);
+                popupDAO.insertPopupHashTag(paramMap);
+            }
         }
-        // 해시태그 등록 처리
-//        List<String> hashTags = (List<String>) popupMap.get("hash_tag");
-//        if (hashTags != null && !hashTags.isEmpty()) {
-//            for (String tag : hashTags) {
-//                if (!popupDAO.checkHashTagExists(tag)) {  // DB에 존재하는지 확인
-//                    Long hash_tag_id = popupDAO.getNewHashTagId(); // 새로운 해시태그 ID 생성
-//                    popupDAO.insertHashTag(tag);  // 새로운 해시태그 DB에 삽입
-//
-//                    // 팝업과 해시태그의 연결 정보 추가
-//                    Map<String, Object> paramMap = new HashMap<>();
-//                    paramMap.put("popup_id", popup_id);
-//                    paramMap.put("hash_tag_id", hash_tag_id);
-//                    popupDAO.insertPopupHashTag(paramMap);
-//                } else {
-//                    // 이미 존재하는 해시태그의 ID 가져오기
-//                    Long hash_tag_id = popupDAO.getHashTagIdByTag(tag);
-//
-//                    // 팝업과 해시태그의 연결 정보 추가
-//                    Map<String, Object> paramMap = new HashMap<>();
-//                    paramMap.put("popup_id", popup_id);
-//                    paramMap.put("hash_tag_id", hash_tag_id);
-//                    popupDAO.insertPopupHashTag(paramMap);
-//                }
-//            }
-//        }
-
         return popup_id; // 등록된 팝업 ID 반환
     }
 

@@ -66,25 +66,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select COALESCE(max(hash_tag_id) + 1, 1) from hash_tag_tbl
     </select>
 
-<!--    <insert id="insertHashTag" parameterType="flower.popupday.popup.dto.HashTagDTO">-->
-<!--        INSERT INTO hash_tag_tbl (hash_tag_id, hash_tag)-->
-<!--        VALUES (#{hash_tag_id}, #{hash_tag})-->
-<!--    </insert>-->
-
-<!--    <insert id="insertHashTag" parameterType="java.util.List">-->
-<!--        <foreach collection="hash_tag" item="item" separator=";">-->
-<!--            INSERT INTO hash_tag_tbl (hash_tag_id, hash_tag)-->
-<!--            VALUES (#{item.hash_tag_id}, #{item.hash_tag})-->
-<!--        </foreach>-->
-<!--    </insert>-->
-
-<!--    <insert id="insertHashTag" parameterType="java.util.List">-->
-<!--        <foreach collection="list" item="tagMap" separator=",">-->
-<!--            INSERT INTO hash_tag_tbl (hash_tag)-->
-<!--            VALUES (#{tagMap.tag})-->
-<!--        </foreach>-->
-<!--    </insert>-->
-
     <insert id="insertHashTag" parameterType="java.util.List">
         <foreach collection="tagMapList" item="tag" separator=";">
             INSERT INTO hash_tag_tbl (hash_tag)
@@ -92,65 +73,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </insert>
 
-<!--    <insert id="insertHashTag" parameterType="java.util.List">-->
-<!--        <foreach collection="list" item="tagMap" separator=";">-->
-<!--            INSERT INTO hash_tag_tbl (hash_tag)-->
-<!--            SELECT #{tagMap.tag}-->
-<!--            FROM dual-->
-<!--            WHERE NOT EXISTS (-->
-<!--            SELECT 1 FROM hash_tag_tbl WHERE hash_tag = #{tagMap.tag}-->
-<!--            )-->
-<!--        </foreach>-->
-<!--    </insert>-->
-
+    <!-- 중복된 해시태그 필터-->
     <select id="checkHashTagExists" resultType="boolean" parameterType="String">
         SELECT EXISTS (
             SELECT 1 FROM hash_tag_tbl WHERE hash_tag = #{tag}
         )
     </select>
 
-<!--    <insert id="insertPopupHashTag" parameterType="flower.popupday.popup.dto.PopupHashTagDTO">-->
-<!--        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)-->
-<!--        VALUES (#{hash_tag_id}, #{popup_id})-->
-<!--    </insert>-->
+    <select id="getHashTagIdByTag" resultType="Long" parameterType="String">
+        SELECT hash_tag_id
+        FROM hash_tag_tbl
+        WHERE hash_tag = #{tag}
+    </select>
 
-<!--    <select id="getHashTagIdByTag" resultType="Long" parameterType="String">-->
-<!--        SELECT hash_tag_id-->
-<!--        FROM hash_tag_tbl-->
-<!--        WHERE hash_tag = #{tag}-->
-<!--    </select>-->
-
-
-
-
-
-    <!-- javaType="flower.popupday.popup.dto.PopupDTO.Role" -->
-    <!-- 팝업 id를 가지고 특정 정보 -->
-<!--    <select id="getPopupById" parameterType="long" resultMap="PopupMap">-->
-<!--        SELECT * FROM popup WHERE hash_tag_id = #{hash_tag_id}-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 모든 팝업 정보 &ndash;&gt;-->
-<!--    <select id="getAllPopups" resultMap="PopupMap">-->
-<!--        SELECT * FROM popup-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 팝업 등록 &ndash;&gt;-->
-<!--    <insert id="insertPopup" parameterType="flower.popupday.popup.dto.PopupDTO" useGeneratedKeys="true" keyProperty="hash_tag_id">-->
-<!--        INSERT INTO popup (title, info, time, content, map, brand_page, role, user_id)-->
-<!--        VALUES (#{title}, #{info}, #{time}, #{content}, #{map}, #{brand_page}, #{role}, #{userId})-->
-<!--    </insert>-->
-
-<!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 업데이트 &ndash;&gt;-->
-<!--    <update id="updatePopup" parameterType="flower.popupday.popup.dto.PopupDTO">-->
-<!--        UPDATE popup-->
-<!--        SET title = #{title}, info = #{info}, time = #{time}, content = #{content}, map = #{map}, brand_page = #{brand_page}, role = #{role}, user_id = #{userId}-->
-<!--        WHERE hash_tag_id = #{hash_tag_id}-->
-<!--    </update>-->
-
-<!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 삭제 &ndash;&gt;-->
-<!--    <delete id="deletePopup" parameterType="long">-->
-<!--        DELETE FROM popup WHERE hash_tag_id = #{hash_tag_id}-->
-<!--    </delete>-->
-
+    <insert id="insertPopupHashTag" parameterType="java.util.Map">
+        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)
+        VALUES (#{hash_tag_id}, #{popup_id})
+    </insert>
 </mapper>
+
+
