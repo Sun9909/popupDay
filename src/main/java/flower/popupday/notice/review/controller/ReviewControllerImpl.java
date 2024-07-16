@@ -1,7 +1,5 @@
 package flower.popupday.notice.review.controller;
 
-import flower.popupday.notice.faq.dto.FaqDTO;
-import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
 import flower.popupday.notice.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,14 +48,73 @@ public class ReviewControllerImpl implements ReviewController {
         return mav; // 포워딩
     }
 
-    //후기 상세페이지로 이동
+    //후기 상세보기
     @Override
+    @RequestMapping("/notice/showReview.do")
     public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map reviewArticle = reviewService.showReview(review_id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/reviewShow");
         mav.addObject("reviewArticle", reviewArticle);
-        return null;
+        return mav;
+    }
+
+    //후기 수정적용하기
+    @Override
+    @RequestMapping("/notice/modReview.do")
+    public ModelAndView modReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception{
+        String imageFileName=null;
+        multipartRequest.setCharacterEncoding("utf-8");
+        Map<String, Object> reviewMap=new HashMap<String, Object>();
+        Enumeration enu=multipartRequest.getParameterNames();
+        while (enu.hasMoreElements()) {
+            String name=(String) enu.nextElement();
+            String value=multipartRequest.getParameter(name);
+            System.out.println(name + " : " +value);
+            reviewMap.put(name, value); // 이미지 파일 name 까지 집어넣음
+        } // while end
+        List<String> fileList=multiFileUpload(multipartRequest); // 멀티파일로 가져옴 (여러개 일때는 list)
+        String articleNo=(String)reviewMap.get("review_id"); // 글번호를 받아옴 (객체라 string 캐스팅)
+        List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>(); // 여러개의 이미지를 담음
+        int modityNumber=0; // 수정 번호 , 이미지 파일 name 이 status 번호를 가져옴
+        // 두개의 테이블을 동시에 이용
+        if(fileList != null && fileList.size() != 0 ) {
+            for(String fileName:fileList) { // 향상된 for fileList에 있는걸 하나씩 filename 에 넘겨줌
+                modityNumber++;
+                ReviewImageDTO imageDTO=new ReviewImageDTO(); // 이미지를 넣을때마다 생성 여러개 이미지지만 각각의 정보를 가지고 있어야함
+                imageDTO.setImage_file_name(fileName);
+                // 수정 번호로 이미지 파일 번호 가져옴 , 글번호로 접근 => 이미지 파일 번호
+                imageDTO.setReview_image_id(Integer.parseInt((String) reviewMap.get("imageFileNo" + modityNumber)));
+                imageFileList.add(imageDTO);
+            }
+            reviewMap.put("imageFileList", imageFileList); // 변경된 이미지 담아서감
+        }
+//        reviewMap.put("id", "kim"); // 세션을 이용해 로그인한 아이디 집어넣으면 됨
+        try {
+            reviewService.modReview(reviewMap); // 글 수정은 해당 글에 들어가서 수정하기 때문에 리턴값없음 , (새 글은 몇번째인지 몰라서 글번호를 받아와야 함)
+            // 뭐라도 들었을때(파일선택으로 이미지 선택시) 두조건 만족시(기본값 header 가 들어가있어서 랭스도 물어봐야함) , 이미지가 있을때
+            if(imageFileList != null && imageFileList.size() != 0) {
+                //String uploadFileName=multipartRequest // 이미지 한개 기준 (이미지 여러개 업로드는 tbl 만들어야함)
+                int cnt=0; // -1인 이유 : 모름
+                for(ReviewImageDTO imageDTO : imageFileList) { // 이미지 전부
+                    cnt++;
+                    imageFileName=imageDTO.getImage_file_name();
+                    if(imageFileName != null && imageFileName != "") { // 여러개의 이미지 중에 1개만 바꾸면 오류남 (실행은 됨) , 뭐라도 들어있을때 3개중
+                        File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
+                        File destDir=new File(ARTICLE_IMG_REPO + "\\" + articleNo);
+                        FileUtils.moveFileToDirectory(srcFile, destDir, true);
+                        String originalFileName=(String)reviewMap.get("originalFileName" + cnt); // 전의 이미지 , status 에 번호를 붙혀놓음
+                        System.out.println("이전 이미지 " + originalFileName);
+                        File oldFile=new File(ARTICLE_IMG_REPO + "\\" + articleNo + "\\" + originalFileName); // 파일 저장 위치(기존 이미지)
+                        oldFile.delete(); // 기존 이미지 삭제
+                    }
+                } // for end
+            } // if end
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        ModelAndView mav = new ModelAndView("redirect:/notice/reviewList.do");
+        return mav;
     }
     
     //후기 작성페이지로 이동

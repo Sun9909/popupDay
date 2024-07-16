@@ -40,7 +40,6 @@ public class PopupControllerImpl implements PopupController {
     public ModelAndView addPopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
             throws Exception {
         multipartRequest.setCharacterEncoding("utf-8");
-
         // HTTP 요청에서 파라미터들을 Map으로 변환
         Map<String, Object> popupMap = new HashMap<>();
         Enumeration enu = multipartRequest.getParameterNames();
