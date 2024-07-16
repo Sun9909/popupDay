@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 글번호 생성 -->
     <select id="getNewPopupId" resultType="Long">
       <![CDATA[
-            select max(popup_id)+1 from popup_tbl
+        SELECT COALESCE(MAX(popup_id) + 1, 1) FROM popup_tbl
         ]]>
    </select>
 

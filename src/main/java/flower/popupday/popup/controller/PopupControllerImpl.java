@@ -49,15 +49,15 @@ public class PopupControllerImpl implements PopupController {
             String value = multipartRequest.getParameter(name);
             // 해시태그 처리 시작
 
-//            if (name.equals("hash_tag")) {
-//                List<String> hashTagList = popupMap.containsKey("hash_tag")
-//                        ? (List<String>) popupMap.get("hash_tag")
-//                        : new ArrayList<>();
-//                hashTagList.add(value); // 해시태그 값을 리스트에 추가
-//                popupMap.put("hash_tag", hashTagList); // 해시태그를 리스트로 추가
-//            } else {
-//                popupMap.put(name, value); // 기타 파라미터는 그대로 추가
-//            }
+            if (name.equals("hash_tag")) {
+                List<String> hashTagList = popupMap.containsKey("hash_tag")
+                        ? (List<String>) popupMap.get("hash_tag")
+                        : new ArrayList<>();
+                hashTagList.add(value); // 해시태그 값을 리스트에 추가
+                popupMap.put("hash_tag", hashTagList); // 해시태그를 리스트로 추가
+            } else {
+                popupMap.put(name, value); // 기타 파라미터는 그대로 추가
+            }
 //            // 해시태그 처리 끝
 //            List<String> hashList = multiFileUpload(multipartRequest);
 //            List<HashTagDTO> hashTagList = new ArrayList<>();
