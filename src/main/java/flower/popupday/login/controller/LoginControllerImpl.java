@@ -28,9 +28,9 @@ public class LoginControllerImpl implements LoginController {
         return new ModelAndView("redirect:/main.do"); // 회원가입 완료 후 메인 페이지로 리다이렉트
     }
 
-    // login.html에서 정보를 전달용
+    // 로그인 폼 이동
     @Override
-    @GetMapping("/login.do")
+    @RequestMapping ("/login/login.do")
     public ModelAndView login(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                               @RequestParam(value = "action", required = false) String action,
                               @RequestParam(value = "result", required = false) String result,
@@ -43,9 +43,9 @@ public class LoginControllerImpl implements LoginController {
         return mav; // ModelAndView 반환
     }
 
-    // login.html에서 찐 로그인용
+    // 로그인 값저장
     @Override
-    @PostMapping("/log.do")
+    @PostMapping("/login/log.do")
     public ModelAndView memberLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                                     RedirectAttributes rAttr,
                                     HttpServletRequest request,
