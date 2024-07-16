@@ -35,4 +35,16 @@ public class AdminServiceImpl implements AdminService {
     public void delMember(Long id) throws DataAccessException {
         adminDAO.delMember(id);
     }
+
+    @Override
+    public boolean checkId(String user_id) {
+        return adminDAO.checkId(user_id);
+    }
+
+    @Override
+    public boolean checkNikname(String user_nikname) {
+        return adminDAO.checkNikname(user_nikname);
+    }
+
+
 }

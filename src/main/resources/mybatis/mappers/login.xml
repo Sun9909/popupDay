@@ -26,8 +26,9 @@
     </sql>
 
     <insert id="insertLogin" parameterType="loginDTO">
-        <![CDATA[
-        insert into user_tbl values(#{id}, #{user_id}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), '일반', 'active')
+    <![CDATA[
+        insert into user_tbl (id, user_id, user_nikname, name, pwd, email, reg_date, role, status)
+        values (#{id}, #{user_id}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), '일반', 'active')
         ]]>
     </insert>
 
@@ -70,4 +71,5 @@
         where user_nikname = #{user_nikname}
         ]]>
     </select>
+
 </mapper>
