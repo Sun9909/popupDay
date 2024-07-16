@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("qnaController")
-public class QnaControllerImpl implements QnaController {
+public abstract class QnaControllerImpl implements QnaController {
 
     @Autowired
     private QnaService qnaService;
@@ -31,11 +31,9 @@ public class QnaControllerImpl implements QnaController {
     @Override
     public ModelAndView qnaForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/qnaForm");
+        mav.setViewName("notice/qnaForm");
         return mav;
     }
-
-
 
     // Qna 목록 가져오기
     @RequestMapping("/notice/qnaList.do")
@@ -55,7 +53,7 @@ public class QnaControllerImpl implements QnaController {
         List<QnaDTO> qnaList = (List<QnaDTO>) qnaService.listQna(pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/qna");
+        mav.setViewName("notice/qnaList");
         mav.addObject("qnaList", qnaList);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
@@ -76,12 +74,12 @@ public class QnaControllerImpl implements QnaController {
             QnaMap.put(name, value);
         }
 
-        /*String title = (String) QnaMap.get("title");
+        String title = (String) QnaMap.get("title");
         String content = (String) QnaMap.get("content");
 
         QnaDTO qnaDTO = new QnaDTO();
         qnaDTO.setTitle(title);
-        qnaDTO.setContent(content);*/
+        qnaDTO.setContent(content);
 
         HttpSession session = request.getSession();
 
@@ -92,7 +90,7 @@ public class QnaControllerImpl implements QnaController {
             qnaDTO.setUser_Id(Long.valueOf(user_Id));
         }
 
-        qnaService.addQna(QnaMap);
+        qnaService.addQna((Map) qnaDTO);
 
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
@@ -100,7 +98,7 @@ public class QnaControllerImpl implements QnaController {
 
 
     // 상세글 보기
-    @RequestMapping("/notice/qna.do")
+    @RequestMapping("/notice/viewQna.do")
     @Override
     public ModelAndView viewQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Long qnaId = Long.parseLong(request.getParameter("qnaId"));
@@ -108,7 +106,7 @@ public class QnaControllerImpl implements QnaController {
         QnaDTO qna = qnaService.getQnaById(qnaId);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/qnaView");
+        mav.setViewName("notice/qnaView");
         mav.addObject("qna", qna);
         return mav;
     }
