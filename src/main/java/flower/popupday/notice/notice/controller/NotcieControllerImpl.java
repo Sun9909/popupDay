@@ -100,7 +100,7 @@ public class NotcieControllerImpl implements NoticeController {
         if (fileList != null && fileList.size() != 0) { // fileList가 비어 있지 않을 때  = if (fileList != null && !fileList.isEmpty())
             for (String fileName : fileList) {
                 NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
-                noticeimageDTO.setImageFileName(fileName);
+                noticeimageDTO.setImage_file_name(fileName);
                 imageFileList.add(noticeimageDTO); // NoticeimageDTO 객체에 저장
             }
             noticeMap.put("imageFileList", imageFileList);
@@ -118,7 +118,7 @@ public class NotcieControllerImpl implements NoticeController {
             long notice_id = noticeService.addNotice(noticeMap); // 메서드를 호출해서 DB에 추가 및 새로운 게시물 ID받아  notice_id에 저장
             if (imageFileList != null && imageFileList.size() != 0) { //!imageFileList.isEmpty()
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
-                    imageFileName = noticeimageDTO.getImageFileName(); // imageFileList 각 항목을 돌면서 NoticeimageDTO 객체에 이미지 파일 이름을 가져옴
+                    imageFileName = noticeimageDTO.getImage_file_name(); // imageFileList 각 항목을 돌면서 NoticeimageDTO 객체에 이미지 파일 이름을 가져옴
                     File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileName); //원본파일(임시) 경로지정
                     File destFile = new File(ARRICLE_IMG_REPO + "\\" + notice_id); //대상파일(최종) 경로 지정
                     FileUtils.moveToDirectory(srcFile, destFile, true); // //메서드를 사용하여 파일을 임시 디렉터리에 최종 저장 후 디렉터리 이동
@@ -127,7 +127,7 @@ public class NotcieControllerImpl implements NoticeController {
         } catch (Exception e) {
             if (imageFileList != null && imageFileList.size() != 0) { //!imageFileList.isEmpty()
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
-                    imageFileName = noticeimageDTO.getImageFileName();
+                    imageFileName = noticeimageDTO.getImage_file_name();
                     File SrcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileList); //원본파일(임시) 경로 지정
                     SrcFile.delete(); // 예외 발생 시 임시 디렉터리 파일 삭제
                 } //for end
@@ -215,6 +215,11 @@ public class NotcieControllerImpl implements NoticeController {
 
     @Override
     public ModelAndView removeNotice(Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
+    }
+
+    @Override
+    public ModelAndView removeNotice(int noticeNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
         return null;
     }
 
