@@ -109,7 +109,7 @@
     // 후기 수정하기
     function review_enable(obj) {
         document.getElementById("review-mbtn").style.display="block";
-        document.getElementById("review_btn").style.display="none";
+        document.getElementById("review-btn").style.display="none";
         document.getElementById("review_title").disabled=false;
         document.getElementById("review_content").disabled=false;
         let imgName=document.getElementById("id_imgFile");
@@ -122,6 +122,24 @@
     function review_modify(obj) {
         obj.action="/notice/modReview.do";
         obj.submit();
+    }
+
+    // 후기리스트로 돌아가기
+    function backToList(obj) {
+        obj.action="/notice/reviewList.do";
+        obj.method="post";
+        obj.submit();
+    }
+
+    // 상세 보기로 전환(취소)
+    function toList(obj) {
+        obj.action="/notice/showReview.do"
+        obj.method="post";
+        obj.submit();
+    }
+
+    function fn_remove_review(){
+
     }
 
 

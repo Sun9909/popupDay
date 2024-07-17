@@ -13,6 +13,7 @@ public class MyDTO {
     private String pwd; //유저비번
     private String email;   //유저 이메일
     private Date reg_date; //가입일
+    private String business_num;
     private Role role;  //일반, 사업자, 관리자 구분
     private Status status;    //가입, 탈퇴
 
@@ -27,6 +28,14 @@ public class MyDTO {
 
     public enum Status {
         active, delete
+    }
+
+    public String getBusiness_num() {
+        return business_num;
+    }
+
+    public void setBusiness_num(String business_num) {
+        this.business_num = business_num;
     }
 
     public Status getStatus() {

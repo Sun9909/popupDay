@@ -62,7 +62,13 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDAO.updateReview(reviewMap);
         reviewDAO.updateImage(reviewMap);
     }
-
+    
+    //후기 삭제하기
+    @Override
+    public void removeReviews(int review_id) throws DataAccessException {
+        reviewDAO.deleteImage(review_id);
+        reviewDAO.deleteReview(review_id);
+    }
 
 
 }

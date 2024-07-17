@@ -1,10 +1,12 @@
 package flower.popupday.mypage.controller;
 
+
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,7 +27,7 @@ public class MyControllerImpl implements MyController {
     @Autowired
     private MyDTO myDTO;
     @Autowired
-    private MyPopupDTO mypopupDTO;
+    private MyPopupDTO myPopupDTO;
 
     //마이페이지
     @Override
@@ -34,6 +36,12 @@ public class MyControllerImpl implements MyController {
         request.setCharacterEncoding("utf-8");
         myDTO=myService.getName(myDTO);
         ModelAndView mav = new ModelAndView();
+
+        HttpSession session=request.getSession();
+        session.setAttribute("my", myDTO);
+        session.setAttribute("isLogOn", true);
+        System.out.println(myDTO.getId());
+
         if (myDTO.getRole() == MyDTO.Role.일반) {
             mav.setViewName("redirect:/mypage/reviewCount.do");
         }
@@ -49,7 +57,9 @@ public class MyControllerImpl implements MyController {
     @Override
     @RequestMapping("/mypage/reviewCount.do")
     public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        myDTO=myService.getName(myDTO);
+        HttpSession session = request.getSession();
+        myDTO = (MyDTO) session.getAttribute("myDTO");
+        //myDTO=myService.getName(myDTO);
         Long reviewCount = myService.getReviewCount(myDTO.getId()); // 리뷰 개수 조회
 
         String recommentCount = myService.getreCommentCount(myDTO.getUser_nikname()); //리뷰댓글

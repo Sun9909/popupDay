@@ -203,4 +203,17 @@ public class ReviewControllerImpl implements ReviewController {
         } // while end
         return fileList;
     }
+
+    @Override
+    @RequestMapping("/notice/removeReview.do")
+    public ModelAndView removeReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response)
+    throws Exception{
+        reviewService.removeReviews(review_id);
+        File imgDir=new File(ARTICLE_IMG_REPO + "\\" + review_id); // 파일 객체로 만듬
+        if(imgDir.exists()) { // 이미지가 있는 글일때 수행
+            FileUtils.deleteDirectory(imgDir); // 이 디렉토리(폴더)를 삭제
+        }
+        ModelAndView mav=new ModelAndView("redirect:/notice/reviewList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
+        return mav;
+    }
 }
