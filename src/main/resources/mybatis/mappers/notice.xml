@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="flower.popupday.notice.notice.dao.NotcieDAO">
+<mapper namespace="flower.popupday.notice.notice.dao.NoticeDAO">
 
     <resultMap  type="noticeDTO" id="noticeResult">
         <id property="notice_id" column="notice_id"/>
@@ -13,9 +13,10 @@
         <result property="write" column="write"/>
     </resultMap>
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
-<!--    <select id="selectAllArticles" resultMap="articleResult" parameterType="int">-->
-<!--        select notice_id, title, content, date_created from notice_tbl order by notice_id desc LIMIT #{count}, 10-->
-<!--    </select>-->
+    <select id="selectAllNotice" resultMap="noticeResult" parameterType="int">
+        select * from notice_tbl order by notice_id desc limit #{count}, 10
+    </select>
+
 
     <!-- 전체 글 목록 수 조회 -->
     <select id="selectToArticles" resultType="int">

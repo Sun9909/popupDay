@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
+    <title>공지사항페이지</title>
 </head>
 <body>
+<th:block layout:fragment="content">
+    <!--검색, 서브메뉴-->
+    <div class="containers">
+        <!-- 공지사항 -->
+        <div class="submenu-wrap">
+            <section id="submenu">
+                <a class="contact active" onclick="openTab('tab1')">
+                    <h2>공지사항</h2>
+                </a>
+                <a class="contact" onclick="openTab('tab2')">
+                    <h2>FAQ</h2>
+                </a>
+                <a class="contact" onclick="openTab('tab3')">
+                    <h2>Q&A</h2>
+                </a>
+                <a class="contact" onclick="openTab('tab4')">
+                    <h2>후기</h2>
+                </a>
+            </section>
+        </div>
 
+        <div id="tab3" class="content">
+            <div class="selectbox">
+                <div class="selectLayer">
+                    <select onchange="window.location='/mz/community'+(this.value?'-'+this.value:'')+''">
+                        <option value="event_notice">공지/이벤트</option>
+                        <option value="brandinfo">팝업/업체 정보</option>
+                    </select>
+                </div>
+                <div class="selectLayer">
+                    <select onchange="submitSearchFormEl('cat',this.value);">
+                        <option value="all-notice">&nbsp;+ 전체보기</option>
+                        <option value="Qna">질문</option>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <a class="listnotice" href="infor.html"> <!--예를들어서 함-->
+                <div class="sbj">
+                    <span class="subject">[공지] 질문/추천 게시판은 관리자가 답변을 달지 않습니다.</span><br>
+                </div>
+                <div class="regdate">
+                    <span>작성날짜</span>
+                </div>
+            </a>
+            <div class="catInfo notice">
+                <a href="#">공지/이벤트</a>
+            </div>
+
+            <a class="listnotice" href="#">
+                <div class="sbj">
+                    <span class="subject">[이벤트] 팝업후기 이벤트는 후기에다가 작성해주시길 바랍니다.</span><br>
+                </div>
+                <div class="regdate">
+                    <span>작성날짜</span>
+                </div>
+            </a>
+            <div class="catInfo notice">
+                <a href="#">공지/이벤트</a>
+            </div>
+
+            <a class="listnotice" href="#">
+                <div class="sbj">
+                    <span class="listPost">파업관련해서 문의 드립니다.</span><br>
+                </div>
+                <div class="regdate">
+                    <span>작성날짜</span>
+                </div>
+            </a>
+            <div class="catInfo notice">
+                <a href="#">팝업/업체정보</a>
+            </div>
+
+            <a class="listnotice" href="#">
+                <div class="sbj">
+                    <span class="listPost"></span><br>
+                </div>
+                <div class="regdate">
+                    <span>작성날짜</span>
+                </div>
+            </a>
+            <div class="catInfo notice">
+                <a href="#"></a>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/notice.js}"></script>
+</th:block>
 </body>
 </html>

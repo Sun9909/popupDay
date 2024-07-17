@@ -3,9 +3,13 @@ package flower.popupday.notice.notice.service;
 import flower.popupday.notice.notice.dao.NoticeDAO;
 import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.notice.dto.NoticeimageDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +20,22 @@ public class NotcieServiceImpl implements NoticeService {
 
     @Autowired
     private NoticeDAO noticeDAO;
+
+    public void removeNotice(Long notice_Id, HttpSession session) {
+      if (!isAdmin(session)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "관리자 권한이 필요합니다.");
+        }
+        // 권한이 있는 경우 공지사항 삭제 로직 실행
+        noticeDAO.removeNotice(notice_Id);
+        // 이미지 디렉토리 삭제 등의 추가 작업
+    }
+    private boolean isAdmin(HttpSession session) {
+        // 세션에서 사용자 역할을 가져와서 관리자 권한을 확인하는 로직
+        String role = (String) session.getAttribute("userRole");
+        return role != null && role.equals("ADMIN");
+    }
+
+
 
     // 페이징 처리
     @Override
@@ -38,9 +58,18 @@ public class NotcieServiceImpl implements NoticeService {
 
     // 여러 개의 이미지 추가
     public int addNotice(Map<String, Object> noticeMap) throws DataAccessException {
-        int notice_id = noticeDAO.getNewNoticeNo();
-        noticeMap.put("notice_id", notice_id);
-        noticeDAO.insertNewNotice(noticeMap);
+
+//        int notice_id = notic  public void removeNotice(Long noticeId, HttpSession session) {
+//        if (!isAdmin(session)) {
+//            throw new UnauthorizedAccessException("관리자 권한이 필요합니다.");
+//        }
+//        // 권한이 있는 경우 공지사항 삭제 로직 실행
+//        noticeDAO.removeNotice(noticeId);
+//        // 이미지 디렉토리 삭제 등의 추가 작업
+//    eDAO.getNewNoticeNo();
+//        noticeMap.put("notice_id", notice_id);
+        int notice_id = noticeDAO.insertNewNotice(noticeMap);
+
         if (noticeMap.get("imagesFileList") != null) {
             noticeDAO.insertNewImages(noticeMap);
         }
