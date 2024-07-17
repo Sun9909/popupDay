@@ -20,8 +20,10 @@ public interface ReviewDAO {
 
     public int selectToReview() throws DataAccessException;
 
+    //상세 글 보기
     public ReviewDTO selectReview(int review_id) throws DataAccessException;
 
+    //상세 글 이미지 보기
     public List selectImageList(int review_id) throws DataAccessException;
 
     public void updateReview(Map reviewMap) throws DataAccessException;
