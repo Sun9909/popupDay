@@ -23,7 +23,7 @@ public interface NoticeDAO {
     public int getNewNoticeNo() throws DataAccessException;
 
     // 새 글 추가 (글번호 생성 후 새 글 추가 호출) xml 에서는 Map,DTO(둘중하나)로 받고 줄때는 DTO로 (여러개 이미지)
-    public void insertNewNotice(Map articleMap) throws DataAccessException;
+    public int insertNewNotice(Map articleMap) throws DataAccessException;
 
     // 이미지 손대는 메서드
     public void insertNewImages(Map articleMap) throws DataAccessException;
