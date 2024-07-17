@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,10 +26,12 @@ public class MyControllerImpl implements MyController {
     @Autowired
     private MyService myService;
 
-    @Autowired
-    private MyDTO myDTO;
+//    @Autowired
+//    private MyDTO myDTO;
     @Autowired
     private MyPopupDTO myPopupDTO;
+    @Autowired
+    private LoginDTO loginDTO;
 
     //마이페이지
     @Override
@@ -38,13 +41,18 @@ public class MyControllerImpl implements MyController {
         ModelAndView mav = new ModelAndView();
         HttpSession session = request.getSession();
 
-        // 세션에서 loginDTO 가져오기
+        //세션에서 loginDTO 가져오기
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-        // 만약 loginDTO가 null이면 로그인이 되어있지 않은 상태로 처리
-        if (loginDTO == null) {
-            mav.setViewName("redirect:/login/loginForm"); // 로그인 페이지로 리다이렉트
-            return mav;
+        //세션 설정
+        session.setAttribute("my", loginDTO);
+        session.setAttribute("isLogOn", true);
+
+        if (loginDTO.getRole() == LoginDTO.Role.일반) {
+            mav.setViewName("redirect:/mypage/reviewCount.do");
+        }
+        else if (loginDTO.getRole() == LoginDTO.Role.사업자){
+            mav.setViewName("redirect:/mypage/businessPage.do");
         }
 
         // 세션에 myDTO 설정
@@ -84,6 +92,29 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
+    //내 정보 수정으로 이동
+    @Override
+    @RequestMapping("/modify/loginModify.do")
+    public ModelAndView loginModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+//        //세션에서 loginDTO 가져오기
+//        MyDTO myDTO = (LoginDTO) session.getAttribute("loginDTO");
+
+        //Long reviewCount = myService.getReviewCount(loginDTO.getId());
+        MyDTO myDTO=myService.findMember(loginDTO.getId());
+        System.out.println(myDTO);
+        ModelAndView mav = new ModelAndView("/modify/loginModify");
+        mav.addObject("myInfo", myDTO);
+        return mav;
+    }
+
+//    @Override
+//    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        HttpSession session=request.getSession();
+//        session.removeAttribute();
+//    }
+
 
     //다음 개수 조회 시 서비스 호출
     //Long reviewCount = myService.getReviewCount(myDTO.getId());
@@ -98,6 +129,8 @@ public class MyControllerImpl implements MyController {
 //        mav.addObject("likeListCount", likeListCount);
 //        return mav;
 //    }
+
+
 
     //팝업리스트
     @Override

@@ -91,6 +91,10 @@
         where qna_tbl.user_id=#{user_id} group by qna_tbl.user_id
     </select>
 
+    <select id="selectMemberById" parameterType="Long" resultType="myDTO">
+        select * from user_tbl where id=#{id}
+    </select>
+
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
         select * from popup_tbl where writer='#{user_id}'
     </select>
