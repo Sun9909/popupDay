@@ -12,6 +12,7 @@
         <result property="pwd" column="pwd"/>
         <result property="email" column="email"/>
         <result property="reg_date" column="reg_date"/>
+        <result property="business_num" column="business_num"/>
         <result property="role" column="role"/>
         <result property="status" column="status"/>
     </resultMap>
@@ -51,7 +52,7 @@
     </resultMap>
 
     <select id="getName" parameterType="myDTO">
-        select * from user_tbl where id='123'
+        select * from user_tbl where id=#{id}
     </select>
 
     <!--    <select id="selectAllReview" resultMap="revResult">-->
