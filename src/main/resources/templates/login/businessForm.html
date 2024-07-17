@@ -16,7 +16,7 @@
     </div>
     <div>
         <div class="businessperson_join_form">
-            <form name="frmBusinessLogin" action="/login/addBusinessLogin.do" method="post">
+            <form name="frmBusinessLogin" th:action="@{/login/addBusinessLogin.do}" method="post" th:object="${loginDTO}">
                 <table>
                     <tr>
                         <td>이메일을 입력해주세요...</td>
