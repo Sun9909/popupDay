@@ -12,7 +12,7 @@ import java.io.OutputStream;
 
 public class FileDownloadController extends HttpServlet {
 
-    private static String ARTICLE_IMG_REPO="D:\\Sun\\fileupload";
+    private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
 
     @RequestMapping("download.do")
     public void fileDown(@RequestParam("articleNo") String articleNo, @RequestParam("imageFileName") String imageFileName,

@@ -21,4 +21,6 @@ public interface ReviewService {
 
     // 여러개의 이미지 글 수정
     public void modReview(Map reviewMap) throws DataAccessException;
+
+    public void removeReviews(int review_id) throws DataAccessException;
 }

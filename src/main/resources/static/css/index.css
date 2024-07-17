@@ -44,6 +44,18 @@ header >img {
     height: 20px;
     width: 20px;
 }
+
+.naming-bar {
+    display: flex;
+    gap: 5px;
+    height: 30px;
+    align-items: center;
+}
+
+.naming-bar > p {
+    margin: 0;
+}
+
 .images {
     position: relative;
     height: 40px;

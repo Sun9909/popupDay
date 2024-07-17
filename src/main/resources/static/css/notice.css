@@ -400,16 +400,17 @@
     height: 700px;
 }
 
-.review-btn > input, .review-mbtn > input {
+#review-btn > input, #review-mbtn > input {
     background-color: #8B8BDA;
     border: none;
     border-radius: 5px;
     color: white;
     font-size: 17px;
     font-weight: 600;
+    cursor: pointer;
 }
 
-.review-mbtn {
+#review-mbtn {
     display: none;
 }
 

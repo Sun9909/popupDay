@@ -54,4 +54,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from review_image_tbl where review_id = #{review_id}
     </select>
 
+    <update id="updateReview" parameterType="java.util.Map">
+        update review_tbl set review_title = #{review_title}, review_content = #{review_content} where review_id = #{review_id}
+    </update>
+
+    <update id="updateImage" parameterType="java.util.Map">
+        <foreach item="item" collection="imageFiles" separator=";"> <!-- 이미지 담겨있는 곳 -->
+            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
+                update review_image_tbl set image_file_name=#{item.image_file_name} where review_image_id=#{item.review_image_id} and #{item.image_file_name} != ''
+            </if>
+        </foreach>
+    </update>
+
+    <delete id="deleteImage" parameterType="int">
+        delete from review_image_tbl where review_id = #{review_id}
+    </delete>
+
+    <delete id="deleteReview" parameterType="int">
+        delete from review_tbl where review_id = #{review_id}
+    </delete>
 </mapper>
