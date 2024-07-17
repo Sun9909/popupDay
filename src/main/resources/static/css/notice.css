@@ -278,7 +278,9 @@
     color: #000; /* 호버 시 글자색 변경 */
     border-bottom: 2px solid #000; /* 호버 시 밑줄 추가 */
 }
+
 /*후기작성공간, 후기가이드*/
+
 .myreview {
     display: flex;
     flex-direction: column;
@@ -373,6 +375,45 @@
 .review-list:hover {
     color: #6f42c1;
 }
+
+/*  후기 상세보기 창 */
+.review-form input{
+    background-color: unset;
+    border: 2px solid #ccc;
+
+}
+.view-title{
+    width: 600px;
+    height: 30px;
+}
+
+.view-content {
+    width: 600px;
+    height: 100px;
+}
+
+.review-show {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto 0;
+    width: 650px;
+    height: 700px;
+}
+
+#review-btn > input, #review-mbtn > input {
+    background-color: #8B8BDA;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#review-mbtn {
+    display: none;
+}
+
 
 
 /*페이지설정*/

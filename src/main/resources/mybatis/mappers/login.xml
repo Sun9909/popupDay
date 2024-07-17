@@ -70,4 +70,5 @@
         where user_nikname = #{user_nikname}
         ]]>
     </select>
+
 </mapper>

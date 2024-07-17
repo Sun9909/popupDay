@@ -37,7 +37,7 @@
                 <button><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
                 <div class="faq-list-wrap">
                     <ul>
-                        <form name="faqArticle">
+                        <form name="faqArticle" method="post">
                             <li class="faqitem" th:each="faq: ${faqList}">
                                 <p class="faq-category">이용안내</p>
                                 <a class="answerop">

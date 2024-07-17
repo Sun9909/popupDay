@@ -65,7 +65,7 @@
         });
     });
     
-    //제이쿼리로 써야한다
+    //FAQ제이쿼리로 써야한다
     $(function() {
         $(".modify_button").click(function() {
             // 클릭된 버튼의 부모 요소를 선택합니다.
@@ -86,10 +86,60 @@
         });
     });
 
-    // 수정 반영하기
+    // FAQ수정 반영하기
     function faq_modify(obj) {
         obj.action="/notice/modFaq.do";
         obj.submit();
+    }
+
+    //FAQ삭제 반영하기
+    function fn_remove_faq(url, faq_id){
+        let del_form = document.createElement("form");
+        del_form.setAttribute("action", url);
+        del_form.setAttribute("method","post");
+        let faqNoInput = document.createElement("input");
+        faqNoInput.setAttribute("type","hidden");
+        faqNoInput.setAttribute("name","faq_id");
+        faqNoInput.setAttribute("value", faq_id);
+        del_form.appendChild(faqNoInput);
+        document.body.appendChild(del_form);
+        del_form.submit();
+    }
+
+    // 후기 수정하기
+    function review_enable(obj) {
+        document.getElementById("review-mbtn").style.display="block";
+        document.getElementById("review-btn").style.display="none";
+        document.getElementById("review_title").disabled=false;
+        document.getElementById("review_content").disabled=false;
+        let imgName=document.getElementById("id_imgFile");
+        if(imgName != null) {
+            imgName.disabled=false;
+        } // if end
+    }
+
+    //후기 수정 반영하기
+    function review_modify(obj) {
+        obj.action="/notice/modReview.do";
+        obj.submit();
+    }
+
+    // 후기리스트로 돌아가기
+    function backToList(obj) {
+        obj.action="/notice/reviewList.do";
+        obj.method="post";
+        obj.submit();
+    }
+
+    // 상세 보기로 전환(취소)
+    function toList(obj) {
+        obj.action="/notice/showReview.do"
+        obj.method="post";
+        obj.submit();
+    }
+
+    function fn_remove_review(){
+
     }
 
 

@@ -47,9 +47,11 @@
                     <button><a th:href="@{/notice/reviewForm.do}">후기 작성하기</a></button>
                 </div>
                 <div class="myreview-history" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
-                    <a th:href="@{/notice/showReview.do(review_id = ${reviewMap.review_id})}" class="review-list" th:each="review : ${reviewMap.reviewList}">
-                        <p th:text="${review.review_title}"></p><span th:text="${review.created_date}"></span>
-                    </a>
+                    <div th:each="review : ${reviewMap.reviewList}">
+                        <a class="review-list" th:href="@{/notice/showReview.do(review_id = ${review.review_id})}">
+                            <p th:text="${review.review_title}"></p><span th:text="${review.created_date}"></span>
+                        </a>
+                    </div>
                     <button><a th:href="@{/notice/reviewForm.do}">후기 작성하기</a></button>
                     <!--페이징 처리-->
                     <div align="center" th:if="${reviewMap.totReview > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
