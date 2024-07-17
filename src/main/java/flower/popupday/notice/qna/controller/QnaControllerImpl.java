@@ -37,7 +37,7 @@ public class QnaControllerImpl implements QnaController {
 
 
 
-   // Qna 목록 가져오기
+    // Qna 목록 가져오기
     @RequestMapping("/notice/qnaList.do")
     @Override
     public ModelAndView qnaList(
@@ -52,14 +52,13 @@ public class QnaControllerImpl implements QnaController {
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
 
-        Map qnaMap =  qnaService.listQna(pagingMap); // 얘를 map으로 받던 list로 받던
+        List<QnaDTO> qnaList = (List<QnaDTO>) qnaService.listQna(pagingMap);
 
-        ModelAndView  mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.setViewName("/notice/qna");
-        qnaMap.put("section", section);
-        qnaMap.put("pageNum", pageNum);
-        mav.addObject("qnaMap", qnaMap);
-
+        mav.addObject("qnaList", qnaList);
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
         return mav;
     }
 
@@ -87,10 +86,10 @@ public class QnaControllerImpl implements QnaController {
         HttpSession session = request.getSession();
 
         //회원인증구현
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
         if (loginDTO != null) {
             String user_Id = String.valueOf(loginDTO.getId());
-            qnaDTO.setUser_id(Long.valueOf(user_Id));
+            qnaDTO.setUser_Id(Long.valueOf(user_Id));
         }
 
         qnaService.addQna(QnaMap);
@@ -104,9 +103,9 @@ public class QnaControllerImpl implements QnaController {
     @RequestMapping("/notice/qna.do")
     @Override
     public ModelAndView viewQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Long qna_id = Long.parseLong(request.getParameter("qna_id"));
+        Long qnaId = Long.parseLong(request.getParameter("qnaId"));
 
-        QnaDTO qna = qnaService.getQnaById(qna_id);
+        QnaDTO qna = qnaService.getQnaById(qnaId);
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/notice/qnaView");

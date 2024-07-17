@@ -27,7 +27,7 @@ import java.util.*;
 public class NotcieControllerImpl implements NoticeController {
 
     //이미지 파일을 저장할 디렉토리 경로
-    private static String ARRICLE_IMG_REPO = "C:\\Users\\성민석\\OneDrive\\바탕 화면\\popupsave";
+    private static String ARRICLE_IMG_REPO = "/path/to/image/repo";
 
     // NoticeService 인스턴스를 주입받음
     @Autowired
@@ -40,20 +40,19 @@ public class NotcieControllerImpl implements NoticeController {
     @Autowired
     private HttpSession httpSession;
 
-//    // 관리자 권한 확인 메서드
-//    private boolean isAdmin(HttpSession session){
-//        // 세션에서 로그인 정보를 가져옴
-//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-//        // 로그인 정보가 없거나 관리자가 아닌 경우 false 반환 즉, admin인지 확인
-//        return loginDTO != null && "admin".equals(loginDTO.getRole());
-//    }
+    // 관리자 권한 확인 메서드
+    private boolean isAdmin(HttpSession session){
+        // 세션에서 로그인 정보를 가져옴
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
+        // 로그인 정보가 없거나 관리자가 아닌 경우 false 반환 즉, admin인지 확인
+        return loginDTO != null && "admin".equals(loginDTO.getRole());
+    }
 
     //공지사항 목록을 보여주는 메서드
     @Override
     @RequestMapping("/notice/noticeList.do") // 메인 화면에서 공지사항으로 이동했을때 매핑이름
     public ModelAndView noticeList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false) //매개변수 section,pageNum을 받으며 값이 없으면 기본적으로 null이 됨.
-    String _pageNum
-            , HttpServletRequest request, HttpServletResponse response) throws DataAccessException {
+    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws DataAccessException {
         int section = Integer.parseInt((_section == null) ? "1" : _section); // '_section'이 null이면 'section'을 1로 설정하고 그렇지 않으면, '_section'의 값을 정수로 변환하여 'section'에 저장
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum); // 위와 동일함.
         Map<String, Integer> pageingMap = new HashMap<String, Integer>(); // 'section','pageNum'을 저장할 맵을 생성
@@ -78,15 +77,13 @@ public class NotcieControllerImpl implements NoticeController {
     @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
     public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-//        //세션에서 로그인 정보를 가져온
-//        HttpSession session = request.getSession();
-//        isAdmin(session);
-//        System.out.println(session);
-//
-//        //관리자 권한확인
-//        if(!isAdmin(session)) {
-//            return  new ModelAndView("redirect:/notice/noticeList.do");//관리자가 아니면 공지사항 목록 페이로 리디렉션
-//        }
+        //세션에서 로그인 정보를 가져온
+        HttpSession session = request.getSession();
+
+        //관리자 권한확인
+        if(!isAdmin(session)) {
+            return  new ModelAndView("redirect:/notice/noticeList.do");//관리자가 아니면 공지사항 목록 페이로 리디렉션
+        }
         ModelAndView mav = new ModelAndView(); //ModelAndView 객체 생성
         mav.setViewName("/notice/noticeForm"); //뷰 이름 설정
         return mav;
@@ -98,14 +95,14 @@ public class NotcieControllerImpl implements NoticeController {
     @RequestMapping("/notice/addNotice.do")
     //addArticle메서드는(adminNotice.html(<여기안에있음)) MultipartHttpServletRequest 객체를 사용하여 다중 파일 업로드 처리.
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-//
-//        //세션에서 로그인 정보를 가져온
-//        HttpSession session = multipartRequest.getSession();
-//
-//        //관리자 권한확인
-//        if(!isAdmin(session)) {
-//            return new ModelAndView("redirect:/notice/noticeList.do");
-//        }
+
+        //세션에서 로그인 정보를 가져온
+        HttpSession session = multipartRequest.getSession();
+
+        //관리자 권한확인
+        if(!isAdmin(session)) {
+            return new ModelAndView("redirect:/notice/noticeList.do");
+        }
 
         //인코딩 설정 및 초기화
         String imageFileName = null; //업로드 된 이미지 파일 이름을 저장할 변수
@@ -134,10 +131,10 @@ public class NotcieControllerImpl implements NoticeController {
         }
 
 //        //세션에서 사용자 정보 가져오기(로그인 해서 들어가야함.)
-// // 이건 사용자니깐 뺴는게 맞는거 같음 지여나~
+//  이건 사용자니깐 뺴는게 맞는거 같음 지여나~
 //        HttpSession session = multipartRequest.getSession();
 //        // 회원정보DTO user테이블에 있는 아이디를 가지고 와야함 회원정보? 아마??
-//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
 //        String user_id = String.valueOf(loginDTO.getId());
 //        noticeMap.put("user_id", user_id);
 
@@ -145,7 +142,6 @@ public class NotcieControllerImpl implements NoticeController {
         try {
             System.out.println(noticeMap);
             long notice_id = noticeService.addNotice(noticeMap); // 메서드를 호출해서 DB에 추가 및 새로운 게시물 ID받아  notice_id에 저장
-
             if (imageFileList != null && imageFileList.size() != 0) { //!imageFileList.isEmpty()
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
                     imageFileName = noticeimageDTO.getImage_file_name(); // imageFileList 각 항목을 돌면서 NoticeimageDTO 객체에 이미지 파일 이름을 가져옴
@@ -164,7 +160,7 @@ public class NotcieControllerImpl implements NoticeController {
             } //if end
             e.printStackTrace();
         }//cath end
-        ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.do"); // 게시물 추가 및 파일 이동 작업 완료후, 관리자의 공지 목록 페이지로 리디렉션하도록 객체 생성.
+        ModelAndView mav = new ModelAndView("redirect:/notice/noticeForm.do"); // 게시물 추가 및 파일 이동 작업 완료후, 관리자의 공지 목록 페이지로 리디렉션하도록 객체 생성.
         return mav;
     }// method end
 
@@ -182,13 +178,13 @@ public class NotcieControllerImpl implements NoticeController {
     @Override //수정
     @RequestMapping("/notice/modNotice.do")
     public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-//        // 세션에서 로그인 정보를 가져옴
-//        HttpSession session = multipartRequest.getSession();
-//        // 관리자 권한 확인
-//        if (!isAdmin(session)) {
-//            // 관리자가 아니면 공지사항 목록 페이지로 리디렉션
-//            return new ModelAndView("redirect:/notice/noticeList.do");
-//        }
+        // 세션에서 로그인 정보를 가져옴
+        HttpSession session = multipartRequest.getSession();
+        // 관리자 권한 확인
+        if (!isAdmin(session)) {
+            // 관리자가 아니면 공지사항 목록 페이지로 리디렉션
+            return new ModelAndView("redirect:/notice/noticeList.do");
+        }
 
         String image_file_name = null;  // 파일 업로드 및 데이터 저장을 위한 초기 설정
         multipartRequest.setCharacterEncoding("utf-8");
@@ -249,7 +245,7 @@ public class NotcieControllerImpl implements NoticeController {
                 e.printStackTrace(); // 글쓰기 수행중 오류 temp에 있는 이미지가 붕뜸
             } // catch end
         // 공지사항 목록 페이지로 리디렉션
-        ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do");
+        ModelAndView mav=new ModelAndView("redirect:/notic/noticeList.do");
         return mav;
     }
 
@@ -269,6 +265,28 @@ public class NotcieControllerImpl implements NoticeController {
         return mav;
     }
 
+
+    /* // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
+    public String fileUpoad(MultipartHttpServletRequest multipartrequest) throws Exception {
+        String imageFileName = null;
+        Iterator<String> fileNames = multipartrequest.getFileNames(); // 열거형 객체(여러개)
+        while (fileNames.hasNext()) { // has.Next 파일 이름이 없을때 까지 돔
+            String fileName = fileNames.next(); // 첨부한 이미지 파일 이름
+            MultipartFile mFile = multipartrequest.getFile(fileName); // 파일 크기
+            imageFileName = mFile.getOriginalFilename(); // 가져옴
+            File file = new File(ARRICLE_IMG_REPO + "\\" + fileName); // 경로 저장
+            if (mFile.getSize() != 0) { // 크기가 0인 이미지 거르기
+                if (!file.exists()) { // exists 존재하는지(not 이라 존재 안할때) , EX ) 기존에 있던 이미지를 또 추가하면 안됨
+                    if (file.getParentFile().mkdir()) { // mkdir 폴더 생성
+                        file.createNewFile();
+                    } // inner if end
+                } // inner if end
+                mFile.transferTo(new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileName)); // 파일 전달 (임시저장소에)
+            } // if end
+            //return fileList;
+        } // while end
+        return imageFileName;
+    }*/
 
     // 여러개의 이미지파일 업로드
     public List<String> multiFileUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
