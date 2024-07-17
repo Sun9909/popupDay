@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="answer_date" column="answer_date"/>
     </resultMap>
 
-    <select id="selectAllQna" resultMap="qnaResult">
+    <select id="selectAllQnaList" resultMap="qnaResult">
         select * from qna_tbl order by created_date LIMIT #{count}, 10
     </select>
 
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values ('2', #{title}, #{content}, now(), '답변중')
     </insert>
 
-    <select id="selectToQna" resultType="int">
+    <select id="selectTotalQna" resultType="int">
         <![CDATA[
             select count(*) from qna_tbl
             ]]>

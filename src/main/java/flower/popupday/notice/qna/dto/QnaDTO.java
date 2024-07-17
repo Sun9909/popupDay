@@ -7,13 +7,13 @@ import java.sql.Date;
 @Component("qnaDTO")
 public class QnaDTO {
 
-        private Long qna_Id;
-        private Long user_Id;
+        private Long qna_id;
+        private Long user_id;
         private String title;
         private String content;
-        private Date created_Date;
+        private Date created_date;
         private String answer;
-        private Date answer_Date;
+        private Date answer_date;
         private String status;
 
         //생성자
@@ -25,31 +25,31 @@ public class QnaDTO {
         }
 
     public QnaDTO(Long qna_id, Long user_id, String title, String content, Date created_date, String answer, Date answer_date, String status) {
-        this.qna_Id= qna_id;
-        this.user_Id = user_id;
+        this.qna_id = qna_id;
+        this.user_id = user_id;
         this.title = title;
         this.content = content;
-        this.created_Date = created_date;
+        this.created_date = created_date;
         this.answer = answer;
-        this.answer_Date = answer_date;
+        this.answer_date = answer_date;
         this.status = status.valueOf(status);
     }
 
 
-    public Long getQna_Id() {
-        return qna_Id;
+    public Long getQna_id() {
+        return qna_id;
     }
 
-    public void setQna_Id(Long qna_Id) {
-        this.qna_Id = qna_Id;
+    public void setQna_id(Long qna_id) {
+        this.qna_id = qna_id;
     }
 
-    public Long getUser_Id() {
-        return user_Id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUser_Id(Long user_Id) {
-        this.user_Id = user_Id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getTitle() {
@@ -68,12 +68,12 @@ public class QnaDTO {
         this.content = content;
     }
 
-    public Date getCreated_Date() {
-        return created_Date;
+    public Date getCreated_date() {
+        return created_date;
     }
 
-    public void setCreated_Date(Date created_Date) {
-        this.created_Date = created_Date;
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
     }
 
     public String getAnswer() {
@@ -84,12 +84,12 @@ public class QnaDTO {
         this.answer = answer;
     }
 
-    public Date getAnswer_Date() {
-        return answer_Date;
+    public Date getAnswer_date() {
+        return answer_date;
     }
 
-    public void setAnswer_Date(Date answer_Date) {
-        this.answer_Date = answer_Date;
+    public void setAnswer_date(Date answer_date) {
+        this.answer_date = answer_date;
     }
 
     public String getStatus() {
