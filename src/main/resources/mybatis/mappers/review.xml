@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="flower.popupday.review.dao.ReviewDAO">
+<mapper namespace="flower.popupday.notice.review.dao.ReviewDAO">
 
     <resultMap type="reviewDTO" id="reviewResult">
         <result property="review_id" column="review_id"/>
@@ -45,11 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             select count(*) from review_tbl
         ]]>
     </select>
-    <!-- 상세 글 보기 -->
+
     <select id="selectReview" parameterType="int" resultType="reviewDTO">
         select * from review_tbl where review_id = #{review_id}
     </select>
-    <!-- 상세 글 이미지 보기 -->
+
     <select id="selectImageList" parameterType="int" resultMap="imageResult">
         select * from review_image_tbl where review_id = #{review_id}
     </select>

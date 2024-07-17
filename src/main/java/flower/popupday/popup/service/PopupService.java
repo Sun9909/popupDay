@@ -2,6 +2,7 @@ package flower.popupday.popup.service;
 
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -14,8 +15,5 @@ public interface PopupService {
 
     // 로그인 안 했을때는 list로
 
-
-    public Map<String, Object> popupView(Long popupId) throws  DataAccessException;
-
-    public Map popupList(Map<String, Integer> pagingMap) throws  DataAccessException;
+    public List popupList() throws DataAccessException;
 }
