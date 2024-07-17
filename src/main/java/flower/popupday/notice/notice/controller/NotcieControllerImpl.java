@@ -23,8 +23,8 @@ import java.util.*;
 @Controller("notcieController")
 public class NotcieControllerImpl implements NoticeController {
 
-    //저장할 곳 고정 값으로 지정
-    private static String ARRICLE_IMG_REPO = "";
+    //이미지 파일을 저장할 디렉토리 경로
+    private static String ARRICLE_IMG_REPO = "/path/to/image/repo";
 
     // NoticeService 인스턴스를 주입받음
     @Autowired
@@ -34,9 +34,18 @@ public class NotcieControllerImpl implements NoticeController {
     private NoticeDTO noticeDTO;
     @Autowired
     private NoticeDAO noticeDAO;
+    @Autowired
+    private HttpSession httpSession;
 
-    //페이징 처리 해보자
-    //페이징 처리 해보자
+    // 관리자 권한 확인 메서드
+    private boolean isAdmin(HttpSession session){
+        // 세션에서 로그인 정보를 가져옴
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
+        // 로그인 정보가 없거나 관리자가 아닌 경우 false 반환 즉, admin인지 확인
+        return loginDTO != null && "admin".equals(loginDTO.getRole());
+    }
+
+    //공지사항 목록을 보여주는 메서드
     @Override
     @RequestMapping("/notice/noticeList.do") // 메인 화면에서 공지사항으로 이동했을때 매핑이름
     public ModelAndView noticeList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false) //매개변수 section,pageNum을 받으며 값이 없으면 기본적으로 null이 됨.
@@ -59,26 +68,38 @@ public class NotcieControllerImpl implements NoticeController {
         return mav; // 객체를 변환하여 뷰로 포워딩
     }
 
-    // 오프셋 계산 메서드
-    //private int calculateOffset(int section, int pageNum) {
-    //   return (section - 1) * 100 + (pageNum - 1) * 10;
-    //}
-
+    //공지사항 작성 폼으로 이동하는 메서드
     @Override
     @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
     public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("notice/noticeForm");
+        //세션에서 로그인 정보를 가져온
+        HttpSession session = request.getSession();
+
+        //관리자 권한확인
+        if(!isAdmin(session)) {
+            return  new ModelAndView("redirect:/notice/noticeList.do");//관리자가 아니면 공지사항 목록 페이로 리디렉션
+        }
+        ModelAndView mav = new ModelAndView(); //ModelAndView 객체 생성
+        mav.setViewName("/notice/noticeForm"); //뷰 이름 설정
         return mav;
     }
 
 
-    //글쓰기에 여러개 이미지 추가
+    //글쓰기 + 이미지 추가
     @Override
     @RequestMapping("/admin/addNotice.do")
     //addArticle메서드는(adminNotice.html(<여기안에있음)) MultipartHttpServletRequest 객체를 사용하여 다중 파일 업로드 처리.
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+
+        //세션에서 로그인 정보를 가져온
+        HttpSession session = multipartRequest.getSession();
+
+        //관리자 권한확인
+        if(!isAdmin(session)) {
+            return new ModelAndView("redirect:/notice/noticeList.do");
+        }
+
         //인코딩 설정 및 초기화
         String imageFileName = null; //업로드 된 이미지 파일 이름을 저장할 변수
         multipartRequest.setCharacterEncoding("utf-8");
@@ -92,9 +113,8 @@ public class NotcieControllerImpl implements NoticeController {
             noticeMap.put(name, value);
         }//while end
 
-        //파일 업로드 처리
-        List<String> fileList = multiFileUpload(multipartRequest);
-        List<NoticeimageDTO> imageFileList = new ArrayList<>();
+        List<String> fileList = multiFileUpload(multipartRequest); //파일 업로드 처리
+        List<NoticeimageDTO> imageFileList = new ArrayList<>(); //업로드된 이미지 파일 리스트 초기화
 
         //이미지 파일 정보 저장
         if (fileList != null && fileList.size() != 0) { // fileList가 비어 있지 않을 때  = if (fileList != null && !fileList.isEmpty())
@@ -103,16 +123,17 @@ public class NotcieControllerImpl implements NoticeController {
                 noticeimageDTO.setImage_file_name(fileName);
                 imageFileList.add(noticeimageDTO); // NoticeimageDTO 객체에 저장
             }
-            noticeMap.put("imageFileList", imageFileList);
+            noticeMap.put("imageFileList", imageFileList); //이미지 파일 리스트를 맵에 저장
         }
 
-//        //세션에서 사용자 정보 가져오기
+//        //세션에서 사용자 정보 가져오기(로그인 해서 들어가야함.)
+//  이건 사용자니깐 뺴는게 맞는거 같음 지여나~
 //        HttpSession session = multipartRequest.getSession();
 //        // 회원정보DTO user테이블에 있는 아이디를 가지고 와야함 회원정보? 아마??
-//        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-//        String id = memberDTO.getId();
-//        noticeMap.put("id", id);
-//
+//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
+//        String user_id = String.valueOf(loginDTO.getId());
+//        noticeMap.put("user_id", user_id);
+
         //게시글 추가 및 이미지 파일 이동
         try {
             long notice_id = noticeService.addNotice(noticeMap); // 메서드를 호출해서 DB에 추가 및 새로운 게시물 ID받아  notice_id에 저장
@@ -142,19 +163,28 @@ public class NotcieControllerImpl implements NoticeController {
     //여러개의 이미지 상세 글보기
     @RequestMapping("/notice/notice.do")
     public ModelAndView adminNoticeView(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map noticeMap = noticeService.adminNoticeView(notice_id);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/notice");
-        mav.addObject("noticeMap", noticeMap);
+        Map noticeMap = noticeService.adminNoticeView(notice_id); //공지사항 상세정보를 가져옴
+        ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
+        mav.setViewName("/notice/notice"); // 뷰 이름 설정
+        mav.addObject("noticeMap", noticeMap);  // 공지사항 상세 정보를 뷰에 전달
         return mav;
     }
 
-    @Override
+    @Override //수정
+    @RequestMapping("/notice/modNotice.do")
     public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-        String image_file_name = null;
+        // 세션에서 로그인 정보를 가져옴
+        HttpSession session = multipartRequest.getSession();
+        // 관리자 권한 확인
+        if (!isAdmin(session)) {
+            // 관리자가 아니면 공지사항 목록 페이지로 리디렉션
+            return new ModelAndView("redirect:/notice/noticeList.do");
+        }
+
+        String image_file_name = null;  // 파일 업로드 및 데이터 저장을 위한 초기 설정
         multipartRequest.setCharacterEncoding("utf-8");
-        Map<String, Object> noticeMap = new HashMap<>();
-        Enumeration enu = multipartRequest.getParameterNames();
+        Map<String, Object> noticeMap = new HashMap<>();   // 공지사항 데이터를 저장할 맵 초기화
+        Enumeration enu = multipartRequest.getParameterNames();  // 요청 파라미터의 이름들을 열거형으로 가져옴
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
             String value = multipartRequest.getParameter(name);
@@ -162,30 +192,31 @@ public class NotcieControllerImpl implements NoticeController {
             noticeMap.put(name, value);
         } // while end
 
-            List<String> fileList = multiFileUpload(multipartRequest);
-            String noticeNo = (String) noticeMap.get("noticeNo");
-            List<NoticeimageDTO> imageFileList = new ArrayList<>();
+            List<String> fileList = multiFileUpload(multipartRequest);// 여러 파일 업로드 처리
+            String noticeNo = (String) noticeMap.get("noticeNo"); // 수정할 공지사항 번호를 맵에서 가져옴
+            List<NoticeimageDTO> imageFileList = new ArrayList<>(); // 업로드된 이미지 파일 리스트 초기화
             int modityNumber = 0;
 
-            //두개의 테이블을 동시에 사용
+        // 업로드된 파일이 있을 경우 처리
             if(fileList != null && fileList.size() !=0) {
                 for(String fileName:fileList) {
                     modityNumber++;
                     NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
                     noticeimageDTO.setImage_file_name(fileName);
-
-                    noticeimageDTO.setImage_file_name(fileName);
-                    // 오류나서 주석처리 했음
+                  
                     //noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
                     imageFileList.add(noticeimageDTO);
                 }
-                noticeMap.put("imageFileList", imageFileList);
+                noticeMap.put("imageFileList", imageFileList); // 이미지 파일 리스트를 맵에 저장
             }
-            noticeMap.put("notice_id", "kim");
-            // 오류나서 주석처리 했음
-            //(imageFileList != null && imageFileList.size() != 0)
-            try  {
-                int cnt=0;
+      
+    //>이부부부누확인
+            // 공지사항 ID를 맵에 저장
+            noticeMap.put("notice_id", "notice_id");
+
+            try {
+                if (imageFileList != null && !imageFileList.isEmpty()) {
+                int cnt = 0;
                 for(NoticeimageDTO noticeimageDTO : imageFileList) {
                     cnt++;
                     image_file_name = noticeimageDTO.getImage_file_name();
@@ -193,14 +224,14 @@ public class NotcieControllerImpl implements NoticeController {
                         File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name);
                         File desDir = new File(ARRICLE_IMG_REPO + "\\" + noticeNo);
                         FileUtils.moveFileToDirectory(srcFile, desDir, true);
-                        String OrginalFileName=(String)noticeMap.get("OrginalFileName" + cnt);
-                        System.out.println("이전 이미지 " + OrginalFileName);
-                        File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
+                        //String OrginalFileName=(String)noticeMap.get("OrginalFileName" + cnt);
+                       // System.out.println("이전 이미지 " + OrginalFileName);
+                       // File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
                     }
                 }//for end
             //if end
 
-        }catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
+        }catch (Exception e) {   // 에러 발생 시 임시 디렉토리에 있는 파일 삭제
 			/*if(imageFileList != null && imageFileList.size() != 0) {
 				for(NoticeimageDTO noticeimageDTO : imageFileList) { // 이미지 전부
 					image_file_name = noticeimageDTO.getImage_file_name();
@@ -210,13 +241,23 @@ public class NotcieControllerImpl implements NoticeController {
 			} // if end*/
                 e.printStackTrace(); // 글쓰기 수행중 오류 temp에 있는 이미지가 붕뜸
             } // catch end
+        // 공지사항 목록 페이지로 리디렉션
         ModelAndView mav=new ModelAndView("redirect:/notic/noticeList.do");
         return mav;
     }
 
+   //이미지삭제
     @Override
-    public ModelAndView removeNotice(Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;
+    @PostMapping("/notice/removeNotice.do")
+    public ModelAndView removeNotice(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+       noticeService.removeNotice((long) notice_id);
+       File imgDir = new File(ARRICLE_IMG_REPO + " \\" + notice_id);
+       if(imgDir.exists()) {
+           FileUtils.deleteDirectory(imgDir); // 이 디렉토리(폴더)를 삭제
+        }
+        ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
+        return mav;
     }
 
     @Override
@@ -224,7 +265,7 @@ public class NotcieControllerImpl implements NoticeController {
         return null;
     }
 
-    // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
+    /* // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
     public String fileUpoad(MultipartHttpServletRequest multipartrequest) throws Exception {
         String imageFileName = null;
         Iterator<String> fileNames = multipartrequest.getFileNames(); // 열거형 객체(여러개)
@@ -244,10 +285,9 @@ public class NotcieControllerImpl implements NoticeController {
             //return fileList;
         } // while end
         return imageFileName;
-    }
+    }*/
 
     // 여러개의 이미지파일 업로드
-    // 원래 public이 아니라 private 임
     public List<String> multiFileUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
         List<String> fileList = new ArrayList<String>();
         Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -267,6 +307,7 @@ public class NotcieControllerImpl implements NoticeController {
             }
         }
         return fileList;
+
 
     } // class end
 }

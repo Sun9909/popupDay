@@ -31,8 +31,4 @@ public interface NoticeController {
     //글삭제(글번호를 받아서)
     public ModelAndView removeNotice(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //이미지삭제
-    @PostMapping("/notice/removeNotice.do")
-    ModelAndView removeNotice(@RequestParam("noticeNo") int noticeNo, HttpServletRequest request, HttpServletResponse response)
-            throws Exception;
 }
