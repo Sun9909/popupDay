@@ -19,7 +19,7 @@
         </div>
         <div>
             <div class="individual_join_form">
-                <form th:action="@{/login/addLogin.do}" method="post" th:object="${loginDTO}">
+                <form name="frmMemberLogin" th:action="@{/login/addLogin.do}" method="post" th:object="${loginDTO}">
                     <table>
                         <tr>
                             <td>이메일을 입력해주세요.</td>
@@ -39,7 +39,7 @@
                         </tr>
                         <tr>
                             <td>비밀번호 확인</td>
-                            <td><input type="password" required></td>
+                            <td><input type="password" name="pwd_confirm" required></td>
                         </tr>
                         <tr>
                             <td>닉네임</td>
@@ -53,7 +53,7 @@
                         </tr>
                     </table>
                     <div class="individual_last">
-                        <input type="submit" value="가입하기">
+                        <input type="submit" value="가입하기" disabled>
                         <input type="reset" value="다시 입력">
                     </div>
                 </form>
