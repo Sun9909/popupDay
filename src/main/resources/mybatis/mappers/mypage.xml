@@ -23,7 +23,7 @@
         <result property="review_title" column="review_title"/>
         <result property="review_content" column="review_content"/>
         <result property="date" column="date"/>
-        <result property="write" column="write"/>
+        <result property="writer" column="writer"/>
         <result property="created_date" column="created_date"/>
     </resultMap>
 
@@ -96,10 +96,10 @@
     </select>
 
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
-        select * from popup_tbl where user_id='359'
+        select * from popup_tbl where writer='#{user_id}'
     </select>
 
     <select id="getPopupCount" resultType="Long" parameterType="Long">
-        select count(*) from popup_tbl where user_id='359'
+        select count(*) from popup_tbl where user_id='#{user_id}'
     </select>
 </mapper>
