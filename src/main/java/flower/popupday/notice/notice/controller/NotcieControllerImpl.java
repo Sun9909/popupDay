@@ -1,15 +1,18 @@
 package flower.popupday.notice.notice.controller;
 
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.notice.dao.NoticeDAO;
 import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.notice.dto.NoticeimageDTO;
 import flower.popupday.notice.notice.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -203,33 +206,33 @@ public class NotcieControllerImpl implements NoticeController {
                     modityNumber++;
                     NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
                     noticeimageDTO.setImage_file_name(fileName);
-                  
+
                     //noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
                     imageFileList.add(noticeimageDTO);
                 }
                 noticeMap.put("imageFileList", imageFileList); // 이미지 파일 리스트를 맵에 저장
             }
-      
+
     //>이부부부누확인
             // 공지사항 ID를 맵에 저장
             noticeMap.put("notice_id", "notice_id");
 
             try {
                 if (imageFileList != null && !imageFileList.isEmpty()) {
-                int cnt = 0;
-                for(NoticeimageDTO noticeimageDTO : imageFileList) {
-                    cnt++;
-                    image_file_name = noticeimageDTO.getImage_file_name();
-                    if(image_file_name != null && image_file_name != "") {
-                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name);
-                        File desDir = new File(ARRICLE_IMG_REPO + "\\" + noticeNo);
-                        FileUtils.moveFileToDirectory(srcFile, desDir, true);
-                        //String OrginalFileName=(String)noticeMap.get("OrginalFileName" + cnt);
-                       // System.out.println("이전 이미지 " + OrginalFileName);
-                       // File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
-                    }
-                }//for end
-            //if end
+                    int cnt = 0;
+                    for (NoticeimageDTO noticeimageDTO : imageFileList) {
+                        cnt++;
+                        image_file_name = noticeimageDTO.getImage_file_name();
+                        if (image_file_name != null && image_file_name != "") {
+                            File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name);
+                            File desDir = new File(ARRICLE_IMG_REPO + "\\" + noticeNo);
+                            FileUtils.moveFileToDirectory(srcFile, desDir, true);
+                            //String OrginalFileName=(String)noticeMap.get("OrginalFileName" + cnt);
+                            // System.out.println("이전 이미지 " + OrginalFileName);
+                            // File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
+                        }
+                    }//for end
+                }//if end
 
         }catch (Exception e) {   // 에러 발생 시 임시 디렉토리에 있는 파일 삭제
 			/*if(imageFileList != null && imageFileList.size() != 0) {
@@ -258,11 +261,6 @@ public class NotcieControllerImpl implements NoticeController {
         }
         ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
         return mav;
-    }
-
-    @Override
-    public ModelAndView removeNotice(int noticeNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;
     }
 
     /* // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
