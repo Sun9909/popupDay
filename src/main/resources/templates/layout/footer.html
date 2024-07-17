@@ -38,19 +38,19 @@
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/join.do\')'">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/login/join.do\')'">
                                 Q&A
                                 <span>질문 & 답변</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/join.do\')'">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'">
                                 FAQ
                                 <span>자주 묻는 질문</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/join.do\')'">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
                                 REVIEW
                                 <span>후기</span>
                             </a>
@@ -75,7 +75,7 @@
                 <img th:src="@{/images/zzem.svg}">
                 <span>찜 목록</span>
             </a>
-            <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/join.do\')'">
+            <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/join.do\')'">
                 <img th:src="@{/images/person.svg}">
                 <span>마이페이지</span>
             </a>
