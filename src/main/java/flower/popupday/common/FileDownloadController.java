@@ -14,7 +14,7 @@ public class FileDownloadController extends HttpServlet {
 
     private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
 
-    @RequestMapping("download.do")
+    @RequestMapping("/download.do")
     public void fileDown(@RequestParam("articleNo") String articleNo, @RequestParam("imageFileName") String imageFileName,
                          HttpServletRequest request, HttpServletResponse response) throws Exception {
 
