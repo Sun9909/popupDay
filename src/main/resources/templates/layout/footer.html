@@ -12,7 +12,7 @@
     </div>
     <div class="under_fix">
         <div class="css-footer-buttons">
-            <a th:href="@{/main.do}">
+            <a th:href="@{/main.do}" >
                 <img th:src="@{/images/home.svg}">
                 <span>홈</span>
             </a>
@@ -34,38 +34,44 @@
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <a href="팝업 검색창">
+                            <a href="/board/popupAllList.do">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
                         </li>
                         <li>
-                            <a href="공지사항">
-                                Notice
+                            <a th:href="@{/notice/noticeList.do}">
+                                NOTICE
                                 <span>공지사항</span>
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/qnaList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/login/join.do\')'">
                                 Q&A
                                 <span>질문 & 답변</span>
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/reviewList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'">
                                 FAQ
                                 <span>자주 묻는 질문</span>
                             </a>
                         </li>
+                        <li>
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
+                                REVIEW
+                                <span>후기</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="businessperson_category">
+                <div class="businessperson_category" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).사업자}">
                     <ul id="businessperson_box">
                         <li>
                             <a href="사업자 문의 창">사업자 문의</a>
                         </li>
                         <li>
-                            <a th:href="@{/popup/addPopup.do}">팝업 등록</a>
+                            <a href="/board/popupForm.do">팝업 등록</a>
                         </li>
                         <li>
                             <a href="사업자 팝업 수정 창">팝업 수정</a>
@@ -77,7 +83,7 @@
                 <img th:src="@{/images/zzem.svg}">
                 <span>찜 목록</span>
             </a>
-            <a th:href="@{/mypage/memberPage.do}">
+            <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/login.do\')'">
                 <img th:src="@{/images/person.svg}">
                 <span>마이페이지</span>
             </a>

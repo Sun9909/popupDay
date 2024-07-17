@@ -1,7 +1,9 @@
 package flower.popupday.popup.service;
 
 import flower.popupday.popup.dao.PopupDAO;
-
+import flower.popupday.popup.dto.HashTagDTO;
+import flower.popupday.popup.dto.ImageDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +64,30 @@ public class PopupServiceImpl implements PopupService {
         return popup_id; // 등록된 팝업 ID 반환
     }
 
+    public Map popupView(Long popup_id) throws DataAccessException {
+        Map<String, Object> popupMap = new HashMap<>();
+        PopupDTO popupDTO = popupDAO.selectPopup(popup_id);
+        List<ImageDTO> imageFileList = popupDAO.selectImageFileList(popup_id);
+        List<HashTagDTO> hashTagList = popupDAO.selectHashTagListByPopupId(popup_id);
+
+        popupMap.put("popup", popupDTO);
+        popupMap.put("imageFileList", imageFileList);
+        popupMap.put("hashTagList", hashTagList);
+
+        return popupMap;
+    }
+
     @Override
-    public List popupList() throws DataAccessException {
-        List popupList = popupDAO.selectAllPopup();
-        return popupList;
+    public Map popupList(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map popupMap =new HashMap<>();
+        int section=pagingMap.get("section");
+        int pageNum=pagingMap.get("pageNum");
+        int count=(section-1)*100+(pageNum-1)*10; // 현재 섹션에는 1
+        List<PopupDTO> popupList =popupDAO.selectAllPopup(count); // boardDAO.메서드 호출 dto로 받음
+        int totPopup=popupDAO.selectToPopup(); // 전체 글 목록 수 조회
+        popupMap.put("popupList", popupList);
+        popupMap.put("totPopup", totPopup);
+//        popupMap.put("totPopup", 324); // 임시 페이지 생성
+        return popupMap;
     }
 }

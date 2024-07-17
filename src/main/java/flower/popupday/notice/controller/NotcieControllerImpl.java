@@ -1,9 +1,9 @@
-package flower.popupday.notice.controller;
+package flower.popupday.notice.notice.controller;
 
-import flower.popupday.notice.dao.NoticeDAO;
-import flower.popupday.notice.dto.NoticeDTO;
-import flower.popupday.notice.dto.NoticeimageDTO;
-import flower.popupday.notice.service.NoticeService;
+import flower.popupday.notice.notice.dao.NoticeDAO;
+import flower.popupday.notice.notice.dto.NoticeDTO;
+import flower.popupday.notice.notice.dto.NoticeimageDTO;
+import flower.popupday.notice.notice.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;

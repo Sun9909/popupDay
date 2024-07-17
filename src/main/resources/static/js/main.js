@@ -310,7 +310,7 @@ function fn_articleForm(isLogOn, articleForm, loginForm) { /*boolean, 이동하�
     if(isLogOn===true) {	//로그인 시
         location.href=articleForm;	//이동하고 싶은 창으로 이동 가능
     }else {	//로그인되어있지 않을 시
-        alert("isLogOn : " + isLogOn);
+        //alert("isLogOn : " + isLogOn);
         alert("로그인 후 이용 가능합니다.");
         location.href = loginForm + '?action=' + encodeURIComponent(articleForm);	//로그인 창으로
     }
