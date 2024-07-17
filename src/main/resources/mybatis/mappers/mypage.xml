@@ -12,6 +12,7 @@
         <result property="pwd" column="pwd"/>
         <result property="email" column="email"/>
         <result property="reg_date" column="reg_date"/>
+        <result property="business_num" column="business_num"/>
         <result property="role" column="role"/>
         <result property="status" column="status"/>
     </resultMap>
@@ -51,7 +52,7 @@
     </resultMap>
 
     <select id="getName" parameterType="myDTO">
-        select * from user_tbl where id='123'
+        select * from user_tbl where id=#{id}
     </select>
 
     <!--    <select id="selectAllReview" resultMap="revResult">-->
@@ -88,6 +89,10 @@
     <select id="getQnaCount" parameterType="Long" resultType="Long">
         select count(*) from qna_tbl join user_tbl on qna_tbl.user_id = user_tbl.id
         where qna_tbl.user_id=#{user_id} group by qna_tbl.user_id
+    </select>
+
+    <select id="selectMemberById" parameterType="Long" resultType="myDTO">
+        select * from user_tbl where id=#{id}
     </select>
 
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">

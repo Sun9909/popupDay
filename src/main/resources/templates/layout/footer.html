@@ -32,8 +32,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="공지사항">
-                                Notice
+                            <a th:href="@{/notice/noticeList.do}">
+                                NOTICE
                                 <span>공지사항</span>
                             </a>
                         </li>
@@ -69,7 +69,7 @@
                 <img th:src="@{/images/zzem.svg}">
                 <span>찜 목록</span>
             </a>
-            <a th:href="@{/mypage/memberPage.do}">
+            <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/login.do\')'">
                 <img th:src="@{/images/person.svg}">
                 <span>마이페이지</span>
             </a>

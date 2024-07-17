@@ -1,10 +1,10 @@
 package flower.popupday.mypage.dao;
 
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -21,6 +21,8 @@ public interface MyDAO {
     public String getpopCommentCount(String user_nikname) throws DataAccessException;
 
     public Long getQnaCount(Long id) throws DataAccessException;
+
+    public MyDTO selectMemberById(Long id) throws DataAccessException;
 
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
     public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
