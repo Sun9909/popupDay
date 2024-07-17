@@ -38,8 +38,10 @@ public class MyControllerImpl implements MyController {
         ModelAndView mav = new ModelAndView();
 
         HttpSession session=request.getSession();
+
         session.setAttribute("my", myDTO);
         session.setAttribute("isLogOn", true);
+
         System.out.println(myDTO.getId());
 
         if (myDTO.getRole() == MyDTO.Role.일반) {
