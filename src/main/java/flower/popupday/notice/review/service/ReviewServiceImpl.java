@@ -47,14 +47,15 @@ public class ReviewServiceImpl implements ReviewService {
 
     //후기 상세보기
     @Override
-    public Map showReview(int review_id) throws DataAccessException {
-        Map listMap=new HashMap<>();
-        ReviewDTO reviewDTO = reviewDAO.selectReview(review_id); // 선택한 글번호의 정보 가져오기
-        List<ReviewImageDTO> imageFiles = reviewDAO.selectImageList(review_id); //선택한 글번호의 이미지
-        listMap.put("imageFiles",imageFiles);
-        listMap.put("review",reviewDTO);
+    public Map<String, Object> showReview(int review_id) throws DataAccessException {
+        Map<String, Object> listMap = new HashMap<>();
+        ReviewDTO reviewDTO = reviewDAO.selectReview(review_id);
+        List<ReviewImageDTO> imageFiles = reviewDAO.selectImageList(review_id);
+        listMap.put("review", reviewDTO);
+        listMap.put("imageFiles", imageFiles);
         return listMap;
     }
+
 
     //후기 수정반영하기
     @Override
