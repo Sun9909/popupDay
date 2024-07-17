@@ -31,7 +31,7 @@
 }
 
 .containers {
-    min-height: 1030px;
+    min-height: 1400px;
 
 }
 /* 운영시간 css */
@@ -71,4 +71,14 @@
     color: white;
     font-weight: 700;
     cursor: pointer;
+}
+
+.hash_tag {
+    background-color: #FEFEDF;
+    border: 2px solid #8B8BDA;
+    padding: 5px 8px;
+    border-radius: 30px;
+    font-size: 15px;
+    width: 50px; /* 초기 너비 */
+    box-sizing: content-box;
 }

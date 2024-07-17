@@ -41,3 +41,34 @@ function fn_addFile() { //이미지 여러개 올리기 위한 함수
     $('#dock_file').append('<input type="file" name="imgFile' + count + '"><br>');
     count++;
 }
+
+// 해시태그 추가
+let hash_count=1; //초기값 지정
+function fn_addHash_tag() { //이미지 여러개 올리기 위한 함수
+    if (hash_count <= 5) {
+        $('#dock_hash_tag').append('<input type="text" name="hash_tag" class="hash_tag" oninput="adjustWidth(this)" maxlength="10" value="#">');
+        hash_count++;
+    }else {
+        alert("해시태그는 5개까지만 추가할 수 있습니다.");
+    }
+}
+
+function adjustWidth(input) {
+    // 임시 스팬 요소를 만들어 입력된 텍스트의 너비를 계산
+    const span = document.createElement('span');
+    span.style.visibility = 'hidden';
+    span.style.whiteSpace = 'nowrap';
+    span.textContent = input.value;
+
+    document.body.appendChild(span);
+    const width = span.offsetWidth;
+    document.body.removeChild(span);
+
+    // 최소 너비를 50px로 설정하고 텍스트 길이에 따라 동적으로 너비 조절
+    input.style.width = Math.max(50, width + 1) + 'px';
+}
+
+function removeHashSymbol(input) {
+    // 입력된 값에서 #을 제거
+    input.value = input.value.replace(/#/g, '');
+}

@@ -15,4 +15,10 @@ public interface ReviewService {
     // 로그인 안 했을때는 list로
 
     public Map reviewList(Map<String, Integer> pagingMap) throws DataAccessException;
+
+    //후기 상세보기
+    public Map showReview(int review_id) throws DataAccessException;
+
+    // 여러개의 이미지 글 수정
+    public void modReview(Map reviewMap) throws DataAccessException;
 }

@@ -15,7 +15,7 @@
 <th:block layout:fragment="content">
     <div class="containers">
         <h2>공지사항 작성하기</h2>
-        <form action="/notice/addNotice.do" method="post" enctype="multipart/form-data">
+        <form action="/notice/addArticle.do" method="post" enctype="multipart/form-data">
             <div class="notice-form">
                 <div class="select">
                     <label>구분</label>
@@ -28,7 +28,7 @@
                     <input type="text" placeholder="제목" name="title">
                 </div>
                 <div class="notice">
-                    <textarea placeholder="내용을 입력하세요" rows="15" cols="200" name="content"></textarea>
+                    <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
                 </div>
             </div>
             <div class="imagefile">
@@ -41,12 +41,12 @@
                 <button type="reset">취소</button>
                 <button type="submit">등록</button>
             </div>
-        </form>
     </div>
-
+    <form>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/search.js"></script>
+    </form>
     </div>
 </th:block>
 </body>

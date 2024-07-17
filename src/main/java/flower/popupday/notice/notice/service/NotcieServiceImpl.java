@@ -58,6 +58,7 @@ public class NotcieServiceImpl implements NoticeService {
 
     // 여러 개의 이미지 추가
     public int addNotice(Map<String, Object> noticeMap) throws DataAccessException {
+
 //        int notice_id = notic  public void removeNotice(Long noticeId, HttpSession session) {
 //        if (!isAdmin(session)) {
 //            throw new UnauthorizedAccessException("관리자 권한이 필요합니다.");
@@ -68,6 +69,7 @@ public class NotcieServiceImpl implements NoticeService {
 //    eDAO.getNewNoticeNo();
 //        noticeMap.put("notice_id", notice_id);
         int notice_id = noticeDAO.insertNewNotice(noticeMap);
+
         if (noticeMap.get("imagesFileList") != null) {
             noticeDAO.insertNewImages(noticeMap);
         }

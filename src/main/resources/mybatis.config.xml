@@ -12,6 +12,5 @@
 		<mapper resource="mybatis/mappers/popup.xml"/>
 		<mapper resource="mybatis/mappers/QnA.xml"/>
 		<mapper resource="mybatis/mappers/review.xml"/>
-
 		</mappers>
 	</configuration>

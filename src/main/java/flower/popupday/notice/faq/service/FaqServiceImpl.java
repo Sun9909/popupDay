@@ -36,5 +36,15 @@ public class FaqServiceImpl implements FaqService {
         return faqList;
     }
 
+    @Override
+    public void modFaq(FaqDTO faqDTO) throws DataFormatException {
+        faqDAO.changeFaq(faqDTO);
+    }
+
+    @Override
+    public void removeFaq(int faq_id) throws DataAccessException {
+        faqDAO.deleteFaq(faq_id);
+    }
+
 
 }

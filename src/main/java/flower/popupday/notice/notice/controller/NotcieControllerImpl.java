@@ -1,18 +1,15 @@
 package flower.popupday.notice.notice.controller;
 
-import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.notice.dao.NoticeDAO;
 import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.notice.dto.NoticeimageDTO;
 import flower.popupday.notice.notice.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -71,7 +68,6 @@ public class NotcieControllerImpl implements NoticeController {
         return mav; // 객체를 변환하여 뷰로 포워딩
     }
 
-
     //공지사항 작성 폼으로 이동하는 메서드
     @Override
     @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
@@ -92,7 +88,7 @@ public class NotcieControllerImpl implements NoticeController {
 
     //글쓰기 + 이미지 추가
     @Override
-    @RequestMapping("/notice/addNotice.do")
+    @RequestMapping("/admin/addNotice.do")
     //addArticle메서드는(adminNotice.html(<여기안에있음)) MultipartHttpServletRequest 객체를 사용하여 다중 파일 업로드 처리.
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
 
@@ -140,7 +136,6 @@ public class NotcieControllerImpl implements NoticeController {
 
         //게시글 추가 및 이미지 파일 이동
         try {
-            System.out.println(noticeMap);
             long notice_id = noticeService.addNotice(noticeMap); // 메서드를 호출해서 DB에 추가 및 새로운 게시물 ID받아  notice_id에 저장
             if (imageFileList != null && imageFileList.size() != 0) { //!imageFileList.isEmpty()
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
@@ -208,11 +203,13 @@ public class NotcieControllerImpl implements NoticeController {
                     modityNumber++;
                     NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
                     noticeimageDTO.setImage_file_name(fileName);
+                  
                     //noticeimageDTO.setImage_file_name(Integer.parseInt((Long) noticeMap.get("notice_id" + modityNumber)));
                     imageFileList.add(noticeimageDTO);
                 }
                 noticeMap.put("imageFileList", imageFileList); // 이미지 파일 리스트를 맵에 저장
             }
+      
     //>이부부부누확인
             // 공지사항 ID를 맵에 저장
             noticeMap.put("notice_id", "notice_id");
@@ -232,7 +229,7 @@ public class NotcieControllerImpl implements NoticeController {
                        // File oldFile = new File(ARRICLE_IMG_REPO + "\\" + noticeNo + "\\" + OrginalFileName);
                     }
                 }//for end
-            }//if end
+            //if end
 
         }catch (Exception e) {   // 에러 발생 시 임시 디렉토리에 있는 파일 삭제
 			/*if(imageFileList != null && imageFileList.size() != 0) {
@@ -249,8 +246,6 @@ public class NotcieControllerImpl implements NoticeController {
         return mav;
     }
 
-
-
    //이미지삭제
     @Override
     @PostMapping("/notice/removeNotice.do")
@@ -265,6 +260,10 @@ public class NotcieControllerImpl implements NoticeController {
         return mav;
     }
 
+    @Override
+    public ModelAndView removeNotice(int noticeNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
+    }
 
     /* // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
     public String fileUpoad(MultipartHttpServletRequest multipartrequest) throws Exception {

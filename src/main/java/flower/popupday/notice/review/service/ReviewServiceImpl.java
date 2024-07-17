@@ -1,8 +1,8 @@
 package flower.popupday.notice.review.service;
 
-import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.review.dao.ReviewDAO;
 import flower.popupday.notice.review.dto.ReviewDTO;
+import flower.popupday.notice.review.dto.ReviewImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -44,4 +44,25 @@ public class ReviewServiceImpl implements ReviewService {
 
         return listMap;
     }
+
+    //후기 상세보기
+    @Override
+    public Map showReview(int review_id) throws DataAccessException {
+        Map listMap=new HashMap<>();
+        ReviewDTO reviewDTO = reviewDAO.selectReview(review_id); // 선택한 글번호의 정보 가져오기
+        List<ReviewImageDTO> imageFiles = reviewDAO.selectImageList(review_id); //선택한 글번호의 이미지
+        listMap.put("imageFiles",imageFiles);
+        listMap.put("review",reviewDTO);
+        return listMap;
+    }
+
+    //후기 수정반영하기
+    @Override
+    public void modReview(Map reviewMap) throws DataAccessException {
+        reviewDAO.updateReview(reviewMap);
+        reviewDAO.updateImage(reviewMap);
+    }
+
+
+
 }

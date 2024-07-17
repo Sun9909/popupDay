@@ -38,7 +38,7 @@
     </resultMap>
 
     <resultMap type="mypopupDTO" id="popResult">
-        <result property="popup_id" column="popup_id"/>
+        <result property="hash_tag_id" column="hash_tag_id"/>
         <result property="title" column="title"/>
         <result property="info" column="info"/>
         <result property="popup_hours" column="popup_hours"/>
