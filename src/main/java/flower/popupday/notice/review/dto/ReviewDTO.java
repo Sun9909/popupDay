@@ -11,19 +11,19 @@ public class ReviewDTO {
     private String review_title;
     private String review_content;
     private Date date;
-    private String write;
+    private String writer;
     private Date created_date;
 
 
     public ReviewDTO() {}
 
-    public ReviewDTO(long review_id, long user_id, String review_title, String review_content,Date date, String write, Date created_date) {
+    public ReviewDTO(long review_id, long user_id, String review_title, String review_content,Date date, String writer, Date created_date) {
         this.review_id = review_id;
         this.user_id = user_id;
         this.review_title = review_title;
         this.review_content = review_content;
         this.date = date;
-        this.write = write;
+        this.writer = writer;
         this.created_date = created_date;
     }
 
@@ -69,11 +69,11 @@ public class ReviewDTO {
     }
 
     public String getWrite() {
-        return write;
+        return writer;
     }
 
     public void setWrite(String write) {
-        this.write = write;
+        this.writer = writer;
     }
 
     public Date getCreated_date() {
