@@ -68,6 +68,11 @@ public class MyServiceImpl implements MyService {
         myDAO.updateLogin(loginDTO);
     }
 
+    @Override
+    public void updatePwd(LoginDTO loginDTO) throws DataAccessException {
+        myDAO.updatePwd(loginDTO);
+    }
+
 //    @Override
 //    public boolean checkNikname(String user_nikname) {
 //        return myDAO.checkNikname(user_nikname);

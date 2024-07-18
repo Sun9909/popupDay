@@ -32,6 +32,8 @@ public interface MyService {
     //닉네임 중복 체크
     //boolean checkNikname(String user_nikname);
 
+    public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
+
     //팝업 리스트
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
     public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
