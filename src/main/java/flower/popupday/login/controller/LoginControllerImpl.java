@@ -179,4 +179,15 @@ public class LoginControllerImpl implements LoginController {
     public ModelAndView removeNotice(int noticeNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
         return null;
     }
+
+
+    @Override
+    @GetMapping("/logout.do")
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        session.invalidate(); // 세션 무효화
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/main.do"); // 로그아웃 후 메인 페이지로 리다이렉트
+        return mav;
+    }
 }
