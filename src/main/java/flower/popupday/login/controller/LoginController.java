@@ -77,4 +77,10 @@ public interface LoginController {
     //로그아웃
     public ModelAndView logout(HttpServletRequest request,
                                HttpServletResponse response) throws Exception;
+
+    //카카오 소셜 로그인
+    public ModelAndView oauth(
+            @RequestParam(value = "code", required = false) String code,
+            HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 }
