@@ -1,5 +1,7 @@
 package flower.popupday.popup.controller;
 
+import flower.popupday.popup.dao.PopupDAO;
+import flower.popupday.popup.dto.HashTagDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.service.PopupService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,9 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,31 +26,13 @@ public class PopupControllerImpl implements PopupController {
     PopupService popupService;
 
     @Override
-    @RequestMapping("/board/popupAllList.do") // 글 목록 섹션 페이지넘에 값이없을때 초기값 null
-    public ModelAndView listArticles(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int section = Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        Map<String, Integer> pagingMap = new HashMap<>();
-        pagingMap.put("section", section); // 1
-        pagingMap.put("pageNum", pageNum); // 1
-        Map popupMap = popupService.popupList(pagingMap); // 서비스에서 글목록 받아오기
-        popupMap.put("section", section);
-        popupMap.put("pageNum", pageNum);
+    @RequestMapping("/board/popupList.do")
+    public ModelAndView popupList(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/board/popupAllList"); // 여기로감
-        mav.addObject("popupMap", popupMap); // 글목록 넘겨줌
-        return mav; // 포워딩
-    }
-
-
-
-    @Override
-    @GetMapping("/board/popupForm.do")
-    public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/board/popupForm");
-        return mav;
+        List popupList = popupService.popupList();
+        mav.setViewName("/board/popupList"); // View 이름 설정
+        mav.addObject("popupList", popupList); // 모델에 데이터 추가
+        return mav; // ModelAndView 반환
     }
 
     @Override
@@ -140,16 +122,5 @@ public class PopupControllerImpl implements PopupController {
             }
         }
         return fileList;
-    }
-
-    @Override
-    @RequestMapping("/board/popupView.do")
-    public ModelAndView popupView(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-        Map<String, Object> popupMap = popupService.popupView(popup_id);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/board/popupView");
-        mav.addObject("popupMap", popupMap);
-        return mav;
     }
 }

@@ -40,14 +40,3 @@ table {
     height: 100px;
     margin-bottom: 30px;
 }
-.businessperson_last > input {
-    padding: 7px 13px;
-    margin: 0 10px;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: #8B8BDA;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-}
