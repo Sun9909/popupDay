@@ -157,8 +157,11 @@ public class ReviewControllerImpl implements ReviewController {
         }
         HttpSession session=multipartRequest.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
-        String user_id=loginDTO.getUser_id();
-        reviewMap.put("user_id", user_id);
+        Long id=loginDTO.getId();
+        reviewMap.put("id", id);
+        // 임시 writer 넣기
+        String name = loginDTO.getName();
+        reviewMap.put("name", name);
         try {
             int imageId=reviewService.addReview(reviewMap);
             if(imageFileList != null && imageFileList.size() != 0) {

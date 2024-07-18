@@ -17,7 +17,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewDAO reviewDAO;
 
-
+    //후기추가
     @Override
     public int addReview(Map<String, Object> reviewMap) {
         int review_id=reviewDAO.getNewReviewId(); // 글번호 받아오는 메서드

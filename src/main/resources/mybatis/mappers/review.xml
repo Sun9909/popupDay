@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="insertNewReview" parameterType="java.util.Map">
         insert into review_tbl (user_id, review_title, review_content, date, writer)
-        values (#{user_id}, #{review_title}, #{review_content}, now(), #{name})
+        values (#{id}, #{review_title}, #{review_content}, now(), #{name})
     </insert>
 
     <insert id="insertNewImages" parameterType="java.util.Map">
