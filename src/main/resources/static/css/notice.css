@@ -414,6 +414,19 @@
     display: none;
 }
 
+#modify-img {
+    display: none;
+}
+
+.review_imgs {
+    display: flex;
+    align-items: center;
+}
+.review_imgs img {
+    width: 90px;
+    height: 90px;
+}
+
 
 
 /*페이지설정*/
