@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="flower.popupday.popup.dao.PopupDAO">
 
     <resultMap type="popupDTO" id="popResult">
@@ -38,13 +38,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl order by created_date LIMIT #{count}, 10
+        select * from popup_tbl order by created_date desc LIMIT #{count}, 10
     </select>
 
     <select id="selectToPopup" resultType="int">
       <![CDATA[
         select count(*) from popup_tbl
-      ]]>
+        ]]>
    </select>
 
     <!-- 글번호 생성 -->
@@ -106,8 +106,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 이미지 파일 리스트 조회 -->
-    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">
-        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}
+    <!--    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">-->
+    <!--        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}-->
+    <!--    </select>-->
+
+    <!-- 썸네일 조회 -->
+    <select id="selectFirstImage" resultMap="imgResult" parameterType="Long">
+        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id} LIMIT 1
     </select>
 
     <!-- 특정 팝업의 해시태그 리스트 조회 -->
