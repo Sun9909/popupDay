@@ -43,7 +43,7 @@ public class NotcieServiceImpl implements NoticeService {
         Map<String, Object> noticeMap = new HashMap<>(); // 공지상황 목록과 관련 데이터를 저장할 맵을 생성
         int section = pagingMap.get("section"); // pagingMap에서 section 값을 가져와 section 변수에 저장
         int pageNum = pagingMap.get("pageNum"); // pagingMap에서 pageNum 값을 가져와 pageNum 변수에 저장
-        int count = (section - 1) * 100 + (pageNum - 1) * 10; // section,pageNum을 사용해 DB쿼리의 시작 위치를 계산 -> section은 100개의 공지사항을 pageNum은 10개의 공지사항을 나타냄.
+        int count = (section - 1) * 100 + (pageNum - 1) * 10; +
         List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(count); // noticeDAO를 사용해 count 위치부터 공지사항 목록을 가져옴 -> NoticeDTO 객체의 리스트로 반환 됨
         int totNotice = noticeDAO.selectTotalNotice(); // noticeDAO를 사용해 전체 공지사항 수를 가져옴.
         noticeMap.put("noticeList", noticeList); // noticeList를 noticeMap에 추가
@@ -68,6 +68,8 @@ public class NotcieServiceImpl implements NoticeService {
 //    eDAO.getNewNoticeNo();
 //        noticeMap.put("notice_id", notice_id);
         int notice_id = noticeDAO.insertNewNotice(noticeMap);
+        noticeMap.put("notice_id", notice_id);
+        noticeDAO.insertNewNotice(noticeMap);
         if (noticeMap.get("imagesFileList") != null) {
             noticeDAO.insertNewImages(noticeMap);
         }

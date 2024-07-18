@@ -46,7 +46,7 @@
 <!--   </select>-->
 
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
-    <insert id="insertNewNotice" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="notice_id">
+    <insert id="insertNewNotice" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="user_id">
       <![CDATA[
         insert into notice_tbl(user_id, title, content, created_date) values(#{user_id},#{title},#{content},now())
         ]]>
@@ -67,7 +67,7 @@
     <insert id="insertNewImages" parameterType="java.util.Map"> <!-- map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴 -->
         insert into notice_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
-            (#{item.imageFileNo}, #{item.image_file_name}, sysdate(), #{notice_id})
+            (#{item.notice_id}, #{item.image_file_name}, sysdate(), #{notice_id})
         </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
 
@@ -81,7 +81,7 @@
     <update id="updateImage" parameterType="java.util.Map">
         <foreach item="item" collection="imageFileList" separator=";"> <!-- 이미지 담겨있는 곳 -->
             <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
-                update imagefile_tbl set image_file_name=#{item.image_file_name} where imageFileNo=#{item.imageFileNo} and #{item.image_file_name} != ''
+                update notice_image_tbl set image_file_name=#{item.image_file_name} where imageFileNo=#{item.imageFileNo} and #{item.image_file_name} != ''
             </if>
         </foreach>
     </update>
