@@ -78,7 +78,7 @@
                             <span th:each="num : ${#numbers.sequence(1,(reviewMap.totReview/10) + 1)}">
                                 <span th:if="${num==reviewMap.pageNum}"> <!-- 현재 보고있는 페이지를 강조하기 위한 class -->
                                     <a class="target" th:href="@{/notice/reviewList.do(section=${reviewMap.section},pageNum=${num})}" th:text="${num}"></a>
-                                </span> <!-- 페이지 번호를 클릭하면 pageNum과 section값을 가지고 listArticles.do를 가서 페이지 보이게 하기 -->
+                                </span> <!-- 페이지 번호를 클릭하면 pageNum과 section값을 가지고 popupAllList.do를 가서 페이지 보이게 하기 -->
                                 <span th:unless="${num==reviewMap.pageNum}"> <!-- 보고있지 않은 페이지 -->
                                     <a class="noLine" th:href="@{/notice/reviewList.do(section=${reviewMap.section},pageNum=${num})}" th:text="${num}"></a>
                                 </span>
