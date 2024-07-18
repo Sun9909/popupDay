@@ -98,6 +98,7 @@ public class MyControllerImpl implements MyController {
     public ModelAndView loginModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
+
         MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
         ModelAndView mav = new ModelAndView("/modify/loginModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
         mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
@@ -106,22 +107,59 @@ public class MyControllerImpl implements MyController {
 
     //자신의 정보를 수정한 후 저장하기
     @Override
-    @PostMapping("/mypage/updateLogin.do")
+    @RequestMapping("/mypage/updateLogin.do")
     public ModelAndView updateLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(); //세션 가져오기
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //세션에서 loginDTO 가져오기
-        myDTO.setId(loginDTO.getId());  //myDTO에 로그인한 사용자의 id설정
-        myService.updateLogin(myDTO);   //서비스 메소드를 호출하여 사용자 정보 업데이트
-        ModelAndView mav = new ModelAndView("redirect:/mypage/memberPage.do");  //어느 화면으로 가야할까
+
+        //loginDTO.setId(sessionLoginDTO.getId());  //세션에서 가져온 id를 설정하여 보안 유지
+        //MyDTO myDTO = new MyDTO();
+        loginDTO.setUser_nikname(request.getParameter("user_nikname"));
+        loginDTO.setName(request.getParameter("name"));
+        loginDTO.setEmail(request.getParameter("email"));
+
+        myService.updateLogin(loginDTO);   //loginDTO를 서비스로 전달
+        session.setAttribute("loginDTO", loginDTO); //업데이트된 정보를 세션에 저장
+        //System.out.println(loginDTO);
+        //System.out.println(myDTO);
+
+        ModelAndView mav = new ModelAndView("redirect:/mypage/memberPage.do");
         return mav;
     }
 
     @Override
-    @PostMapping("/login/check-nikname")    //js인듯
-    @ResponseBody
-    public boolean checkNikname(String user_nikname) {
-        return myService.checkNikname(user_nikname);
+    @RequestMapping("/modify/passwordModify.do")
+    public ModelAndView passwordModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
+
+        MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
+        ModelAndView mav = new ModelAndView("/modify/passwordModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
+        mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
+        return mav;
     }
+
+    @Override
+    @RequestMapping("/mypage/updatePwd.do")
+    public ModelAndView updatePwd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
+        loginDTO.setPwd(request.getParameter("pwd"));
+
+        myService.updatePwd(loginDTO);
+        session.setAttribute("loginDTO", loginDTO);
+
+        ModelAndView mav = new ModelAndView("redirect:/mypage/memberPage.do");
+        return mav;
+    }
+
+//    @Override
+//    @PostMapping("/login/check-nikname")    //js인듯
+//    @ResponseBody
+//    public boolean checkNikname(String user_nikname) {
+//        return myService.checkNikname(user_nikname);
+//    }
 
 
 //    @Override

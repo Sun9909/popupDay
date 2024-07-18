@@ -95,7 +95,7 @@
         select * from user_tbl where id=#{id}
     </select>
 
-    <update id="updateLogin" parameterType="myDTO">
+    <update id="updateLogin" parameterType="loginDTO">
         update user_tbl set user_nikname=#{user_nikname}, name=#{name}, email=#{email} where id=#{id}
     </update>
 
@@ -103,6 +103,10 @@
     <select id="checkNikname" parameterType="String" resultType="boolean">
         select count(*) > 0 from user_tbl where user_nikname=#{user_nikname}
     </select>
+
+    <update id="updatePwd" parameterType="loginDTO">
+        update user_tbl set pwd=#{pwd} where id=#{id}
+    </update>
 
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
         select * from popup_tbl where writer='#{user_id}'
