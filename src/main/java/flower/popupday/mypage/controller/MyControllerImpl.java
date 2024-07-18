@@ -54,9 +54,18 @@ public class MyControllerImpl implements MyController {
         else if (loginDTO.getRole() == LoginDTO.Role.사업자){
             mav.setViewName("redirect:/mypage/businessPage.do");
         }
-        else {
-            mav.setViewName("/login/loginForm"); // 비 로그인시 로그인폼으로 유도
+
+        // 세션에 myDTO 설정
+        session.setAttribute("my", loginDTO);
+        session.setAttribute("isLogOn", true);
+
+        // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
+        if (loginDTO.getRole() == LoginDTO.Role.일반 || loginDTO.getRole() == LoginDTO.Role.사업자) {
+            mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
+        } else {
+            mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
         }
+
         return mav;
     }
 
