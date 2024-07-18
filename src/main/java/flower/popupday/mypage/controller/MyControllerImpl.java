@@ -10,9 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.swing.*;
@@ -32,6 +30,8 @@ public class MyControllerImpl implements MyController {
     private MyPopupDTO myPopupDTO;
     @Autowired
     private LoginDTO loginDTO;
+    @Autowired
+    private MyDTO myDTO;
 
     //마이페이지
     @Override
@@ -83,22 +83,37 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
-    //내 정보 수정으로 이동
+    //내 정보 수정 페이지로 이동
     @Override
     @RequestMapping("/modify/loginModify.do")
     public ModelAndView loginModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-//        //세션에서 loginDTO 가져오기
-//        MyDTO myDTO = (LoginDTO) session.getAttribute("loginDTO");
-
-        //Long reviewCount = myService.getReviewCount(loginDTO.getId());
-        MyDTO myDTO=myService.findMember(loginDTO.getId());
-        System.out.println(myDTO);
-        ModelAndView mav = new ModelAndView("/modify/loginModify");
-        mav.addObject("myInfo", myDTO);
+        HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
+        MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
+        ModelAndView mav = new ModelAndView("/modify/loginModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
+        mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
         return mav;
     }
+
+    //자신의 정보를 수정한 후 저장하기
+    @Override
+    @PostMapping("/mypage/updateLogin.do")
+    public ModelAndView updateLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession(); //세션 가져오기
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //세션에서 loginDTO 가져오기
+        myDTO.setId(loginDTO.getId());  //myDTO에 로그인한 사용자의 id설정
+        myService.updateLogin(myDTO);   //서비스 메소드를 호출하여 사용자 정보 업데이트
+        ModelAndView mav = new ModelAndView("redirect:/mypage/memberPage.do");  //어느 화면으로 가야할까
+        return mav;
+    }
+
+    @Override
+    @PostMapping("/login/check-nikname")    //js인듯
+    @ResponseBody
+    public boolean checkNikname(String user_nikname) {
+        return myService.checkNikname(user_nikname);
+    }
+
 
 //    @Override
 //    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {

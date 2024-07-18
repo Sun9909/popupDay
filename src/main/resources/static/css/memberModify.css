@@ -45,7 +45,7 @@
     font-size: 25px;
 }
 
-/*아이디,비밀번호 이메일*/
+/*아이디, 닉네임*/
 .joinForm {
     text-align: left; /* 내부 요소 가운데 정렬 */
     display: flex;

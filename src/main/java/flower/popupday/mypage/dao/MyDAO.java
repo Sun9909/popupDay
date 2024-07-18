@@ -24,6 +24,10 @@ public interface MyDAO {
 
     public MyDTO selectMemberById(Long id) throws DataAccessException;
 
+    public void updateLogin(MyDTO myDTO) throws DataAccessException;
+
+    boolean checkNikname(String user_nikname) throws DataAccessException;
+
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
     public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
 
