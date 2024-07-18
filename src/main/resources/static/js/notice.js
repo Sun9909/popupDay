@@ -112,6 +112,7 @@
         document.getElementById("review-btn").style.display="none";
         document.getElementById("review_title").disabled=false;
         document.getElementById("review_content").disabled=false;
+        document.getElementById("modify-img").style.display="block";
         let imgName=document.getElementById("id_imgFile");
         if(imgName != null) {
             imgName.disabled=false;
@@ -151,5 +152,23 @@
             $("#preview").attr("src","#");
         } // if end
     } // readImage end
+
+    // 후기삭제하기
+    function fn_remove_review(url, review_id){
+        if (confirm("후기를 삭제하시겠습니까?")){
+            let del_form = document.createElement("form");
+            del_form.setAttribute("action", url);
+            del_form.setAttribute("method","post");
+            let reviewNoInput = document.createElement("input");
+            reviewNoInput.setAttribute("type","hidden");
+            reviewNoInput.setAttribute("name","review_id");
+            reviewNoInput.setAttribute("value", review_id);
+            del_form.appendChild(reviewNoInput);
+            document.body.appendChild(del_form);
+            del_form.submit();
+        }
+
+
+    }
 
 

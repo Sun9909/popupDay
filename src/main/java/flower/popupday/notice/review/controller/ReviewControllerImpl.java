@@ -27,7 +27,7 @@ public class ReviewControllerImpl implements ReviewController {
     private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
 
     //    로그인 하면 세션값으로 쓸 메서드
-    //    public ModelAndView listArticles(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
+    //    public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     //    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception
 
     @Override
@@ -72,7 +72,6 @@ public class ReviewControllerImpl implements ReviewController {
         while (enu.hasMoreElements()) {
             String name=(String) enu.nextElement();
             String value=multipartRequest.getParameter(name);
-            System.out.println(name + " : " +value);
             reviewMap.put(name, value); // 이미지 파일 name 까지 집어넣음
         } // while end
         List<String> fileList=multiFileUpload(multipartRequest); // 멀티파일로 가져옴 (여러개 일때는 list)
@@ -86,12 +85,15 @@ public class ReviewControllerImpl implements ReviewController {
                 ReviewImageDTO imageDTO=new ReviewImageDTO(); // 이미지를 넣을때마다 생성 여러개 이미지지만 각각의 정보를 가지고 있어야함
                 imageDTO.setImage_file_name(fileName);
                 // 수정 번호로 이미지 파일 번호 가져옴 , 글번호로 접근 => 이미지 파일 번호
-                imageDTO.setReview_image_id(Integer.parseInt((String) reviewMap.get("imageFileNo" + modityNumber)));
+                imageDTO.setReview_image_id(Integer.parseInt((String) reviewMap.get("review_image_id" + modityNumber)));
                 imageFileList.add(imageDTO);
             }
             reviewMap.put("imageFileList", imageFileList); // 변경된 이미지 담아서감
         }
-//        reviewMap.put("id", "kim"); // 세션을 이용해 로그인한 아이디 집어넣으면 됨
+        HttpSession session=multipartRequest.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id=loginDTO.getId();
+        reviewMap.put("id", id);//세션아이디 집어넣기
         try {
             reviewService.modReview(reviewMap); // 글 수정은 해당 글에 들어가서 수정하기 때문에 리턴값없음 , (새 글은 몇번째인지 몰라서 글번호를 받아와야 함)
             // 뭐라도 들었을때(파일선택으로 이미지 선택시) 두조건 만족시(기본값 header 가 들어가있어서 랭스도 물어봐야함) , 이미지가 있을때
