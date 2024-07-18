@@ -72,7 +72,6 @@ public class ReviewControllerImpl implements ReviewController {
         while (enu.hasMoreElements()) {
             String name=(String) enu.nextElement();
             String value=multipartRequest.getParameter(name);
-            System.out.println(name + " : " +value);
             reviewMap.put(name, value); // 이미지 파일 name 까지 집어넣음
         } // while end
         List<String> fileList=multiFileUpload(multipartRequest); // 멀티파일로 가져옴 (여러개 일때는 list)

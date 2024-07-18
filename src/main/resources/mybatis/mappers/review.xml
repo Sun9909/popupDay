@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <update id="updateImage" parameterType="java.util.Map">
-        <foreach item="item" collection="imageFiles" separator=";"> <!-- 이미지 담겨있는 곳 -->
+        <foreach item="item" collection="imageFileList" separator=";"> <!-- 이미지 담겨있는 곳 -->
             <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
                 update review_image_tbl set image_file_name=#{item.image_file_name} where review_image_id=#{item.review_image_id} and #{item.image_file_name} != ''
             </if>
