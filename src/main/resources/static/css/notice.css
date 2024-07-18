@@ -186,6 +186,7 @@
     border: none;
     background-color: unset;
     font-size: 18px;
+    width: 100%;
 }
 
 #modify_submit_btn {
