@@ -22,20 +22,6 @@ public class MyDTO {
 
     }
 
-    public MyDTO(Long id, String user_id, String user_nikname, String name, String pwd, String email, Date reg_date,
-                 String business_num, Role role, Status status){
-        this.id = id;
-        this.user_id = user_id;
-        this.user_nikname = user_nikname;
-        this.name = name;
-        this.pwd = pwd;
-        this.email = email;
-        this.reg_date = reg_date;
-        this.business_num = business_num;
-        this.role = role;
-        this.status = status;
-    }
-
     public enum Role {
         일반, 사업자, 관리자
     }

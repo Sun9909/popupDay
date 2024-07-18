@@ -1,6 +1,5 @@
 package flower.popupday.login.dto;
 
-import flower.popupday.mypage.dto.MyDTO;
 import org.springframework.stereotype.Component;
 import java.sql.Date;
 
@@ -19,20 +18,6 @@ public class LoginDTO {
     private Status status;
 
     public LoginDTO() {
-    }
-
-    public LoginDTO(Long id, String user_id, String user_nikname, String name, String pwd, String email, Date reg_date,
-                 String business_num, Role role, Status status){
-        this.id = id;
-        this.user_id = user_id;
-        this.user_nikname = user_nikname;
-        this.name = name;
-        this.pwd = pwd;
-        this.email = email;
-        this.reg_date = reg_date;
-        this.business_num = business_num;
-        this.role = role;
-        this.status = status;
     }
 
     public enum Role {
