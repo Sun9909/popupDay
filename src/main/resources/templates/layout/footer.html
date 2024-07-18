@@ -12,7 +12,7 @@
     </div>
     <div class="under_fix">
         <div class="css-footer-buttons">
-            <a th:href="@{/main.do}">
+            <a th:href="@{/main.do}" >
                 <img th:src="@{/images/home.svg}">
                 <span>홈</span>
             </a>
@@ -23,14 +23,6 @@
                 </a>
             </div>
             <div class="category-info">
-                <div class="category-info_login">
-                    <div th:if="${session.isLogOn == true}">
-                        <a th:href="@{/login/logout.do}">로그아웃</a>
-                    </div>
-                    <div th:unless="${session.isLogOn == true }">
-                        <a th:href="@{/login/login.do}">로그인</a>
-                    </div>
-                </div>
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
@@ -40,26 +32,32 @@
                             </a>
                         </li>
                         <li>
-                            <a href="공지사항">
-                                Notice
+                            <a th:href="@{/notice/noticeList.do}">
+                                NOTICE
                                 <span>공지사항</span>
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/qnaList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/login/join.do\')'">
                                 Q&A
                                 <span>질문 & 답변</span>
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/reviewList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'">
                                 FAQ
                                 <span>자주 묻는 질문</span>
                             </a>
                         </li>
+                        <li>
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
+                                REVIEW
+                                <span>후기</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="businessperson_category">
+                <div class="businessperson_category" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).사업자}">
                     <ul id="businessperson_box">
                         <li>
                             <a href="사업자 문의 창">사업자 문의</a>
@@ -77,7 +75,7 @@
                 <img th:src="@{/images/zzem.svg}">
                 <span>찜 목록</span>
             </a>
-            <a th:href="@{/mypage/memberPage.do}">
+            <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/join.do\')'">
                 <img th:src="@{/images/person.svg}">
                 <span>마이페이지</span>
             </a>
