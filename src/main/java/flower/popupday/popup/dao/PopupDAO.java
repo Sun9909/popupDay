@@ -38,7 +38,4 @@ public interface PopupDAO {
     public List<HashTagDTO> selectHashTagListByPopupId(Long popupId) throws DataAccessException;
 
     public int selectToPopup() throws DataAccessException;
-
-    public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
-
 }

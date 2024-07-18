@@ -64,19 +64,14 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public void updateLogin(LoginDTO loginDTO) throws DataAccessException {
-        myDAO.updateLogin(loginDTO);
+    public void updateLogin(MyDTO myDTO) throws DataAccessException {
+        myDAO.updateLogin(myDTO);
     }
 
     @Override
-    public void updatePwd(LoginDTO loginDTO) throws DataAccessException {
-        myDAO.updatePwd(loginDTO);
+    public boolean checkNikname(String user_nikname) {
+        return myDAO.checkNikname(user_nikname);
     }
-
-//    @Override
-//    public boolean checkNikname(String user_nikname) {
-//        return myDAO.checkNikname(user_nikname);
-//    }
 
 
     //팝업 리스트

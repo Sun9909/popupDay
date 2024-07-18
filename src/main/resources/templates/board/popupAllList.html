@@ -7,8 +7,6 @@
     <meta charset="UTF-8">
     <title>전체팝업</title>
     <link rel="stylesheet" type="text/css" th:href="@{css/popupdata.css}">
-    <link rel="stylesheet" th:href="@{/css/notice.css}">
-    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <style>
         #container {
             width: 100%;
@@ -75,67 +73,57 @@
     <div class="containers">
         <h2 align="center">글 목록창</h2>
         <table border="1" align="center" width="80%">
-            <thead>
             <tr align="center" bgcolor="lightgreen">
-                <th>썸네일 이미지</th>
-                <th>제목</th>
-                <th>기간</th>
+                <th>글번호</th><th>작성자</th><th>제목</th><th>작성일</th>
             </tr>
-            </thead>
-            <tbody>
-            <tr align="center" th:each="popupInfo : ${popupInfoList}">
-                <td width="150" align="center">
-                    <div th:if="${popupInfo.thumbnailImage != null}">
-                        <img th:src="@{/popupdownload.do(popup_id=${popupInfo.popup.popup_id}, image_file_name=${popupInfo.thumbnailImage.image_file_name})}"
-                             width="100" alt="Thumbnail Image">
-                    </div>
-                    <div th:if="${popupInfo.thumbnailImage == null}">
-                        <span>No Image</span> <!-- 이미지가 없는 경우 대체 텍스트 출력 -->
-                    </div>
-                </td>
-                <td align="left" width="50%">
-                    <a th:href="@{/board/popupView.do(id=${popupInfo.popup.popup_id})}" th:text="${popupInfo.popup.title}"></a>
-                </td>
-                <td width="20%" th:text="${#dates.format(popupInfo.popup.created_date, 'yyyy-MM-dd')}"></td>
-
+            <tr align="center" th:each="popup : ${popupMap.popupList}">
+                <td width="10%" th:text="${popup.popup_id}"></td>
+                <td width="20%" th:text="${popup.user_id}"></td>
+                <td align="left" width="50%"><a th:href="@{/board/popupView.do(id=${popup.popup_id})}" th:text="${popup.title}"></a></td>
+                <td width="20%" th:text="${popup.created_date}"></td>
             </tr>
-            </tbody>
         </table>
-        <div align="center" th:if="${totPopup > 10}">
-            <div th:if="${totPopup > 100}">
-        <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 10) + 1 : 10))}">
-            <span th:if="${section > 1 and num == 1}">
-                <a th:href="@{/board/popupAllList.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
-            </span>
-            <span th:if="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
-                <a class="target" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
-            </span>
-            <span th:unless="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
-                <a class="noLine" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
-            </span>
-            <span th:if="${num == 10}">
-                <a th:href="@{/board/popupAllList.do(section=${section + 1}, pageNum=${section * 10 + 1})}">next</a>
-            </span>
-        </span>
+        <div class="review-history">
+            <div class="myreview-history" th:if="${popupMap.popupList != null and #lists.isEmpty(popupMap.popupList)}">
+                <p>작성한 후기가 없습니다.</p>
+                <button><a th:href="@{/board/popupForm.do}">후기 작성하기</a></button>
             </div>
-            <div th:if="${totPopup <= 100}">
-        <span th:each="num : ${#numbers.sequence(1, (totPopup / 10) + 1)}">
-            <span th:if="${num == pageNum}">
-                <a class="target" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
-            </span>
-            <span th:unless="${num == pageNum}">
-                <a class="noLine" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
-            </span>
-        </span>
+            <div class="myreview-history" th:unless="${popupMap.popupList != null and #lists.isEmpty(popupMap.popupList)}">
+                <button><a th:href="@{/board/popupForm.DO}">후기 작성하기</a></button>
+                <div align="center" th:if="${popupMap.totPopup > 10}">
+                    <div th:if="${popupMap.totPopup > 100}">
+                        <span th:each="num : ${#numbers.sequence(1, (popupMap.section > (popupMap.totPopup / 100) ? ((popupMap.totPopup % 100) / 10) + 1 : 10))}">
+                            <span th:if="${popupMap.section > 1 and num == 1}">
+                                <a th:href="@{/board/popupAllList.do(section=${popupMap.section - 1}, pageNum=${(popupMap.section - 1) * 10})}">prev</a>
+                            </span>
+                            <span th:if="${num == (popupMap.pageNum % 10 == 0 ? 10 : popupMap.pageNum % 10)}">
+                                <a class="target" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${(popupMap.section - 1) * 10 + num})}" th:text="${(popupMap.section - 1) * 10 + num}"></a>
+                            </span>
+                            <span th:unless="${num == (popupMap.pageNum % 10 == 0 ? 10 : popupMap.pageNum % 10)}">
+                                <a class="noLine" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${(popupMap.section - 1) * 10 + num})}" th:text="${(popupMap.section - 1) * 10 + num}"></a>
+                            </span>
+                            <span th:if="${num == 10}">
+                                <a th:href="@{/board/popupAllList.do(section=${popupMap.section + 1}, pageNum=${popupMap.section * 10 + 1})}">next</a>
+                            </span>
+                        </span>
+                    </div>
+                    <div th:if="${popupMap.totPopup <= 100}">
+                        <span th:each="num : ${#numbers.sequence(1, (popupMap.totPopup / 10) + 1)}">
+                            <span th:if="${num == popupMap.pageNum}">
+                                <a class="target" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                            </span>
+                            <span th:unless="${num == popupMap.pageNum}">
+                                <a class="noLine" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
+        <p align="center">
+            <a th:href="'javascript:fn_popupForm(' + ${session.isLogOn} + ', \'/board/popupForm.do\', \'/login/join.do\')'">글쓰기</a>
+        </p>
     </div>
-    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{/js/jquery-ui.min.js}"></script>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script th:src="@{/js/search.js}"></script>
-    <script th:src="@{/js/notice.js}"></script>
 </th:block>
 </body>
 </html>

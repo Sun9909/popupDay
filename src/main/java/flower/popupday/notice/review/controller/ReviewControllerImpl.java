@@ -27,7 +27,7 @@ public class ReviewControllerImpl implements ReviewController {
     private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
 
     //    로그인 하면 세션값으로 쓸 메서드
-    //    public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
+    //    public ModelAndView listArticles(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     //    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception
 
     @Override

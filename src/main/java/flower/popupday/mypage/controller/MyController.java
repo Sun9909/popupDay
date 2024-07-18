@@ -16,18 +16,13 @@ public interface MyController {
     // 회원이 작성한 댓글, 후기, 문의 개수 보기
     public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //내 정보 수정페이지로
+    //내 정보 수정하기
     public ModelAndView loginModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     // 내 정보 업데이트
     public ModelAndView updateLogin(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //boolean checkNikname(String user_nikname);
-
-    //비밀번호 수정페이지로
-    public ModelAndView passwordModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
-    public ModelAndView updatePwd(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    boolean checkNikname(String user_nikname);
 
     // 로그아웃
 //    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;

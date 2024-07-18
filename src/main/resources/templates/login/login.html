@@ -37,14 +37,10 @@
                 </div>
             </form>
             <div class="kakaoLogin">
-                <a href="javascript:fn_kakao()">
-                    <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-                         width="222" alt="카카오 로그인 버튼">
+                <a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=' + ${'c9237e3260b74eea6991180ceca971ca'} + '&redirect_uri=' + ${'http://127.0.0.1:8090/auth/kakao/login'} + '&response_type=code'}">
+                    <img th:src="@{images/kakao_login_medium_wide.png}" alt="">
                 </a>
-            </div>
-            <div class="join">
-                <span>회원가입을 하시고 다양한 서비스를 이용해보세요.</span><br><br>
-                <button onclick="location.href='/login/choiceForm.do'">회원가입</button>
+
             </div>
         </div>
     </div>
@@ -54,7 +50,7 @@
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
-    <script th:src="@{/js/kakao.js}"></script>
+    <script th:src="@{https://kauth.kakao.com/oauth/authorize}"></script>
 </th:block>
 </body>
 </html>

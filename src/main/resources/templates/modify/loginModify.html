@@ -15,46 +15,32 @@
     <!--회원정보 수정 페이지 -->
     <div class="containers">
         <div class="main_title">
-            <a th:href="@{/mypage/memberPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+            <img th:src="@{/images/ltr.svg}" alt="왼쪽화살표">
             <h2>회원 정보 수정</h2>
         </div>
 
-        <div class="joinmodify">
+        <div class="joinmodify">           
             <img th:src="@{/images/userprofile.svg}" alt="user_profile">
-            <p><a href="#">프로필 변경</a></p>
-        </div>
+            <p><a href="#">프로필 변경</a></p>       
+        </div>  
 
-        <form name="joinForm" th:action="@{/mypage/updateLogin.do}" method="post" id="joinForm">
-            <input type="hidden" name="id" th:value="${myInfo.id}">
+        <form action="join.jsp" method="post" id="joinForm" name="joinForm">    
             <p>
-                <label>아이디<strong class="require"></strong></label>
-                <br>
-                <input type="text" name="user_id" th:value="${myInfo.user_id}" disabled>
-                <input type="hidden" name="user_id" th:value="${myInfo.user_id}">
+                <label for="id">아이디<strong class="require"></strong></label><br>
+                <input type="text" id="id" name="id">
             </p>
             <p>
-                <label>닉네임<strong class="require"></strong></label>
-                <button type="button" name="user_nikname_check">중복 확인</button>
-                <br>
-                <input type="text" name="user_nikname" th:value="${myInfo.user_nikname}" check_result="fail">
+                <label for="name">이름<strong class="require"></strong></label><br>
+                <input type="name" id="name" name="name" >
             </p>
             <p>
-                <label>이름<strong class="require"></strong></label><br>
-                <input type="text" name="name" th:value="${myInfo.name}">
+                <label for="email">이메일<strong class="require"></strong></label><br>
+                <input type="email" id="email" name="email">
             </p>
-            <input type="hidden" name="pwd" th:value="${myInfo.pwd}">
-            <p>
-                <label>이메일<strong class="require"></strong></label><br>
-                <input type="email" name="email" th:value="${myInfo.email}">
-            </p>
-            <input type="hidden" name="reg_date" th:value="${myInfo.reg_date}">
-            <input type="hidden" name="business_num" th:value="${myInfo.business_num}">
-            <input type="hidden" name="role" th:value="${myInfo.role}">
-            <input type="hidden" name="status" th:value="${myInfo.status}">
             <p>
                 <input type="submit" value="저장">
             </p>
-        </form>
+        </form>   
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
@@ -62,7 +48,7 @@
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
-    <script th:src="@{/js/myCheck.js}"></script>
+
 </th:block>
 </body>
 </html>

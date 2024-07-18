@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl order by created_date desc LIMIT #{count}, 10
+        select * from popup_tbl order by created_date LIMIT #{count}, 10
     </select>
 
     <select id="selectToPopup" resultType="int">
@@ -106,13 +106,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 이미지 파일 리스트 조회 -->
-<!--    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">-->
-<!--        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}-->
-<!--    </select>-->
-
-    <!-- 썸네일 조회 -->
-    <select id="selectFirstImage" resultMap="imgResult" parameterType="Long">
-        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id} LIMIT 1
+    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">
+        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}
     </select>
 
     <!-- 특정 팝업의 해시태그 리스트 조회 -->

@@ -27,12 +27,10 @@ public interface MyService {
     public MyDTO findMember(Long id) throws DataAccessException;
 
     //사용자 정보 업데이트
-    public void updateLogin(LoginDTO loginDTO) throws DataAccessException;    //myDTO를 사용해야하나? 로그인 정보가 바뀌어야 하니까?
+    public void updateLogin(MyDTO myDTO) throws DataAccessException;    //loginDTO를 사용해야하나? 로그인 정보가 바뀌어야 하니까?
 
     //닉네임 중복 체크
-    //boolean checkNikname(String user_nikname);
-
-    public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
+    boolean checkNikname(String user_nikname);
 
     //팝업 리스트
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;

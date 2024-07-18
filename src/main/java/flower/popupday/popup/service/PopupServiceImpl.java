@@ -77,43 +77,17 @@ public class PopupServiceImpl implements PopupService {
         return popupMap;
     }
 
-//    @Override
-//    public Map popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
-//        Map popupMap =new HashMap<>();
-//        int section=pagingMap.get("section");
-//        int pageNum=pagingMap.get("pageNum");
-//        int count=(section-1)*100+(pageNum-1)*10; // 현재 섹션에는 1
-//        List<PopupDTO> popupAllList =popupDAO.selectAllPopup(count); // boardDAO.메서드 호출 dto로 받음
-//        int totPopup=popupDAO.selectToPopup(); // 전체 글 목록 수 조회
-//        List<ImageDTO> thumbnailImages=popupDAO.selectImageFileList();
-//        popupMap.put("popupAllList", popupAllList);
-//        popupMap.put("totPopup", totPopup);
-//        popupMap.put("thumbnailImages", thumbnailImages);
-////        popupMap.put("totPopup", 324); // 임시 페이지 생성
-//        return popupMap;
-//    }
     @Override
-    public Map<String, Object> popupList(Map<String, Integer> pagingMap) throws DataAccessException {
-        Map<String, Object> popupMap = new HashMap<>();
-        int section = pagingMap.get("section");
-        int pageNum = pagingMap.get("pageNum");
-        int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
-        List<PopupDTO> popupList = popupDAO.selectAllPopup(count); // 팝업 목록 조회
-        int totPopup = popupDAO.selectToPopup(); // 전체 팝업 수 조회
-
-        List<Map<String, Object>> popupInfoList = new ArrayList<>();
-        for (PopupDTO popup : popupList) {
-            Long popup_id = popup.getPopup_id();
-            ImageDTO thumbnailImage = popupDAO.selectFirstImage(popup_id); // 각 팝업의 첫 번째 이미지 조회
-            Map<String, Object> popupInfo = new HashMap<>();
-            popupInfo.put("popup", popup); // 팝업 정보 추가
-            popupInfo.put("thumbnailImage", thumbnailImage); // 이미지 정보 추가
-            popupInfoList.add(popupInfo);
-        }
-
-        popupMap.put("popupInfoList", popupInfoList); // 팝업 정보 리스트 추가
+    public Map popupList(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map popupMap =new HashMap<>();
+        int section=pagingMap.get("section");
+        int pageNum=pagingMap.get("pageNum");
+        int count=(section-1)*100+(pageNum-1)*10; // 현재 섹션에는 1
+        List<PopupDTO> popupList =popupDAO.selectAllPopup(count); // boardDAO.메서드 호출 dto로 받음
+        int totPopup=popupDAO.selectToPopup(); // 전체 글 목록 수 조회
+        popupMap.put("popupList", popupList);
         popupMap.put("totPopup", totPopup);
+//        popupMap.put("totPopup", 324); // 임시 페이지 생성
         return popupMap;
     }
-
 }
