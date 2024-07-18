@@ -63,22 +63,16 @@
 
                         <td th:text="${notice.created_date}"></td>
                     </tr>
-
-                    <!--
-                    <tr>
-                        <td><a href="/contact/3"> 팝업데이 팝업스토어 후기 이벤트 </a></td>
-                        <td>2024-07-20</td>
-                    </tr>
-                    <tr>
-                        <td><a href="/contact/2"> 팝업데이 팝업스토어 어워즈 개최 </a></td>
-                        <td>2024-07-15</td>
-                    </tr>
-                    <tr>
-                        <td><a href="/contact/1"> 팝업데이 홈페이지 알림 </a></td>
-                        <td>2024-07-12</td>
-                    </tr>-->
                     </tbody>
                 </table>
+                <!--
+                <div class="myreview-history" th:unless="${noticeMap.noticeList != null and noticeMap.noticeList.isEmpty()}">
+                    <div th:each="review : ${noticeMap.noticeList}">
+                        <a class="review-list" th:href="@{/notice/noticeView.do(notice_id = ${noticeDTO.notice_id})}">
+                            <p th:text="${noticeDTO.title}"></p><span th:text="${noticeDTO.created_date}"></span>
+                        </a>
+                    </div>
+                </div>-->
             </div>
         </div>
         <a th:href="'javascript:fn_noticeForm(' + ${session.isLogOn} + ', \'/notice/noticeForm.do\', \'/login/loginForm.do\')'">글쓰기</a>

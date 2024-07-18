@@ -56,7 +56,7 @@ public class NoticeServiceImpl implements NoticeService {
     // 여러의 글과 이미지 상세 글보기
     @Override
     public Map noticeView(Long notice_id) throws DataAccessException {
-        Map noticeMap = new HashMap();
+        Map<String, Object> noticeMap = new HashMap<>();
         NoticeDTO noticeDTO = noticeDAO.selectNotice(notice_id);
 
         List<NoticeimageDTO> imageFileList = noticeDAO.selectImageFileList(notice_id);

@@ -15,11 +15,45 @@
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-
-    </div>
-    <form>
-
-    </form>
+        <div class="notice-view">
+            <form name="frmNoticce" action="" method="post" enctype="multipart/form-data">
+                <div>
+                    <p>글 번호</p>
+                    <input th:value="${noticeView.noticeDTO.notice_id}" disabled>
+                    <input type="hidden" name="notice_id" th:value="${{noticeView.noticeDTO.notice_id}">
+                </div>
+                <div>
+                    <p>제목</p>
+                    <input class="view-title" id="notice_title" name="title" th:value="${noticeView.noticeDTO.title}" disabled>
+                </div>
+                <div>
+                    <p>내용</p>
+                    <input class="view-content" id="notice_content" name="content" th:value="${noticeView.noticeDTO.content}" disabled>
+                </div>
+                <!-- 이미지가 존재할때만 보임 -->
+                <div th:if="${not #strings.isEmpty(noticeView.imageFiles)}">
+                    <div th:each="imgList, status: ${noticeView.imageFiles}">
+                        <div>
+                            <div>
+                                <input type="hidden" th:name="'originFileName'+ ${status.count}" th:value="${imgList.image_file_name}">
+                                <input type="hidden" th:name="'notice_image_id' + ${status.count}" th:value="${imgList.notice_image_id}">
+                                <img th:id="'preview' + ${status.count}" th:src="@{/download.do(notice_id=${imgList.notice_id},image_file_name=${imgList.image_file_name})}">
+                            </div>
+                            <div><input type="file" id="id_imgFile" th:name="'image_file_name' + ${status.count}" th:onchange="readImage(this,${status.count})" disabled></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="review-mbtn">
+                    <input type="button" value="수정반영하기" onclick="review_modify(noticeView)">
+                    <input type="button" value="취소" onclick="toList(noticeView)">
+                </div>
+                <div id="review-btn">
+                    <input type="button" value="수정하기" onclick="review_enable(this.form)">
+                    <input type="button" value="삭제하기" th:onclick="|fn_remove_review('/notice/removeNotice.do', ${noticeView.noticeDTO.notice_id})|">
+                </div>
+                <input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+            </form>
+        </div>
     </div>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>

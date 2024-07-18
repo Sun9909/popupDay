@@ -143,11 +143,11 @@ public class NoticeControllerImpl implements NoticeController {
     // 여러개의 글과 이미지 상세 글보기
     @RequestMapping("/notice/noticeView.do")
     public ModelAndView noticeView(@RequestParam("notice_id") Long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // notice_id를 매개변수로 받아 공지사항 글을 조회
-        Map noticeMap = noticeService.noticeView(notice_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
+        Map noticeView = noticeService.noticeView(notice_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
         mav.setViewName("/notice/noticeView"); // 뷰 이름 설정
-        mav.addObject("noticeMap", noticeMap); // "noticeMap"이라는 이름으로 ModelAndView 객체에 추가
+        mav.addObject("noticeView", noticeView); // "noticeMap"이라는 이름으로 ModelAndView 객체에 추가
 
         return mav; // ModelAndView 객체를 반환
     }
@@ -156,7 +156,7 @@ public class NoticeControllerImpl implements NoticeController {
     @Override
     @RequestMapping("/notice/modNotice.do")
     public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-        String image_file_name = null;
+        String imagefilename = null;
         multipartRequest.setCharacterEncoding("utf-8");
         Map<String, Object> noticeMap = new HashMap<>();
 
@@ -191,9 +191,9 @@ public class NoticeControllerImpl implements NoticeController {
                 int cnt = 0;
                 for (NoticeimageDTO noticeimageDTO : imageFileList) {
                     cnt++;
-                    image_file_name = noticeimageDTO.getImage_file_name();
-                    if (image_file_name != null && image_file_name != "") {
-                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name);
+                    imagefilename = noticeimageDTO.getImage_file_name();
+                    if (imagefilename != null && imagefilename != "") {
+                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imagefilename);
                         File destDir = new File(ARRICLE_IMG_REPO + "\\" + notice_id);
                         FileUtils.moveFileToDirectory(srcFile, destDir, true);
 
@@ -207,7 +207,7 @@ public class NoticeControllerImpl implements NoticeController {
         } catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (NoticeimageDTO noticeimageDTO : imageFileList) { // 이미지 전부
-                    image_file_name = noticeimageDTO.getImage_file_name();
+                    imagefilename = noticeimageDTO.getImage_file_name();
                     File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imageFileList);
                     srcFile.delete(); // 오류 발생시 temp 이미지 삭제
                 }
@@ -234,12 +234,12 @@ public class NoticeControllerImpl implements NoticeController {
 
     // 한개의 이미지파일 업로드 , 글 수정시(이미지 선택안하면) null 이 들어가서 이미지가 사라짐 업로드폴더에는 남아있음.
     private String fileUpload(MultipartHttpServletRequest multipartrequest) throws Exception{
-        String image_file_name=null;
+        String imagefilename=null;
         Iterator<String> fileNames=multipartrequest.getFileNames(); // 열거형 객체(여러개)
         while(fileNames.hasNext()) { // has.Next 파일 이름이 없을때 까지 돔
             String fileName=fileNames.next(); // 첨부한 이미지 파일 이름
             MultipartFile mFile=multipartrequest.getFile(fileName); // 파일 크기
-            image_file_name=mFile.getOriginalFilename(); // 가져옴
+            imagefilename=mFile.getOriginalFilename(); // 가져옴
             File file=new File(ARRICLE_IMG_REPO + "\\" + fileName); // 경로 저장
             if(mFile.getSize() != 0) { // 크기가 0인 이미지 거르기
                 if(! file.exists()) { // exists 존재하는지(not 이라 존재 안할때) , EX ) 기존에 있던 이미지를 또 추가하면 안됨
@@ -247,11 +247,11 @@ public class NoticeControllerImpl implements NoticeController {
                         file.createNewFile();
                     } // inner if end
                 } // inner if end
-                mFile.transferTo(new File(ARRICLE_IMG_REPO + "\\temp\\" + image_file_name)); // 파일 전달 (임시저장소에)
+                mFile.transferTo(new File(ARRICLE_IMG_REPO + "\\temp\\" + imagefilename)); // 파일 전달 (임시저장소에)
             } // if end
             //return fileList;
         } // while end
-        return image_file_name;
+        return imagefilename;
     }
 
     // 여러개의 이미지파일 업로드
