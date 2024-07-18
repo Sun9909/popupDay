@@ -91,7 +91,10 @@ public class ReviewControllerImpl implements ReviewController {
             }
             reviewMap.put("imageFileList", imageFileList); // 변경된 이미지 담아서감
         }
-//        reviewMap.put("id", "kim"); // 세션을 이용해 로그인한 아이디 집어넣으면 됨
+        HttpSession session=multipartRequest.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id=loginDTO.getId();
+        reviewMap.put("id", id);//세션아이디 집어넣기
         try {
             reviewService.modReview(reviewMap); // 글 수정은 해당 글에 들어가서 수정하기 때문에 리턴값없음 , (새 글은 몇번째인지 몰라서 글번호를 받아와야 함)
             // 뭐라도 들었을때(파일선택으로 이미지 선택시) 두조건 만족시(기본값 header 가 들어가있어서 랭스도 물어봐야함) , 이미지가 있을때

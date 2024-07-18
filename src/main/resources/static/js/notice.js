@@ -112,6 +112,7 @@
         document.getElementById("review-btn").style.display="none";
         document.getElementById("review_title").disabled=false;
         document.getElementById("review_content").disabled=false;
+        document.getElementById("modify-img").style.display="block";
         let imgName=document.getElementById("id_imgFile");
         if(imgName != null) {
             imgName.disabled=false;
