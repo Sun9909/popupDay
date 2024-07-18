@@ -12,6 +12,7 @@
         <result property="pwd" column="pwd"/>
         <result property="email" column="email"/>
         <result property="reg_date" column="reg_date"/>
+        <result property="business_num" column="business_num"/>
         <result property="role" column="role"/>
         <result property="status" column="status"/>
     </resultMap>
@@ -22,7 +23,7 @@
         <result property="review_title" column="review_title"/>
         <result property="review_content" column="review_content"/>
         <result property="date" column="date"/>
-        <result property="write" column="write"/>
+        <result property="writer" column="writer"/>
         <result property="created_date" column="created_date"/>
     </resultMap>
 
@@ -38,7 +39,7 @@
     </resultMap>
 
     <resultMap type="mypopupDTO" id="popResult">
-        <result property="popup_id" column="popup_id"/>
+        <result property="hash_tag_id" column="hash_tag_id"/>
         <result property="title" column="title"/>
         <result property="info" column="info"/>
         <result property="popup_hours" column="popup_hours"/>
@@ -51,7 +52,7 @@
     </resultMap>
 
     <select id="getName" parameterType="myDTO">
-        select * from user_tbl where id='123'
+        select * from user_tbl where id=#{id}
     </select>
 
     <!--    <select id="selectAllReview" resultMap="revResult">-->
@@ -91,10 +92,10 @@
     </select>
 
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
-        select * from popup_tbl where user_id='359'
+        select * from popup_tbl where writer='#{user_id}'
     </select>
 
     <select id="getPopupCount" resultType="Long" parameterType="Long">
-        select count(*) from popup_tbl where user_id='359'
+        select count(*) from popup_tbl where user_id='#{user_id}'
     </select>
 </mapper>

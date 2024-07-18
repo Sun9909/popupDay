@@ -1,10 +1,13 @@
 package flower.popupday.mypage.controller;
 
+
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,41 +28,55 @@ public class MyControllerImpl implements MyController {
     @Autowired
     private MyDTO myDTO;
     @Autowired
-    private MyPopupDTO mypopupDTO;
+    private MyPopupDTO myPopupDTO;
 
     //마이페이지
     @Override
     @RequestMapping("/mypage/memberPage.do")
-    public ModelAndView getName(@ModelAttribute("myDTO") MyDTO myDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView getName(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("utf-8");
-        myDTO=myService.getName(myDTO);
         ModelAndView mav = new ModelAndView();
-        if (myDTO.getRole() == MyDTO.Role.일반) {
-            mav.setViewName("redirect:/mypage/reviewCount.do");
+        HttpSession session = request.getSession();
+
+        // 세션에서 loginDTO 가져오기
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
+        // 만약 loginDTO가 null이면 로그인이 되어있지 않은 상태로 처리
+        if (loginDTO == null) {
+            mav.setViewName("redirect:/login/loginForm"); // 로그인 페이지로 리다이렉트
+            return mav;
         }
-        else if (myDTO.getRole() == MyDTO.Role.사업자){
-            mav.setViewName("redirect:/mypage/reviewCount.do");
+
+        // 세션에 myDTO 설정
+        session.setAttribute("my", loginDTO);
+        session.setAttribute("isLogOn", true);
+
+        // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
+        if (loginDTO.getRole() == LoginDTO.Role.일반 || loginDTO.getRole() == LoginDTO.Role.사업자) {
+            mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
+        } else {
+            mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
         }
-        else {
-            mav.setViewName("/login/loginForm"); // 비 로그인시 로그인폼으로 유도
-        }
+
         return mav;
     }
 
     @Override
     @RequestMapping("/mypage/reviewCount.do")
     public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        myDTO=myService.getName(myDTO);
-        Long reviewCount = myService.getReviewCount(myDTO.getId()); // 리뷰 개수 조회
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        //myDTO=myService.getName(myDTO);
+        Long reviewCount = myService.getReviewCount(loginDTO.getId()); // 리뷰 개수 조회
 
-        String recommentCount = myService.getreCommentCount(myDTO.getUser_nikname()); //리뷰댓글
-        String popcommentCount = myService.getpopCommentCount(myDTO.getUser_nikname()); //팝업댓글
+        String recommentCount = myService.getreCommentCount(loginDTO.getUser_nikname()); //리뷰댓글
+        String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nikname()); //팝업댓글
 
-        Long qnaCount = myService.getQnaCount(myDTO.getId());
+        Long qnaCount = myService.getQnaCount(loginDTO.getId());
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
-        ModelAndView mav = new ModelAndView("mypage/memberPage");
-        mav.addObject("my", myDTO);
+        ModelAndView mav = new ModelAndView("/mypage/memberPage");
+        mav.addObject("my", loginDTO);
         mav.addObject("reviewCount", reviewCount);
         mav.addObject("recommentCount", recommentCount);
         mav.addObject("popcommentCount", popcommentCount);
@@ -94,6 +111,7 @@ public class MyControllerImpl implements MyController {
         Long PopupCount = myService.getPopupCount(mypopupDTO.getUser_id());
 
         ModelAndView mav = new ModelAndView("/mypage/myPopup");
+
         mav.addObject("myPopup", myPopup);
         mav.addObject("PopupCount", PopupCount);
         return mav;
@@ -101,7 +119,7 @@ public class MyControllerImpl implements MyController {
 
 //    @Override
 //    public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        Long PopupCount = myService.getReviewCount(mypopupDTO.getPopup_id());
+//        Long PopupCount = myService.getReviewCount(mypopupDTO.getHash_tag_id());
 //        ModelAndView mav = new ModelAndView("/mypage/myPopup");
 //        mav.addObject("PopupCount", PopupCount);
 //        return mav;

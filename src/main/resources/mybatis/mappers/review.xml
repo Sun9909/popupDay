@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="review_title" column="review_title"/>
         <result property="review_content" column="review_content"/>
         <result property="date" column="date"/>
-        <result property="write" column="writer"/>
+        <result property="writer" column="writer"/>
         <result property="created_date" column="created_date"/>
     </resultMap>
 
@@ -30,13 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="insertNewReview" parameterType="java.util.Map">
         insert into review_tbl (user_id, review_title, review_content, date, writer)
-        values ('2', #{review_title}, #{review_content}, now(), '회원1')
+        values (#{id}, #{review_title}, #{review_content}, now(), #{name})
     </insert>
 
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into review_image_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
-            (#{item.review_image_id},'2', #{item.image_file_name})
+            (#{item.review_image_id},#{review_id}, #{item.image_file_name})
         </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
 
@@ -46,4 +46,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ]]>
     </select>
 
+    <select id="selectReview" parameterType="int" resultType="reviewDTO">
+        select * from review_tbl where review_id = #{review_id}
+    </select>
+
+    <select id="selectImageList" parameterType="int" resultMap="imageResult">
+        select * from review_image_tbl where review_id = #{review_id}
+    </select>
+
+    <update id="updateReview" parameterType="java.util.Map">
+        update review_tbl set review_title = #{review_title}, review_content = #{review_content} where review_id = #{review_id}
+    </update>
+
+    <update id="updateImage" parameterType="java.util.Map">
+        <foreach item="item" collection="imageFiles" separator=";"> <!-- 이미지 담겨있는 곳 -->
+            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
+                update review_image_tbl set image_file_name=#{item.image_file_name} where review_image_id=#{item.review_image_id} and #{item.image_file_name} != ''
+            </if>
+        </foreach>
+    </update>
+
+    <delete id="deleteImage" parameterType="int">
+        delete from review_image_tbl where review_id = #{review_id}
+    </delete>
+
+    <delete id="deleteReview" parameterType="int">
+        delete from review_tbl where review_id = #{review_id}
+    </delete>
 </mapper>

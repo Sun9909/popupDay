@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>전체팝업</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/popupdata.css}">
+    <style>
+        #container {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        header {
+            padding: 5px;
+            margin-bottom: 5px;
+            background-color: lightgreen;
+        }
+        #sidebar_left {
+            width: 15%;
+            height: 700px;
+            padding: 5px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            float: left;
+            background-color: #b2ccff;
+        }
+        #content {
+            width: 75%;
+            padding: 5px;
+            margin-right: 5px;
+            float: left;
+        }
+        footer {
+            clear: both;
+            padding: 5px;
+            background-color: #e5d85c;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .target {
+            color: red;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .noLine {
+            color: black;
+            font-weight: normal;
+            font-size: 1em;
+        }
+    </style>
+    <script>
+        function fn_popupForm(isLogOn, articleForm, loginForm) {
+            if (isLogOn === true) {
+                location.href = articleForm;
+            } else {
+                alert("isLogOn : " + isLogOn);
+                alert("로그인 후 글쓰기가 가능합니다.");
+                location.href = loginForm + '?action=/board/popup.do';
+            }
+        }
+    </script>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="containers">
+        <h2 align="center">글 목록창</h2>
+        <table border="1" align="center" width="80%">
+            <tr align="center" bgcolor="lightgreen">
+                <th>글번호</th><th>작성자</th><th>제목</th><th>작성일</th>
+            </tr>
+            <tr align="center" th:each="popup : ${popupMap.popupList}">
+                <td width="10%" th:text="${popup.popup_id}"></td>
+                <td width="20%" th:text="${popup.user_id}"></td>
+                <td align="left" width="50%"><a th:href="@{/board/popupView.do(id=${popup.popup_id})}" th:text="${popup.title}"></a></td>
+                <td width="20%" th:text="${popup.created_date}"></td>
+            </tr>
+        </table>
+        <div class="review-history">
+            <div class="myreview-history" th:if="${popupMap.popupList != null and #lists.isEmpty(popupMap.popupList)}">
+                <p>작성한 후기가 없습니다.</p>
+                <button><a th:href="@{/board/popupForm.do}">후기 작성하기</a></button>
+            </div>
+            <div class="myreview-history" th:unless="${popupMap.popupList != null and #lists.isEmpty(popupMap.popupList)}">
+                <button><a th:href="@{/board/popupForm.DO}">후기 작성하기</a></button>
+                <div align="center" th:if="${popupMap.totPopup > 10}">
+                    <div th:if="${popupMap.totPopup > 100}">
+                        <span th:each="num : ${#numbers.sequence(1, (popupMap.section > (popupMap.totPopup / 100) ? ((popupMap.totPopup % 100) / 10) + 1 : 10))}">
+                            <span th:if="${popupMap.section > 1 and num == 1}">
+                                <a th:href="@{/board/popupAllList.do(section=${popupMap.section - 1}, pageNum=${(popupMap.section - 1) * 10})}">prev</a>
+                            </span>
+                            <span th:if="${num == (popupMap.pageNum % 10 == 0 ? 10 : popupMap.pageNum % 10)}">
+                                <a class="target" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${(popupMap.section - 1) * 10 + num})}" th:text="${(popupMap.section - 1) * 10 + num}"></a>
+                            </span>
+                            <span th:unless="${num == (popupMap.pageNum % 10 == 0 ? 10 : popupMap.pageNum % 10)}">
+                                <a class="noLine" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${(popupMap.section - 1) * 10 + num})}" th:text="${(popupMap.section - 1) * 10 + num}"></a>
+                            </span>
+                            <span th:if="${num == 10}">
+                                <a th:href="@{/board/popupAllList.do(section=${popupMap.section + 1}, pageNum=${popupMap.section * 10 + 1})}">next</a>
+                            </span>
+                        </span>
+                    </div>
+                    <div th:if="${popupMap.totPopup <= 100}">
+                        <span th:each="num : ${#numbers.sequence(1, (popupMap.totPopup / 10) + 1)}">
+                            <span th:if="${num == popupMap.pageNum}">
+                                <a class="target" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                            </span>
+                            <span th:unless="${num == popupMap.pageNum}">
+                                <a class="noLine" th:href="@{/board/popupAllList.do(section=${popupMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p align="center">
+            <a th:href="'javascript:fn_popupForm(' + ${session.isLogOn} + ', \'/board/popupForm.do\', \'/login/join.do\')'">글쓰기</a>
+        </p>
+    </div>
+</th:block>
+</body>
+</html>

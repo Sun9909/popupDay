@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 @Component("noticeimageDTO")
 
 public class NoticeimageDTO {
-    private Long notice_image_id;
-    private Long notice_id;
+    private Long notice_image_id; //imageFileNo 이미지번호
     private String image_file_name;
-
+    private Long notice_id; //articleNo  이미지번호
 
     public Long getNotice_image_id() {return notice_image_id;}
 

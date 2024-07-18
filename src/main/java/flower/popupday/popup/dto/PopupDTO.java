@@ -9,7 +9,7 @@ public class PopupDTO {
     private Long popup_id;
     private String title;
     private String info;
-    private String time;
+    private String popup_hours;
     private String content;
     private String address;
     private String brand_page;
@@ -29,11 +29,11 @@ public class PopupDTO {
     }
 
     // Constructor with all fields
-    public PopupDTO(Long popup_id, String title, String info, String time, String content, String address, String brand_page, Role role, Long user_id , Date created_date, Long hits) {
+    public PopupDTO(Long popup_id, String title, String info, String popup_hours, String content, String address, String brand_page, Role role, Long user_id , Date created_date, Long hits) {
         this.popup_id = popup_id;
         this.title = title;
         this.info = info;
-        this.time = time;
+        this.popup_hours = popup_hours;
         this.content = content;
         this.address = address;
         this.brand_page = brand_page;
@@ -68,12 +68,12 @@ public class PopupDTO {
         this.info = info;
     }
 
-    public String getTime() {
-        return time;
+    public String getPopup_hours() {
+        return popup_hours;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setPopup_hours(String time) {
+        this.popup_hours = popup_hours;
     }
 
     public String getContent() {
@@ -139,7 +139,7 @@ public class PopupDTO {
                 "popup_id=" + popup_id +
                 ", title='" + title + '\'' +
                 ", info='" + info + '\'' +
-                ", time=" + time +
+                ", popup_hours=" + popup_hours +
                 ", content='" + content + '\'' +
                 ", map='" + address + '\'' +
                 ", brand_page='" + brand_page + '\'' +

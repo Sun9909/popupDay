@@ -1,8 +1,11 @@
 package flower.popupday.popup.dao;
 
+import flower.popupday.popup.dto.HashTagDTO;
+import flower.popupday.popup.dto.ImageDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -10,13 +13,29 @@ import java.util.Map;
 @Mapper
 public interface PopupDAO {
 
-    public List selectAllPopup() throws DataAccessException;
+    public List<Map<String, Object>> selectAllPopup() throws DataAccessException;
+
+    public List selectAllPopup(@Param("count") int count) throws DataAccessException;
 
     public Long getNewPopupId() throws DataAccessException;
 
-    public void insertNewPopup(Map articleMap) throws DataAccessException;
+    public void insertNewPopup(Map popupMap) throws DataAccessException;
 
-    public void insertNewImages(Map articleMap) throws DataAccessException;
+    public void insertNewImages(Map popupMap) throws DataAccessException;
 
-    public void insertHashtag(Long popupId, String hashtag) throws DataAccessException;
+    public void insertPopupHashTag(Map<String, Object> paramMap) throws DataAccessException;
+
+    public void insertHashTag(List tagMapList) throws  DataAccessException;
+
+    public boolean checkHashTagExists(String tag) throws  DataAccessException;
+
+    public Long getHashTagIdByTag(String tag) throws  DataAccessException;
+
+    public PopupDTO selectPopup(Long popup_id) throws DataAccessException;
+
+    public List<ImageDTO> selectImageFileList(Long popup_id) throws DataAccessException;
+
+    public List<HashTagDTO> selectHashTagListByPopupId(Long popupId) throws DataAccessException;
+
+    public int selectToPopup() throws DataAccessException;
 }

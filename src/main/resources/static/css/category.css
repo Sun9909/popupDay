@@ -19,6 +19,7 @@
 }
 
 #category_box>a {
+
     text-decoration: none;
     text-align: center;
     color: black;
@@ -32,11 +33,13 @@
 }
 
 #category_box>li>a>span {
+    font-family: 'Do Hyeon';
     margin-top: 10px;
     font-size: 24px;
 }
 
 #businessperson_box>li>a {
+    font-family: 'Do Hyeon';
     font-size: 30px;
     font-weight: 800;
     text-decoration: none;
@@ -61,16 +64,18 @@
     margin-bottom: 10px;
 }
 
-#category_box>li::after {
-    display:block;/*a요소를 블록 요소라고 선언*/
-    content: '';
-    border-bottom: solid 2px #8B8BDA;
-    transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
-    transition: transform 250ms ease-in-out; /*변형 방식*/
-}
-#category_box>li:hover:after {
-    transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+#category_box>li a:hover {
+    color: #8B8BDA;
 }
 #businessperson_box li a:hover {
     color: #8B8BDA;
+}
+.category-info_login {
+    text-decoration: none;
+    text-align: right;
+    padding-top: 100px;
+}
+.category-info_login a {
+    color: black;
+    text-align: right;
 }

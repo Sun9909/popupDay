@@ -1,6 +1,5 @@
 package flower.popupday.notice.faq.controller;
 import flower.popupday.notice.faq.dto.FaqDTO;
-import flower.popupday.notice.faq.service.FaqService;
 import flower.popupday.notice.faq.service.FaqServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller("faqController")
 public class FaqControllerImpl implements FaqController {
@@ -50,6 +47,7 @@ public class FaqControllerImpl implements FaqController {
         return mav;
     }
 
+    //FAQ 글 추가하기
     @Override
     @RequestMapping("/notice/addFaq.do")
     public ModelAndView addFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -63,5 +61,28 @@ public class FaqControllerImpl implements FaqController {
         return mav;
     }
 
+    //FAQ 수정반영하기
+    @Override
+    @RequestMapping("/notice/modFaq.do")
+    public ModelAndView modFaq(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String faq_id = request.getParameter("faq_id");
+        faqDTO.setTitle(title);
+        faqDTO.setContent(content);
+        faqDTO.setFaq_id(Long.parseLong(faq_id));
+        faqService.modFaq(faqDTO);
+        ModelAndView mav = new ModelAndView("redirect:/notice/faqList.do");
+        return mav;
+    }
+
+    //FAQ  삭제하기
+    @Override
+    @RequestMapping("/notice/removeFaq.do")
+    public ModelAndView removeFaq(@RequestParam("faq_id") int faq_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        faqService.removeFaq(faq_id);
+        ModelAndView mav = new ModelAndView("redirect:/notice/faqList.do");
+        return mav;
+    }
 
 }

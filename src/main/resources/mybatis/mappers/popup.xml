@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <id property="popup_id" column="popup_id"/>
         <result property="title" column="title"/>
         <result property="info" column="info"/>
-        <result property="time" column="popup_hours"/>
+        <result property="popup_hours" column="popup_hours"/>
         <result property="content" column="content"/>
         <result property="address" column="address"/>
         <result property="brand_page" column="brand_page"/>
@@ -19,29 +19,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap type="imageDTO" id="imgResult">
-        <result property="popup_image_id" column="popup_image_id"/>
-        <result property="image_file_name" column="image_file_name"/>
+        <id property="popup_image_id" column="popup_image_id"/>
         <result property="popup_id" column="popup_id"/>
+        <result property="image_file_name" column="image_file_name"/>
+    </resultMap>
+
+    <resultMap id="hashTagDTO" type="hashTagDTO">
+        <result property="hash_tag_id" column="hash_tag_id" />
+        <result property="hash_tag" column="hash_tag" />
+    </resultMap>
+
+    <resultMap id="popupHashTagDTO" type="popupHashTagDTO">
+        <result property="hash_tag_id" column="hash_tag_id" />
+        <result property="popup_id" column="popup_id" />
     </resultMap>
 
 
-    <select id="selectAllPopup" resultMap="popResult">
-        select * from popup_tbl
+
+
+    <select id="selectAllPopup" resultMap="popResult" parameterType="int">
+        select * from popup_tbl order by created_date LIMIT #{count}, 10
     </select>
 
-    <!-- 글번호 생성 -->
-    <select id="getNewPopupId" resultType="int">
+    <select id="selectToPopup" resultType="int">
       <![CDATA[
-        SELECT IFNULL(MAX(popup_id), 0) + 1 FROM popup_tbl
-        ]]>
+        select count(*) from popup_tbl
+      ]]>
    </select>
 
+    <!-- 글번호 생성 -->
+    <select id="getNewPopupId" resultType="Long">
+    <![CDATA[
+        select COALESCE(max(popup_id) + 1, 1) from popup_tbl
+        ]]>
+    </select>
+
+    <!-- 팝업 등록 -->
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
-        insert into popup_tbl (popup_id, title, info, popup_hours, content, address, brand_page, role, user_id, created_date)
-        values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', #{user_id}, now())
+        insert into popup_tbl (popup_id,title, info, popup_hours, content, address, brand_page, role, user_id, created_date)
+        values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', '1', now())
         ]]>
     </insert>
+    <!-- 팝업 이미지 등록-->
 
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into popup_image_tbl values
@@ -50,48 +70,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
 
-    <insert id="insertHashtag" parameterType="java.util.Map">
-        INSERT INTO hashtag_tbl (popup_id, hashtag)
-        VALUES
-        <foreach collection="hashtags" item="hashtag" separator=",">
-            (#{popup_id}, #{hashtag})
+    <!-- 해시태그 번호 생성 -->
+    <select id="getNewHashTagId" resultType="Long">
+        select COALESCE(max(hash_tag_id) + 1, 1) from hash_tag_tbl
+    </select>
+
+    <insert id="insertHashTag" parameterType="java.util.List">
+        <foreach collection="tagMapList" item="tag" separator=";">
+            INSERT INTO hash_tag_tbl (hash_tag)
+            VALUES (#{tag.tag})
         </foreach>
     </insert>
 
+    <!-- 중복된 해시태그 필터-->
+    <select id="checkHashTagExists" resultType="boolean" parameterType="String">
+        SELECT EXISTS (
+            SELECT 1 FROM hash_tag_tbl WHERE hash_tag = #{tag}
+        )
+    </select>
 
+    <select id="getHashTagIdByTag" resultType="Long" parameterType="String">
+        SELECT hash_tag_id
+        FROM hash_tag_tbl
+        WHERE hash_tag = #{tag}
+    </select>
 
+    <insert id="insertPopupHashTag" parameterType="java.util.Map">
+        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)
+        VALUES (#{hash_tag_id}, #{popup_id})
+    </insert>
 
+    <!-- 팝업 조회 -->
+    <select id="selectPopup" resultMap="popResult" parameterType="Long">
+        SELECT * FROM popup_tbl WHERE popup_id = #{popup_id}
+    </select>
 
+    <!-- 이미지 파일 리스트 조회 -->
+    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">
+        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}
+    </select>
 
+    <!-- 특정 팝업의 해시태그 리스트 조회 -->
+    <select id="selectHashTagListByPopupId" resultMap="hashTagDTO" parameterType="Long">
+        SELECT ht.hash_tag_id, ht.hash_tag
+        FROM popup_hash_tag_tbl pht
+                 JOIN hash_tag_tbl ht ON pht.hash_tag_id = ht.hash_tag_id
+        WHERE pht.popup_id = #{popup_id}
+    </select>
 
-
-    <!-- javaType="flower.popupday.popup.dto.PopupDTO.Role" -->
-    <!-- 팝업 id를 가지고 특정 정보 -->
-<!--    <select id="getPopupById" parameterType="long" resultMap="PopupMap">-->
-<!--        SELECT * FROM popup WHERE popup_id = #{popupId}-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 모든 팝업 정보 &ndash;&gt;-->
-<!--    <select id="getAllPopups" resultMap="PopupMap">-->
-<!--        SELECT * FROM popup-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 팝업 등록 &ndash;&gt;-->
-<!--    <insert id="insertPopup" parameterType="flower.popupday.popup.dto.PopupDTO" useGeneratedKeys="true" keyProperty="popupId">-->
-<!--        INSERT INTO popup (title, info, time, content, map, brand_page, role, user_id)-->
-<!--        VALUES (#{title}, #{info}, #{time}, #{content}, #{map}, #{brand_page}, #{role}, #{userId})-->
-<!--    </insert>-->
-
-<!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 업데이트 &ndash;&gt;-->
-<!--    <update id="updatePopup" parameterType="flower.popupday.popup.dto.PopupDTO">-->
-<!--        UPDATE popup-->
-<!--        SET title = #{title}, info = #{info}, time = #{time}, content = #{content}, map = #{map}, brand_page = #{brand_page}, role = #{role}, user_id = #{userId}-->
-<!--        WHERE popup_id = #{popupId}-->
-<!--    </update>-->
-
-<!--    &lt;!&ndash; 팝업 글번호로 해당 팝업 글 삭제 &ndash;&gt;-->
-<!--    <delete id="deletePopup" parameterType="long">-->
-<!--        DELETE FROM popup WHERE popup_id = #{popupId}-->
-<!--    </delete>-->
 
 </mapper>
+
+
