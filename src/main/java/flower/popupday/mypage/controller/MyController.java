@@ -22,7 +22,7 @@ public interface MyController {
     // 내 정보 업데이트
     public ModelAndView updateLogin(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    boolean checkNikname(String user_nikname);
+    //boolean checkNikname(String user_nikname);
 
     // 로그아웃
 //    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;

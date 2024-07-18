@@ -95,7 +95,7 @@
         select * from user_tbl where id=#{id}
     </select>
 
-    <update id="updateLogin" parameterType="myDTO">
+    <update id="updateLogin" parameterType="loginDTO">
         update user_tbl set user_nikname=#{user_nikname}, name=#{name}, email=#{email} where id=#{id}
     </update>
 
