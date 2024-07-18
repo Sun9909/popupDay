@@ -37,7 +37,7 @@
                             <div>
                                 <input type="hidden" th:name="'originFileName'+ ${status.count}" th:value="${imgList.image_file_name}">
                                 <input type="hidden" th:name="'review_image_id' + ${status.count}" th:value="${imgList.review_image_id}">
-                                <img th:id="'preview' + ${status.count}" th:src="@{/download.do(articleNo=${imgList.review_image_id},imageFileName=${imgList.image_file_name})}">
+                                <img th:id="'preview' + ${status.count}" th:src="@{/download.do(review_id=${imgList.review_id},image_file_name=${imgList.image_file_name})}">
                             </div>
                             <div><input type="file" id="id_imgFile" th:name="'image_file_name' + ${status.count}" th:onchange="readImage(this,${status.count})" disabled></div>
                         </div>

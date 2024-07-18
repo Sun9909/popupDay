@@ -1,9 +1,11 @@
 package flower.popupday.notice.review.controller;
 
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
 import flower.popupday.notice.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -153,7 +155,13 @@ public class ReviewControllerImpl implements ReviewController {
             }
             reviewMap.put("imageFileList", imageFileList); // 이미지가 있을때만 put
         }
-        reviewMap.put("id","Flower");
+        HttpSession session=multipartRequest.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id=loginDTO.getId();
+        reviewMap.put("id", id);
+        // 임시 writer 넣기
+        String name = loginDTO.getName();
+        reviewMap.put("name", name);
         try {
             int imageId=reviewService.addReview(reviewMap);
             if(imageFileList != null && imageFileList.size() != 0) {

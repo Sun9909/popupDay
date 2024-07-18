@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public interface MyController {
     //마이페이지
     // 닉네임 가져오기
-    public ModelAndView getName(@ModelAttribute("myDTO") MyDTO myDTO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView getName(HttpServletRequest request, HttpServletResponse response) throws Exception;
     // 회원이 작성한 댓글, 후기, 문의 개수 보기
     public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception;
 

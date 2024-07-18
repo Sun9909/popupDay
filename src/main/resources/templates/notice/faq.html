@@ -34,7 +34,7 @@
         <!-- faq -->
         <div>
             <div class="contact2-wrap">
-                <button><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
+                <button th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}"><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
                 <div class="faq-list-wrap">
                     <ul>
                         <form name="faqArticle" method="post">
@@ -51,7 +51,7 @@
                                <div id="modify_submit_btn">
                                    <input type="button" value="수정반영하기" onclick="faq_modify(faqArticle)">
                                </div>
-                                <div id="rewrite_btn">
+                                <div id="rewrite_btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                                     <input type="button" value="수정" class="modify_button">
                                     <input type="button" value="삭제" th:onclick="|fn_remove_faq('/notice/removeFaq.do', ${faq.faq_id})|">
                                 </div>
