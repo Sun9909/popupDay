@@ -8,13 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
+        <result property="writer" column="writer"/>
         <result property="created_date" column="created_date"/>
     </resultMap>
 
 
     <!--faq 등록 -->
     <insert id="insertFaq" parameterType="faqDTO">
-        insert into faq_tbl(user_id, title, content) values (#{user_id}, #{title}, #{content})
+        insert into faq_tbl(user_id, title, content, writer) values ('1', #{title}, #{content}, '관리자1')
     </insert>
 
     <!-- 등록된 faq 리스트 화면출력 -->

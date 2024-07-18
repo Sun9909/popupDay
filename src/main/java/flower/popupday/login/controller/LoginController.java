@@ -73,8 +73,4 @@ public interface LoginController {
 
     public ModelAndView removeNotice(@RequestParam("noticeNo") int noticeNo, HttpServletRequest request, HttpServletResponse response)
             throws Exception;
-
-    //로그아웃
-    public ModelAndView logout(HttpServletRequest request,
-                               HttpServletResponse response) throws Exception;
 }

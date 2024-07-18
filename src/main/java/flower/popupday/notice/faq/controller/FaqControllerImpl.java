@@ -1,10 +1,8 @@
 package flower.popupday.notice.faq.controller;
-import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.faq.service.FaqServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -56,15 +54,9 @@ public class FaqControllerImpl implements FaqController {
         request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        HttpSession session=request.getSession();
-        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
-        Long id=loginDTO.getId();
-
         faqDTO.setTitle(title);
         faqDTO.setContent(content);
-        faqDTO.setUser_id(id);//세션아이디 집어넣기
         faqService.addFaq(faqDTO);
-
         ModelAndView mav = new ModelAndView("redirect:/notice/faqList.do");
         return mav;
     }

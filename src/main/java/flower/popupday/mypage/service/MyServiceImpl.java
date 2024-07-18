@@ -1,6 +1,5 @@
 package flower.popupday.mypage.service;
 
-import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dao.MyDAO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
@@ -54,25 +53,6 @@ public class MyServiceImpl implements MyService {
         Long qnaCount = myDAO.getQnaCount(id);
         return qnaCount;
     }
-
-    //수정
-    @Override
-    public MyDTO findMember(Long id) throws DataAccessException {
-        MyDTO myDTO=myDAO.selectMemberById(id); //DAO 메소드 호출하여 사용자 정보 조회
-        return myDTO;
-        //return myDAO.selectMemberById(id);
-    }
-
-    @Override
-    public void updateLogin(MyDTO myDTO) throws DataAccessException {
-        myDAO.updateLogin(myDTO);
-    }
-
-    @Override
-    public boolean checkNikname(String user_nikname) {
-        return myDAO.checkNikname(user_nikname);
-    }
-
 
     //팝업 리스트
 //    @Override

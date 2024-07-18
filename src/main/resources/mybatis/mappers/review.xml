@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="flower.popupday.notice.review.dao.ReviewDAO">
 
     <resultMap type="reviewDTO" id="reviewResult">
@@ -10,6 +10,7 @@
         <result property="review_title" column="review_title"/>
         <result property="review_content" column="review_content"/>
         <result property="date" column="date"/>
+        <result property="writer" column="writer"/>
         <result property="created_date" column="created_date"/>
     </resultMap>
 
@@ -28,8 +29,8 @@
     </select>
 
     <insert id="insertNewReview" parameterType="java.util.Map">
-        insert into review_tbl (user_id, review_title, review_content, date)
-        values (#{id}, #{review_title}, #{review_content}, now())
+        insert into review_tbl (user_id, review_title, review_content, date, writer)
+        values (#{id}, #{review_title}, #{review_content}, now(), #{name})
     </insert>
 
     <insert id="insertNewImages" parameterType="java.util.Map">
@@ -41,7 +42,7 @@
 
     <select id="selectToReview" resultType="int">
         <![CDATA[
-        select count(*) from review_tbl
+            select count(*) from review_tbl
         ]]>
     </select>
 
