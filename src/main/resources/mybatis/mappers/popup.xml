@@ -38,7 +38,7 @@
 
 
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl order by created_date desc LIMIT #{count}, 10
+        select * from popup_tbl order by created_date desc LIMIT #{count}, 9
     </select>
 
     <select id="selectToPopup" resultType="int">

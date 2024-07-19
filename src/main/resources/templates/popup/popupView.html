@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+    <link rel="stylesheet" th:href="@{/css/popupListMap.css}">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>팝업상세페이지</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="body">
+        <div class="containers">
+            <!--팝업 상세페이지-->
+            <div class="popupdetail">
+
+                <!-- 팝업 이미지 슬라이드 -->
+                <div class="popupdetail-wrap">
+                    <article class="main-article">
+                        <div class="popupdetail-banner">
+                            <img th:src="@{/images/ticket.svg}" alt="사진1">
+                            <img th:src="@{/images/parking.svg}" alt="사진2">
+                            <img th:src="@{/images/ticket.svg}" alt="사진3">
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 팝업 정보 -->
+                <div class="popupdetail-inner">
+                    <div class="popupdetail-title">
+                        <ul class="popupdetail-title-top">
+                            <li>
+                                <p class="popup-catagory">아이돌 팝업</p> <!--팝업카테고리-->
+                                <img th:src="@{/images/rtl.svg}" alt="오른쪽화살표">
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 상세보기된 팝업 정보 -->
+                    <div class="popupdetail-title-infor">
+                        <div class="popup-title">
+                            <h1 class="tit">동방신기 팝업</h1>
+                            <img class="heart" th:src="@{/images/heart_empty.svg}" alt="찜">
+                        </div>
+
+                        <div class="date">
+                            <img th:src="@{/images/date.svg}" alt="달력">
+                            <p>24.07.08 - 24.07.30</p>
+                        </div>
+                        <div class="location">
+                            <img th:src="@{/images/location.svg}" alt="위치">
+                            <p>서울특별시 강남구 주류성빌딩</p>
+                        </div>
+                        <div class="search-icon">
+                            <div class="search-box-inner">
+                                <a href="#" class="tag" title="해시태그"># 아이돌</a>
+                                <a href="#" class="tag" title="해시태그"># 굿즈</a>
+                                <a href="#" class="tag" title="해시태그"># 컴백</a>
+                            </div>
+                            <div class="popup-Icon">
+                                <img class="eye" th:src="@{/images/eye.svg}" alt="조회수눈">
+                                <p>조회수</p>
+                                <a href="#"><img class="send" th:src="@{/images/send.svg}" alt="보내기"></a> <!-- 카카오 보내기 혹은 url-->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--리뷰보러가기
+                    <div class="see-review">
+                        <a href="#">
+                            <p class="see-review-go"><img th:src="@{images/talk.svg}" alt="말풍선">리뷰 보러가기<img th:src="@{images/angle-down-solid.svg}" alt="아래화살표"></p>
+                        </a>
+                    </div> -->
+
+                    <!--주차 입장료 여부-->
+                    <div class="popupdetail-icon-area">
+                        <div class="parking">
+                            <img th:src="@{/images/parking.svg}" alt="주차">
+                            <p>주자가능</p>
+                        </div>
+                        <div class="ticket">
+                            <img th:src="@{/images/ticket.svg}" alt="주차">
+                            <p>입장료무료</p>
+                        </div>
+                    </div>
+                    <!-- 운영시간 -->
+                    <div class="popupdetail-time">
+                        <div class="popup-time">
+                            <a class="popupdetail-total">
+                                <h3 class="infor-tit">운영시간</h3>
+                                <a></a><img id="toggle0" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표"></a>
+                            </a>
+                        </div>
+                        <div class="answer" style="display: none;">
+                            <ul>
+                                <li>월 : </li>
+                                <li>화 : </li>
+                                <li>수 : </li>
+                                <li>목 : </li>
+                                <li>금 : </li>
+                                <li>토 : </li>
+                                <li>일 : </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 팝업스토어 소개글 -->
+                    <div class="popupdetail-info-inner">
+                        <h3 class="infor-tit">팝업 상세 정보</h3>
+                        <p>동방신기 팝업</p>
+                    </div>
+                    <!--안내및주의사항-->
+                    <div class="popupdetail-caution">
+                        <h3 class="infor-tit">안내 및 주의사항</h3>
+                        <p>- 전페품 10%할인</p>
+                        <p>- 싸다구 싸대기</p>
+                    </div>
+                    <!--오시는길-->
+                    <div class="popupdetail-map">
+
+                        <h3 class="infor-tit">오시는 길</h3>
+                        <article class="map-area-wrap">
+                            <div class="map-area"></div>
+                        </article>
+                        <ul>
+                            <li><p>서울특별시 강남구 주유성빌딩</p></li>
+                            <li><button type="button">주소복사</button></li>
+                        </ul>
+                    </div>
+                    <!--주변 카페 및 놀거리-->
+                    <div class="popupdetail-play">
+                        <a class="popupdetail-total">
+                            <h3 class="infor-tit">주변 카페 및 놀거리</h3>
+                            <img id="toggle1" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
+                        </a>
+                        <div class="map_wrap answer" style="display: none">
+                            <div id="map" style="width:500px;height:300px;position:relative;overflow:hidden;"></div>
+
+                            <div id="menu_wrap" class="bg_white">
+                                <div class="option" >
+                                    <div>
+                                        <form onsubmit="searchPlaces(); return false;">
+                                            키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                                            <button type="submit">검색하기</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <ul id="placesList"></ul>
+                                <div id="pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                        <!--리뷰-->
+                        <div class="popupdetail-review">
+                            <a class="popupdetail-total">
+                                <h3 class="infor-tit">리뷰</h3>
+                                <img id="toggle2" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
+                            </a>
+                            <div class="answer" style="display: none;">
+                                <ul>
+                                    <p>리뷰남겨요</p>
+                                    <p>리뷰남겨요</p>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--사업자정보-->
+                        <div class="popupdetail-business">
+                            <a class="popupdetail-total">
+                                <h3 class="infor-tit">사업자정보</h3>
+                                <img id="toggle3" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
+                            </a>
+                            <div class="answer" style="display: none;">
+                                <ul>
+                                    <p>회사명 : </p>
+                                    <p>대표명 : </p>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--사업자 문의-->
+                        <div class="popupdetail-business-info">
+                            <a class="popupdetail-total">
+                                <h3 class="infor-tit">사업자문의</h3>
+                                <img id="toggle4" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
+                            </a>
+                            <ul>
+                                <a href="#">사업자문의는 전화 혹은 Q&A이용해주시길 바랍니다.</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/boardDetail.js}"></script>
+    <script type="text/javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=089d852b497e6c513c79b8561670e3a0&libraries=services,clusterer,drawing'}"></script>
+    <script th:src="@{/js/popupListMap.js}"></script>
+    <script>
+        var script = document.createElement('script');
+        script.src = 'https://example.com/script.js';
+        script.async = true; // 또는 script.defer = true;
+        document.head.appendChild(script);
+    </script>
+</th:block>
+</body>
+</html>
