@@ -79,9 +79,9 @@ header >img {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
-    min-height: 1700px;
-    height:calc(100vh - 100px);
-    max-height: 5000px;
+    /*min-height: 1700px;*/
+    /*height:calc(100vh - 100px);*/
+    /*max-height: 5000px;*/
 }
 
 

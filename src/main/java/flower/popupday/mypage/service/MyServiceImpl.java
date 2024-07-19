@@ -73,10 +73,15 @@ public class MyServiceImpl implements MyService {
         myDAO.updatePwd(loginDTO);
     }
 
-//    @Override
-//    public boolean checkNikname(String user_nikname) {
-//        return myDAO.checkNikname(user_nikname);
-//    }
+    @Override
+    public boolean checkEmail(String email) {
+        return myDAO.checkEmail(email);
+    }
+
+    @Override
+    public boolean checkNikname(String user_nikname) {
+        return myDAO.checkNikname(user_nikname);
+    }
 
 
     //팝업 리스트

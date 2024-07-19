@@ -9,6 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PopupDayController {
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/main.do";
+    }
+
     @GetMapping("/main.do") 
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {

@@ -34,4 +34,7 @@ public interface LoginDAO {
     //카카오 소셜 로그인
     public void kakaoUpdate (LoginDTO loginDTO) throws DataAccessException;
 
+    // 사용자 정보 조회
+    LoginDTO findByUserId(String userId) throws DataAccessException;
+
 }
