@@ -10,7 +10,7 @@ public interface ReviewService {
     int addReview(Map<String, Object> reviewMap);
 
     // 글목록 로그인 했을때는 map으로 확인
-    //public Map popupAllList(Map<String, Integer> pageingMap) throws DataAccessException;
+    //public Map listArticles(Map<String, Integer> pageingMap) throws DataAccessException;
 
     // 로그인 안 했을때는 list로
 

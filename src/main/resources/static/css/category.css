@@ -70,12 +70,3 @@
 #businessperson_box li a:hover {
     color: #8B8BDA;
 }
-.category-info_login {
-    text-decoration: none;
-    text-align: right;
-    padding-top: 100px;
-}
-.category-info_login a {
-    color: black;
-    text-align: right;
-}

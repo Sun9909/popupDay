@@ -10,45 +10,12 @@
     <link rel="stylesheet" th:href="@{/css/adminNotice.css}">
     <link rel="stylesheet" th:href="@{css/jquery-ui.min.css}">
     <title>공지사항 작성하기</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-        // 이미지 미리보기 구현
-        function readImage(input) {
-            if(input.files && input.files[0]) { // 현재 input 객체 정보 (이미지 선택시)
-                let reader=new FileReader();
-                reader.onload=function (event) {
-                    console.log(event);
-                    $("#preview").attr("src",event.target.result);
-                }
-                reader.readAsDataURL(input.files[0]); // 이미지 처리
-            }else { // 이미지 미선택 (취소시 빈값으로 변경)
-                $("#preview").attr("src","#");
-            } // if end
-        } // readImage end
-
-        // 다른 페이지(글 목록)로 이동
-        function backToList(obj) {
-            /* aform=document.articleForm;
-            aform.action="${contextPath}/board/listArticles.do";
-            aform.submit(); */
-            obj.action="/notice/noticeList.do";
-            obj.method="get"
-            obj.submit();
-        }
-
-        // 여러개 이미지 추가 함수
-        let count=1;
-        function fn_addFile() { // cnt가 1이면 이미지 1개
-            $('#dock_file').append('<input type="file" name="image_file_name' + count + '"><br>');
-            count++;
-        }
-    </script>
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
         <h2>공지사항 작성하기</h2>
-        <form action="/notice/addNotice.do" method="post" enctype="multipart/form-data">
+        <form action="/notice/addArticle.do" method="post" enctype="multipart/form-data">
             <div class="notice-form">
                 <div class="select">
                     <label>구분</label>
@@ -57,27 +24,25 @@
                         <option value="event">이벤트</option>
                     </select>
                 </div>
-
                 <div class="notice">
                     <input type="text" placeholder="제목" name="title">
                 </div>
                 <div class="notice">
-                    <textarea placeholder="내용을 입력하세요" rows="15" cols="200" name="content"></textarea>
+                    <textarea placeholder="내용을 입력하세요" rows="15" cols="200"></textarea>
                 </div>
             </div>
             <div class="imagefile">
                 <td>이미지파일 첨부</td>
-                <td><input name="image_file_name" type="button" value="파일추가" onclick="fn_addFile()"></td>
+                <td><input th:type="file" value="파일추가" onclick="fn_addFile()" name="image_file_name"></td>
                 <td><div id="dock_file"></div></td>
             </div>
 
             <div class="notice-button">
-                <input type="submit" value="글쓰기">
-                <input type="button" value="목록보기" onclick="backToList(this.form)">
+                <button type="reset">취소</button>
+                <button type="submit">등록</button>
             </div>
-        </form>
     </div>
-
+    <form>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/search.js"></script>

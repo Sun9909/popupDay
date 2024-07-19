@@ -21,7 +21,7 @@ public class LoginDTO {
     }
 
     public enum Role {
-        일반, 사업자, 관리자, 카카오
+        일반, 사업자, 관리자
     }
 
     public enum Status {
