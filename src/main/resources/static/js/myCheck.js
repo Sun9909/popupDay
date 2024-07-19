@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let isUserIdValid = false;
     let isEmailValid = false;
     let isNicknameValid = false;
     let isPasswordMatch = false;
@@ -7,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSubmitButtonState() {
         let submitButtons = document.querySelectorAll('input[type="submit"]');
         submitButtons.forEach(function(submitButton) {
-            submitButton.disabled = !(isUserIdValid && isEmailValid && isNicknameValid && isPasswordMatch);
+            submitButton.disabled = !(isEmailValid && isNicknameValid && isPasswordMatch);
         });
-        console.log('Submit button state updated:', isUserIdValid, isEmailValid, isNicknameValid, isPasswordMatch);
+        console.log('Submit button state updated:', isEmailValid, isNicknameValid, isPasswordMatch);
     }
 
     function showAlertIfSubmitDisabled() {
-        if (!isUserIdValid || !isEmailValid || !isNicknameValid || !isPasswordMatch) {
+        if (!isEmailValid || !isNicknameValid || !isPasswordMatch) {
             alert('중복 확인 및 비밀번호 확인을 해주세요.');
         }
     }
@@ -48,34 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             error: function() {
                 alert("이메일 중복 확인 중 오류가 발생했습니다.");
                 isEmailValid = false;
-                updateSubmitButtonState();
-            }
-        });
-    }
-
-    function id_overlap_check() {
-        let userId = document.querySelector('input[name="user_id"]').value;
-        if (userId === '') {
-            alert('아이디를 입력해주세요.');
-            return;
-        }
-        $.ajax({
-            url: "/login/check-id",
-            data: { 'user_id': userId },
-            datatype: 'json',
-            success: function(data) {
-                if (data) {
-                    alert("이미 존재하는 아이디 입니다.");
-                    isUserIdValid = false;
-                } else {
-                    alert("사용가능한 아이디 입니다.");
-                    isUserIdValid = true;
-                }
-                updateSubmitButtonState();
-            },
-            error: function() {
-                alert("아이디 중복 확인 중 오류가 발생했습니다.");
-                isUserIdValid = false;
                 updateSubmitButtonState();
             }
         });
@@ -123,14 +94,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     addEventListenerIfExists('.email_overlap_button', 'click', email_overlap_check);
-    addEventListenerIfExists('.id_overlap_button', 'click', id_overlap_check);
     addEventListenerIfExists('.pwd_overlap_button', 'click', checkPasswordMatch);
     addEventListenerIfExists('.user_nikname_overlap_button', 'click', user_nikname_overlap_check);
 
     const frmMemberLogin = document.querySelector('form[name="frmMemberLogin"]');
     if (frmMemberLogin) {
         frmMemberLogin.addEventListener('submit', function(e) {
-            if (!isUserIdValid || !isEmailValid || !isNicknameValid || !isPasswordMatch) {
+            if (!isEmailValid || !isNicknameValid || !isPasswordMatch) {
                 alert('중복 확인 및 비밀번호 확인을 해주세요.');
                 e.preventDefault();
             }
@@ -146,6 +116,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
     updateSubmitButtonState();
 });
