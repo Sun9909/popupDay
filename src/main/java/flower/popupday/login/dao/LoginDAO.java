@@ -6,7 +6,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 @Mapper // mapper로 LoginDAO와 연결
-@Repository("loginDAO")
 public interface LoginDAO {
 
     // 일반 회원 로그인.xml
@@ -34,5 +33,8 @@ public interface LoginDAO {
 
     //카카오 소셜 로그인
     public void kakaoUpdate (LoginDTO loginDTO) throws DataAccessException;
+
+    // 사용자 정보 조회
+    LoginDTO findByUserId(String userId) throws DataAccessException;
 
 }

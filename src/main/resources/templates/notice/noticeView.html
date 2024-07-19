@@ -17,19 +17,10 @@
     <div class="containers">
         <div class="notice-view">
             <form name="frmNoticce" action="" method="post" enctype="multipart/form-data">
-                <div>
-                    <p>글 번호</p>
-                    <input th:value="${noticeView.noticeDTO.notice_id}" disabled>
-                    <input type="hidden" name="notice_id" th:value="${{noticeView.noticeDTO.notice_id}">
-                </div>
-                <div>
-                    <p>제목</p>
-                    <input class="view-title" id="notice_title" name="title" th:value="${noticeView.noticeDTO.title}" disabled>
-                </div>
-                <div>
-                    <p>내용</p>
-                    <input class="view-content" id="notice_content" name="content" th:value="${noticeView.noticeDTO.content}" disabled>
-                </div>
+                <h1 th:text="${noticeView.title}"></h1>
+                <p th:text="${noticeView.created_date}"></p>
+                <div th:utext="${noticeView.content}"></div>
+                <a th:href="@{/notice/noticeList.do}">목록으로</a>
                 <!-- 이미지가 존재할때만 보임 -->
                 <div th:if="${not #strings.isEmpty(noticeView.imageFiles)}">
                     <div th:each="imgList, status: ${noticeView.imageFiles}">

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public interface PopupController {
 
     public ModelAndView addPopup(MultipartHttpServletRequest multipartRequest,
-                                   HttpServletResponse response) throws Exception;
+                                 HttpServletResponse response) throws Exception;
 
     public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception;

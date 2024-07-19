@@ -12,7 +12,7 @@
     </div>
     <div class="under_fix">
         <div class="css-footer-buttons">
-            <a th:href="@{/main.do}" >
+            <a th:href="@{/main.do}">
                 <img th:src="@{/images/home.svg}">
                 <span>홈</span>
             </a>
@@ -27,8 +27,8 @@
                     <div th:if="${session.isLogOn} and ${session.loginDTO != null} and ${session.loginDTO.user_nikname != null}">
                         <a th:href="@{/login/logout.do}">로그아웃</a>
                     </div>
-                    <div th:unless="${session.isLogOn == true}">
-                        <a th:href="@{login/login.do}">로그인</a>
+                    <div th:unless="${session.isLogOn == true }">
+                        <a th:href="@{/login/login.do}">로그인</a>
                     </div>
                 </div>
                 <div class="categoryMember">
@@ -40,38 +40,32 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/notice/noticeList.do">
+                            <a href="공지사항">
                                 Notice
                                 <span>공지사항</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/login/join.do\')'">
+                            <a th:href="@{/notice/qnaList.do}">
                                 Q&A
                                 <span>질문 & 답변</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'">
+                            <a th:href="@{/notice/reviewList.do}">
                                 FAQ
                                 <span>자주 묻는 질문</span>
                             </a>
                         </li>
-                        <li>
-                            <a th:href="@{/notice/reviewList.do}">
-                                REVIEW
-                                <span>후기</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
-                <div class="businessperson_category" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).사업자}">
+                <div class="businessperson_category">
                     <ul id="businessperson_box">
                         <li>
                             <a href="사업자 문의 창">사업자 문의</a>
                         </li>
                         <li>
-                            <a href="사업자 팝업 등록 창">팝업 등록</a>
+                            <a th:href="@{/popup/addPopup.do}">팝업 등록</a>
                         </li>
                         <li>
                             <a href="사업자 팝업 수정 창">팝업 수정</a>
@@ -83,7 +77,7 @@
                 <img th:src="@{/images/zzem.svg}">
                 <span>찜 목록</span>
             </a>
-            <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/join.do\')'">
+            <a th:href="@{/mypage/memberPage.do}">
                 <img th:src="@{/images/person.svg}">
                 <span>마이페이지</span>
             </a>
