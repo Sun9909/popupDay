@@ -66,11 +66,11 @@ public class PopupServiceImpl implements PopupService {
 
     public Map popupView(Long popup_id) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
-        PopupDTO popupDTO = popupDAO.selectPopup(popup_id);
+        PopupDTO popupList = popupDAO.selectPopup(popup_id);
         List<ImageDTO> imageFileList = popupDAO.selectImageFileList(popup_id);
         List<HashTagDTO> hashTagList = popupDAO.selectHashTagListByPopupId(popup_id);
 
-        popupMap.put("popup", popupDTO);
+        popupMap.put("popupList", popupList);
         popupMap.put("imageFileList", imageFileList);
         popupMap.put("hashTagList", hashTagList);
 

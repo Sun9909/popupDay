@@ -2,7 +2,6 @@ package flower.popupday.popup.controller;
 
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.popup.dto.ImageDTO;
-import flower.popupday.popup.dto.PopupDTO;
 import flower.popupday.popup.service.PopupService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,7 +47,7 @@ public class PopupControllerImpl implements PopupController {
 //    }
 
     @Override
-    @RequestMapping("/board/popupAllList.do")
+    @RequestMapping("/popup/popupAllList.do")
     public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section,
                                      @RequestParam(value = "pageNum", required = false) String _pageNum,
                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -60,7 +59,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.popupList(pagingMap); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/board/popupAllList"); // View 이름 설정
+        mav.setViewName("/popup/popupAllList"); // View 이름 설정
         mav.addObject("popupInfoList", popupMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
         mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
         mav.addObject("section", section);
@@ -69,13 +68,11 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
-
-
     @Override
-    @GetMapping("/board/popupForm.do")
+    @GetMapping("/popup/popupForm.do")
     public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/board/popupForm");
+        mav.setViewName("/popup/popupForm");
         return mav;
     }
 
@@ -174,14 +171,15 @@ public class PopupControllerImpl implements PopupController {
         return fileList;
     }
 
-    @Override
-    @GetMapping("/board/popupView.do")
+    @RequestMapping("/popup/popupView.do")
     public ModelAndView popupView(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Map<String, Object> popupMap = popupService.popupView(popup_id);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/board/popupView");
+        Map popupMap =popupService.popupView(popup_id);
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
         return mav;
     }
+
+
 }
