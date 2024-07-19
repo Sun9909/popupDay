@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>팝업 등록, 수정 폼</title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/popupdata.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/popupdata.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -28,7 +28,7 @@
                 <div class="fillout-form">
                     <label>팝업스토어 운영 기간</label>
                     <div>
-                        <input type="date">~<input type="date" required>
+                        <input type="date" name="start_date">~<input type="date" name="end_date" required>
                     </div>
                 </div>
 

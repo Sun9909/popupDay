@@ -25,4 +25,13 @@ public interface LoginDAO {
 
     // 닉네임 중복 확인
     boolean checkNikname(String user_nikname) throws DataAccessException;
+
+    //카카오
+    public void kakaoInsert(LoginDTO loginDTO) throws DataAccessException;
+
+    public boolean isExistKakao(LoginDTO loginDTO) throws DataAccessException;
+
+    //카카오 소셜 로그인
+    public void kakaoUpdate (LoginDTO loginDTO) throws DataAccessException;
+
 }

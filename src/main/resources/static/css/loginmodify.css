@@ -45,7 +45,7 @@
     font-size: 25px;
 }
 
-/*아이디,비밀번호 이메일*/
+/*닉네임,이름,이메일*/
 #joinForm {
     text-align: left; /* 내부 요소 가운데 정렬 */
     display: flex;
@@ -63,9 +63,10 @@
     margin-inline-end: auto;
 }
 
-#joinForm label {
-    display: block;
-    margin-bottom: -10px;
+#joinForm button {
+    font-size: 0.8em;
+    padding: 2px 6px;
+    margin-bottom: 10px;
 }
 
 #joinForm input[type="text"],

@@ -9,6 +9,7 @@ function id_overlap_check() {
         return Promise.resolve(false);
     }
 
+    // 기존 아이디와 입력 값 비교
     if (user_id_input.value === original_user_id) {
         alert("기존 아이디와 동일합니다");
         return Promise.resolve(false);
@@ -17,7 +18,7 @@ function id_overlap_check() {
     // AJAX 요청을 통해 서버에 아이디 중복 확인 요청
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: "/login/check-id", // 아이디 중복 확인을 위한 서버 URL
+            url: "/admin/check-id", // 아이디 중복 확인을 위한 서버 URL
             data: {
                 'user_id': user_id_input.value // 입력된 아이디 값
             },
@@ -62,7 +63,7 @@ function user_nikname_overlap_check() {
     // AJAX 요청을 통해 서버에 닉네임 중복 확인 요청
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: "/login/check-nikname", // 닉네임 중복 확인을 위한 서버 URL
+            url: "/admin/check-nikname", // 닉네임 중복 확인을 위한 서버 URL
             data: {
                 'user_nikname': user_nikname_input.value // 입력된 닉네임 값
             },
