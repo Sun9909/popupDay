@@ -10,19 +10,17 @@ public class FaqDTO {
     private long user_id; //작성자 아이디
     private String title; //faq 제목
     private String content; //faq 내용
-    private String writer;
     private Date created_date;
 
     private int totFaq;
 
     public FaqDTO() {}
 
-    public FaqDTO(long faq_id, long user_id, String title, String content, String writer, Date created_date, int totfaq) {
+    public FaqDTO(long faq_id, long user_id, String title, String content, Date created_date, int totfaq) {
         this.faq_id = faq_id;
         this.user_id = user_id;
         this.title = title;
         this.content = content;
-        this.writer = writer;
         this.created_date = created_date;
         this.totFaq = totfaq;
     }
@@ -65,14 +63,6 @@ public class FaqDTO {
 
     public void setCreated_date(Date created_date) {
         this.created_date = created_date;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
     }
 
     public int getTotFaq() {
