@@ -36,32 +36,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-
-    <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl order by created_date desc LIMIT #{count}, 10
+    <select id="selectAllPopup" resultMap="popResult">
+        select * from popup_tbl
     </select>
-
-    <select id="selectToPopup" resultType="int">
-      <![CDATA[
-        select count(*) from popup_tbl
-      ]]>
-   </select>
 
     <!-- 글번호 생성 -->
     <select id="getNewPopupId" resultType="Long">
     <![CDATA[
         select COALESCE(max(popup_id) + 1, 1) from popup_tbl
         ]]>
-    </select>
+</select>
 
-    <!-- 팝업 등록 -->
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
         insert into popup_tbl (popup_id,title, info, popup_hours, content, address, brand_page, role, user_id, created_date)
         values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', '1', now())
         ]]>
     </insert>
-    <!-- 팝업 이미지 등록-->
 
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into popup_image_tbl values
@@ -99,31 +90,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)
         VALUES (#{hash_tag_id}, #{popup_id})
     </insert>
-
-    <!-- 팝업 조회 -->
-    <select id="selectPopup" resultMap="popResult" parameterType="Long">
-        SELECT * FROM popup_tbl WHERE popup_id = #{popup_id}
-    </select>
-
-    <!-- 이미지 파일 리스트 조회 -->
-<!--    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">-->
-<!--        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}-->
-<!--    </select>-->
-
-    <!-- 썸네일 조회 -->
-    <select id="selectFirstImage" resultMap="imgResult" parameterType="Long">
-        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id} LIMIT 1
-    </select>
-
-    <!-- 특정 팝업의 해시태그 리스트 조회 -->
-    <select id="selectHashTagListByPopupId" resultMap="hashTagDTO" parameterType="Long">
-        SELECT ht.hash_tag_id, ht.hash_tag
-        FROM popup_hash_tag_tbl pht
-                 JOIN hash_tag_tbl ht ON pht.hash_tag_id = ht.hash_tag_id
-        WHERE pht.popup_id = #{popup_id}
-    </select>
-
-
 </mapper>
 
 

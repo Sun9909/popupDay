@@ -10,7 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.swing.*;
@@ -24,14 +25,10 @@ public class MyControllerImpl implements MyController {
     @Autowired
     private MyService myService;
 
-//    @Autowired
-//    private MyDTO myDTO;
-    @Autowired
-    private MyPopupDTO myPopupDTO;
-    @Autowired
-    private LoginDTO loginDTO;
     @Autowired
     private MyDTO myDTO;
+    @Autowired
+    private MyPopupDTO myPopupDTO;
 
     //마이페이지
     @Override
@@ -41,18 +38,13 @@ public class MyControllerImpl implements MyController {
         ModelAndView mav = new ModelAndView();
         HttpSession session = request.getSession();
 
-        //세션에서 loginDTO 가져오기
+        // 세션에서 loginDTO 가져오기
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-        //세션 설정
-        session.setAttribute("my", loginDTO);
-        session.setAttribute("isLogOn", true);
-
-        if (loginDTO.getRole() == LoginDTO.Role.일반) {
-            mav.setViewName("redirect:/mypage/reviewCount.do");
-        }
-        else if (loginDTO.getRole() == LoginDTO.Role.사업자){
-            mav.setViewName("redirect:/mypage/businessPage.do");
+        // 만약 loginDTO가 null이면 로그인이 되어있지 않은 상태로 처리
+        if (loginDTO == null) {
+            mav.setViewName("redirect:/login/loginForm"); // 로그인 페이지로 리다이렉트
+            return mav;
         }
 
         // 세션에 myDTO 설정
@@ -92,82 +84,6 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
-    //내 정보 수정 페이지로 이동
-    @Override
-    @RequestMapping("/modify/loginModify.do")
-    public ModelAndView loginModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
-
-        MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
-        ModelAndView mav = new ModelAndView("/modify/loginModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
-        mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
-        return mav;
-    }
-
-    //자신의 정보를 수정한 후 저장하기
-    @Override
-    @RequestMapping("/mypage/updateLogin.do")
-    public ModelAndView updateLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(); //세션 가져오기
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //세션에서 loginDTO 가져오기
-
-        //loginDTO.setId(sessionLoginDTO.getId());  //세션에서 가져온 id를 설정하여 보안 유지
-        //MyDTO myDTO = new MyDTO();
-        loginDTO.setUser_nikname(request.getParameter("user_nikname"));
-        loginDTO.setName(request.getParameter("name"));
-        loginDTO.setEmail(request.getParameter("email"));
-
-        myService.updateLogin(loginDTO);   //loginDTO를 서비스로 전달
-        session.setAttribute("loginDTO", loginDTO); //업데이트된 정보를 세션에 저장
-        //System.out.println(loginDTO);
-        //System.out.println(myDTO);
-
-        ModelAndView mav = new ModelAndView("redirect:/mypage/memberPage.do");
-        return mav;
-    }
-
-    @Override
-    @RequestMapping("/modify/passwordModify.do")
-    public ModelAndView passwordModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
-
-        MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
-        ModelAndView mav = new ModelAndView("/modify/passwordModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
-        mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
-        return mav;
-    }
-
-    @Override
-    @RequestMapping("/mypage/updatePwd.do")
-    public ModelAndView updatePwd(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-
-        loginDTO.setPwd(request.getParameter("pwd"));
-
-        myService.updatePwd(loginDTO);
-        session.setAttribute("loginDTO", loginDTO);
-
-        ModelAndView mav = new ModelAndView("redirect:/mypage/memberPage.do");
-        return mav;
-    }
-
-//    @Override
-//    @PostMapping("/login/check-nikname")    //js인듯
-//    @ResponseBody
-//    public boolean checkNikname(String user_nikname) {
-//        return myService.checkNikname(user_nikname);
-//    }
-
-
-//    @Override
-//    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        HttpSession session=request.getSession();
-//        session.removeAttribute();
-//    }
-
 
     //다음 개수 조회 시 서비스 호출
     //Long reviewCount = myService.getReviewCount(myDTO.getId());
@@ -182,8 +98,6 @@ public class MyControllerImpl implements MyController {
 //        mav.addObject("likeListCount", likeListCount);
 //        return mav;
 //    }
-
-
 
     //팝업리스트
     @Override

@@ -17,8 +17,6 @@ public class LoginControllerImpl implements LoginController {
 
     @Autowired
     private LoginService loginService; // LoginService 객체를 자동 주입
-    @Autowired
-    private LoginDTO loginDTO;
 
     // 일반 회원가입
     @Override
@@ -52,23 +50,23 @@ public class LoginControllerImpl implements LoginController {
                                     RedirectAttributes rAttr,
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws Exception {
-        LoginDTO loginResult = loginService.memberLogin(loginDTO);
-        ModelAndView mav = new ModelAndView();
-        if (loginResult != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("loginDTO", loginResult);
-            session.setAttribute("isLogOn", true);
-            String action = (String) session.getAttribute("action");
+        loginDTO = loginService.memberLogin(loginDTO); // 로그인 서비스 호출
+        ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
+        if (loginDTO != null) { // 회원 정보가 있는 경우
+            HttpSession session = request.getSession(); // 세션을 가져옴
+            session.setAttribute("loginDTO", loginDTO); // 세션에 로그인 정보 저장
+            session.setAttribute("isLogOn", true); // 로그인 상태 설정
+            String action = (String) session.getAttribute("action"); // 세션에서 action 속성 가져옴
             if (action != null) {
-                mav.setViewName("redirect:" + action);
+                mav.setViewName("redirect:" + action); // 로그인 진행한 위치로 리다이렉트
             } else {
-                mav.setViewName("redirect:/main.do");
+                mav.setViewName("redirect:/main.do"); // 기본적으로 메인 페이지로 리다이렉트
             }
-        } else {
-            rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요");
-            mav.setViewName("redirect:/login/login.do");
+        } else { // 회원 정보가 없는 경우
+            rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요"); // 에러 메시지 추가
+            mav.setViewName("redirect:/login/login.do"); // 로그인 페이지로 리다이렉트
         }
-        return mav;
+        return mav; // ModelAndView 반환
     }
 
     // 사업자 회원가입
@@ -180,40 +178,5 @@ public class LoginControllerImpl implements LoginController {
     @Override
     public ModelAndView removeNotice(int noticeNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
         return null;
-    }
-
-
-
-    //카카오 소셜 로그인
-    @RequestMapping(value = "/popupday/kakao", method = RequestMethod.GET)
-    public ModelAndView oauth(
-            @RequestParam(value = "code", required = false) String code,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String access_token = loginService.getKakaoAccessToken(code);
-        LoginDTO loginDTO = loginService.getKakaoUserInfo(access_token);
-
-        if (loginDTO != null) {
-            loginService.kakaoLogin(loginDTO);
-            HttpSession session = request.getSession();
-            session.setAttribute("loginDTO", loginDTO);
-            session.setAttribute("isLogOn", true);
-            session.setAttribute("sns", 1);
-        }
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/main.do");
-        return mav;
-    }
-
-
-    @Override
-    @GetMapping("/logout.do")
-    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        session.invalidate(); // 세션 무효화
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/main.do"); // 로그아웃 후 메인 페이지로 리다이렉트
-        return mav;
     }
 }

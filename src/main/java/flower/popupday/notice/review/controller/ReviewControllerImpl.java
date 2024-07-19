@@ -27,7 +27,7 @@ public class ReviewControllerImpl implements ReviewController {
     private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
 
     //    로그인 하면 세션값으로 쓸 메서드
-    //    public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
+    //    public ModelAndView listArticles(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     //    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception
 
     @Override
@@ -85,7 +85,7 @@ public class ReviewControllerImpl implements ReviewController {
                 ReviewImageDTO imageDTO=new ReviewImageDTO(); // 이미지를 넣을때마다 생성 여러개 이미지지만 각각의 정보를 가지고 있어야함
                 imageDTO.setImage_file_name(fileName);
                 // 수정 번호로 이미지 파일 번호 가져옴 , 글번호로 접근 => 이미지 파일 번호
-                imageDTO.setReview_image_id(Integer.parseInt((String) reviewMap.get("review_image_id" + modityNumber)));
+                imageDTO.setReview_image_id(Integer.parseInt((String) reviewMap.get("imageFileNo" + modityNumber)));
                 imageFileList.add(imageDTO);
             }
             reviewMap.put("imageFileList", imageFileList); // 변경된 이미지 담아서감
