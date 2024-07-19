@@ -3,7 +3,7 @@
 <footer th:fragment="footer">
     <div class="under_info">
         <ul>
-            <li><a href="#">POPUP DAY</a></li>
+            <li><a th:href="@{/main.do}">POPUP DAY</a></li>
             <li><a href="#">이용약관</a></li>
             <li><a href="#">개인정보 처리방침</a></li>
             <li><a href="#">고객지원</a></li>
@@ -26,14 +26,14 @@
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <a href="팝업 검색창">
+                            <a th:href="@{/board/popupAllList.do}">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/notice/noticeList.do">
-                                Notice
+                            <a th:href="@{/notice/noticeList.do}">
+                                NOTICE
                                 <span>공지사항</span>
                             </a>
                         </li>
@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/reviewList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
                                 REVIEW
                                 <span>후기</span>
                             </a>
@@ -63,7 +63,7 @@
                             <a href="사업자 문의 창">사업자 문의</a>
                         </li>
                         <li>
-                            <a href="사업자 팝업 등록 창">팝업 등록</a>
+                            <a th:href="@{/popup/addPopup.do}">팝업 등록</a>
                         </li>
                         <li>
                             <a href="사업자 팝업 수정 창">팝업 수정</a>
