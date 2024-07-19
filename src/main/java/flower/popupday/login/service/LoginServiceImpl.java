@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -25,6 +26,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 일반 회원가입
     @Override
@@ -154,4 +157,6 @@ public class LoginServiceImpl implements LoginService {
             loginDAO.kakaoInsert(loginDTO);
         }
     }
+
+
 }
