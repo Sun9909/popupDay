@@ -46,7 +46,7 @@
                     <input type="button" value="수정반영하기" onclick="review_modify(reviewArticle)">
                     <input type="button" value="취소" onclick="toList(reviewArticle)">
                 </div>
-                <div id="review-btn" th:if="@{session.loginDTO.id == reviewArticle.review.user_id}">
+                <div id="review-btn" th:if="@{session.loginDTO.id = reviewArticle.review.user_id}">
                     <input type="button" value="수정하기" onclick="review_enable(this.form)">
                     <input type="button" value="삭제하기" th:onclick="|fn_remove_review('/notice/removeReview.do', ${reviewArticle.review.review_id})|">
                 </div>
