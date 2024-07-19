@@ -18,6 +18,9 @@ public class LoginControllerImpl implements LoginController {
     @Autowired
     private LoginService loginService; // LoginService 객체를 자동 주입
 
+    @Autowired
+    private LoginDTO loginDTO;
+
     // 일반 회원가입
     @Override
     @PostMapping("/addLogin.do")

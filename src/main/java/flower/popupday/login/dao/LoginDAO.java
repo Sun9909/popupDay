@@ -6,7 +6,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 @Mapper // mapper로 LoginDAO와 연결
-@Repository("loginDAO")
 public interface LoginDAO {
 
     // 일반 회원 로그인.xml
