@@ -84,7 +84,7 @@
     <update id="kakaoUpdate" parameterType="LoginDTO">
         update user_tbl set user_id=#{email}, user_nikname=#{user_nikname} where user_id=#{email}
     </update>
-
+<!--
     <select id="getAccessToken" parameterType="String" resultType="String">
         SELECT access_token FROM user_tbl WHERE user_id=#{email}
     </select>
@@ -93,4 +93,4 @@
         UPDATE user_tbl SET access_token=null WHERE user_id=#{email}
     </update>
 
-</mapper>
+</mapper> -->
