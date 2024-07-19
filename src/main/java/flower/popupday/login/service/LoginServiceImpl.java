@@ -25,9 +25,6 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private HttpSession httpSession;
 
-    @Autowired
-    private HttpSession httpSession;
-
     // 일반 회원가입
     @Override
     public void addLogin(LoginDTO loginDTO) throws DataAccessException {

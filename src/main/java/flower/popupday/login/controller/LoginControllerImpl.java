@@ -20,9 +20,6 @@ public class LoginControllerImpl implements LoginController {
     @Autowired
     private LoginDTO loginDTO;
 
-    @Autowired
-    private LoginDTO loginDTO;
-
     // 일반 회원가입
     @Override
     @PostMapping("/addLogin.do")
