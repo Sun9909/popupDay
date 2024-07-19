@@ -22,8 +22,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private LoginDAO loginDAO; // LoginDAO 객체를 자동 주입
-    @Autowired
-    private HttpSession httpSession;
 
     @Autowired
     private HttpSession httpSession;
