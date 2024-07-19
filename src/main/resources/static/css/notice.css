@@ -445,3 +445,8 @@
     justify-content: center;
     list-style: none;
 }
+
+.number {
+    display: flex;
+    text-align: center;
+}
