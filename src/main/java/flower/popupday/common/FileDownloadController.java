@@ -3,6 +3,7 @@ package flower.popupday.common;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 
+@Controller("fileDownload")
 public class FileDownloadController extends HttpServlet {
 
     private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";

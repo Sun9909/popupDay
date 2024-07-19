@@ -56,14 +56,14 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @Override
-    @GetMapping("/admin/check-id")
+    @PostMapping("/admin/check-id")
     @ResponseBody
     public boolean checkId(@RequestParam("user_id") String user_id) {
         return adminService.checkId(user_id);
     }
 
     @Override
-    @GetMapping("/admin/check-nkiname")
+    @GetMapping("/admin/check-nikname")
     @ResponseBody
     public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
         return adminService.checkNikname(user_nikname);
