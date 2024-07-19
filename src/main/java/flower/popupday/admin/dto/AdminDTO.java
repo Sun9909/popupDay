@@ -1,43 +1,32 @@
-package flower.popupday.login.dto;
+package flower.popupday.admin.dto;
 
 import org.springframework.stereotype.Component;
+
 import java.sql.Date;
 
-@Component("loginDTO")
-public class LoginDTO {
+@Component("adminDTO")
+public class AdminDTO {
+    private Long id; //회원번호
+    private String user_id; //유저아이디
+    private String user_nikname; //유저닉네임
+    private String name; //유저이름
+    private String pwd; //유저비번
+    private String email;   //유저 이메일
+    private Date reg_date; //가입일
+    private Role role;  //일반, 사업자, 관리자 구분
+    private Status status;    //가입, 탈퇴
 
-    private Long id;
-    private String user_id;
-    private String user_nikname;
-    private String name;
-    private String pwd;
-    private String email;
-    private Date reg_date;
-    private String business_num;
-    private Role role;
-    private Status status;
+    //생성자
+    public AdminDTO() {
 
-    public LoginDTO() {
     }
 
     public enum Role {
-        일반, 사업자, 관리자, 카카오
+        일반, 사업자, 관리자
     }
 
     public enum Status {
         active, delete
-    }
-
-    public LoginDTO(Long id, String user_id, String name, String pwd, String email, Date reg_date, String business_num, String role, String status) {
-        this.id = id;
-        this.user_id = user_id;
-        this.name = name;
-        this.pwd = pwd;
-        this.email = email;
-        this.reg_date = reg_date;
-        this.business_num = business_num;  // 수정된 부분
-        this.role = Role.valueOf(role);
-        this.status = Status.valueOf(status);
     }
 
     public Long getId() {
@@ -96,12 +85,12 @@ public class LoginDTO {
         this.reg_date = reg_date;
     }
 
-    public String getBusiness_num() {  // 수정된 부분
-        return business_num;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setBusiness_num(String business_num) {  // 수정된 부분
-        this.business_num = business_num;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Role getRole() {
@@ -112,11 +101,4 @@ public class LoginDTO {
         this.role = role;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 }
