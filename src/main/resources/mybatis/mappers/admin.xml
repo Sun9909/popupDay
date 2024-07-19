@@ -45,5 +45,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkNikname" parameterType="String" resultType="boolean">
         select count(*) > 0 from user_tbl where user_nikname=#{user_nikname}
     </select>
-
 </mapper>

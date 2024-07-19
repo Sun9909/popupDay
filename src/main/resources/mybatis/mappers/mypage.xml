@@ -99,6 +99,11 @@
         update user_tbl set user_nikname=#{user_nikname}, name=#{name}, email=#{email} where id=#{id}
     </update>
 
+    <!-- 이메일 중복 확인 -->
+    <select id="checkEmail" parameterType="String" resultType="boolean">
+        select count(*) > 0 from user_tbl where email = #{email}
+    </select>
+
     <!-- 닉네임 중복 확인 -->
     <select id="checkNikname" parameterType="String" resultType="boolean">
         select count(*) > 0 from user_tbl where user_nikname=#{user_nikname}

@@ -15,16 +15,13 @@ public interface LoginController {
                           HttpServletRequest request,
                           HttpServletResponse response) throws Exception;
 
-    // login.html에서 정보 전달 받기
-    ModelAndView login(LoginDTO loginDTO,
-                       String action,
-                       String result,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws Exception;
+    // 로그인 폼 이동
+    ModelAndView loginForm(HttpServletRequest request,
+                           HttpServletResponse response) throws Exception;
 
     // 로그인.html
     ModelAndView memberLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-                             RedirectAttributes rAttr, // 로그인 되지 않으면 다시 처리
+                             RedirectAttributes rAttr,
                              HttpServletRequest request,
                              HttpServletResponse response) throws Exception;
 
@@ -82,5 +79,4 @@ public interface LoginController {
     public ModelAndView oauth(
             @RequestParam(value = "code", required = false) String code,
             HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 }
