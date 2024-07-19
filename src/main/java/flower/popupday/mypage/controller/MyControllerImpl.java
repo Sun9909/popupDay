@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,28 +45,20 @@ public class MyControllerImpl implements MyController {
         //세션에서 loginDTO 가져오기
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-        //세션 설정
-        session.setAttribute("my", loginDTO);
-        session.setAttribute("isLogOn", true);
-
-        if (loginDTO.getRole() == LoginDTO.Role.일반) {
-            mav.setViewName("redirect:/mypage/reviewCount.do");
-        }
-        else if (loginDTO.getRole() == LoginDTO.Role.사업자){
-            mav.setViewName("redirect:/mypage/businessPage.do");
-        }
-
         // 세션에 myDTO 설정
         session.setAttribute("my", loginDTO);
         session.setAttribute("isLogOn", true);
 
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
-        if (loginDTO.getRole() == LoginDTO.Role.일반 || loginDTO.getRole() == LoginDTO.Role.사업자) {
+        if (loginDTO.getRole() == LoginDTO.Role.일반) {
             mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
-        } else {
+        }
+        else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
+            mav.setViewName("/mypage/businessPage");
+        }
+        else {
             mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
         }
-
         return mav;
     }
 
@@ -127,6 +120,22 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
+    //이메일 중복 확인
+    @Override
+    @RequestMapping("/mypage/check-email")
+    @ResponseBody
+    public boolean checkEmail(@RequestParam("email") String email) {
+        return myService.checkEmail(email);
+    }
+
+    //닉네임 중복 확인
+    @Override
+    @RequestMapping("/mypage/check-nikname")
+    @ResponseBody
+    public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
+        return myService.checkNikname(user_nikname);
+    }
+
     @Override
     @RequestMapping("/modify/passwordModify.do")
     public ModelAndView passwordModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -145,7 +154,7 @@ public class MyControllerImpl implements MyController {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-        loginDTO.setPwd(request.getParameter("pwd"));
+        loginDTO.setPwd(request.getParameter("newpwd"));
 
         myService.updatePwd(loginDTO);
         session.setAttribute("loginDTO", loginDTO);
@@ -154,20 +163,15 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
-//    @Override
-//    @PostMapping("/login/check-nikname")    //js인듯
-//    @ResponseBody
-//    public boolean checkNikname(String user_nikname) {
-//        return myService.checkNikname(user_nikname);
-//    }
+    @Override
+    @RequestMapping("/mypage/businessPage.do")
+    public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-
-//    @Override
-//    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        HttpSession session=request.getSession();
-//        session.removeAttribute();
-//    }
-
+        ModelAndView mav = new ModelAndView("/mypage/businessPage");
+        return mav;
+    }
 
     //다음 개수 조회 시 서비스 호출
     //Long reviewCount = myService.getReviewCount(myDTO.getId());
@@ -182,8 +186,6 @@ public class MyControllerImpl implements MyController {
 //        mav.addObject("likeListCount", likeListCount);
 //        return mav;
 //    }
-
-
 
     //팝업리스트
     @Override

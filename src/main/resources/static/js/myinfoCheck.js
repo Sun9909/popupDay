@@ -1,22 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     let isEmailValid = false;
     let isNicknameValid = false;
-    let isPasswordMatch = false;
 
+    //제출 버튼 상태 업데이트 함수 - 모두 유효할 때만 제출 버튼 활성화
     function updateSubmitButtonState() {
         let submitButtons = document.querySelectorAll('input[type="submit"]');
         submitButtons.forEach(function(submitButton) {
-            submitButton.disabled = !(isEmailValid && isNicknameValid && isPasswordMatch);
+            submitButton.disabled = !(isEmailValid && isNicknameValid);
         });
-        console.log('Submit button state updated:', isEmailValid, isNicknameValid, isPasswordMatch);
+        console.log('Submit button state updated:', isEmailValid, isNicknameValid);
     }
 
+    //제출 버튼 비활성화 시 알림 함수
     function showAlertIfSubmitDisabled() {
-        if (!isEmailValid || !isNicknameValid || !isPasswordMatch) {
-            alert('중복 확인 및 비밀번호 확인을 해주세요.');
+        if (!isEmailValid || !isNicknameValid) {
+            alert('다시 수정 해주세요.');
         }
     }
 
+    //주어진 선택자에 해당 요소가 존재하면 이벤트 리스너 추가
     function addEventListenerIfExists(selector, event, handler) {
         const element = document.querySelector(selector);
         if (element) {
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    //이메일 중복 확인
     function email_overlap_check() {
         let email = document.querySelector('input[name="email"]').value;
         if (email === '') {
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         $.ajax({
-            url: "/login/check-email",
+            url: "/mypage/check-email",
             data: { 'email': email },
             datatype: 'json',
             success: function(data) {
@@ -52,27 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function checkPasswordMatch() {
-        let password = document.querySelector('input[name="pwd"]').value;
-        let confirmPassword = document.querySelector('input[name="pwd_confirm"]').value;
-        if (password === confirmPassword) {
-            alert("비밀번호가 일치합니다.");
-            isPasswordMatch = true;
-        } else {
-            alert("비밀번호가 일치하지 않습니다.");
-            isPasswordMatch = false;
-        }
-        updateSubmitButtonState();
-    }
-
+    //닉네임 중복 확인
     function user_nikname_overlap_check() {
         let nickname = document.querySelector('input[name="user_nikname"]').value;
+        let origin_nikname  = document.querySelector('input[name="origin_nikname"]').value;
         if (nickname === '') {
             alert('닉네임을 입력해주세요.');
             return;
         }
+        else if (nickname === origin_nikname) {
+            alert('기존 닉네임과 동일합니다.');
+            return;
+        }
         $.ajax({
-            url: "/login/check-nikname",
+            url: "/mypage/check-nikname",
             data: { 'user_nikname': nickname },
             datatype: 'json',
             success: function(data) {
@@ -93,20 +89,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    addEventListenerIfExists('.email_overlap_button', 'click', email_overlap_check);
-    addEventListenerIfExists('.pwd_overlap_button', 'click', checkPasswordMatch);
+    //각 요소 확인 버튼에 이벤트 리스너 추가
+    addEventListenerIfExists('.user_email_overlap_button', 'click', email_overlap_check);
     addEventListenerIfExists('.user_nikname_overlap_button', 'click', user_nikname_overlap_check);
 
-    const frmMemberLogin = document.querySelector('form[name="frmMemberLogin"]');
+    //폼 제출 시 유효성 검사
+    const frmMemberLogin = document.querySelector('form[name="loginModifyForm"]');
     if (frmMemberLogin) {
         frmMemberLogin.addEventListener('submit', function(e) {
-            if (!isEmailValid || !isNicknameValid || !isPasswordMatch) {
-                alert('중복 확인 및 비밀번호 확인을 해주세요.');
+            if (!isEmailValid || !isNicknameValid) {
+                alert('중복 확인 해주세요.');
                 e.preventDefault();
             }
         });
     }
 
+    //제출 버튼 클릭 시 비활성화면 알림, 제출 막기
     let submitButtons = document.querySelectorAll('input[type="submit"]');
     submitButtons.forEach(function(submitButton) {
         submitButton.addEventListener('click', function(e) {

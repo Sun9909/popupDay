@@ -29,8 +29,11 @@ public interface MyService {
     //사용자 정보 업데이트
     public void updateLogin(LoginDTO loginDTO) throws DataAccessException;    //myDTO를 사용해야하나? 로그인 정보가 바뀌어야 하니까?
 
+    //이메일 중복 체크
+    boolean checkEmail(String email);
+
     //닉네임 중복 체크
-    //boolean checkNikname(String user_nikname);
+    boolean checkNikname(String user_nikname);
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 
