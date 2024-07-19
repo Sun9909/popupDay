@@ -22,16 +22,18 @@ public interface MyController {
     // 내 정보 업데이트
     public ModelAndView updateLogin(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //boolean checkNikname(String user_nikname);
+    // 이메일 중복 확인
+    boolean checkEmail(String email);
+
+    // 닉네임 중복 확인
+    boolean checkNikname(String user_nikname);
 
     //비밀번호 수정페이지로
     public ModelAndView passwordModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView updatePwd(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    // 로그아웃
-//    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
+    public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //팝업리스트
     public ModelAndView getPopup(@ModelAttribute("mypopupDTO") MyPopupDTO mypopupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception;
