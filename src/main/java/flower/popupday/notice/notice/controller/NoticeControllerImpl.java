@@ -166,6 +166,7 @@ public class NoticeControllerImpl implements NoticeController {
 
         //업로드 된 파일이 있을 경우
         if(fileList != null && fileList.size() != 0) {
+            System.out.println("이미지있다");
             for(String fileName : fileList) { //업로드 된 파일 리스트를 반본
                 NoticeimageDTO noticeimageDTO = new NoticeimageDTO(); // 각 파일마다 noticeimageDTO 객체를 생성
                 noticeimageDTO.setImage_file_name(fileName);
@@ -177,6 +178,7 @@ public class NoticeControllerImpl implements NoticeController {
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
         Long id=loginDTO.getId();
         noticeMap.put("id", id);
+
         //게시글 추가 및 이미지 파일 이동
         try {
             int imageId = noticeService.addNotice(noticeMap); // 글을 추가하고 작성자아이디를 받아옴
@@ -248,14 +250,6 @@ public class NoticeControllerImpl implements NoticeController {
         ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
         return mav;
     }
-
-
-
-
-
-
-
-
 
 
 

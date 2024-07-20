@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="flower.popupday.notice.notice.dao.NoticeDAO">
 
-    <resultMap id="noticeResult" type="noticeDTO" >
-        <result property="notice_id" column="notice_id"/>
+    <resultMap type="noticeDTO" id="noticeResult">
+        <id property="notice_id" column="notice_id"/>
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
 
-    <resultMap id="imgResult" type="noticeImageDTO" >
+    <resultMap type="noticeimageDTO" id="imgResult">
         <result property="notice_image_id" column="notice_image_id"/>
         <result property="notice_id" column="notice_id"/>
         <result property="image_file_name" column="image_file_name"/>
@@ -21,7 +21,7 @@
 
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
     <select id="selectAllNotice" resultMap="noticeResult" parameterType="int">
-        select * from notice_tbl order by notice_id desc limit #{count}, 10
+        select * from notice_tbl order by created_date desc limit #{count}, 10
     </select>
 
 
@@ -44,7 +44,7 @@
         select * from notice_tbl where notice_id = #{notice_id}
     </select>
 
-    <select id="selectImageFileList" parameterType="java.lang.Long" resultType="imgResult">
+    <select id="selectImageFileList" parameterType="java.lang.Long" resultType="noticeimageDTO">
         select * from notice_image_tbl where notice_id = #{notice_id}
     </select>
 
@@ -55,11 +55,12 @@
         ]]>
    </insert>
 
+
     <!-- 여러개의 이미지 -->
     <insert id="insertNewImages" parameterType="java.util.Map"> <!-- map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴 -->
-        insert into notice_image_tbl values
+        insert into notice_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
-            (#{item.notice_image_id}, #{item.notice_id}, #{item.image_file_name})
+            (#{item.notice_id}, #{item.image_file_name}, #{notice_id})
         </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
 
@@ -72,10 +73,12 @@
     <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update-->
     <update id="updateImage" parameterType="java.util.Map">
         <foreach item="item" collection="imageFileList" separator=";"> <!-- 이미지 담겨있는 곳 -->
-            <if test="item.image_file_name != null and item.image_file_name != ''"> <!-- 이미지를 선택한것만 업데이트 -->
-                update notice_image_tbl set imageFileName=#{item.image_file_name} where notice_id=#{item.notice_id} and #{item.image_file_name} != ''
+            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
+                update notice_image_tbl set imageFileName=#{item.image_file_name} where imageFileNo=#{item.notice_id} and #{item.image_file_name} != ''
             </if>
         </foreach>
     </update>
+
+
 
 </mapper>
