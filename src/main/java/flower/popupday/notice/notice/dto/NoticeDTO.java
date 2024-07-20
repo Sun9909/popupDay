@@ -6,8 +6,8 @@ import java.sql.Date;
 
 @Component("noticeDTO")
 public class NoticeDTO {
-    private Long notice_id;
-    private Long user_id;
+    private long notice_id;
+    private long user_id;
     private String title;
     private String content;
     private Date created_date;
@@ -15,8 +15,7 @@ public class NoticeDTO {
     // NoticeDTO 선언
     public NoticeDTO() {}
 
-    // 모든 필드를 포함하는 생성자
-    public NoticeDTO(Long notice_id, Long user_id, String title, String content, Date created_date, String write) {
+    public NoticeDTO(long notice_id, long user_id, String title, String content, Date created_date) {
         this.notice_id = notice_id;
         this.user_id = user_id;
         this.title = title;
@@ -24,20 +23,19 @@ public class NoticeDTO {
         this.created_date = created_date;
     }
 
-    // Getter,Setter 생성
-    public Long getNotice_id() {
+    public long getNotice_id() {
         return notice_id;
     }
 
-    public void setNotice_id(Long notice_id) {
+    public void setNotice_id(long notice_id) {
         this.notice_id = notice_id;
     }
 
-    public Long getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 
@@ -64,17 +62,4 @@ public class NoticeDTO {
     public void setCreated_date(Date created_date) {
         this.created_date = created_date;
     }
-
-    //값이 전달 안 될때 toString 호풀해서 선언
-    @Override
-    public String toString() {
-        return "NoticeDTO{" +
-                "notice_id=" + notice_id +
-                ", user_id=" + user_id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", created_date=" + created_date +
-                '}';
-    }
-
 }
