@@ -70,8 +70,16 @@ public class NoticeServiceImpl implements NoticeService {
     // 공지사항 수정반영하기
     @Override
     public void modNotice(Map noticeMap) throws DataAccessException {
-        noticeDAO.updateNotice(noticeMap); // 글수정
-        noticeDAO.updateImage(noticeMap); // 이미지 수정
+//        noticeDAO.updateNotice(noticeMap); // 글수정
+//        noticeDAO.updateImage(noticeMap); // 이미지 수정
+        // 글 수정
+        noticeDAO.updateNotice(noticeMap);
+
+        // 이미지 수정: imageFileList가 null이거나 비어있는 경우는 호출하지 않음
+        List<NoticeimageDTO> imageFileList = (List<NoticeimageDTO>) noticeMap.get("imageFileList");
+        if (imageFileList != null && !imageFileList.isEmpty()) {
+            noticeDAO.updateImage(noticeMap);
+        }
     }
 
     // 후기 삭제하기

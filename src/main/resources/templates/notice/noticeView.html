@@ -10,13 +10,23 @@
     <link rel="stylesheet" th:href="@{/css/notice.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>공지사항 글 이미지 상세보기 페이지</title>
+    <script>
+        // 후기리스트로 돌아가기 7월 21일 확인해야하는 부분
+        function backToList() {
+            window.location.href = "/notice/noticeList.do"; // 페이지를 GET 방식으로 이동
+        }
 
+        // 상세 보기로 전환(취소)
+        function totList(noticeId) {
+            window.location.href = `/notice/noticeView.do?notice_id=${noticeId}`; // notice_id를 쿼리 파라미터로 추가
+        }
+    </script>
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="notice-view">
-            <form class="frmNoticce" name="noticeView" method="post" enctype="multipart/form-data">
+            <form class="fr_mNotice" name="frmNotice" method="post" enctype="multipart/form-data">
                 <div>
                     <p>제목</p>
                     <input class="view-title" id="title" name="title" th:value="${noticeView.notice.title}" disabled>
@@ -27,7 +37,7 @@
                 </div>
 
                 <!-- 이미지가 존재할때만 보임 -->
-                <div th:if="${not #strings.isEmpty(noticeView.imageFileList)}" class="notice_img">
+                <div th:if="${not #strings.isEmpty(noticeView.imageFileList)}" class="notice-img">
                     <div th:each="imgList, status: ${noticeView.imageFileList}">
                         <div>
                             <div>
@@ -39,21 +49,21 @@
                         </div>
                     </div>
                 </div>
-        </form>
+            </form>
+            <!-- admin만 보이는 구간-->
             <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
-                <a th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">수정하기</a>
-            </div>
-
-                <div id="review-mbtn">
-                    <input type="button" value="수정반영하기" onclick="notcie_modify(noticeView)">
-                    <input type="button" value="취소" onclick="totList(noticeView)">
-                </div>
-                <div id="review-btn">
+                <!--   <a th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">수정하기</a> -->
+                <div id="notice-btn" >
                     <input type="button" value="수정하기" onclick="notice_enable(this.form)">
                     <input type="button" value="삭제하기" th:onclick="|fn_remove_notice('/notice/removeNotice.do', ${noticeView.notice.notice_id})|">
                 </div>
-                <input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+                <div id="notice-mbtn" th:if="@{session.loginDTO.id = noticeView.notice.user_id}">
+                    <input type="button" value="수정반영하기" onclick="notice_modify(frmNotice)">
+                    <input type="button" value="취소" onclick="totList(frmNotice)">
+                </div>
 
+                <input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+            </div>
         </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>

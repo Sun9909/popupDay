@@ -48,6 +48,7 @@
         select * from notice_image_tbl where notice_id = #{notice_id}
     </select>
 
+
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
     <insert id="insertNewNotice" parameterType="java.util.Map" useGeneratedKeys="true">
       <![CDATA[
@@ -67,18 +68,29 @@
 
     <!-- 이미지 여러개 글 수정 (제목과 내용만 수정하면 돼서 간단함) -->
     <update id="updateNotice" parameterType="java.util.Map">
-        update notice_tbl set title=#{title}, content=#{content} where notice_id=#{notice_id}
+        update notice_tbl set title = #{title}, content = #{content} where notice_id = #{notice_id}
     </update>
 
     <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update-->
     <update id="updateImage" parameterType="java.util.Map">
         <foreach item="item" collection="imageFileList" separator=";"> <!-- 이미지 담겨있는 곳 -->
             <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
-                update notice_image_tbl set imageFileName=#{item.image_file_name} where imageFileNo=#{item.notice_id} and #{item.image_file_name} != ''
+                update notice_image_tbl set imageFileName=#{item.image_file_name} where notice_id=#{item.notice_id} and #{item.image_file_name} != ''
             </if>
         </foreach>
     </update>
 
 
+    <delete id="deleteImage" parameterType="java.lang.Long">
+        <![CDATA[
+        delete from notice_image_tbl where notice_id = #{notice_id}
+        ]]>
+    </delete>
+
+    <delete id="deleteNotice" parameterType="java.lang.Long">
+      <![CDATA[
+        delete from notice_tbl where notice_id=#{notice_id}
+        ]]>
+   </delete>
 
 </mapper>
