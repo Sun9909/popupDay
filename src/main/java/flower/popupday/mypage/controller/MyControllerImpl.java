@@ -29,10 +29,10 @@ public class MyControllerImpl implements MyController {
 //    private MyDTO myDTO;
     @Autowired
     private MyPopupDTO myPopupDTO;
-    @Autowired
-    private LoginDTO loginDTO;
-    @Autowired
-    private MyDTO myDTO;
+//    @Autowired
+//    private LoginDTO loginDTO;
+//    @Autowired
+//    private MyDTO myDTO;
 
     //마이페이지
     @Override
@@ -49,12 +49,18 @@ public class MyControllerImpl implements MyController {
         session.setAttribute("my", loginDTO);
         session.setAttribute("isLogOn", true);
 
+        //값 잘 받아오는지 확인
+//        System.out.println(loginDTO.getUser_nikname());
+//        System.out.println(loginDTO.getRole());
+
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
+            //System.out.println(loginDTO.getRole());
             mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
         }
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
-            mav.setViewName("/mypage/businessPage");
+            //System.out.println(loginDTO.getRole());
+            mav.setViewName("redirect:/mypage/businessPage.do");
         }
         else {
             mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
@@ -169,7 +175,15 @@ public class MyControllerImpl implements MyController {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
+//        System.out.println(loginDTO.getUser_id());
+//        System.out.println(loginDTO.getUser_nikname());
+
         ModelAndView mav = new ModelAndView("/mypage/businessPage");
+        mav.addObject("my", loginDTO);
+
+        Long PopupCount = myService.getPopupCount(myPopupDTO.getUser_id());
+
+        mav.addObject("PopupCount", PopupCount);
         return mav;
     }
 
