@@ -3,6 +3,7 @@ package flower.popupday.popup.controller;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.service.PopupService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -24,27 +25,10 @@ import java.util.*;
 public class PopupControllerImpl implements PopupController {
 
     private static String ARTICLE_IMG_REPO = "D:\\Sun\\fileupload";
+    private static final long COOKIE_EXPIRY_DAYS = 1; // 쿠키 만료 시간
 
     @Autowired
     PopupService popupService;
-
-//    @Override
-//    @RequestMapping("/board/popupAllList.do") // 글 목록 섹션 페이지넘에 값이없을때 초기값 null
-//    public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-//    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        int section = Integer.parseInt((_section == null) ? "1" : _section);
-//        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-//        Map<String, Integer> pagingMap = new HashMap<>();
-//        pagingMap.put("section", section); // 1
-//        pagingMap.put("pageNum", pageNum); // 1
-//        Map popupMap = popupService.popupAllList(pagingMap); // 서비스에서 글목록 받아오기
-//        popupMap.put("section", section);
-//        popupMap.put("pageNum", pageNum);
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("/board/popupAllList"); // 여기로감
-//        mav.addObject("popupMap", popupMap); // 글목록 넘겨줌
-//        return mav; // 포워딩
-//    }
 
     @Override
     @RequestMapping("/popup/popupAllList.do")
@@ -56,7 +40,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Integer> pagingMap = new HashMap<>();
         pagingMap.put("section", section); // 섹션
         pagingMap.put("pageNum", pageNum); // 페이지 번호
-        Map<String, Object> popupMap = popupService.popupList(pagingMap); // 서비스에서 팝업 목록 받아오기
+        Map<String, Object> popupMap = popupService.popupAllList(pagingMap); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/popup/popupAllList"); // View 이름 설정
@@ -115,10 +99,10 @@ public class PopupControllerImpl implements PopupController {
         }
 
         // 세선에 있는 멤버정보를 가져와서 id 만 빼서 articleMap에 집어넣음
-        HttpSession session=multipartRequest.getSession();
-        LoginDTO loginDTO =(LoginDTO)session.getAttribute("member");
-        Long id= loginDTO.getId();
-        popupMap.put("id", id); // 세션을 이용해 로그인한 아이디 집어넣으면 됨
+//        HttpSession session=multipartRequest.getSession();
+//        LoginDTO loginDTO =(LoginDTO)session.getAttribute("member");
+//        Long id= loginDTO.getId();
+//        popupMap.put("id", id); // 세션을 이용해 로그인한 아이디 집어넣으면 됨
 
         try {
             // 팝업 추가 서비스 호출
@@ -146,7 +130,7 @@ public class PopupControllerImpl implements PopupController {
             e.printStackTrace();
         }
 
-        return new ModelAndView("redirect:/board/popupAllList.do");
+        return new ModelAndView("redirect:/popup/popupAllList.do");
     }
 
     // 여러 개의 이미지 파일 업로드
@@ -174,12 +158,42 @@ public class PopupControllerImpl implements PopupController {
     @RequestMapping("/popup/popupView.do")
     public ModelAndView popupView(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Map popupMap =popupService.popupView(popup_id);
-        ModelAndView mav=new ModelAndView();
+        // 쿠키를 이용하여 조회수를 업데이트
+        Cookie[] cookies = request.getCookies();
+        boolean hasViewed = false;
+        if (cookies != null) {
+            for (Cookie viewCookie : cookies) {
+                if (viewCookie.getName().equals("popupView_" + popup_id)) {
+                    long lastViewedTime = Long.parseLong(viewCookie.getValue()); // 쿠키 값을 조회 시간으로 변환
+                    long currentTime = System.currentTimeMillis();
+                    long oneDayInMillis = 24 * 60 * 60 * 1000; // 24시간을 밀리초로 변환
+
+                    if (currentTime - lastViewedTime < oneDayInMillis) { // 현재시간 - 마지막 조회시간이 24시간이 넘어가면 수행
+                        hasViewed = true;
+                    } else {
+                        // 쿠키가 만료되었으므로 업데이트
+                        viewCookie.setValue(String.valueOf(currentTime)); // 쿠키 값을 현재 시간으로 설정
+                        viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60)); // 쿠키 만료 기간 설정
+                        response.addCookie(viewCookie);
+                    }
+                }
+            }
+        }
+
+        // 조회수를 증가시키기 위한 처리
+        if (!hasViewed) {
+            popupService.updateHits(popup_id);
+            // 새 쿠키 생성
+            Cookie viewCookie = new Cookie("popupView_" + popup_id, String.valueOf(System.currentTimeMillis())); // 현재 시간을 밀리초로 반환
+            viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60)); // 쿠키 만료 기간 설정
+            response.addCookie(viewCookie);
+        }
+
+        // 팝업 상세 조회
+        Map popupMap = popupService.popupView(popup_id);
+        ModelAndView mav = new ModelAndView();
         mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
         return mav;
     }
-
-
 }
