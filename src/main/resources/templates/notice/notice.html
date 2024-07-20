@@ -58,58 +58,52 @@
                     </tr>
 
                     <tr th:each="notice : ${noticeMap.noticeList}">
-                        <!--th:href="@{'/notice/cdntact/' + ${notice.id}}"-->
                         <td><a th:href="@{/notice/noticeView.do(notice_id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-
                         <td th:text="${notice.created_date}"></td>
                     </tr>
                     </tbody>
                 </table>
-                <!--
-                <div class="myreview-history" th:unless="${noticeMap.noticeList != null and noticeMap.noticeList.isEmpty()}">
-                    <div th:each="review : ${noticeMap.noticeList}">
-                        <a class="review-list" th:href="@{/notice/noticeView.do(notice_id = ${noticeDTO.notice_id})}">
-                            <p th:text="${noticeDTO.title}"></p><span th:text="${noticeDTO.created_date}"></span>
-                        </a>
-                    </div>
-                </div>-->
+
             </div>
         </div>
 
         <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
-        <a th:href="'javascript:fn_noticeForm(' + ${session.isLogOn} + ', \'/notice/noticeForm.do\', \'/login/loginForm.do\')'">글쓰기</a>
+            <a class="wirte" th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">글쓰기</a>
         </div>
+
+
 
         <div class="number" th:if="${noticeMap.totNotice > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
 
-            <div th:if="${noticeMap.totNotice > 100}">
-        <span th:each="num : ${#numbers.sequence(1, (noticeMap.section > noticeMap.totNotice / 100 ? (noticeMap.totNotice % 100) / 10 + 1 : 10))}">
-            <span th:if="${noticeMap.section > 1 and num == 1}">
-                <a th:href="@{/notice/noticeList.do(section=${noticeMap.section - 1}, pageNum=${(noticeMap.section - 2) * 10 + 1})}">prev</a>
-            </span>
-            <span th:if="${num == (noticeMap.pageNum % 10 == 0 ? 10 : noticeMap.pageNum % 10)}">
-                <a class="target" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${(noticeMap.section - 1) * 10 + num})}" th:text="${(noticeMap.section - 1) * 10 + num}"></a>
-            </span>
-            <span th:unless="${num == (noticeMap.pageNum % 10 == 0 ? 10 : noticeMap.pageNum % 10)}">
-                <a class="noLine" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${(noticeMap.section - 1) * 10 + num})}" th:text="${(noticeMap.section - 1) * 10 + num}"></a>
-            </span>
-            <span th:if="${num == 10}">
-                <a th:href="@{/notice/noticeList.do(section=${noticeMap.section + 1}, pageNum=1)}">next</a>
-            </span>
-        </span>
+            <div lign="center" th:if="${noticeMap.totNotice > 100}">
+                <span th:each="num : ${#numbers.sequence(1, (noticeMap.section > noticeMap.totNotice / 100 ? (noticeMap.totNotice % 100) / 10 + 1 : 10))}">
+                    <span th:if="${noticeMap.section > 1 and num == 1}">
+                        <a th:href="@{/notice/noticeList.do(section=${noticeMap.section - 1}, pageNum=${(noticeMap.section - 2) * 10 + 1})}">prev</a>
+                    </span>
+                    <span th:if="${num == (noticeMap.pageNum % 10 == 0 ? 10 : noticeMap.pageNum % 10)}">
+                        <a class="target" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${(noticeMap.section - 1) * 10 + num})}" th:text="${(noticeMap.section - 1) * 10 + num}"></a>
+                    </span>
+                    <span th:unless="${num == (noticeMap.pageNum % 10 == 0 ? 10 : noticeMap.pageNum % 10)}">
+                        <a class="noLine" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${(noticeMap.section - 1) * 10 + num})}" th:text="${(noticeMap.section - 1) * 10 + num}"></a>
+                    </span>
+                    <span th:if="${num == 10}">
+                        <a th:href="@{/notice/noticeList.do(section=${noticeMap.section + 1}, pageNum=1)}">next</a>
+                    </span>
+                </span>
             </div>
 
-            <div th:if="${noticeMap.totNotice <= 100}">
-        <span th:each="num : ${#numbers.sequence(1, (noticeMap.totNotice > 10 ? noticeMap.totNotice / 10 + 1 : 1))}">
-            <span th:if="${num == noticeMap.pageNum}">
-                <a class="target" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${num})}" th:text="${num}"></a>
-            </span>
-            <span th:unless="${num == noticeMap.pageNum}">
-                <a class="noLine" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${num})}" th:text="${num}"></a>
-            </span>
-        </span>
+            <div class="number" th:if="${noticeMap.totNotice <= 100}">
+                <span th:each="num : ${#numbers.sequence(1, (noticeMap.totNotice > 10 ? noticeMap.totNotice / 10 + 1 : 1))}">
+                    <span th:if="${num == noticeMap.pageNum}">
+                        <a class="page-target" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                    </span>
+                    <span th:unless="${num == noticeMap.pageNum}">
+                        <a class="page-noLine" th:href="@{/notice/noticeList.do(section=${noticeMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                    </span>
+                </span>
             </div>
         </div>
+
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>

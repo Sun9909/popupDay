@@ -1,7 +1,7 @@
 package flower.popupday.notice.notice.service;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
+
 
 import java.util.Map;
 public interface NoticeService {
@@ -13,12 +13,12 @@ public interface NoticeService {
     public int addNotice(Map<String, Object> noticeMap) throws DataAccessException;
 
     // 여러개의 글과 이미지 상세 글보기
-    public Map noticeView(Long notice_id) throws DataAccessException;
+    public Map noticeView(long notice_id) throws DataAccessException;
 
     // 여러개의 글과 이미지 수정
     public void modNotice(Map noticeMap) throws DataAccessException;
 
     // 글,이미지 삭제
-    public void removeNotice(Long notice_id) throws DataAccessException;
+    public void removeNotice(long notice_id) throws DataAccessException;
 
 }

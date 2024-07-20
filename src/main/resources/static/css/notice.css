@@ -19,12 +19,9 @@
 
 
 .content.active {
-    display: block;
-    margin: 0 auto;
-    background-color: #F9F8FF;
-    width: 720px;
-    padding: 40px 0px 80px 0px;
-    text-align: center
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 
@@ -99,9 +96,10 @@
 
 .contact-wrap {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    height: 200px;
+    flex-direction: column;
+    margin: 10px;
 }
 
 .contact-wrap .table-board {
@@ -428,25 +426,20 @@
 }
 
 
-
 /*페이지설정*/
-.page-area {
-    display: block;
-    margin: 0 auto;
-    width: 720px;
-    background-color: #F9F8FF;
-    padding: 10px 0px 20px 0;
-    text-align: center;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
-}
-.page-area ul {
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-}
-
 .number {
     display: flex;
-    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/*글쓰기 버튼*/
+a.write {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
 }

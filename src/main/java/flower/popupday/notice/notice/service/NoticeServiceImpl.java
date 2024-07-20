@@ -17,6 +17,16 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private NoticeDAO noticeDAO;
 
+    // 공지사항 추가
+    public int addNotice(Map<String, Object> noticeMap) throws DataAccessException {
+        int notice_id = noticeDAO.insertNewNotice(noticeMap); // notice_id를 받아오는 메서드
+        noticeMap.put("notice_id", notice_id); // 받아온 notice_id를 주입
+
+        if(noticeMap.get("imageFileList") != null) {
+            noticeDAO.insertNewImages(noticeMap);
+        }
+        return notice_id;
+    }
 
     //글 목록, 페이징처리
     @Override
@@ -32,7 +42,7 @@ public class NoticeServiceImpl implements NoticeService {
         int totNotice = noticeDAO.selectTotNotice(); // noticeDAO를 사용해 전체 공지사항 수를 가져옴.
 
         noticeMap.put("noticeList", noticeList); // noticeList를 noticeMap에 추가
-       // noticeMap.put("totNotice", totNotice);   // totNotice를 noticeMap에 추가
+        // noticeMap.put("totNotice", totNotice);   // totNotice를 noticeMap에 추가
         noticeMap.put("totNotice", 324);
 
         // Debugging 로그 추가
@@ -42,39 +52,31 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeMap;  // 공지사항 목록과 전체 공지사항 수를 포함한 noticeMap으로 반환
     }
 
-    // 글쓰기 + 이미지 여러개 추가
-    public int addNotice(Map<String, Object> noticeMap) throws DataAccessException {
-        int notice_id = noticeDAO.insertNewNotice(noticeMap); // notice_id를 받아오는 메서드
-        noticeMap.put("notice_id", notice_id); // 받아온 notice_id를 주입
 
-        if(noticeMap.get("imageFileList") != null) {
-            noticeDAO.insertNewImages(noticeMap);
-        }
-        return notice_id;
-    }
-
-    // 여러의 글과 이미지 상세 글보기
+    // 공지사항 상세보기
     @Override
-    public Map noticeView(Long notice_id) throws DataAccessException {
+    public Map noticeView(long notice_id) throws DataAccessException {
         Map noticeMap = new HashMap();
-        NoticeDTO noticeDTO = noticeDAO.selectNotice(notice_id);
+        NoticeDTO noticeDTO = noticeDAO.selectNotice(notice_id);  // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
 
-        List<NoticeimageDTO> imageFileList = noticeDAO.selectImageFileList(notice_id);
-        noticeMap.put("noticeDTO", noticeDTO);
+        List<NoticeimageDTO> imageFileList = noticeDAO.selectImageFileList(notice_id); // noticeDAO를 사용해 notice_id에 해당하는 이미지 파일 리스트를 가져옴
+
+        // noticeDTO와 imageFileList를 noticeMap에 추가
         noticeMap.put("imageFileList" ,imageFileList);
-
+        noticeMap.put("notice", noticeDTO);
         return noticeMap;
     }
 
-    // 여러개의 이미지글 수정하기
+    // 공지사항 수정반영하기
     @Override
     public void modNotice(Map noticeMap) throws DataAccessException {
         noticeDAO.updateNotice(noticeMap); // 글수정
         noticeDAO.updateImage(noticeMap); // 이미지 수정
     }
 
+    // 후기 삭제하기
     @Override
-    public void removeNotice(Long notice_id) throws DataAccessException {
+    public void removeNotice(long notice_id) throws DataAccessException {
         noticeDAO.deleteImage(notice_id);
         noticeDAO.deleteNotice(notice_id);
     }

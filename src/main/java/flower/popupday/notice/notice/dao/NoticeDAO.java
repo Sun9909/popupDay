@@ -24,14 +24,14 @@ public interface NoticeDAO {
     public void insertNewImages(Map noticeMap) throws DataAccessException;
 
     // 여러개의 글과 이미지 상세 글보기
-    public NoticeDTO selectNotice(Long notice_id) throws DataAccessException;
-    public List selectImageFileList(Long notice_id) throws DataAccessException;
+    public NoticeDTO selectNotice(long notice_id) throws DataAccessException;
+    public List selectImageFileList(long notice_id) throws DataAccessException;
 
     // 여러개이 글과 이미지 수정
     public void updateNotice(Map noticeMap) throws DataAccessException;
     public void updateImage(Map noticeMap) throws DataAccessException;
 
     // 여러개의 글과 이미지 삭제
-    public void deleteImage(Long notice_id) throws DataAccessException;
-    public void deleteNotice(Long notice_id) throws DataAccessException;
+    public void deleteImage(long notice_id) throws DataAccessException;
+    public void deleteNotice(long notice_id) throws DataAccessException;
 }

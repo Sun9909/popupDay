@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="flower.popupday.notice.notice.dao.NoticeDAO">
 
-    <resultMap type="noticeDTO" id="noticeResult">
-        <id property="notice_id" column="notice_id"/>
+    <resultMap id="noticeResult" type="noticeDTO" >
+        <result property="notice_id" column="notice_id"/>
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
@@ -13,10 +13,10 @@
     </resultMap>
 
 
-    <resultMap type="noticeimageDTO" id="imgResult">
+    <resultMap id="imgResult" type="noticeImageDTO" >
+        <result property="notice_image_id" column="notice_image_id"/>
         <result property="notice_id" column="notice_id"/>
         <result property="image_file_name" column="image_file_name"/>
-        <result property="notice_image_id" column="notice_image_id"/>
     </resultMap>
 
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
@@ -42,6 +42,10 @@
     <!-- 상세글보기 -->
     <select id="selectNotice" parameterType="java.lang.Long" resultType="noticeDTO">
         select * from notice_tbl where notice_id = #{notice_id}
+    </select>
+
+    <select id="selectImageFileList" parameterType="java.lang.Long" resultType="imgResult">
+        select * from notice_image_tbl where notice_id = #{notice_id}
     </select>
 
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
