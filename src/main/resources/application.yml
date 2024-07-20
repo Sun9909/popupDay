@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/popup_day?allowMultiQueries=true  # 데이터베이스 연결 URL
+    username: root  # 데이터베이스 사용자 이름
+    password: 1234  # 데이터베이스 사용자 비밀번호
+    driver-class-name: com.mysql.cj.jdbc.Driver  # JDBC 드라이버 클래스 이름
+  jpa:
+    hibernate:
+      ddl-auto: update  # Hibernate DDL 자동 설정 (update: 기존 스키마를 변경)
+    database-platform: org.hibernate.dialect.MySQL8Dialect  # Hibernate 방언 설정 (MySQL8Dialect 사용)
+logging:
+  level:
+    org.springframework: INFO  # Spring 프레임워크의 로깅 레벨 설정
+    org.hibernate: INFO  # Hibernate의 로깅 레벨 설정
+
+

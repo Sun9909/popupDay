@@ -59,7 +59,7 @@
 
                     <tr th:each="notice : ${noticeMap.noticeList}">
                         <!--th:href="@{'/notice/cdntact/' + ${notice.id}}"-->
-                        <td><a><span th:text="${notice.title}"></span></a></td>
+                        <td><a th:href="@{/notice/noticeView.do(notice_id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
 
                         <td th:text="${notice.created_date}"></td>
                     </tr>
@@ -75,7 +75,10 @@
                 </div>-->
             </div>
         </div>
+
+        <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
         <a th:href="'javascript:fn_noticeForm(' + ${session.isLogOn} + ', \'/notice/noticeForm.do\', \'/login/loginForm.do\')'">글쓰기</a>
+        </div>
 
         <div class="number" th:if="${noticeMap.totNotice > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
 

@@ -77,7 +77,7 @@ public class PopupServiceImpl implements PopupService {
         return popupMap;
     }
 
-//    @Override
+    //    @Override
 //    public Map popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
 //        Map popupMap =new HashMap<>();
 //        int section=pagingMap.get("section");

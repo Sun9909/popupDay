@@ -6,58 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>전체팝업</title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/popupdata.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/popupdata.css}">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
-    <style>
-        #container {
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-        }
-        header {
-            padding: 5px;
-            margin-bottom: 5px;
-            background-color: lightgreen;
-        }
-        #sidebar_left {
-            width: 15%;
-            height: 700px;
-            padding: 5px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            float: left;
-            background-color: #b2ccff;
-        }
-        #content {
-            width: 75%;
-            padding: 5px;
-            margin-right: 5px;
-            float: left;
-        }
-        footer {
-            clear: both;
-            padding: 5px;
-            background-color: #e5d85c;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .target {
-            color: red;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-        .noLine {
-            color: black;
-            font-weight: normal;
-            font-size: 1em;
-        }
-    </style>
     <script>
         function fn_popupForm(isLogOn, articleForm, loginForm) {
             if (isLogOn === true) {
@@ -73,31 +24,24 @@
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-        <h2 align="center">글 목록창</h2>
-        <table border="1" align="center" width="80%">
-            <thead>
-            <tr align="center" bgcolor="lightgreen">
-                <th>썸네일 이미지</th>
-                <th>제목</th>
-                <th>기간</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr align="center" th:each="popupInfo : ${popupInfoList}">
-                <td width="150" align="center">
-                    <div th:if="${popupInfo.thumbnailImage != null}">
+        <h2 class="pop-title">전체 팝업 리스트</h2>
+        <table>
+            <tbody class="poplist-tb">
+            <tr th:each="popupInfo : ${popupInfoList}" class="popup-lists">
+                <td>
+                    <div th:if="${popupInfo.thumbnailImage != null}" class="popimg-bg">
                         <img th:src="@{/popupdownload.do(popup_id=${popupInfo.popup.popup_id}, image_file_name=${popupInfo.thumbnailImage.image_file_name})}"
                              width="100" alt="Thumbnail Image">
                     </div>
-                    <div th:if="${popupInfo.thumbnailImage == null}">
+                    <div th:if="${popupInfo.thumbnailImage == null}" class="popimg-bg">
                         <span>No Image</span> <!-- 이미지가 없는 경우 대체 텍스트 출력 -->
                     </div>
                 </td>
-                <td align="left" width="50%">
+
+                <td>
                     <a th:href="@{/board/popupView.do(id=${popupInfo.popup.popup_id})}" th:text="${popupInfo.popup.title}"></a>
                 </td>
-                <td width="20%" th:text="${#dates.format(popupInfo.popup.created_date, 'yyyy-MM-dd')}"></td>
-
+                <td th:text="${#dates.format(popupInfo.popup.created_date, 'yyyy-MM-dd')}"></td>
             </tr>
             </tbody>
         </table>

@@ -43,4 +43,5 @@ public interface LoginService {
     public LoginDTO getKakaoUserInfo(String accessToken) throws Exception;
 
     public void kakaoLogin(LoginDTO loginDTO) throws Exception;
+
 }
