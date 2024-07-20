@@ -67,7 +67,7 @@
     <select id="getreCommentCount" parameterType="String" resultType="String">
         <!--        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id-->
         <!--        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id-->
-        select count(*) from review_comment where writer=#{user_nikname}
+        select count(*) from review_comment where user_id=#{id}
 
         <!--        SELECT-->
         <!--        COALESCE(SUM(a.comment_count), 0) AS total_comments_a,-->
@@ -83,7 +83,7 @@
         <!--        a.member_id = 'your_member_id';-->
     </select>
     <select id="getpopCommentCount" parameterType="String" resultType="String">
-        select count(*) from popup_comment_tbl where writer=#{user_nikname}
+        select count(*) from popup_comment_tbl where user_id=#{id}
     </select>
 
     <select id="getQnaCount" parameterType="Long" resultType="Long">
@@ -114,10 +114,10 @@
     </update>
 
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
-        select * from popup_tbl where writer='#{user_id}'
+        select * from popup_tbl where user_id=#{user_id}
     </select>
 
     <select id="getPopupCount" resultType="Long" parameterType="Long">
-        select count(*) from popup_tbl where user_id='#{user_id}'
+        select count(*) from popup_tbl where user_id=#{user_id}
     </select>
 </mapper>

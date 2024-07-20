@@ -98,7 +98,8 @@ public class MyServiceImpl implements MyService {
 
     @Override
     public Long getPopupCount(Long user_id) throws DataAccessException {
-        Long PopupCount = myDAO.getPopupCount(user_id);
-        return PopupCount;
+//        Long PopupCount = myDAO.getPopupCount(user_id);
+//        return PopupCount;
+        return myDAO.getPopupCount(user_id);
     }
 }

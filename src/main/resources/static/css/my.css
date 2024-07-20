@@ -135,7 +135,7 @@ h2 {
 }
 /* 고객 센터 영역 끝 */
 
-/* 고객 센터 영역 */
+/* 내 정보 영역 */
 .myInfo {
     border-top: 3px #d9d9d9 solid;
 }
@@ -151,7 +151,7 @@ h2 {
     font-size: 1.2em;
     margin: 20px 10px;
 }
-/* 고객 센터 영역 끝 */
+/* 내 정보 영역 끝 */
 
 .containers {
     min-height: 1330px;
