@@ -77,50 +77,49 @@
 
     <insert id="insertHashTag" parameterType="java.util.List">
         <foreach collection="tagMapList" item="tag" separator=";">
-            INSERT INTO hash_tag_tbl (hash_tag)
-            VALUES (#{tag.tag})
+            insert into hash_tag_tbl (hash_tag) values (#{tag.tag})
         </foreach>
     </insert>
 
     <!-- 중복된 해시태그 필터-->
-    <select id="checkHashTagExists" resultType="boolean" parameterType="String">
-        SELECT EXISTS (
-            SELECT 1 FROM hash_tag_tbl WHERE hash_tag = #{tag}
-        )
+    <select id="checkHashTag" resultType="boolean" parameterType="String">
+        select exists (select 1 from hash_tag_tbl where hash_tag = #{tag})
     </select>
-    <!--  -->
+    <!-- 해시태그 번호로 해시태그 찾기 -->
     <select id="getHashTagIdByTag" resultType="Long" parameterType="String">
-        SELECT hash_tag_id
-        FROM hash_tag_tbl
-        WHERE hash_tag = #{tag}
+        select hash_tag_id from hash_tag_tbl where hash_tag = #{tag}
     </select>
+
     <!-- 해시태그 중간테이블 -->
     <insert id="insertPopupHashTag" parameterType="java.util.Map">
-        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id)
-        VALUES (#{hash_tag_id}, #{popup_id})
+        INSERT INTO popup_hash_tag_tbl (hash_tag_id, popup_id) values (#{hash_tag_id}, #{popup_id})
     </insert>
 
     <!-- 썸네일 조회 -->
     <select id="selectFirstImage" resultMap="imgResult" parameterType="Long">
-        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id} LIMIT 1
+        select * from popup_image_tbl where popup_id = #{popup_id} LIMIT 1
     </select>
 
     <!-- 팝업 조회 -->
     <select id="selectPopup" resultMap="popResult" parameterType="Long">
-        SELECT * FROM popup_tbl WHERE popup_id = #{popup_id}
+        select * from popup_tbl where popup_id = #{popup_id}
     </select>
 
     <!-- 특정 팝업의 해시태그 리스트 조회 -->
-    <select id="selectHashTagListByPopupId" resultMap="hashTagDTO" parameterType="Long">
-        SELECT ht.hash_tag_id, ht.hash_tag
-        FROM popup_hash_tag_tbl pht
-                 JOIN hash_tag_tbl ht ON pht.hash_tag_id = ht.hash_tag_id
-        WHERE pht.popup_id = #{popup_id}
+    <select id="selectHashTagList" resultMap="hashTagDTO" parameterType="Long">
+        select ht.hash_tag_id, ht.hash_tag from popup_hash_tag_tbl pht
+        join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
+        where pht.popup_id = #{popup_id}
     </select>
 
     <!-- 이미지 파일 리스트 조회 -->
     <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">
-        SELECT * FROM popup_image_tbl WHERE popup_id = #{popup_id}
+        select * from popup_image_tbl where popup_id = #{popup_id}
     </select>
+
+    <!-- 팝업 조회시 쿠키로 조회수 증가 -->
+    <update id="updateHits" parameterType="long">
+        update popup_tbl set hits = hits + 1 where popup_id = #{popup_id}
+    </update>
 
 </mapper>

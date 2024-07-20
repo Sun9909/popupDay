@@ -58,7 +58,7 @@
                         </div>
                             <div class="popup-Icon">
                                 <img class="eye" th:src="@{/images/eye.svg}" alt="조회수눈">
-                                <p>조회수</p>
+                                <p th:value="${popupMap.popupList.hits}"></p>
                                 <a href="#"><img class="send" th:src="@{/images/send.svg}" alt="보내기"></a> <!-- 카카오 보내기 혹은 url-->
                             </div>
                         </div>
