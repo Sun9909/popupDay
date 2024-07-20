@@ -25,24 +25,16 @@ public class LoginControllerImpl implements LoginController {
     @PostMapping("/addLogin.do")
     public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("utf-8"); // 요청의 인코딩 설정
-        loginService.addLogin(loginDTO); // 회원가입 서비스 호출
-        return new ModelAndView("redirect:/main.do"); // 회원가입 완료 후 메인 페이지로 리다이렉트
+        request.setCharacterEncoding("utf-8");
+        loginService.addLogin(loginDTO);
+        return new ModelAndView("redirect:/main");
     }
 
     // 로그인 폼 이동
     @Override
-    @RequestMapping ("/login.do")
-    public ModelAndView login(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-                              @RequestParam(value = "action", required = false) String action,
-                              @RequestParam(value = "result", required = false) String result,
-                              HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(); // 세션을 가져옴
-        session.setAttribute("action", action); // 세션에 action 속성 설정
-        ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
-        mav.addObject("result", result); // 모델에 result 속성 추가
-        mav.setViewName("/login/login"); // 뷰 이름 설정
-        return mav; // ModelAndView 반환
+    @GetMapping("/login.do")
+    public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return new ModelAndView("/login/login");
     }
 
     // 로그인 값저장
@@ -62,7 +54,7 @@ public class LoginControllerImpl implements LoginController {
             if (action != null) {
                 mav.setViewName("redirect:" + action);
             } else {
-                mav.setViewName("redirect:/main.do");
+                mav.setViewName("redirect:/main");
             }
         } else {
             rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요");
@@ -70,7 +62,6 @@ public class LoginControllerImpl implements LoginController {
         }
         return mav;
     }
-
     // 사업자 회원가입
     @Override
     @PostMapping("/addBusinessLogin.do")
@@ -93,7 +84,7 @@ public class LoginControllerImpl implements LoginController {
         session.setAttribute("action", action); // 세션에 action 속성 설정
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
         mav.addObject("result", result); // 모델에 result 속성 추가
-        mav.setViewName("/login/businessForm"); // 뷰 이름 설정
+        mav.setViewName("login/businessForm"); // 뷰 이름 설정
         return mav; // ModelAndView 반환
     }
 
@@ -127,28 +118,28 @@ public class LoginControllerImpl implements LoginController {
     @Override
     @GetMapping("/join.do")
     public ModelAndView showJoin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("/login/join"); // 회원가입 폼 페이지로 이동
+        return new ModelAndView("login/join"); // 회원가입 폼 페이지로 이동
     }
 
     // join에서 choiceForm으로 이동
     @Override
     @GetMapping("/choiceForm.do")
     public ModelAndView showChoiceForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("/login/choiceForm"); // 선택 폼 페이지로 이동
+        return new ModelAndView("login/choiceForm"); // 선택 폼 페이지로 이동
     }
 
     // choiceForm에서 businessForm으로 이동
     @Override
     @GetMapping("/businessForm.do")
     public ModelAndView showBusinessForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("/login/businessForm"); // 사업자 회원가입 폼 페이지로 이동
+        return new ModelAndView("login/businessForm"); // 사업자 회원가입 폼 페이지로 이동
     }
 
     // choiceForm에서 memberForm으로 이동
     @Override
     @GetMapping("/memberForm.do")
     public ModelAndView showMemberForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView("/login/memberForm"); // 일반 회원가입 폼 페이지로 이동
+        ModelAndView mav = new ModelAndView("login/memberForm"); // 일반 회원가입 폼 페이지로 이동
         mav.addObject("loginDTO", new LoginDTO()); // DTO 객체를 초기화하여 뷰로 전달
         return mav; // ModelAndView 반환
     }
@@ -182,8 +173,6 @@ public class LoginControllerImpl implements LoginController {
         return null;
     }
 
-
-
     //카카오 소셜 로그인
     @RequestMapping(value = "/popupday/kakao", method = RequestMethod.GET)
     public ModelAndView oauth(
@@ -206,7 +195,6 @@ public class LoginControllerImpl implements LoginController {
         return mav;
     }
 
-
     @Override
     @GetMapping("/logout.do")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -216,4 +204,5 @@ public class LoginControllerImpl implements LoginController {
         mav.setViewName("redirect:/main.do"); // 로그아웃 후 메인 페이지로 리다이렉트
         return mav;
     }
+
 }

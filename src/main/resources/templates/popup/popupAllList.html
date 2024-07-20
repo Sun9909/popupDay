@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>전체팝업</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/popupdata.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/popupAllList.css}">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <script>
@@ -16,7 +16,7 @@
             } else {
                 alert("isLogOn : " + isLogOn);
                 alert("로그인 후 글쓰기가 가능합니다.");
-                location.href = loginForm + '?action=/board/popup.do';
+                location.href = loginForm + '?action=/popup/popup.do';
             }
         }
     </script>
@@ -30,7 +30,7 @@
             <tr th:each="popupInfo : ${popupInfoList}" class="popup-lists">
                 <td>
                     <div th:if="${popupInfo.thumbnailImage != null}" class="popimg-bg">
-                        <img th:src="@{/popupdownload.do(popup_id=${popupInfo.popup.popup_id}, image_file_name=${popupInfo.thumbnailImage.image_file_name})}"
+                        <img th:src="@{/popupDownload.do(popup_id=${popupInfo.popup.popup_id}, image_file_name=${popupInfo.thumbnailImage.image_file_name})}"
                              width="100" alt="Thumbnail Image">
                     </div>
                     <div th:if="${popupInfo.thumbnailImage == null}" class="popimg-bg">
@@ -39,36 +39,36 @@
                 </td>
 
                 <td>
-                    <a th:href="@{/board/popupView.do(id=${popupInfo.popup.popup_id})}" th:text="${popupInfo.popup.title}"></a>
+                    <a th:href="@{/popup/popupView.do(popup_id=${popupInfo.popup.popup_id})}" th:text="${popupInfo.popup.title}"></a>
                 </td>
                 <td th:text="${#dates.format(popupInfo.popup.created_date, 'yyyy-MM-dd')}"></td>
             </tr>
             </tbody>
         </table>
-        <div align="center" th:if="${totPopup > 10}">
+        <div align="center" th:if="${totPopup > 9}">
             <div th:if="${totPopup > 100}">
-        <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 10) + 1 : 10))}">
+        <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 9) + 1 : 9))}">
             <span th:if="${section > 1 and num == 1}">
-                <a th:href="@{/board/popupAllList.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
+                <a th:href="@{/popup/popupAllList.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
             </span>
-            <span th:if="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
-                <a class="target" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
+            <span th:if="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">
+                <a class="target" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>
             </span>
-            <span th:unless="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
-                <a class="noLine" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
+            <span th:unless="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">
+                <a class="noLine" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>
             </span>
-            <span th:if="${num == 10}">
-                <a th:href="@{/board/popupAllList.do(section=${section + 1}, pageNum=${section * 10 + 1})}">next</a>
+            <span th:if="${num == 9}">
+                <a th:href="@{/popup/popupAllList.do(section=${section + 1}, pageNum=${section * 9 + 1})}">next</a>
             </span>
         </span>
             </div>
             <div th:if="${totPopup <= 100}">
-        <span th:each="num : ${#numbers.sequence(1, (totPopup / 10) + 1)}">
+        <span th:each="num : ${#numbers.sequence(1, (totPopup / 9) + 1)}">
             <span th:if="${num == pageNum}">
-                <a class="target" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+                <a class="target" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
             </span>
             <span th:unless="${num == pageNum}">
-                <a class="noLine" th:href="@{/board/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+                <a class="noLine" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
             </span>
         </span>
             </div>

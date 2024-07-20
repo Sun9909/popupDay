@@ -5,7 +5,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import flower.popupday.login.dao.LoginDAO;
 import flower.popupday.login.dto.LoginDTO;
-import jakarta.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private LoginDAO loginDAO; // LoginDAO 객체를 자동 주입
-
-    @Autowired
-    private HttpSession httpSession;
 
     // 일반 회원가입
     @Override
@@ -154,4 +150,6 @@ public class LoginServiceImpl implements LoginService {
             loginDAO.kakaoInsert(loginDTO);
         }
     }
+
+
 }

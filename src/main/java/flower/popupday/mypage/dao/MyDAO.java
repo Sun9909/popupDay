@@ -26,7 +26,9 @@ public interface MyDAO {
 
     public void updateLogin(LoginDTO loginDTO) throws DataAccessException;
 
-    //public boolean checkNikname(String user_nikname) throws DataAccessException;
+    public boolean checkEmail(String email) throws DataAccessException;
+
+    public boolean checkNikname(String user_nikname) throws DataAccessException;
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 

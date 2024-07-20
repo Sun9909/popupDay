@@ -381,12 +381,12 @@
 
 }
 .view-title{
-    width: 600px;
+    width: 565px;
     height: 30px;
 }
 
 .view-content {
-    width: 600px;
+    width: 565px;
     height: 100px;
 }
 
@@ -395,7 +395,13 @@
     padding: 20px;
     margin: 20px auto 0;
     width: 650px;
-    height: 700px;
+    border-radius: 10px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #review-btn > input, #review-mbtn > input {
@@ -412,6 +418,19 @@
     display: none;
 }
 
+#backbtn {
+    cursor: pointer;
+    background-color: #8B8BDA;
+    border: none;
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 300px;
+    margin: 0 auto;
+}
+
 #modify-img {
     display: none;
 }
@@ -423,6 +442,13 @@
 .review_imgs img {
     width: 90px;
     height: 90px;
+}
+
+.review-view {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
 }
 
 
