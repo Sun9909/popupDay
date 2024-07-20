@@ -1,5 +1,6 @@
 package flower.popupday.admin.dao;
 
+import flower.popupday.admin.dto.AdminDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 

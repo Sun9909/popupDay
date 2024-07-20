@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="flower.popupday.admin.dao.AdminDAO">
+
+    <resultMap type="adminDTO" id="memResult" >
+        <result property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="user_nikname" column="user_nikname"/>
+        <result property="name" column="name"/>
+        <result property="pwd" column="pwd"/>
+        <result property="email" column="email"/>
+        <result property="reg_date" column="reg_date"/>
+        <result property="role" column="role"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <!-- 모든 회원 정보 가져오기 -->
+    <select id="selectAllMembersList" resultMap="memResult">
+        select * from user_tbl
+    </select>
+
+    <!-- 회원 수정을 위해 id로 회원 정보 가져오기 -->
+    <select id="selectMemberById" parameterType="Long" resultType="adminDTO">
+        select * from user_tbl where id=#{id}
+    </select>
+
+    <!-- 회원 정보 수정 -->
+    <update id="updateMember" parameterType="adminDTO">
+        update user_tbl set user_id=#{user_id}, user_nikname=#{user_nikname} where id=#{id}
+    </update>
+
+    <!-- 회원 정보 삭제 -->
+    <delete id="delMember" parameterType="Long">
+        delete from user_tbl where id=#{id}
+    </delete>
+
+    <!-- 아이디 중복 확인 -->
+    <select id="checkId" parameterType="String" resultType="boolean">
+        select count(*) > 0 from user_tbl where user_id=#{user_id}
+    </select>
+
+    <!-- 닉네임 중복 확인 -->
+    <select id="checkNikname" parameterType="String" resultType="boolean">
+        select count(*) > 0 from user_tbl where user_nikname=#{user_niknmae}
+    </select>
+
+</mapper>
