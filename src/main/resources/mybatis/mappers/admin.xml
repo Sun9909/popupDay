@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="flower.popupday.admin.dao.AdminDAO">
 
     <resultMap type="adminDTO" id="memResult" >
@@ -43,7 +43,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 닉네임 중복 확인 -->
     <select id="checkNikname" parameterType="String" resultType="boolean">
-        select count(*) > 0 from user_tbl where user_nikname=#{user_niknmae}
+        select count(*) > 0 from user_tbl where user_nikname=#{user_nikname}
     </select>
-
 </mapper>

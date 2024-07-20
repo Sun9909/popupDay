@@ -80,3 +80,14 @@
     text-align: right;
     padding-left: 300px;
 }
+
+@media (max-height: 670px) {
+
+    #category_box>li>a {
+        font-size: 30px;
+    }
+
+    #category_box, #businessperson_box {
+        padding: 50px 20px;
+    }
+}

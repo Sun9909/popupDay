@@ -133,8 +133,8 @@
                     <a href="#"><img class="event" th:src="@{images/coffee.png}" alt="커피쿠폰이벤트"></a>
                 </div>
                 <div class="quick-link">
-                    <a class="link_baro" href="#"><span>페이지 이용안내</span><img th:src="@{/images/arrow-right.svg}" alt="페이지 이용안내"></a>
-                    <a class="link_baro" th:href="@{/notice/faqList.do}">FAQ<img th:src="@{/images/arrow-right.svg}" alt="FAQ"></a>
+                    <a class="link_baro" href="#"><span>챗봇안내 시작하기</span><img th:src="@{/images/arrow-right.svg}" alt="페이지 이용안내"></a>
+                    <a class="link_baro" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'">FAQ<img th:src="@{/images/arrow-right.svg}" alt="FAQ"></a>
                     <a class="link_baro" th:href="@{/notice/qnaList.do}">Q&A<img th:src="@{/images/arrow-right.svg}" alt="Q&A"></a>
                 </div>
             </div>

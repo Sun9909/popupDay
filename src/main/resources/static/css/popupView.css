@@ -188,3 +188,7 @@ cursor: pointer; 포인터 커서로 변경
 .popupdetail-total {
     display: flex;
 }
+
+.containers {
+    min-height: 2000px;
+}
