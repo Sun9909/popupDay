@@ -72,7 +72,6 @@ public class NoticeServiceImpl implements NoticeService {
     public void modNotice(Map noticeMap) throws DataAccessException {
         noticeDAO.updateNotice(noticeMap); // 글수정
         noticeDAO.updateImage(noticeMap); // 이미지 수정
-
     }
 
 
