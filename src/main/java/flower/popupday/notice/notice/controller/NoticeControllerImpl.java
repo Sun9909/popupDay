@@ -29,7 +29,7 @@ public class NoticeControllerImpl implements NoticeController {
 
 
     //이미지 파일을 저장할 디렉토리 경로
-    private static String ARRICLE_IMG_REPO = "D:\\Yoni\\save";
+    private static String ARRICLE_IMG_REPO = "D:\\yoni\\fileupload3";
 
 
     //공지사항 리스트
@@ -78,24 +78,30 @@ public class NoticeControllerImpl implements NoticeController {
     public ModelAndView modNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
         String imagefilename = null;
         multipartRequest.setCharacterEncoding("utf-8");
-        Map<String, Object> noticeMap = new HashMap<>();
+        Map<String, Object> noticeMap = new HashMap<String, Object>(); // 파라미터 이름을 열거하는 Enumeration을 가져옴
         Enumeration enu = multipartRequest.getParameterNames();
 
+        // 모든 파라미터를 반복하면서 Map에 저장
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
             String value = multipartRequest.getParameter(name);
             System.out.println(name + " : " + value);
             noticeMap.put(name, value);
         } // while end
+
+        // 파일 업로드를 처리하고 업로드된 파일명 리스트를 가져옴
         List<String> fileList = multiFileUpload(multipartRequest);
+        // 공지사항 번호를 가져와서 Map에 저장
         String articleNo = (String) noticeMap.get("notice_id");
-        List<NoticeimageDTO> imageFileList = new ArrayList<NoticeimageDTO>();
+        List<NoticeimageDTO> imageFileList = new ArrayList<NoticeimageDTO>(); // 공지사항 번호를 가져와서 Map에 저장
         int modityNumber=0;
 
+        // 업로드된 파일이 있을 경우 처리
         if (fileList != null && fileList.size() != 0) {
             for (String fileName : fileList) {
                 modityNumber++;
                 NoticeimageDTO noticeimageDTO = new NoticeimageDTO();
+                // 수정된 이미지 파일 번호를 설정
                 noticeimageDTO.setImage_file_name(fileName);
                 // 수정 번호로 이미지 파일 번호 가져옴 , 글번호로 접근 => 이미지 파일 번호
                 noticeimageDTO.setNotice_image_id(Integer.parseInt((String) noticeMap.get("notice_image_id" + modityNumber)));
@@ -103,6 +109,7 @@ public class NoticeControllerImpl implements NoticeController {
             }
             noticeMap.put("imageFileList", imageFileList);
         }
+        // 세션에서 로그인 정보를 가져옴
         HttpSession session=multipartRequest.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
         Long id=loginDTO.getId();
@@ -115,7 +122,7 @@ public class NoticeControllerImpl implements NoticeController {
                     cnt++;
                     imagefilename = noticeimageDTO.getImage_file_name();
                     if (imagefilename != null && imagefilename != "") {
-                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imagefilename);
+                        File srcFile = new File(ARRICLE_IMG_REPO + "\\temp\\" + imagefilename); // 업로드된 파일을 실제 저장할 디렉토리로 이동
                         File destDir = new File(ARRICLE_IMG_REPO + "\\" + articleNo);
                         FileUtils.moveFileToDirectory(srcFile, destDir, true);
 
@@ -129,7 +136,7 @@ public class NoticeControllerImpl implements NoticeController {
         } catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
             e.printStackTrace();
         }
-        ModelAndView mav = new ModelAndView("redirect:/notice/noticeLis.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.do");
         return mav;
     }
 
@@ -149,7 +156,7 @@ public class NoticeControllerImpl implements NoticeController {
     public ModelAndView addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
 
         // 인코딩 설정 및 초기화
-        String imageFileName = null; // 업로드 된 이미지 파일 이름을 저장 할 변수
+        String imageFileName = null;// 업로드 된 이미지 파일 이름을 저장 할 변수
         multipartRequest.setCharacterEncoding("utf-8");
         Map<String, Object> noticeMap = new HashMap<>(); // 글 정보를 저장할 맵을 생성
         Enumeration enu = multipartRequest.getParameterNames(); // 모든 매개변수 이름을 가져옴

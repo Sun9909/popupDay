@@ -469,3 +469,9 @@ a.write {
     justify-content: center;
     margin: 20px;
 }
+
+.notice-img {
+    display: flex;
+    flex-direction: column;
+    margin: 200px;
+}

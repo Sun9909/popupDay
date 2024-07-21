@@ -1,36 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="flower.popupday.notice.qna.dao.QnaDAO">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="flower.popupday.notice.notice.dao.NoticeDAO">
 
     <resultMap type="qnaDTO" id="qnaResult">
-        <result property="qna_id" column="qna_id"/>
+        <result property="qna_Id" column="qna_Id"/>
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="created_date" column="created_date"/>
         <result property="answer" column="answer"/>
-        <result property="answer_date" column="answer_date"/>
+        <result property="answer_Date" column="answer_Date"/>
+        <result property="status" column="status"/>
     </resultMap>
 
-    <select id="selectAllQna" resultMap="qnaResult">
+    <!--faq 등록 -->
+    <insert id="insertQna" parameterType="qnaDTO">
+        insert into qna_tbl(user_id, title, content) values (#{user_id}, #{title}, #{content})
+    </insert>
+
+    <!-- 등록된 faq 리스트 화면출력 -->
+    <select id="selectAllQnaList" resultMap="qnaResult" parameterType="int">
         select * from qna_tbl order by created_date LIMIT #{count}, 10
     </select>
 
-    <select id="getNewUserId" parameterType="int">
-        select IFNULL(MAX(qna_id), 0) + 1 from qna_tbl
-    </select>
-
-    <insert id="insertNewQna" parameterType="java.util.Map">
-        insert into qna_tbl (user_id, title, content, created_date, status)
-        values ('2', #{title}, #{content}, now(), '답변중')
-    </insert>
-
+    <!-- 등록된 faq 개수 가져오기 -->
     <select id="selectToQna" resultType="int">
         <![CDATA[
-            select count(*) from qna_tbl
-            ]]>
+        select count(*) from qna_tbl
+        ]]>
     </select>
+    <!-- faq 글 수정하기 -->
+    <update id="changeQna" parameterType="qnaDTO">
+        update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
+    </update>
+    <!-- faq 글 삭제하기 -->
+    <delete id="deleteFaq" parameterType="int">
+        delete from qna_tbl where faq_id = #{qna_id}
+    </delete>
 
 </mapper>

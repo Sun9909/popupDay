@@ -185,52 +185,29 @@ function notice_enable(obj) {
     document.getElementById("notice-btn").style.display="none";
     document.getElementById("title").disabled=false;
     document.getElementById("content").disabled=false;
-    document.getElementById("notice-img").style.display="block";
-    let imgName=document.getElementById("id_imgFile");
+    document.getElementById("notice_img").style.display="block";
+    let imgName=document.getElementById("id_imgFiles");
     if(imgName != null) {
         imgName.disabled=false;
     } // if end
 }
 
-// 후기리스트로 돌아가기 7월21일 안됨 헤야하는 부분
-function backToList(obj) {
-    obj.action="/notice/noticeLis.do";
-    obj.method="get";
-    obj.submit();
-}
 
-// 상세 보기로 전환(취소)
-function totList(obj) {
-    obj.action="/notice/noticeView.do"
-    obj.method="get";
-    obj.submit();
-}
 
-/* 이미지 미리보기 구현
-function readImage_notice(input, num) {
+
+// 이미지 미리보기 구현
+function Imageread_notice(input, num) {
     if(input.files && input.files[0]) { // 현재 input 객체 정보 (이미지 선택시)
         let reader=new FileReader();
         reader.onload=function (event) {
             console.log(event);
-            $("#preview" + num).attr("src", event.target.result);
+            $("#preview2" + num).attr("src", event.target.result);
         }
         reader.readAsDataURL(input.files[0]); // 이미지 처리
     }else { // 이미지 미선택 (취소시 빈값으로 변경)
-        $("#preview").attr("src","#");
+        $("#preview2").attr("src","#");
     } // if end
-} // readImage end */
+} // readImage end
 
-// 이미지 미리보기 구현
-function readImage_notice(input, num) {
-    if (input.files && input.files[0]) {
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            $("#preview" + num).attr("src", event.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        $("#preview" + num).attr("src", "#");
-    }
-}
 
 
