@@ -19,7 +19,7 @@
             <h2>회원 정보 수정</h2>
         </div>
 
-        <form action="/admin/updateMember.do" method="post" class="joinForm" name="joinForm" onsubmit="return modify_check()">
+        <form name="memberModifyForm" th:action="@{/admin/updateMember.do}" method="post" class="memberForm"> <!--onsubmit="return modify_check()"-->
 
             <div id="joinmodify">
                 <img th:src="@{/images/userprofile.svg}" alt="user_profile">
@@ -28,13 +28,13 @@
             <input type="hidden" name="id" th:value="${member.id}">
             <p>
                 <label>아이디<strong class="require"></strong></label>
-                <button type="button" name="user_id_check" onclick="id_overlap_check()">중복 확인</button>
+                <button type="button" class="id_overlap_button">중복 확인</button>
                 <br>
-                <input type="text" name="user_id" th:value="${member.user_id}" check_result="true">
+                <input type="text" name="user_id" th:value="${member.user_id}">
             </p>
             <p>
                 <label>닉네임<strong class="require"></strong></label>
-                <button type="button" name="user_nikname_check" onclick="user_nikname_overlap_check()">중복 확인</button>
+                <button type="button" name="user_nikname_overlap_button">중복 확인</button>
                 <br>
                 <input type="text" name="user_nikname" th:value="${member.user_nikname}" check_result="true">
             </p>

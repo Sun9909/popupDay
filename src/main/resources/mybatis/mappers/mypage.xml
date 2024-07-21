@@ -51,6 +51,7 @@
         <result property="created_date" column="created_date"/>
     </resultMap>
 
+    <!-- 로그인한 회원 정보 가져오기 -->
     <select id="getName" parameterType="myDTO">
         select * from user_tbl where id=#{id}
     </select>
@@ -59,11 +60,13 @@
     <!--        select count(*) from review_tbl where user_id='123'-->
     <!--    </select>-->
 
+    <!-- 리뷰 개수 -->
     <select id="getReviewCount" resultType="Long" parameterType="Long">
         select count(*) from review_tbl join user_tbl on review_tbl.user_id = user_tbl.id
         where review_tbl.user_id=#{user_id} group by review_tbl.user_id
     </select>
 
+    <!-- 댓글 개수 -->
     <select id="getreCommentCount" parameterType="String" resultType="String">
         <!--        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id-->
         <!--        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id-->
@@ -82,19 +85,24 @@
         <!--        WHERE-->
         <!--        a.member_id = 'your_member_id';-->
     </select>
+
+    <!-- 팝업 댓글 개수 -->
     <select id="getpopCommentCount" parameterType="String" resultType="String">
         select count(*) from popup_comment_tbl where user_id=#{id}
     </select>
 
+    <!-- 문의 개수 -->
     <select id="getQnaCount" parameterType="Long" resultType="Long">
         select count(*) from qna_tbl join user_tbl on qna_tbl.user_id = user_tbl.id
         where qna_tbl.user_id=#{user_id} group by qna_tbl.user_id
     </select>
 
+    <!-- 아이디로 멤버 조회 -->
     <select id="selectMemberById" parameterType="Long" resultType="myDTO">
         select * from user_tbl where id=#{id}
     </select>
 
+    <!-- 회원 정보 업데이트 -->
     <update id="updateLogin" parameterType="loginDTO">
         update user_tbl set user_nikname=#{user_nikname}, name=#{name}, email=#{email} where id=#{id}
     </update>
@@ -109,14 +117,17 @@
         select count(*) > 0 from user_tbl where user_nikname=#{user_nikname}
     </select>
 
+    <!-- 비밀번호 변경 -->
     <update id="updatePwd" parameterType="loginDTO">
         update user_tbl set pwd=#{pwd} where id=#{id}
     </update>
 
+    <!-- 작성한 팝업 정보 가져오기 -->
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
         select * from popup_tbl where user_id=#{user_id}
     </select>
 
+    <!-- 작성된 팝업 개수 -->
     <select id="getPopupCount" resultType="Long" parameterType="Long">
         select count(*) from popup_tbl where user_id=#{user_id}
     </select>

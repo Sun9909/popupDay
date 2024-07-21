@@ -34,9 +34,11 @@ public interface MyController {
     public ModelAndView updatePwd(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
     //팝업리스트
     public ModelAndView getPopup(@ModelAttribute("mypopupDTO") MyPopupDTO mypopupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    //팝업 신청 결과 확인
+    //public ModelAndView registrationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

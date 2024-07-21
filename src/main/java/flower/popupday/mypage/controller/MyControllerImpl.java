@@ -50,8 +50,8 @@ public class MyControllerImpl implements MyController {
         session.setAttribute("isLogOn", true);
 
         //값 잘 받아오는지 확인
-//        System.out.println(loginDTO.getUser_nikname());
-//        System.out.println(loginDTO.getRole());
+        System.out.println(loginDTO.getUser_nikname());
+        System.out.println(loginDTO.getRole());
 
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
@@ -175,8 +175,8 @@ public class MyControllerImpl implements MyController {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-//        System.out.println(loginDTO.getUser_id());
-//        System.out.println(loginDTO.getUser_nikname());
+        System.out.println(loginDTO.getUser_id());
+        System.out.println(loginDTO.getUser_nikname());
 
         ModelAndView mav = new ModelAndView("/mypage/businessPage");
         mav.addObject("my", loginDTO);
@@ -218,6 +218,12 @@ public class MyControllerImpl implements MyController {
         mav.addObject("PopupCount", PopupCount);
         return mav;
     }
+
+//    @Override
+//    public ModelAndView registrationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        HttpSession session = request.getSession();
+//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+//    }
 
 //    @Override
 //    public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
