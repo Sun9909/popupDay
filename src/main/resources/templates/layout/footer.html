@@ -23,19 +23,15 @@
                 </a>
             </div>
             <div class="category-info">
-                <div class="category-info_login">
-                    <div th:if="${session.isLogOn} and ${session.loginDTO != null} and ${session.loginDTO.user_nikname != null}">
-                        <a th:href="@{/login/logout.do}">로그아웃</a>
-                    </div>
-                    <div th:unless="${session.isLogOn == true }">
-                        <a th:href="@{/login/login.do}">로그인</a>
-                    </div>
-                </div>
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <a th:href="@{/login/join.do}"><span>로그인</span></a>
-                            <a th:href="@{/login/logout.do}"><span>로그아웃</span></a>
+                            <div th:if="${session.isLogOn} and ${session.loginDTO != null} and ${session.loginDTO.user_nikname != null}">
+                                <a th:href="@{/login/logout.do}">로그아웃</a>
+                            </div>
+                            <div th:unless="${session.isLogOn == true }">
+                                <a th:href="@{/login/login.do}">로그인</a>
+                            </div>
                         </li>
                         <li>
                             <a th:href="@{/popup/popupAllList.do}">

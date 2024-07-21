@@ -25,6 +25,14 @@
     color: black;
 }
 
+#category_box>li>div>a {
+    padding-top: 20px;
+    font-family: 'Do Hyeon';
+    font-size: 24px;
+    font-weight: 900;
+    color: black;
+}
+
 #category_box>li>a {
     font-family: 'Do Hyeon';
     font-size: 55px;
