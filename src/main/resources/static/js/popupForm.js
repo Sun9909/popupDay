@@ -1,59 +1,36 @@
-// 폼 제출 시 운영 시간 정보를 로컬 스토리지에 저장
-function submitForm(event) {
-    event.preventDefault();
-    var form = document.getElementById('popupStoreForm');
-    var formData = new FormData(form);
+function toggleLike(imgElement) {
+    const popupId = imgElement.getAttribute('data-popup-id'); // data-popup-id에서 팝업 ID를 가져옵니다.
 
-    var operatingTimes = {
-        mondayTime: formData.get('mondayTime'),
-        tuesdayTime: formData.get('tuesdayTime'),
-        wednesdayTime: formData.get('wednesdayTime'),
-        thursdayTime: formData.get('thursdayTime'),
-        fridayTime: formData.get('fridayTime'),
-        saturdayTime: formData.get('saturdayTime'),
-        sundayTime: formData.get('sundayTime')
-    };
-
-    // 데이터 로컬 스토리지에 저장
-    localStorage.setItem('operatingTimes', JSON.stringify(operatingTimes));
-
-    // 서버로 폼 데이터 전송
-    $.ajax({
-        type: 'POST',
-        url: '/popup/addPopup.do',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            displayOperatingTimes();
-        },
-        error: function(error) {
-            console.error('Error:', error);
+    fetch('/popup/toggleLike.do?popup_id=' + popup_id, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         }
+    }).then(response => response.text())
+        .then(message => {
+            alert(message);
+            checkIfLiked(popupId, imgElement); // 찜 상태 업데이트
+        }).catch(error => {
+        alert('오류 발생: ' + error);
     });
 }
 
-// 로컬 스토리지에서 운영 시간 정보를 불러와서 표시
-function displayOperatingTimes() {
-    var operatingTimes = JSON.parse(localStorage.getItem('operatingTimes'));
-
-    if (operatingTimes) {
-        var detailsDiv = document.createElement('div');
-        detailsDiv.innerHTML = `
-            <h3>운영 시간</h3>
-            <p>월: ${operatingTimes.mondayTime}</p>
-            <p>화: ${operatingTimes.tuesdayTime}</p>
-            <p>수: ${operatingTimes.wednesdayTime}</p>
-            <p>목: ${operatingTimes.thursdayTime}</p>
-            <p>금: ${operatingTimes.fridayTime}</p>
-            <p>토: ${operatingTimes.saturdayTime}</p>
-            <p>일: ${operatingTimes.sundayTime}</p>
-        `;
-        document.body.appendChild(detailsDiv);
-    }
+function checkIfLiked(popup_id, imgElement) {
+    fetch('/popup/isLiked.do?popup_id=' + popup_id)
+        .then(response => response.json())
+        .then(isLiked => {
+            if (isLiked) {
+                imgElement.src = '/images/heart_fill.svg'; // 찜된 상태의 이미지
+            } else {
+                imgElement.src = '/images/heart_empty.svg'; // 찜되지 않은 상태의 이미지
+            }
+        });
 }
 
-// 페이지 로드 시 운영 시간 표시
+// 페이지 로드 시 찜 상태 확인
 window.onload = function() {
-    displayOperatingTimes();
+    document.querySelectorAll('.heart').forEach(img => {
+        const popup_id = img.getAttribute('data-popup-id');
+        checkIfLiked(popup_id, img);
+    });
 };

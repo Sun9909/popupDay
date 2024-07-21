@@ -34,8 +34,10 @@
         <result property="popup_id" column="popup_id" />
     </resultMap>
 
-
-
+    <resultMap id="popupLikeDTO" type="popupLikeDTO">
+        <result property="user_id" column="user_id" />
+        <result property="popup_id" column="popup_id" />
+    </resultMap>
 
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
         select * from popup_tbl order by created_date desc LIMIT #{count}, 9
@@ -61,8 +63,8 @@
         values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', '1', now())
         ]]>
     </insert>
-    <!-- 팝업 이미지 등록-->
 
+    <!-- 팝업 이미지 등록-->
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into popup_image_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
@@ -85,6 +87,7 @@
     <select id="checkHashTag" resultType="boolean" parameterType="String">
         select exists (select 1 from hash_tag_tbl where hash_tag = #{tag})
     </select>
+
     <!-- 해시태그 번호로 해시태그 찾기 -->
     <select id="getHashTagIdByTag" resultType="Long" parameterType="String">
         select hash_tag_id from hash_tag_tbl where hash_tag = #{tag}
@@ -121,5 +124,25 @@
     <update id="updateHits" parameterType="long">
         update popup_tbl set hits = hits + 1 where popup_id = #{popup_id}
     </update>
+
+    <!-- 찜 여부 확인 -->
+    <select id="isLiked" parameterType="map" resultType="boolean">
+        select count(*) > 0
+        from likes
+        where popup_id = #{popup_id} and user_id = #{id}
+        select * from popup_image_tbl where popup_id = #{popup_id}
+    </select>
+
+    <!-- 찜 추가 -->
+    <insert id="addLike" parameterType="map">
+        insert into popup_like_tbl (user_id,popup_id)
+        values (#{id},#{popup_id})
+    </insert>
+
+    <!-- 찜 제거 -->
+    <delete id="removeLike" parameterType="map">
+        delete from popup_like_tbl
+        where popup_id = #{popup_id} and user_id = #{id}
+    </delete>
 
 </mapper>
