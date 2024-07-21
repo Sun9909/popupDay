@@ -38,7 +38,7 @@ public class PopupServiceImpl implements PopupService {
         if (hashTags != null && !hashTags.isEmpty()) {
             List<String> nonExistingHashTags = new ArrayList<>();
             for (String tag : hashTags) {
-                if (!popupDAO.checkHashTagExists(tag)) {
+                if (!popupDAO.checkHashTag(tag)) {
                     nonExistingHashTags.add(tag);
                 }
             }
@@ -64,11 +64,12 @@ public class PopupServiceImpl implements PopupService {
         return popup_id; // 등록된 팝업 ID 반환
     }
 
+    // 팝어 상세보기
     public Map popupView(Long popup_id) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
         PopupDTO popupList = popupDAO.selectPopup(popup_id);
         List<ImageDTO> imageFileList = popupDAO.selectImageFileList(popup_id);
-        List<HashTagDTO> hashTagList = popupDAO.selectHashTagListByPopupId(popup_id);
+        List<HashTagDTO> hashTagList = popupDAO.selectHashTagList(popup_id);
 
         popupMap.put("popupList", popupList);
         popupMap.put("imageFileList", imageFileList);
@@ -77,23 +78,9 @@ public class PopupServiceImpl implements PopupService {
         return popupMap;
     }
 
-    //    @Override
-//    public Map popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
-//        Map popupMap =new HashMap<>();
-//        int section=pagingMap.get("section");
-//        int pageNum=pagingMap.get("pageNum");
-//        int count=(section-1)*100+(pageNum-1)*10; // 현재 섹션에는 1
-//        List<PopupDTO> popupAllList =popupDAO.selectAllPopup(count); // boardDAO.메서드 호출 dto로 받음
-//        int totPopup=popupDAO.selectToPopup(); // 전체 글 목록 수 조회
-//        List<ImageDTO> thumbnailImages=popupDAO.selectImageFileList();
-//        popupMap.put("popupAllList", popupAllList);
-//        popupMap.put("totPopup", totPopup);
-//        popupMap.put("thumbnailImages", thumbnailImages);
-////        popupMap.put("totPopup", 324); // 임시 페이지 생성
-//        return popupMap;
-//    }
+    // 팝업 전체 리스트
     @Override
-    public Map<String, Object> popupList(Map<String, Integer> pagingMap) throws DataAccessException {
+    public Map<String, Object> popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
         int section = pagingMap.get("section");
         int pageNum = pagingMap.get("pageNum");
@@ -114,6 +101,12 @@ public class PopupServiceImpl implements PopupService {
         popupMap.put("popupInfoList", popupInfoList); // 팝업 정보 리스트 추가
         popupMap.put("totPopup", totPopup);
         return popupMap;
+    }
+
+    @Override
+    public void updateHits(Long popup_id) throws DataAccessException {
+        // 조회수 증가를 위한 메서드 호출
+        popupDAO.updateHits(popup_id);
     }
 
 }

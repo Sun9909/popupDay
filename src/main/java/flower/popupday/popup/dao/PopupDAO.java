@@ -27,7 +27,7 @@ public interface PopupDAO {
 
     public void insertHashTag(List tagMapList) throws  DataAccessException;
 
-    public boolean checkHashTagExists(String tag) throws  DataAccessException;
+    public boolean checkHashTag(String tag) throws  DataAccessException;
 
     public Long getHashTagIdByTag(String tag) throws  DataAccessException;
 
@@ -35,10 +35,11 @@ public interface PopupDAO {
 
     public List<ImageDTO> selectImageFileList(Long popup_id) throws DataAccessException;
 
-    public List<HashTagDTO> selectHashTagListByPopupId(Long popupId) throws DataAccessException;
+    public List<HashTagDTO> selectHashTagList(Long popup_id) throws DataAccessException;
 
     public int selectToPopup() throws DataAccessException;
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
+    public void updateHits(Long popup_id) throws DataAccessException;
 }
