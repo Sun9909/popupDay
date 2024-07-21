@@ -7,24 +7,26 @@ import java.sql.Date;
 @Component("qnaDTO")
 public class QnaDTO {
 
-        private Long qna_Id;
-        private Long user_Id;
-        private String title;
-        private String content;
-        private Date created_Date;
-        private String answer;
-        private Date answer_Date;
-        private String status;
+    private Long qna_Id;
+    private Long user_Id;
+    private String title;
+    private String content;
+    private Date created_Date;
+    private String answer;
+    private Date answer_Date;
+    private String status;
 
-        //생성자
-        public QnaDTO() {
-        }
+    private int totQna;
 
-        public enum Status {
-            답변중, 답변완료
-        }
+    //생성자
+    public QnaDTO() {
+    }
 
-    public QnaDTO(Long qna_id, Long user_id, String title, String content, Date created_date, String answer, Date answer_date, String status) {
+    public enum Status {
+        답변중, 답변완료
+    }
+
+    public QnaDTO(Long qna_id, Long user_id, String title, String content, Date created_date, String answer, Date answer_date, String status, int totQna) {
         this.qna_Id= qna_id;
         this.user_Id = user_id;
         this.title = title;
@@ -100,5 +102,12 @@ public class QnaDTO {
         this.status = status;
     }
 
-
+    public int getTotQna() {
+        return totQna;
     }
+
+    public void setTotQna(int totFaq) {
+        this.totQna = totQna;
+    }
+
+}

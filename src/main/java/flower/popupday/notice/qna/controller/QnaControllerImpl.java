@@ -1,143 +1,90 @@
 package flower.popupday.notice.qna.controller;
 
-import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
-import flower.popupday.notice.qna.service.QnaService;
+import flower.popupday.notice.qna.service.QnaServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller("qnaController")
-public abstract class QnaControllerImpl implements QnaController {
-
-    @Autowired
-    private QnaService qnaService;
+public class QnaControllerImpl implements QnaController {
 
     @Autowired
     private QnaDTO qnaDTO;
 
-    // Qna 작성 폼으로 이동
-    @RequestMapping("/notice/qnaForm.do")
+    @Autowired
+    private QnaServiceImpl qnaService;
+
+
+
+    //QNA작성폼으로 이동
     @Override
+    @RequestMapping("/notice/qnaForm.do")
     public ModelAndView qnaForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/qnaForm");
+        ModelAndView mav= new ModelAndView();
+        mav.setViewName("/notice/qnaForm");
         return mav;
     }
 
-    // Qna 목록 가져오기
-    @RequestMapping("/notice/qnaList.do")
+    // QNA리스트로 이동
     @Override
-    public ModelAndView qnaList(
-            @RequestParam(value = "section", required = false) String _section,
-            @RequestParam(value = "pageNum", required = false) String _pageNum,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping("/notice/qnaList.do") // "/notice/qnaList.do" 요청이 들어오면 이 메서드가 처리
+    public ModelAndView qnaList(@RequestParam(value = "secton", required = false) String _seciotn,
+                                @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // secion,pageNum 파라미터가 없으면 기본값으로 1을 사용하여 정수로 변환
+        int section =  Integer.parseInt((_seciotn == null) ? "1" : _seciotn);
+        int pageNum =  Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
 
-        int section = Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        // 페이징된 QNA 리스트가져오기(section과 pageNum을 이용하여 페이징된 QNA 리스트를 서비스 계층에서 가져옴)
+        List<QnaDTO> qnaList = qnaService.listQna(section,pageNum);
 
-        Map<String, Integer> pagingMap = new HashMap<>();
-        pagingMap.put("section", section);
-        pagingMap.put("pageNum", pageNum);
-
-        List<QnaDTO> qnaList = (List<QnaDTO>) qnaService.listQna(pagingMap);
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/qnaList");
-        mav.addObject("qnaList", qnaList);
+        // ModelAndView 객체 생성 및 설정
+        ModelAndView mav =new ModelAndView();
+        mav.setViewName("/notice/qna"); // 뷰 이름 설정
+        mav.addObject("qnaList", qnaList); // qnaList 객체를 모델에 추가
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
         return mav;
     }
 
-    // 새 글 등록
-    @RequestMapping("/notice/addQna.do")
     @Override
     public ModelAndView addQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("utf-8");
-
-        Map<String, Object> QnaMap = new HashMap<>();
-        Enumeration<String> enu = request.getParameterNames();
-        while (enu.hasMoreElements()) {
-            String name = enu.nextElement();
-            String value = request.getParameter(name);
-            QnaMap.put(name, value);
-        }
-
-        String title = (String) QnaMap.get("title");
-        String content = (String) QnaMap.get("content");
-
-        QnaDTO qnaDTO = new QnaDTO();
+        request.setCharacterEncoding("UTF-8");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
         qnaDTO.setTitle(title);
         qnaDTO.setContent(content);
-
-        HttpSession session = request.getSession();
-
-        //회원인증구현
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
-        if (loginDTO != null) {
-            String user_Id = String.valueOf(loginDTO.getId());
-            qnaDTO.setUser_Id(Long.valueOf(user_Id));
-        }
-
-        qnaService.addQna((Map) qnaDTO);
-
+        qnaService.addQna(qnaDTO);
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
+        return mav;
+    }
+    //FAQ 수정반영하기
+    @Override
+    @RequestMapping("/notice/modQna.do")
+    public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String qna_id = request.getParameter("qna_id");
+        qnaDTO.setTitle(title);
+        qnaDTO.setContent(content);
+        qnaDTO.setQna_Id(Long.parseLong(qna_id));
+        qnaService.modQna(qnaDTO);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
-
-    // 상세글 보기
-    @RequestMapping("/notice/viewQna.do")
+    //FAQ  삭제하기
     @Override
-    public ModelAndView viewQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Long qnaId = Long.parseLong(request.getParameter("qnaId"));
-
-        QnaDTO qna = qnaService.getQnaById(qnaId);
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/qnaView");
-        mav.addObject("qna", qna);
-        return mav;
-    }
-
-    // 글 수정
-    @RequestMapping("/notice/modQna.do")
-    @Override
-    public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Long qnaId = Long.parseLong(request.getParameter("qnaId"));
-        String title = request.getParameter("title");
-        String content = request.getParameter("content");
-
-        QnaDTO qna = qnaService.getQnaById(qnaId);
-        if (qna != null) {
-            qna.setTitle(title);
-            qna.setContent(content);
-            qnaService.updateQna(qna);
-        }
-
-        ModelAndView mav = new ModelAndView("redirect:/notice/viewQna.do?qnaId=" + qnaId);
-        return mav;
-    }
-
-    // 글 삭제
     @RequestMapping("/notice/removeQna.do")
-    @Override
-    public ModelAndView removeQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Long qnaId = Long.parseLong(request.getParameter("qnaId"));
-
-        qnaService.deleteQna(qnaId);
-
+    public ModelAndView removeQna(@RequestParam("qna_id") int qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        qnaService.removeQna(qna_id);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }

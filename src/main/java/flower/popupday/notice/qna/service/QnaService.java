@@ -1,25 +1,19 @@
 package flower.popupday.notice.qna.service;
 
+import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import org.springframework.dao.DataAccessException;
 
-import java.util.Map;
+import java.util.List;
+import java.util.zip.DataFormatException;
 
 public interface QnaService {
 
-    //상세글보기
-    Map viewQna(Long user_id) throws DataAccessException;
+    public void addQna(QnaDTO qnaDTO) throws DataFormatException;
 
-    public void addQna(Map qnaMap) throws DataAccessException;
-    QnaDTO getQnaById(Long qnaId);
-    public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException;
-    void updateQna(QnaDTO qna);
-    void deleteQna(Long qnaId);
-    void answerQna(Long qnaId, String answer);
+    public List listQna(int section, int pageNum) throws DataAccessException;
 
-    //글 수정하기
-    void modQna(Map qnaMap) throws DataAccessException;
+    public void modQna(QnaDTO qnaDTO) throws DataFormatException;
 
-    //글 삭제하기
-    void removeQna(Long user_id) throws DataAccessException;
+    public  void removeQna(int qna_id) throws DataAccessException;
 }

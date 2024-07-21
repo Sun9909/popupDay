@@ -57,11 +57,17 @@
    </insert>
 
 
-    <!-- 여러개의 이미지 -->
-    <insert id="insertNewImages" parameterType="noticeimageDTO"> <!-- map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴 -->
+    <!-- 여러개의 이미지
+    <insert id="insertNewImages" parameterType="noticeimageDTO">  map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴
         <![CDATA[
         insert into notice_image_tble('notice_image_id', 'notice_id', 'image_file_namge') values(#{notice_image_id}, #{notice_id}, #{image_file_name})
         ]]>
+    </insert>-->
+    <insert id="insertNewImages" parameterType="java.util.Map">
+        insert into notice_image_tbl values
+        <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
+            (#{item.notice_image_id},#{notice_id}, #{item.image_file_name})
+        </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
 
 
