@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -61,7 +62,7 @@ public class NoticeControllerImpl implements NoticeController {
     }
 
     // 공지사항 상세보기
-    @RequestMapping("/notice/noticeView.do")
+    @RequestMapping(value = "/notice/noticeView.do")
     public ModelAndView noticeView(@RequestParam("notice_id") long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // notice_id를 매개변수로 받아 공지사항 글을 조회
         Map noticeView = noticeService.noticeView(notice_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성

@@ -40,13 +40,14 @@
    </select>
 
     <!-- 상세글보기 -->
-    <select id="selectNotice" parameterType="java.lang.Long" resultType="noticeDTO">
+    <select id="selectNotice"  resultType="noticeDTO">
         select * from notice_tbl where notice_id = #{notice_id}
     </select>
 
     <select id="selectImageFileList" parameterType="java.lang.Long" resultType="noticeimageDTO">
         select * from notice_image_tbl where notice_id = #{notice_id}
     </select>
+
 
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
     <insert id="insertNewNotice" parameterType="java.util.Map" useGeneratedKeys="true">
@@ -57,28 +58,48 @@
 
 
     <!-- 여러개의 이미지 -->
-    <insert id="insertNewImages" parameterType="java.util.Map"> <!-- map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴 -->
-        insert into notice_tbl values
-        <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
-            (#{item.notice_id}, #{item.image_file_name}, #{notice_id})
-        </foreach> <!-- values에 있는 값 업데이트 -->
+    <insert id="insertNewImages" parameterType="noticeimageDTO"> <!-- map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴 -->
+        <![CDATA[
+        insert into notice_image_tble('notice_image_id', 'notice_id', 'image_file_namge') values(#{notice_image_id}, #{notice_id}, #{image_file_name})
+        ]]>
     </insert>
 
 
     <!-- 이미지 여러개 글 수정 (제목과 내용만 수정하면 돼서 간단함) -->
     <update id="updateNotice" parameterType="java.util.Map">
-        update notice_tbl set title=#{title}, content=#{content} where notice_id=#{notice_id}
+        update notice_tbl set title = #{title}, content = #{content} where notice_id = #{notice_id}
     </update>
 
-    <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update-->
+    <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update
     <update id="updateImage" parameterType="java.util.Map">
-        <foreach item="item" collection="imageFileList" separator=";"> <!-- 이미지 담겨있는 곳 -->
-            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
-                update notice_image_tbl set imageFileName=#{item.image_file_name} where imageFileNo=#{item.notice_id} and #{item.image_file_name} != ''
+        <foreach item="item" collection="imageFileList" separator=";"> 이미지 담겨있는 곳
+            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" >  이미지를 선택한것만 업데이트
+                update notice_image_tbl set imageFileName=#{item.image_file_name} where notice_id=#{item.notice_id} and #{item.image_file_name} != ''
+            </if>
+        </foreach>
+    </update>-->
+
+    <update id="updateImage" parameterType="java.util.Map">
+        <foreach item="item" collection="imageFileList" separator=";">
+            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''">
+                UPDATE notice_image_tbl
+                SET imageFileName=#{item.image_file_name}
+                WHERE notice_id=#{item.notice_id}
             </if>
         </foreach>
     </update>
 
 
+    <delete id="deleteImage" parameterType="java.lang.Long">
+        <![CDATA[
+        delete from notice_image_tbl where notice_id = #{notice_id}
+        ]]>
+    </delete>
+
+    <delete id="deleteNotice" parameterType="java.lang.Long">
+      <![CDATA[
+        delete from notice_tbl where notice_id=#{notice_id}
+        ]]>
+   </delete>
 
 </mapper>

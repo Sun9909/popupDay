@@ -74,6 +74,7 @@ public class NoticeServiceImpl implements NoticeService {
         noticeDAO.updateImage(noticeMap); // 이미지 수정
     }
 
+
     // 후기 삭제하기
     @Override
     public void removeNotice(long notice_id) throws DataAccessException {
