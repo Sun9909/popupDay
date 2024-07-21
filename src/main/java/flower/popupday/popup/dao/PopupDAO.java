@@ -42,4 +42,11 @@ public interface PopupDAO {
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
     public void updateHits(Long popup_id) throws DataAccessException;
+
+    public boolean isLiked(Long popup_id, Long memberId) throws DataAccessException;
+
+    public void addLike(Long popup_id, Long memberId) throws DataAccessException;
+
+    public void removeLike(Long popup_id, Long memberId) throws DataAccessException;
+
 }

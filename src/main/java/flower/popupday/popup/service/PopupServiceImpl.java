@@ -103,10 +103,29 @@ public class PopupServiceImpl implements PopupService {
         return popupMap;
     }
 
+    // 조회수 증가
     @Override
     public void updateHits(Long popup_id) throws DataAccessException {
         // 조회수 증가를 위한 메서드 호출
         popupDAO.updateHits(popup_id);
+    }
+
+    // 찜 여부 확인
+    @Override
+    public boolean isLiked(Long id, Long popup_id) throws DataAccessException {
+        return popupDAO.isLiked(id, popup_id);
+    }
+
+    // 찜 취소
+    @Override
+    public void removeLike(Long id, Long popup_id) throws DataAccessException {
+        popupDAO.removeLike(id,popup_id);
+    }
+
+    // 찜하기
+    @Override
+    public void addLike(Long id, Long popup_id) throws DataAccessException {
+        popupDAO.addLike(id,popup_id);
     }
 
 }

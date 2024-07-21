@@ -37,8 +37,8 @@
                     <!-- 상세보기된 팝업 정보 -->
                     <div class="popupdetail-title-infor">
                         <div class="popup-title">
-                            <h1 class="tit">동방신기 팝업</h1>
-                            <img class="heart" th:src="@{/images/heart_empty.svg}" alt="찜">
+                            <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
+                            <img class="heart" th:src="@{/images/heart_empty.svg}" alt="찜" onclick="toggleLike(this)" th:data-popup-id="${popupMap.popupList.popup_id}">
                         </div>
 
                         <div class="date">

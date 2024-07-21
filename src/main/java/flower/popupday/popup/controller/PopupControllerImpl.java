@@ -9,11 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -180,7 +179,7 @@ public class PopupControllerImpl implements PopupController {
             }
         }
 
-        // 조회수를 증가시키기 위한 처리
+        // 조회수 증가 처리
         if (!hasViewed) {
             popupService.updateHits(popup_id);
             // 새 쿠키 생성
@@ -195,5 +194,29 @@ public class PopupControllerImpl implements PopupController {
         mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
         return mav;
+    }
+
+    @Override
+    @PostMapping("/popup/heartPopup.do")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> heartPopup(@RequestParam("popup_id") Long popup_id, HttpSession session) throws Exception{
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
+        Map<String, String> response = new HashMap<>();
+
+        if (loginDTO == null) {
+            response.put("message", "로그인이 필요합니다.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+
+        boolean isLiked = popupService.isLiked(loginDTO.getId(), popup_id);
+        if (isLiked) {
+            popupService.removeLike(loginDTO.getId(), popup_id);
+            response.put("message", "팝업 찜을 취소했습니다.");
+        } else {
+            popupService.addLike(loginDTO.getId(), popup_id);
+            response.put("message", "팝업을 찜 목록에 추가했습니다!");
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
