@@ -39,9 +39,6 @@
         <result property="popup_id" column="popup_id" />
     </resultMap>
 
-
-
-
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
         select * from popup_tbl order by created_date desc LIMIT #{count}, 9
     </select>
@@ -66,8 +63,8 @@
         values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', '1', now())
         ]]>
     </insert>
-    <!-- 팝업 이미지 등록-->
 
+    <!-- 팝업 이미지 등록-->
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into popup_image_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
@@ -90,6 +87,7 @@
     <select id="checkHashTag" resultType="boolean" parameterType="String">
         select exists (select 1 from hash_tag_tbl where hash_tag = #{tag})
     </select>
+
     <!-- 해시태그 번호로 해시태그 찾기 -->
     <select id="getHashTagIdByTag" resultType="Long" parameterType="String">
         select hash_tag_id from hash_tag_tbl where hash_tag = #{tag}
@@ -132,6 +130,7 @@
         select count(*) > 0
         from likes
         where popup_id = #{popup_id} and user_id = #{id}
+        select * from popup_image_tbl where popup_id = #{popup_id}
     </select>
 
     <!-- 찜 추가 -->
