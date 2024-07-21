@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <link rel="stylesheet" th:href="@{/css/inforQNA.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>공지사항페이지</title>
 </head>
@@ -17,16 +17,16 @@
         <!-- 공지사항 -->
         <div class="submenu-wrap">
             <section id="submenu">
-                <a class="contact active" onclick="openTab('tab1')">
+                <a class="contact active">
                     <h2>공지사항</h2>
                 </a>
-                <a class="contact" onclick="openTab('tab2')">
+                <a class="contact">
                     <h2>FAQ</h2>
                 </a>
-                <a class="contact" onclick="openTab('tab3')">
+                <a class="contact">
                     <h2>Q&A</h2>
                 </a>
-                <a class="contact" onclick="openTab('tab4')">
+                <a class="contact" >
                     <h2>후기</h2>
                 </a>
             </section>
@@ -34,67 +34,37 @@
 
         <div id="tab3" class="content">
             <div class="selectbox">
-                <div class="selectLayer">
-                    <select onchange="window.location='/mz/community'+(this.value?'-'+this.value:'')+''">
-                        <option value="event_notice">공지/이벤트</option>
-                        <option value="brandinfo">팝업/업체 정보</option>
-                    </select>
-                </div>
-                <div class="selectLayer">
-                    <select onchange="submitSearchFormEl('cat',this.value);">
-                        <option value="all-notice">&nbsp;+ 전체보기</option>
-                        <option value="Qna">질문</option>
-                    </select>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <a class="listnotice" href="infor.html"> <!--예를들어서 함-->
-                <div class="sbj">
-                    <span class="subject">[공지] 질문/추천 게시판은 관리자가 답변을 달지 않습니다.</span><br>
-                </div>
-                <div class="regdate">
-                    <span>작성날짜</span>
-                </div>
-            </a>
-            <div class="catInfo notice">
-                <a href="#">공지/이벤트</a>
-            </div>
+                <form name="qnaArticle" method="post">
+                    <div class="selectLayer">
+                        <h3>왜아노벼</h3>
+                        <select onchange="window.location='/mz/community'+(this.value?'-'+this.value:'')+''">
+                            <option value="event_notice">공지/이벤트</option>
+                            <option value="brandinfo">팝업/업체 정보</option>
+                        </select>
+                    </div>
+                    <div class="selectLayer">
+                        <select onchange="submitSearchFormEl('cat',this.value);">
+                            <option value="all-notice">&nbsp;+ 전체보기</option>
+                            <option value="Qna">질문</option>
+                        </select>
+                    </div>
+                   <!-- <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
+                        <a class="wirte" th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">글쓰기</a>
+                    </div>-->
 
-            <a class="listnotice" href="#">
-                <div class="sbj">
-                    <span class="subject">[이벤트] 팝업후기 이벤트는 후기에다가 작성해주시길 바랍니다.</span><br>
-                </div>
-                <div class="regdate">
-                    <span>작성날짜</span>
-                </div>
-            </a>
-            <div class="catInfo notice">
-                <a href="#">공지/이벤트</a>
-            </div>
+                    <div class="clear"></div>
 
-            <a class="listnotice" href="#">
-                <div class="sbj">
-                    <span class="listPost">파업관련해서 문의 드립니다.</span><br>
-                </div>
-                <div class="regdate">
-                    <span>작성날짜</span>
-                </div>
-            </a>
-            <div class="catInfo notice">
-                <a href="#">팝업/업체정보</a>
+                    <div class="qnaitem" th:each="qna: ${qnaList}">
+                        <a class="listnotice"> <!--예를들어서 함-->
+                            <span><input id="qna_title" type="text" name="title" th:value="${qna.title}" disabled></span>
+                            <span class="regdate"><input id="qna_date" type="text" name="created_Date" th:value="${qna.created_Date}"></span>
+                            <input type="hidden" name="qna_id" th:value="${qna.qna_Id}">
+                            <img id="toggle" th:src="@{/images/angle-down-solid.svg}" alt="내려보기">
+                        </a>
+                    </div>
+                 </form>
             </div>
-
-            <a class="listnotice" href="#">
-                <div class="sbj">
-                    <span class="listPost"></span><br>
-                </div>
-                <div class="regdate">
-                    <span>작성날짜</span>
-                </div>
-            </a>
-            <div class="catInfo notice">
-                <a href="#"></a>
-            </div>
+            <!-- 페이징처리 -->
         </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>

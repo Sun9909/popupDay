@@ -470,8 +470,7 @@ a.write {
     margin: 20px;
 }
 
-.notice-img {
-    display: flex;
-    flex-direction: column;
-    margin: 200px;
+
+.notice_img {
+    height: 700px;
 }

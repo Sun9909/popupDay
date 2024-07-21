@@ -42,7 +42,9 @@
                             <img th:id="'preview2' + ${status.count}" th:src="@{/noticedownload.do(notice_id=${iamgeList.notice_id},image_file_name=${iamgeList.image_file_name})}">
                         </div>
                         <div id="notice-modify-img">
-                            <input type="file" id="id_imgFiles" th:name="'image_file_name' + ${status.count}"  th:value="'image_file_name' + ${status.count}" th:onchange="Imageread_notice(this,${status.count})" disabled>
+                            <!--<input type="file" id="id_imgFiles" th:name="'image_file_name' + ${status.count}"  th:value="'image_file_name' + ${status.count}" th:onchange="Imageread_notice(this,${status.count})" disabled>-->
+                            <input type="file" id="id_imgFiles" th:name="'image_file_name' + ${status.count}" th:onchange="Imageread_notice(this,${status.count})" disabled>
+
                         </div>
                     </div>
                 </div>

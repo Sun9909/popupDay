@@ -198,13 +198,15 @@ function notice_enable(obj) {
 // 이미지 미리보기 구현
 function Imageread_notice(input, num) {
     if(input.files && input.files[0]) { // 현재 input 객체 정보 (이미지 선택시)
+        console.log("파일이 선택되었습니다:", input.files[0]);
         let reader=new FileReader();
         reader.onload=function (event) {
-            console.log(event);
+            console.log("이미지로드완료:",event);
             $("#preview2" + num).attr("src", event.target.result);
         }
         reader.readAsDataURL(input.files[0]); // 이미지 처리
     }else { // 이미지 미선택 (취소시 빈값으로 변경)
+        console.log("이미지가 선택되지 않았습니다.");
         $("#preview2").attr("src","#");
     } // if end
 } // readImage end
