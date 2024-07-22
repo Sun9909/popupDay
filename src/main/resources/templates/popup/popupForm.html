@@ -10,7 +10,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div class="containers">
+    <div class="containers allpop">
         <div class="popTitle">
             <h2>팝업 신청</h2>
             <form id="popupStoreForm" class="Full" action="/popup/addPopup.do" method="post" enctype="multipart/form-data">
@@ -22,7 +22,7 @@
                 <div class="fillout-form">
                     <label>팝업스토어 이미지 *크기 width: 960, height: 480 권장</label>
                     <input type="button" value="파일추가" name="image_file_name" onclick="fn_addFile()">
-                    <div id="dock_file"></div>
+                    <td><div id="dock_file"></div></td>
                 </div>
 
                 <div class="fillout-form">
@@ -126,4 +126,3 @@
 </th:block>
 </body>
 </html>
-
