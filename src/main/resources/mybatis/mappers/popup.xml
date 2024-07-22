@@ -69,7 +69,7 @@
     <![CDATA[
         insert into popup_tbl (popup_id, title, info, start_date, end_date, content, address, brand_page, user_id, created_date, monday_time, tuesday_time,
                                wednesday_time, thursday_time, friday_time, saturday_time, sunday_time)
-        values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, '7' , now() ,#{monday_time},
+        values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, '8' , now() ,#{monday_time},
                 #{tuesday_time}, #{wednesday_time}, #{thursday_time}, #{friday_time}, #{saturday_time}, #{sunday_time})
         ]]>
     </insert>

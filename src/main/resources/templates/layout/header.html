@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
 	  xmlns:th="http://www.thymeleaf.org">
-<script th:src="@{/js/search_header.js}"></script>
 <header id="admin_header" th:fragment="header">
 	<div class="images">
 		<a th:href="@{/main.do}"><img class="logo" th:src="@{/images/POPUP_DAY.svg}" alt="로고"></a>
@@ -21,8 +20,10 @@
 	</div>
 	<div id="search-banner">
 		<div class="search">
-			<input type="text" id="searchInput" style="cursor: pointer">
-			<button onclick="search()"><img th:src="@{/images/search.svg}"></button>
+			<form action="/search" method="get">
+				<input type="text" name="query" id="searchInput" style="cursor: pointer">
+				<button type="submit"><img th:src="@{/images/search.svg}"></button>
+			</form>
 		</div>
 		<div class="search-info">
 			<div class="pDiv">
