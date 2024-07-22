@@ -1,6 +1,6 @@
 package flower.popupday.search.controller;
 
-import flower.popupday.search.dto.SearchDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import flower.popupday.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +20,8 @@ public class SearchControllerImpl implements SearchController {
     @Override
     @GetMapping("/search")
     public ModelAndView search(@RequestParam("query") String query, Model model) {
-        List<SearchDTO> results = searchService.searchHashTags(query);
+        List<PopupDTO> results = searchService.searchPopupsByHashTag(query);
         model.addAttribute("results", results);
-        return new ModelAndView("/popup/searchList"); // 수정된 뷰 이름
+        return new ModelAndView("/popup/searchList");
     }
 }

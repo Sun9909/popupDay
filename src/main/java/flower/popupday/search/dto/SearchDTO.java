@@ -37,4 +37,7 @@ public class SearchDTO {
                 ", hash_tag='" + hash_tag + '\'' +
                 '}';
     }
+
+    //popup_tbl
+
 }
