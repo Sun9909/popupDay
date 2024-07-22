@@ -97,5 +97,6 @@
 
     #category_box, #businessperson_box {
         padding: 50px 20px;
+        height: calc(120vh - 110px);
     }
 }
