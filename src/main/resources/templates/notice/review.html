@@ -17,17 +17,17 @@
         <!-- 공지사항 -->
         <div class="submenu-wrap">
             <section id="submenu">
-                <a class="contact" href="#">
-                    <h2>공지사항</h2>
+                <a class="contact active" >
+                    <h2 class="active-category" th:href="@{/notice/noticList.do}">공지사항</h2>
                 </a>
-                <a class="contact" th:href="@{/notice/faqList.do}">
+                <a class="contact" th:href="@{/notice/faqList.do}" >
                     <h2>FAQ</h2>
                 </a>
-                <a class="contact" href="#">
+                <a class="contact"  th:href="@{/notice/qnaList.do}">
                     <h2>Q&A</h2>
                 </a>
-                <a class="contact" th:href="@{/notice/reviewList.do}">
-                    <h2 class="active-category">후기</h2>
+                <a class="contact" th:href="@{/notice/reviewList.do}" >
+                    <h2>후기</h2>
                 </a>
             </section>
         </div>
