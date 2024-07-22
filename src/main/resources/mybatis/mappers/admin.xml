@@ -35,6 +35,11 @@
     <delete id="delMember" parameterType="Long">
         delete from user_tbl where id=#{id}
     </delete>
+    <!-- soft delete?
+    <update> id="delMember" parameterType="Long">
+        update user_tbl set del_state=true where id=#{id}
+    <update>
+    -->
 
     <!-- 아이디 중복 확인 -->
     <select id="checkId" parameterType="String" resultType="boolean">

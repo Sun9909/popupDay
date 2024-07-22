@@ -139,8 +139,11 @@ h2 {
     font-size: 1.2em;
     margin: 20px 10px;
 }
+.myInfo .memberDrop {
+    color: red;
+}
 /* 내 정보 영역 끝 */
 
 .containers {
-    min-height: 1390px;
+    min-height: 1430px;
 }
