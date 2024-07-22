@@ -60,15 +60,19 @@ public class LoginControllerImpl implements LoginController {
             HttpSession session = request.getSession();
             session.setAttribute("loginDTO", loginResult);
             session.setAttribute("isLogOn", true);
+            // 로그 추가
+            System.out.println("로그인 성공: " + loginResult.getUser_nikname());
+            System.out.println("isLogOn: " + session.getAttribute("isLogOn"));
             String action = (String) session.getAttribute("action");
+
             if (action != null) {
-                mav.setViewName("redirect:" + action); // action 값이 있을 경우 해당 경로로 리디렉션
+                mav.setViewName("redirect:" + action);
             } else {
-                mav.setViewName("redirect:/main.do"); // action 값이 없을 경우 기본적으로 /main.do로 리디렉션
+                mav.setViewName("redirect:/main.do");
             }
         } else {
             rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요");
-            mav.setViewName("redirect:/login/login.do"); // 로그인 실패 시 로그인 페이지로 리디렉션
+            mav.setViewName("redirect:/login/login.do");
         }
         return mav;
     }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/js/main.js}"></script>
 <footer th:fragment="footer">
     <div class="under_info">
         <ul>
@@ -40,7 +41,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/join.do\')'">
+                            <a href="/notice/noticeList.do">
                                 Notice
                                 <span>공지사항</span>
                             </a>
