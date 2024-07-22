@@ -8,7 +8,8 @@
         <id property="popup_id" column="popup_id"/>
         <result property="title" column="title"/>
         <result property="info" column="info"/>
-        <result property="popup_hours" column="popup_hours"/>
+        <result property="start_date" column="start_date"/>
+        <result property="end_date" column="end_date"/>
         <result property="content" column="content"/>
         <result property="address" column="address"/>
         <result property="brand_page" column="brand_page"/>
@@ -16,6 +17,13 @@
         <result property="user_id" column="user_id"/>
         <result property="created_date" column="created_date"/>
         <result property="hits" column="hits"/>
+        <result property="monday_time" column="monday_time"/>
+        <result property="tuesday_time" column="tuesday_time"/>
+        <result property="wednesday_time" column="wednesday_time"/>
+        <result property="thursday_time" column="thursday_time"/>
+        <result property="friday_time" column="friday_time"/>
+        <result property="saturday_time" column="saturday_time"/>
+        <result property="sunday_time" column="sunday_time"/>
     </resultMap>
 
     <resultMap type="imageDTO" id="imgResult">
@@ -59,8 +67,10 @@
     <!-- 팝업 등록 -->
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
-        insert into popup_tbl (popup_id,title, info, popup_hours, content, address, brand_page, role, user_id, created_date)
-        values (#{popup_id}, #{title}, #{info}, '조아용', #{content}, #{address}, #{brand_page}, '미승인', '1', now())
+        insert into popup_tbl (popup_id, title, info, start_date, end_date, content, address, brand_page, user_id, created_date, monday_time, tuesday_time,
+                               wednesday_time, thursday_time, friday_time, saturday_time, sunday_time)
+        values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, '7' , now() ,#{monday_time},
+                #{tuesday_time}, #{wednesday_time}, #{thursday_time}, #{friday_time}, #{saturday_time}, #{sunday_time})
         ]]>
     </insert>
 

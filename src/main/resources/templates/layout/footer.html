@@ -28,13 +28,13 @@
                         <a th:href="@{/login/logout.do}">로그아웃</a>
                     </div>
                     <div th:unless="${session.isLogOn == true}">
-                        <a th:href="@{login/login.do}">로그인</a>
+                        <a th:href="@{/login/login.do}">로그인</a>
                     </div>
                 </div>
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <a href="팝업 검색창">
+                            <a th:href="@{/popup/popupAllList.do}">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
