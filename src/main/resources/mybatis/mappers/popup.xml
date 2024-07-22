@@ -151,8 +151,7 @@
     <!-- 찜 제거 -->
     <delete id="removeLike" parameterType="map">
         delete from popup_like_tbl
-        where popup_id = #{popup_id}
-          and user_id = #{user_id}
+        where popup_id = #{popup_id} and user_id = #{user_id}
     </delete>
 
 </mapper>

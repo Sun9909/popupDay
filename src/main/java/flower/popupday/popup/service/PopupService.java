@@ -1,6 +1,5 @@
 package flower.popupday.popup.service;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.Map;
