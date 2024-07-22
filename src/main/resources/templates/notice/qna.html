@@ -12,7 +12,7 @@
 
 
     <script> // true false , 로그인중이면 articleForm 정보 받음 , 로그인 안했으면 loginForm으로 보냄
-    function fn_noticeForm(isLogOn,qnaForm, loginForm) {
+    function fn_noticeForm(isLogOn,qnaForm,loginForm) {
         if(isLogOn===true) {
             location.href=qnaForm;
         }else {
@@ -50,6 +50,7 @@
         <div id="tab3" class="content2">
             <div class="selectbox">
                 <form name="qnaArticle" method="post">
+
                     <div class="selectLayer">
                         <select onchange="window.location='/mz/community'+(this.value?'-'+this.value:'')+''">
                             <option value="event_notice">공지/이벤트</option>
@@ -62,16 +63,26 @@
                             <option value="Qna">질문</option>
                         </select>
                     </div>
-                    <div class="clear"></div>
+                    <div class="wirte">
+                        <a class="wirte" th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/qnaForm.do', '/login/loginForm.do')|">문의사항 작성하기</a>
+                    </div>
 
                     <div class="qnaitem" th:each="qna: ${qnaList}">
-                        <a class="listnotice"> <!--예를들어서 함-->
+
+                        <td><a th:href="@{/notice/qnaView.do(qna_id=${qna.qna_id})}" th:text="${qna.title}"></a></td>
+                        <td th:text="${qna.created_date}"></td>
+                    </div>
+
+
+                    <!--
+                    <div class="qnaitem" th:each="qna: ${qnaList}">
+                        <a class="listnotice">
                             <span><input id="qna_title" type="text" name="title" th:value="${qna.title}" disabled></span>
-                            <span class="regdate"><input id="qna_date" type="text" name="created_Date" th:value="${qna.created_Date}"></span>
-                            <input type="hidden" name="qna_id" th:value="${qna.qna_Id}">
+                            <span class="regdate"><input id="qna_date" type="text" name="created_date" th:value="${qna.created_date}"></span>
+                            <input type="hidden" name="qna_id" th:value="${qna.qna_id}">
                             <img id="toggle" th:src="@{/images/angle-down-solid.svg}" alt="내려보기">
                         </a>
-                    </div>
+                    </div>-->
                  </form>
             </div>
             <!-- 페이징처리 -->

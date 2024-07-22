@@ -29,19 +29,19 @@
                         <a th:href="@{/login/logout.do}">로그아웃</a>
                     </div>
                     <div th:unless="${session.isLogOn == true}">
-                        <a th:href="@{login/login.do}">로그인</a>
+                        <a th:href="@{/login/login.do}">로그인</a>
                     </div>
                 </div>
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <a th:href="@{/board/popupAllList.do}">
+                            <a th:href="@{/popup/popupAllList.do}">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/join.do\')'">
+                            <a href="/notice/noticeList.do">
                                 Notice
                                 <span>공지사항</span>
                             </a>
