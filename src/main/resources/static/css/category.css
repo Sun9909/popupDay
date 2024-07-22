@@ -10,7 +10,7 @@
 
 .category-info {
     width: 720px;
-    height: 83vh;
+    height: calc(99vh - 105px);
     display: none;
     position: absolute;
     bottom: 70px;
