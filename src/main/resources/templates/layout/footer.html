@@ -12,7 +12,7 @@
     </div>
     <div class="under_fix">
         <div class="css-footer-buttons">
-            <a th:href="@{/main.do}" >
+            <a th:href="@{/main.do}">
                 <img th:src="@{/images/home.svg}">
                 <span>홈</span>
             </a>
@@ -34,13 +34,13 @@
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <a href="팝업 검색창">
+                            <a th:href="@{/board/popupAllList.do}">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/notice/noticeList.do">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/join.do\')'">
                                 Notice
                                 <span>공지사항</span>
                             </a>
@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/reviewList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
                                 REVIEW
                                 <span>후기</span>
                             </a>
