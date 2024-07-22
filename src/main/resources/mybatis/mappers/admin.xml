@@ -37,7 +37,7 @@
     </delete>
     <!-- soft delete?
     <update> id="delMember" parameterType="Long">
-        update user_tbl set del_state=true where id=#{id}
+        update user_tbl set status='deleted' where id=#{id}
     <update>
     -->
 

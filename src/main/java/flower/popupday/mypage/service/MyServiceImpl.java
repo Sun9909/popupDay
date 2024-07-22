@@ -74,6 +74,11 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
+    public void dropMember(LoginDTO loginDTO) throws DataAccessException {
+        myDAO.dropMember(loginDTO);
+    }
+
+    @Override
     public boolean checkEmail(String email) {
         return myDAO.checkEmail(email);
     }

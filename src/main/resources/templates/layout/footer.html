@@ -13,7 +13,7 @@
     </div>
     <div class="under_fix">
         <div class="css-footer-buttons">
-            <a th:href="@{/main.do}" >
+            <a th:href="@{/main.do}">
                 <img th:src="@{/images/home.svg}">
                 <span>홈</span>
             </a>
@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/reviewList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
                                 REVIEW
                                 <span>후기</span>
                             </a>
