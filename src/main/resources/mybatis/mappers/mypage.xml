@@ -122,6 +122,10 @@
         update user_tbl set pwd=#{pwd} where id=#{id}
     </update>
 
+    <update id="dropMember" parameterType="loginDTO">
+        update user_tbl set status='deleted' where id=#{id}
+    </update>
+
     <!-- 작성한 팝업 정보 가져오기 -->
     <select id="getPopup" parameterType="String" resultType="mypopupDTO">
         select * from popup_tbl where user_id=#{user_id}
@@ -132,9 +136,9 @@
         select count(*) from popup_tbl where user_id=#{user_id}
     </select>
 
-    <!-- soft delete?
-    <update> id="delMember" parameterType="Long">
-        update user_tbl set del_state=true where id=#{id}
-    <update>
-    -->
+    <!-- soft delete? -->
+    <update id="delMember" parameterType="Long">
+        update user_tbl set status='deleted' where id=#{id}
+    </update>
+
 </mapper>

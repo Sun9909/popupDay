@@ -32,6 +32,8 @@ public interface MyDAO {
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 
+    public void dropMember(LoginDTO loginDTO) throws DataAccessException;
+
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
     public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
 

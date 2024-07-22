@@ -37,6 +37,8 @@ public interface MyService {
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 
+    public void dropMember(LoginDTO loginDTO) throws DataAccessException;
+
     //팝업 리스트
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
     public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
