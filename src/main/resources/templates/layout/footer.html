@@ -34,13 +34,13 @@
                             </div>
                         </li>
                         <li>
-                            <a th:href="@{/popup/popupAllList.do}">
+                            <a th:href="@{/board/popupAllList.do}">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/join.do\')'">
+                            <a href="@{/notice/noticeList.do}">
                                 Notice
                                 <span>공지사항</span>
                             </a>
