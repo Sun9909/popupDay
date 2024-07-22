@@ -131,4 +131,10 @@
     <select id="getPopupCount" resultType="Long" parameterType="Long">
         select count(*) from popup_tbl where user_id=#{user_id}
     </select>
+
+    <!-- soft delete?
+    <update> id="delMember" parameterType="Long">
+        update user_tbl set del_state=true where id=#{id}
+    <update>
+    -->
 </mapper>

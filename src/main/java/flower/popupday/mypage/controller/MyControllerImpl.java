@@ -205,6 +205,8 @@ public class MyControllerImpl implements MyController {
     @Override
     @RequestMapping("/mypage/myPopup.do")
     public ModelAndView getPopup(@ModelAttribute("mypopupDTO") MyPopupDTO mypopupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session=request.getSession();
+
         //mypopupDTO=myService.getPopup(mypopupDTO);
         String user_id = request.getParameter("user_id");
         //List<mypopupDTO> myPopup = new ArrayList<mypopupDTO>(); //한개만 가져오는건 가능 map을 사용하던 list를 사용해서 여러개 가져오도록
