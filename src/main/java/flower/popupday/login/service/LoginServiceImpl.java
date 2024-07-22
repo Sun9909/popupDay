@@ -73,6 +73,13 @@ public class LoginServiceImpl implements LoginService {
         return loginDAO.checkNikname(user_nikname); // 닉네임 중복 확인 DAO 메서드 호출
     }
 
+    // 회원 탈퇴 확인
+    @Override
+    public boolean dropCheck(String user_id) {
+        String status = loginDAO.getStatus(user_id);
+        return "deleted".equals(status);
+    }
+
     @Override
     public String getKakaoAccessToken(String code) throws Exception {
         String tokenURL = "https://kauth.kakao.com/oauth/token";

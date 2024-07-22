@@ -26,6 +26,9 @@ public interface LoginDAO {
     // 닉네임 중복 확인
     boolean checkNikname(String user_nikname) throws DataAccessException;
 
+    // 회원 탈퇴 확인
+    public String getStatus(String user_id) throws DataAccessException;
+
     //카카오
     public void kakaoInsert(LoginDTO loginDTO) throws DataAccessException;
 

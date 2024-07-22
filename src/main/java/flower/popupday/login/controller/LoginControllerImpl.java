@@ -5,6 +5,7 @@ import flower.popupday.login.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.hibernate.engine.spi.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -56,15 +57,22 @@ public class LoginControllerImpl implements LoginController {
                                     HttpServletResponse response) throws Exception {
         LoginDTO loginResult = loginService.memberLogin(loginDTO);
         ModelAndView mav = new ModelAndView();
+        System.out.println(loginResult.getStatus());
         if (loginResult != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("loginDTO", loginResult);
-            session.setAttribute("isLogOn", true);
-            String action = (String) session.getAttribute("action");
-            if (action != null) {
-                mav.setViewName("redirect:" + action); // action 값이 있을 경우 해당 경로로 리디렉션
+            LoginDTO.Status status = loginResult.getStatus();
+            if(status == LoginDTO.Status.deleted) { //탈퇴한 회원
+                rAttr.addFlashAttribute("result", "탈퇴한 회원입니다");
+                mav.setViewName("redirect:/login/login.do");
             } else {
-                mav.setViewName("redirect:/main.do"); // action 값이 없을 경우 기본적으로 /main.do로 리디렉션
+                HttpSession session = request.getSession();
+                session.setAttribute("loginDTO", loginResult);
+                session.setAttribute("isLogOn", true);
+                String action = (String) session.getAttribute("action");
+                if (action != null) {
+                    mav.setViewName("redirect:" + action); // action 값이 있을 경우 해당 경로로 리디렉션
+                } else {
+                    mav.setViewName("redirect:/main.do"); // action 값이 없을 경우 기본적으로 /main.do로 리디렉션
+                }
             }
         } else {
             rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요");
@@ -187,6 +195,14 @@ public class LoginControllerImpl implements LoginController {
     @ResponseBody
     public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
         return loginService.checkNikname(user_nikname); // 닉네임 중복 확인 서비스 호출
+    }
+
+    //회원 탈퇴 확인
+    @Override
+    @GetMapping("/drop-id")
+    @ResponseBody
+    public boolean dropCheck(String user_id) {
+        return loginService.dropCheck(user_id);
     }
 
     @Override
