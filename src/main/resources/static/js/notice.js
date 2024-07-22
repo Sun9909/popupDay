@@ -212,4 +212,6 @@ function Imageread_notice(input, num) {
 } // readImage end
 
 
+/*********************** Q&AQ&AQ&A *****************************/
+
 
