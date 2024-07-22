@@ -119,4 +119,8 @@ public class LoginDTO {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    // isAdmin() 메서드 추가
+    public boolean isAdmin() {return this.role == Role.관리자;
+    }
 }

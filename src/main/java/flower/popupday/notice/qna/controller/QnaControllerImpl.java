@@ -1,5 +1,7 @@
+
 package flower.popupday.notice.qna.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import flower.popupday.notice.qna.service.QnaServiceImpl;
@@ -11,10 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -138,7 +139,7 @@ public class QnaControllerImpl implements QnaController {
     public ModelAndView answer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         QnaDTO qna = qnaService.getQnaById(qna_id);
-        mav.setViewName("/notice/answerForm");
+        mav.setViewName("qnaView");
         mav.addObject("qna", qna);
         return mav;
     }
@@ -149,12 +150,91 @@ public class QnaControllerImpl implements QnaController {
     public ModelAndView addAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String content = request.getParameter("content");
-        long qna_id = Long.parseLong(request.getParameter("qna_id"));
+        String qnaIdParam  = request.getParameter("qna_id");
+
+        System.out.println("qna_id : " + qnaIdParam );
+        System.out.println("content : " + content);
+
+        // qnaIdParam이 null이거나 빈 문자열인 경우 예외 처리
+        if (qnaIdParam == null || qnaIdParam.trim().isEmpty()) {
+            throw new IllegalArgumentException("Qna ID is required");
+        }
+
+        // qnaIdParam을 Long으로 변환
+        Long qna_id;
+        try {
+            qna_id = Long.parseLong(qnaIdParam);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid Qna ID format", e);
+        }
+
         QnaDTO qna = qnaService.getQnaById(qna_id);
+
+        //답변 상태설정
         qna.setAnswer(content);
         qna.setStatus(QnaDTO.Status.답변완료.name());
+
+        //답변추가
         qnaService.addAnswer(qna);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
+//    @Override
+//    @PostMapping("/notice/addAnswer.do")
+//    public void addAnswer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        response.setContentType("application/json;charset=UTF-8");
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        try {
+//            request.setCharacterEncoding("UTF-8");
+//
+//            String content = request.getParameter("content");
+//            String qnaIdParam = request.getParameter("qna_id");
+//
+//            if (qnaIdParam == null || qnaIdParam.trim().isEmpty()) {
+//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//                response.getWriter().write("{\"error\":\"qna_id는 필수 입력값입니다.\"}");
+//                return;
+//            }
+//
+//            long qna_id;
+//            try {
+//                qna_id = Long.parseLong(qnaIdParam);
+//            } catch (NumberFormatException e) {
+//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//                response.getWriter().write("{\"error\":\"유효하지 않은 qna_id입니다.\"}");
+//                return;
+//            }
+//
+//            QnaDTO qna = qnaService.getQnaById(qna_id);
+//            if (qna == null) {
+//                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//                response.getWriter().write("{\"error\":\"존재하지 않는 QnA입니다.\"}");
+//                return;
+//            }
+//
+//            if (content == null || content.trim().isEmpty()) {
+//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//                response.getWriter().write("{\"error\":\"답변 내용은 필수 입력값입니다.\"}");
+//                return;
+//            }
+//
+//            qna.setAnswer(content);
+//            qna.setStatus(QnaDTO.Status.답변완료.name());
+//            qnaService.addAnswer(qna);
+//
+//            Map<String, Object> qnaView = qnaService.qnaView(qna_id);
+//
+//            String jsonResponse = objectMapper.writeValueAsString(qnaView);
+//            response.getWriter().write(jsonResponse);
+//
+//        } catch (Exception e) {
+//            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//            response.getWriter().write("{\"error\":\"서버 오류가 발생했습니다.\"}");
+//            e.printStackTrace(); // 로그에 예외를 기록합니다.
+//        }
+//    }
+
+
+
 }

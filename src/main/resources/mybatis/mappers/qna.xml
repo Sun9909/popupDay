@@ -21,6 +21,13 @@
         VALUES (#{user_id}, #{title}, #{content})
     </insert>
 
+    <!--qna 답변 -->
+    <update id="addAnswer" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
+        UPDATE qna_tbl
+        SET answer = #{answer}, status = '답변완료'
+        WHERE qna_id = #{qna_id}
+    </update>
+
     <!-- 등록된 qna 리스트 화면출력 -->
     <select id="selectAllQnaList" resultMap="qnaResult" parameterType="int">
         select * from qna_tbl order by created_date LIMIT #{count}, 10
@@ -53,5 +60,15 @@
     <delete id="deleteFaq" parameterType="int">
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
+
+    <select id="selectOriginalContentById" parameterType="long" resultType="String">
+        SELECT original_content
+        FROM qna_tbl
+        WHERE qna_id = #{qna_id}
+    </select>
+
+    <select id="selectQnaById" parameterType="long" resultType="flower.popupday.notice.qna.dto.QnaDTO">
+        SELECT * FROM qna_tbl WHERE qna_id = #{qna_id}
+    </select>
 
 </mapper>

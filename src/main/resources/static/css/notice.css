@@ -94,6 +94,8 @@
     color: white; /* 원하는 색상으로 변경 */
 }
 
+/************************************************************************/
+/*공지사항 내용*/
 .contact-wrap {
     display: flex;
     justify-content: flex-start;
@@ -125,6 +127,27 @@
 
 .contact-wrap .table-board tr:last-child td {
     border-bottom: none; /* 마지막*/
+}
+
+.number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px;
+}
+
+/*글쓰기 버튼*/
+.notice-btn {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.notice_img {
+    height: 700px;
 }
 
 /**FAQ*****************************************************************/
@@ -192,17 +215,35 @@
 
 
 /**QNA**********************************************************************/
-.content2 {
-
-}
+/* 셀렉트박스 공지/이벤트 +전제보기 */
 .selectbox {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
-    padding-bottom: 20px;
+    padding: 0px 10px 20px;
     border-bottom: 1px black solid;
 }
+
+/*문싀 사항 작성하기 버튼(버튼구현안함)*/
+a.wirte {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 10px 10px 10px;
+}
+
+/*qna내용*/
+.qnaitem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* margin-right: 40px; */
+    /* margin-left: 40px; */
+    margin: 30px 60px;
+    font-size: 20px;
+}
+
 .selectLayer {
     display: inline-block;
 }
@@ -249,230 +290,235 @@
     width: 170px; /* 선택 요소의 너비 조절 */
 }
 
-/**후기후기후기후기ㅣ기************************/
-.reviewlist {
+/*qna상세페이지*/
+.qna-form {
     display: flex;
-    top: 50px;
-    left: 0;
-    z-index: 500;
-    width: 100%;
-    height: 45px;
-}
-
-.reviewlist > a {
-    display: flex;
-    position: relative;
-    padding: 0 10px;
-    font-weight: 700;
-    font-size: 16px;
-    color: #b3b3b3;
-    text-align: center;
-    flex: 1 1;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    border-bottom: 1px solid #ccc;
-}
-
-.custom-button:hover {
-    color: #000; /* 호버 시 글자색 변경 */
-    border-bottom: 2px solid #000; /* 호버 시 밑줄 추가 */
-}
-
-/*후기작성공간, 후기가이드*/
-
-.myreview {
-    display: flex;
+    text-align: justify;
     flex-direction: column;
-    align-items: center;
-    padding: 70px 10px 70px 10px;
-}
-
-.myreview textarea {
-    width: 600px;
-    height: 300px;
-    resize: none;
-}
-
-.input-wrapper-review {
-    display: flex;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
-
-.input-wrapper-review textarea {
-    width: 500px;
-    height: 30px;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 18px;
-    text-align: center;
-    align-content: center;
-}
-
-.input-wrapper-review button {
-    background-color: #D9D9D9;
-    width: 100px;
-    height: 50px;
-    padding: 8px;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px; /* 버튼과 텍스트 입력창 사이의 간격 설정 */
-}
-
-.myreview button:hover {
-    background-color: #FEFEDF;
-}
-
-.myreview button[type="submit"] {
-    background-color: #8B8BDA;
-    color: white;
-}
-
-.reviewguide {
-    padding: 30px 20px 30px 20px;
-    font-weight: 400;
-    font-size: 16px;
-    box-sizing: border-box;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-}
-
-.reviewguide li:last-child {
-    border-bottom: none;
-}
-.reviewguide  h3 ul  {
-    width: 100%;
-}
-
-.reviewguide h3 {
-    padding: 20px 20px 10px 20px ;
-    text-align: left;
-}
-
-.reviewguid-list {
-    display: flex;
-    padding: 00px 20px 10px 20px ;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-}
-.myreview-history {
-    padding: 60px;
-}
-.ball {
-    padding: 50px;
-}
-
-.review-list {
-    display: flex;
-    margin-bottom: 7px;
-    justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-}
-
-.review-list:hover {
-    color: #6f42c1;
-}
-
-/*  후기 상세보기 창 */
-.review-form input{
-    background-color: unset;
-    border: 2px solid #ccc;
-
-}
-.view-title{
-    width: 565px;
-    height: 30px;
-}
-
-.view-content {
-    width: 565px;
-    height: 100px;
-}
-
-.review-show {
-    background-color: white;
-    padding: 20px;
-    margin: 20px auto 0;
-    width: 650px;
-    border-radius: 10px;
-}
-
-.review-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#review-btn > input, #review-mbtn > input {
-    background-color: #8B8BDA;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-#review-mbtn {
-    display: none;
-}
-
-#backbtn {
-    cursor: pointer;
-    background-color: #8B8BDA;
-    border: none;
-    padding: 5px;
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-    border-radius: 5px;
-    width: 300px;
-    margin: 0 auto;
-}
-
-#modify-img {
-    display: none;
-}
-
-.review_imgs {
-    display: flex;
-    align-items: center;
-}
-.review_imgs img {
-    width: 90px;
-    height: 90px;
-}
-
-.review-view {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 10px 0;
-}
-
-
-/*페이지설정*/
-.number {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-/*글쓰기 버튼*/
-a.write {
+.qna-btn {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    align-items: center;
     justify-content: center;
-    margin: 20px;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.viewForm {
+    padding: 10px;
+}
+
+    /**후기후기후기후기ㅣ기************************/
+    .reviewlist {
+        display: flex;
+        top: 50px;
+        left: 0;
+        z-index: 500;
+        width: 100%;
+        height: 45px;
+    }
+
+    .reviewlist > a {
+        display: flex;
+        position: relative;
+        padding: 0 10px;
+        font-weight: 700;
+        font-size: 16px;
+        color: #b3b3b3;
+        text-align: center;
+        flex: 1 1;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .custom-button:hover {
+        color: #000; /* 호버 시 글자색 변경 */
+        border-bottom: 2px solid #000; /* 호버 시 밑줄 추가 */
+    }
+
+    /*후기작성공간, 후기가이드*/
+
+    .myreview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 70px 10px 70px 10px;
+    }
+
+    .myreview textarea {
+        width: 600px;
+        height: 300px;
+        resize: none;
+    }
+
+    .input-wrapper-review {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-wrapper-review textarea {
+        width: 500px;
+        height: 30px;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 18px;
+        text-align: center;
+        align-content: center;
+    }
+
+    .input-wrapper-review button {
+        background-color: #D9D9D9;
+        width: 100px;
+        height: 50px;
+        padding: 8px;
+        border: none;
+        cursor: pointer;
+        margin-left: 10px; /* 버튼과 텍스트 입력창 사이의 간격 설정 */
+    }
+
+    .myreview button:hover {
+        background-color: #FEFEDF;
+    }
+
+    .myreview button[type="submit"] {
+        background-color: #8B8BDA;
+        color: white;
+    }
+
+    .reviewguide {
+        padding: 30px 20px 30px 20px;
+        font-weight: 400;
+        font-size: 16px;
+        box-sizing: border-box;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    .reviewguide li:last-child {
+        border-bottom: none;
+    }
+    .reviewguide  h3 ul  {
+        width: 100%;
+    }
+
+    .reviewguide h3 {
+        padding: 20px 20px 10px 20px ;
+        text-align: left;
+    }
+
+    .reviewguid-list {
+        display: flex;
+        padding: 00px 20px 10px 20px ;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .myreview-history {
+        padding: 60px;
+    }
+    .ball {
+        padding: 50px;
+    }
+
+    .review-list {
+        display: flex;
+        margin-bottom: 7px;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .review-list:hover {
+        color: #6f42c1;
+    }
+
+    /*  후기 상세보기 창 */
+    .review-form input{
+        background-color: unset;
+        border: 2px solid #ccc;
+
+    }
+    .view-title{
+        width: 565px;
+        height: 30px;
+    }
+
+    .view-content {
+        width: 565px;
+        height: 100px;
+    }
+
+    .review-show {
+        background-color: white;
+        padding: 20px;
+        margin: 20px auto 0;
+        width: 650px;
+        border-radius: 10px;
+    }
+
+    .review-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #review-btn > input, #review-mbtn > input {
+        background-color: #8B8BDA;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    #review-mbtn {
+        display: none;
+    }
+
+    #backbtn {
+        cursor: pointer;
+        background-color: #8B8BDA;
+        border: none;
+        padding: 5px;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 5px;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    #modify-img {
+        display: none;
+    }
+
+    .review_imgs {
+        display: flex;
+        align-items: center;
+    }
+    .review_imgs img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .review-view {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 10px 0;
+    }
 }
 
 
-.notice_img {
-    height: 700px;
-}
+/*****************************************************/
+/*공지사항*/
+/*페이지설정*/
