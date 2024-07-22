@@ -1,5 +1,6 @@
 package flower.popupday.popup.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.Map;
@@ -15,9 +16,7 @@ public interface PopupService {
 
     public void updateHits(Long popup_id) throws DataAccessException;
 
-    public boolean isLiked(Long id, Long popup_id) throws DataAccessException;
+    boolean addLike(@Param("user_id") Long user_id, @Param("popup_id") Long popup_id);
 
-    public void removeLike(Long id, Long popup_id) throws DataAccessException;
-
-    public void addLike(Long id, Long popup_id) throws DataAccessException;
+    boolean removeLike(@Param("user_id") Long user_id, @Param("popup_id") Long popup_id);
 }

@@ -110,22 +110,14 @@ public class PopupServiceImpl implements PopupService {
         popupDAO.updateHits(popup_id);
     }
 
-    // 찜 여부 확인
     @Override
-    public boolean isLiked(Long id, Long popup_id) throws DataAccessException {
-        return popupDAO.isLiked(id, popup_id);
+    public boolean addLike(Long user_id, Long popup_id) {
+        return popupDAO.addLike(user_id, popup_id); // 찜 추가
     }
 
-    // 찜 취소
     @Override
-    public void removeLike(Long id, Long popup_id) throws DataAccessException {
-        popupDAO.removeLike(id,popup_id);
-    }
-
-    // 찜하기
-    @Override
-    public void addLike(Long id, Long popup_id) throws DataAccessException {
-        popupDAO.addLike(id,popup_id);
+    public boolean removeLike(Long user_id, Long popup_id) {
+        return popupDAO.removeLike(user_id, popup_id); // 찜 삭제
     }
 
 }

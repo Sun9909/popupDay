@@ -37,7 +37,9 @@
                     <div class="popupdetail-title-infor">
                         <div class="popup-title">
                             <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
-                            <img class="heart" th:src="@{/images/heart_empty.svg}" alt="찜">
+                            <button id="heart-icon" th:data-popup-id="${popupMap.popupList.popup_id}">
+                                <img class="heart" th:src="@{/images/heart_empty.svg}" alt="찜">
+                            </button>
                         </div>
 
                         <div class="date">
@@ -223,6 +225,7 @@
     <script th:src="@{/js/boardDetail.js}"></script>
     <script type="text/javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=089d852b497e6c513c79b8561670e3a0&libraries=services,clusterer,drawing'}"></script>
     <script th:src="@{/js/popupListMap.js}"></script>
+    <script th:src="@{/js/popupView.js}"></script>
     <script>
         var script = document.createElement('script');
         script.src = 'https://example.com/script.js';

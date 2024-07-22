@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,5 @@ public interface PopupController {
 
     public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ResponseEntity<Map<String, String>> heartPopup(@RequestParam("popup_id") Long popup_id, HttpSession session) throws Exception;
-
+    public ResponseEntity<?> checkLoginStatus(HttpSession session) throws Exception;
 }

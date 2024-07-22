@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -196,27 +195,44 @@ public class PopupControllerImpl implements PopupController {
         return mav;
     }
 
-    @Override
-    @PostMapping("/popup/heartPopup.do")
+    @PostMapping("/popup/addLike.do")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> heartPopup(@RequestParam("popup_id") Long popup_id, HttpSession session) throws Exception{
+    public Map<String, Object> addLike(HttpServletRequest request, @RequestBody Map<String, Long> requestBody) {
+        Long popup_id = requestBody.get("popup_id");
+        HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
-        Map<String, String> response = new HashMap<>();
+        Long user_id = loginDTO.getId();
 
-        if (loginDTO == null) {
-            response.put("message", "로그인이 필요합니다.");
-            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-        }
-
-        boolean isLiked = popupService.isLiked(loginDTO.getId(), popup_id);
-        if (isLiked) {
-            popupService.removeLike(loginDTO.getId(), popup_id);
-            response.put("message", "팝업 찜을 취소했습니다.");
-        } else {
-            popupService.addLike(loginDTO.getId(), popup_id);
-            response.put("message", "팝업을 찜 목록에 추가했습니다!");
-        }
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        boolean success = popupService.addLike(user_id, popup_id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        return response;
     }
+
+    @PostMapping("/popup/removeLike.do")
+    @ResponseBody
+    public Map<String, Object> removeLike(HttpServletRequest request, @RequestBody Map<String, Long> requestBody) {
+        Long popup_id = requestBody.get("popup_id");
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
+        Long user_id = loginDTO.getId();
+
+        boolean success = popupService.removeLike(user_id, popup_id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        return response;
+    }
+
+    @Override
+    @GetMapping("/popup/checkLogin.do")
+    public ResponseEntity<?> checkLoginStatus(HttpSession session) throws Exception{
+        // 세션에서 로그인 정보 확인
+        boolean isLoggedIn = session.getAttribute("loginDTO") != null;
+
+        // JSON 형태로 응답 반환
+        return ResponseEntity.ok(Map.of(
+                "isLoggedIn", isLoggedIn
+        ));
+    }
+
 }
