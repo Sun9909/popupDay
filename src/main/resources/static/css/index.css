@@ -102,7 +102,7 @@ header >img {
 
 .arrow_up {
     height: 40px;
-    z-index: 99;
+    z-index: 3;
     position: fixed;
     background-color:white;
     padding: 5px;
