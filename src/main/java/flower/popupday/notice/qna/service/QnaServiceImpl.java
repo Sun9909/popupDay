@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.DataFormatException;
 
 @Service("qnaService")
@@ -34,14 +36,34 @@ public class QnaServiceImpl implements QnaService {
         return qnaList;
     }
 
+
+    // 공지사항 상세보기
+    @Override
+    public Map qnaView(long qna_id) throws DataAccessException {
+        Map qnaMap = new HashMap();
+        QnaDTO qnaDTO = qnaDAO.selectQna(qna_id);  // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
+        qnaMap.put("qna", qnaDTO);
+        return qnaMap;
+    }
+
     @Override
     public void modQna(QnaDTO qnaDTO) throws DataFormatException {
         qnaDAO.changeQna(qnaDTO);
     }
 
     @Override
-    public void removeQna(int qna_id) throws DataAccessException {
+    public void removeQna(long qna_id) throws DataAccessException {
         qnaDAO.deleteQna(qna_id);
+    }
+    @Override
+    public void addAnswer(QnaDTO qnaDTO) throws DataAccessException {
+        qnaDAO.insertAnswer(qnaDTO);
+    }
+
+    @Override
+    public QnaDTO getQnaById(long qna_Id) throws DataAccessException {
+        qnaDAO.selectQnaById(qna_Id);
+        return null;
     }
 
 

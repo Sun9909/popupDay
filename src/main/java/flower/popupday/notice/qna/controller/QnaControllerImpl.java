@@ -1,16 +1,22 @@
 package flower.popupday.notice.qna.controller;
 
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import flower.popupday.notice.qna.service.QnaServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller("qnaController")
 public class QnaControllerImpl implements QnaController {
@@ -55,17 +61,54 @@ public class QnaControllerImpl implements QnaController {
     }
 
     @Override
+    @PostMapping("/notice/addQna.do")
     public ModelAndView addQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         request.setCharacterEncoding("UTF-8");
+        //Map<String, Object> qnaMap = new HashMap<>();
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+
+        // 디버깅 출력
+        System.out.println("title :" + title);
+        System.out.println("content : " + content);
+
+        // 제목이 비어있는지 검사
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty");
+        }
+
+        // 로그인 정보 가져오기
+        HttpSession session=request.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long user_id=loginDTO.getId();
+        //qnaMap.put("id", id);
+
+        // qnaDTO개체 생성 및설정
+        QnaDTO qnaDTO = new QnaDTO();
+        qnaDTO.setUser_id(user_id);
         qnaDTO.setTitle(title);
         qnaDTO.setContent(content);
-        qnaService.addQna(qnaDTO);
+        //qnaMap.put("qnaDTO",qnaDTO);
+        qnaService.addQna(qnaDTO);  //서비스 호출
+
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
-    //FAQ 수정반영하기
+
+    // 상세보기
+    @Override
+    @RequestMapping("/notice/qnaView.do")
+    public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // notice_id를 매개변수로 받아 공지사항 글을 조회
+        Map qnaView = qnaService.qnaView(qna_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
+        ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
+        mav.setViewName("/notice/qnaView"); // 뷰 이름 설정
+        mav.addObject("qnaView", qnaView); // "noticeMap"이라는 이름으로 ModelAndView 객체에 추가
+
+        return mav; // ModelAndView 객체를 반환
+    }
+
+    //수정반영하기
     @Override
     @RequestMapping("/notice/modQna.do")
     public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -74,17 +117,43 @@ public class QnaControllerImpl implements QnaController {
         String qna_id = request.getParameter("qna_id");
         qnaDTO.setTitle(title);
         qnaDTO.setContent(content);
-        qnaDTO.setQna_Id(Long.parseLong(qna_id));
+        qnaDTO.setQna_id(Long.parseLong(qna_id));
         qnaService.modQna(qnaDTO);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
-    //FAQ  삭제하기
+    //삭제하기
     @Override
     @RequestMapping("/notice/removeQna.do")
-    public ModelAndView removeQna(@RequestParam("qna_id") int qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         qnaService.removeQna(qna_id);
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
+        return mav;
+    }
+
+    // 답글 쓰기 화면 요청
+    @Override
+    @RequestMapping("/notice/answer.do")
+    public ModelAndView answer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        QnaDTO qna = qnaService.getQnaById(qna_id);
+        mav.setViewName("/notice/answerForm");
+        mav.addObject("qna", qna);
+        return mav;
+    }
+
+    // 답글 저장
+    @Override
+    @RequestMapping("/notice/addAnswer.do")
+    public ModelAndView addAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        String content = request.getParameter("content");
+        long qna_id = Long.parseLong(request.getParameter("qna_id"));
+        QnaDTO qna = qnaService.getQnaById(qna_id);
+        qna.setAnswer(content);
+        qna.setStatus(QnaDTO.Status.답변완료.name());
+        qnaService.addAnswer(qna);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }

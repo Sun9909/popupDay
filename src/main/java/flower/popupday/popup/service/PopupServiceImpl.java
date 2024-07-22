@@ -64,7 +64,7 @@ public class PopupServiceImpl implements PopupService {
         return popup_id; // 등록된 팝업 ID 반환
     }
 
-    // 팝어 상세보기
+    // 팝업 상세보기
     public Map popupView(Long popup_id) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
         PopupDTO popupList = popupDAO.selectPopup(popup_id);

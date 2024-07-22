@@ -9,7 +9,8 @@ public class PopupDTO {
     private Long popup_id;
     private String title;
     private String info;
-    private String popup_hours;
+    private Date start_date;
+    private Date end_date;
     private String content;
     private String address;
     private String brand_page;
@@ -17,33 +18,19 @@ public class PopupDTO {
     private Long user_id;
     private Date created_date;
     private Long hits;
+    private String monday_time;
+    private String tuesday_time;
+    private String wednesday_time;
+    private String thursday_time;
+    private String friday_time;
+    private String saturday_time;
+    private String sunday_time;
 
     // Enum for role
     public enum Role {
         승인, 미승인, 승인취소
     }
 
-    // Default constructor
-    public PopupDTO() {
-
-    }
-
-    // Constructor with all fields
-    public PopupDTO(Long popup_id, String title, String info, String popup_hours, String content, String address, String brand_page, Role role, Long user_id , Date created_date, Long hits) {
-        this.popup_id = popup_id;
-        this.title = title;
-        this.info = info;
-        this.popup_hours = popup_hours;
-        this.content = content;
-        this.address = address;
-        this.brand_page = brand_page;
-        this.role = role;
-        this.user_id = user_id;
-        this.created_date = created_date;
-        this.hits=hits;
-    }
-
-    // Getters and Setters
     public Long getPopup_id() {
         return popup_id;
     }
@@ -68,12 +55,20 @@ public class PopupDTO {
         this.info = info;
     }
 
-    public String getPopup_hours() {
-        return popup_hours;
+    public Date getStart_date() {
+        return start_date;
     }
 
-    public void setPopup_hours(String time) {
-        this.popup_hours = popup_hours;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
+    }
+
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 
     public String getContent() {
@@ -132,21 +127,59 @@ public class PopupDTO {
         this.hits = hits;
     }
 
-    // 값이 전달 안 될때 toString 호출해서 확인
-    @Override
-    public String toString() {
-        return "PopupDTO{" +
-                "popup_id=" + popup_id +
-                ", title='" + title + '\'' +
-                ", info='" + info + '\'' +
-                ", popup_hours=" + popup_hours +
-                ", content='" + content + '\'' +
-                ", map='" + address + '\'' +
-                ", brand_page='" + brand_page + '\'' +
-                ", role=" + role +
-                ", userId=" + user_id +
-                ", created_date=" + created_date +
-                ", hits=" + hits +
-                '}';
+    public String getMonday_time() {
+        return monday_time;
+    }
+
+    public void setMonday_time(String monday_time) {
+        this.monday_time = monday_time;
+    }
+
+    public String getTuesday_time() {
+        return tuesday_time;
+    }
+
+    public void setTuesday_time(String tuesday_time) {
+        this.tuesday_time = tuesday_time;
+    }
+
+    public String getWednesday_time() {
+        return wednesday_time;
+    }
+
+    public void setWednesday_time(String wednesday_time) {
+        this.wednesday_time = wednesday_time;
+    }
+
+    public String getThursday_time() {
+        return thursday_time;
+    }
+
+    public void setThursday_time(String thursday_time) {
+        this.thursday_time = thursday_time;
+    }
+
+    public String getFriday_time() {
+        return friday_time;
+    }
+
+    public void setFriday_time(String friday_time) {
+        this.friday_time = friday_time;
+    }
+
+    public String getSaturday_time() {
+        return saturday_time;
+    }
+
+    public void setSaturday_time(String saturday_time) {
+        this.saturday_time = saturday_time;
+    }
+
+    public String getSunday_time() {
+        return sunday_time;
+    }
+
+    public void setSunday_time(String sunday_time) {
+        this.sunday_time = sunday_time;
     }
 }
