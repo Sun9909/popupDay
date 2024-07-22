@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/mypage/**", "/modify/**", "/admin/**").hasRole("USER") // 마이페이지와 찜 항목 확인, 관리자 경로에 대해 USER 역할 필요
+                                //.requestMatchers("/mypage/**", "/modify/**", "/admin/**").hasRole("일반") // 마이페이지와 찜 항목 확인, 관리자 경로에 대해 USER 역할 필요
                                 .anyRequest().permitAll()
                 )
                 .formLogin(formLogin ->
