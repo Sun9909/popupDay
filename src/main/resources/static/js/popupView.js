@@ -1,20 +1,23 @@
-document.addEventListener('DOMContentLoaded', function () { // 홈페이지 로딩 후 실행
+document.addEventListener('DOMContentLoaded', function () {
     const heart_icon = document.getElementById('heart-icon');
     const heart_image = document.getElementById('heart-image');
 
+    if (!heart_icon || !heart_image) {
+        console.error('heart_icon or heart_image element not found');
+        return;
+    }
+
     heart_icon.addEventListener('click', function () {
-        const loginCheck = heart_icon.getAttribute('data-login-check') === 'true'; // 로그인 여부 확인
-        const popup_id = heart_image.getAttribute('data-popup-id'); // 팝업 id
+        const loginCheck = heart_icon.getAttribute('data-login-check') === 'true';
+        const popup_id = heart_image.getAttribute('data-popup-id');
 
         if (!loginCheck) {
-            // 로그인 페이지로 리디렉션
-            alert("loginCheck = " + loginCheck);
+            alert("로그인이 필요합니다.");
             window.location.href = '/login/login.do';
             return;
         }
 
-        // AJAX 요청으로 찜 상태를 토글
-        fetch(`/popup/popupLike?popup_id=${popup_id}`, {
+        fetch(`/popup/popupLike.do?popup_id=${popup_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () { // 홈페이지 로�
         })
             .then(response => response.json())
             .then(data => {
+                console.log('Response Data:', data); // 응답 데이터 확인
                 if (data.success) {
-                    // 찜 상태에 따라 이미지 변경
                     if (data.isLiked) {
                         heart_image.src = '/images/heart_fill.svg';
                     } else {

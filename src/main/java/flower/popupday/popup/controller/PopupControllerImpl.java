@@ -30,9 +30,6 @@ public class PopupControllerImpl implements PopupController {
     @Autowired
     PopupService popupService;
 
-    @Autowired
-    private HttpSession session;
-
     @Override
     @RequestMapping("/popup/popupAllList.do")
     public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section,
@@ -101,12 +98,6 @@ public class PopupControllerImpl implements PopupController {
             popupMap.put("imageFileList", imageFileList);
         }
 
-        // 세선에 있는 멤버정보를 가져와서 id 만 빼서 articleMap에 집어넣음
-//        HttpSession session=multipartRequest.getSession();
-//        LoginDTO loginDTO =(LoginDTO)session.getAttribute("member");
-//        Long id= loginDTO.getId();
-//        popupMap.put("id", id); // 세션을 이용해 로그인한 아이디 집어넣으면 됨
-
         try {
             // 팝업 추가 서비스 호출
             Long image_id = popupService.addPopup(popupMap);
@@ -168,16 +159,15 @@ public class PopupControllerImpl implements PopupController {
         if (cookies != null) {
             for (Cookie viewCookie : cookies) {
                 if (viewCookie.getName().equals("popupView_" + popup_id)) {
-                    long lastViewedTime = Long.parseLong(viewCookie.getValue()); // 쿠키 값을 조회 시간으로 변환
+                    long lastViewedTime = Long.parseLong(viewCookie.getValue());
                     long currentTime = System.currentTimeMillis();
-                    long oneDayInMillis = 24 * 60 * 60 * 1000; // 24시간을 밀리초로 변환
+                    long oneDayInMillis = 24 * 60 * 60 * 1000;
 
-                    if (currentTime - lastViewedTime < oneDayInMillis) { // 현재시간 - 마지막 조회시간이 24시간이 넘어가면 수행
+                    if (currentTime - lastViewedTime < oneDayInMillis) {
                         hasViewed = true;
                     } else {
-                        // 쿠키가 만료되었으므로 업데이트
-                        viewCookie.setValue(String.valueOf(currentTime)); // 쿠키 값을 현재 시간으로 설정
-                        viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60)); // 쿠키 만료 기간 설정
+                        viewCookie.setValue(String.valueOf(currentTime));
+                        viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60));
                         response.addCookie(viewCookie);
                     }
                 }
@@ -187,22 +177,19 @@ public class PopupControllerImpl implements PopupController {
         // 조회수 증가 처리
         if (!hasViewed) {
             popupService.updateHits(popup_id);
-            // 새 쿠키 생성
-            Cookie viewCookie = new Cookie("popupView_" + popup_id, String.valueOf(System.currentTimeMillis())); // 현재 시간을 밀리초로 반환
-            viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60)); // 쿠키 만료 기간 설정
+            Cookie viewCookie = new Cookie("popupView_" + popup_id, String.valueOf(System.currentTimeMillis()));
+            viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60));
             response.addCookie(viewCookie);
         }
 
-        // 사용자 로그인 상태 체크
-        // SecurityContextHolder: 현재 인증된 사용자의 정보를 저장하고 제공하는 컨텍스트 홀더.
-        // Authentication: 현재 인증된 사용자에 대한 정보를 담고 있는 객체.
-        // AnonymousAuthenticationToken: 익명 사용자를 나타내는 토큰.
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean loginCheck = authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken);
-
+        // 찜 기능 세션 가져오기
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        boolean loginCheck = loginDTO != null;
+        Long id = loginCheck ? loginDTO.getId() : null;
 
         // 팝업 상세 조회
-        Map popupMap = popupService.popupView(popup_id);
+        Map<String, Object> popupMap = popupService.popupView(popup_id, id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
@@ -210,26 +197,23 @@ public class PopupControllerImpl implements PopupController {
         return mav;
     }
 
-    @Override
     @PostMapping("/popup/popupLike.do")
     @ResponseBody
-    public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id) {
-        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
-        Long user_id=loginDTO.getId();
-        session.setAttribute("loginDTO", loginDTO); //업데이트된 정보를 세션에 저장
+    public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> LikeMap = new HashMap<>();
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO != null ? loginDTO.getId() : null;
 
-        // 사용자 ID가 세션에 없으면 로그인하지 않은 것으로 간주
-        if (user_id == null) {
+        if (loginDTO == null) {
             return Map.of("success", false, "message", "로그인이 필요합니다.");
         }
 
-        // 찜 상태를 토글
-        boolean isLiked = popupService.toggleLike(popup_id, user_id);
+        boolean isLiked = popupService.toggleLike(popup_id, id);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("isLiked", isLiked);
+        LikeMap.put("success", true);
+        LikeMap.put("isLiked", isLiked);
 
-        return response;
+        return LikeMap;
     }
 }
