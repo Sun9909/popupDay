@@ -9,12 +9,21 @@ body {
 .admin_container{
     float: left;
     padding-top: 50px;
-    margin: 0 auto;
+    margin: 30px auto;
     background-color: #8B8BDA;
     width: 710px;
-    min-height: 900px;
+    min-height: 910px;
     max-height: 1600px;
     position: fixed;
+    top: 0;
+}
+
+iframe #category_box, #businessperson_box {
+    padding: 50px 20px;
+}
+
+iframe #category_box>li>a {
+    font-size: 45px;
 }
 
 .admin_container h2 {
@@ -22,6 +31,7 @@ body {
     color: white;
     margin: 30px;
 }
+
 .admin_container ul {
     list-style: none;
     margin: 35px;
@@ -62,7 +72,7 @@ body {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 730px;
-    height: 100%;
+    height: 940px;
 }
 .container object {
     width: 750px;
@@ -109,4 +119,17 @@ footer{
 
 .user {
     display: none;
+}
+
+.admin-header {
+    position: absolute;
+    top: 0;
+    left: 360px;
+}
+#container-admin {
+    position: relative;
+}
+
+.admin-body {
+    overflow-y: hidden;
 }

@@ -13,10 +13,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <body>
-<div id="container">
-    <header th:replace="layout/header :: header"></header> <!-- 헤더 추가 -->
-    <div id="content admin-content" layout:fragment="content"></div> <!-- 컨텐츠 .html  -->
-    <footer th:replace="layout/footer :: footer"></footer> <!-- 푸터 -->
+<div id="container-admin">
+    <header th:replace="layout/header2 :: header"></header> <!-- 헤더 추가 -->
+    <div id="admin-content" layout:fragment="admin-content"></div> <!-- 컨텐츠 .html  -->
+
 </div>
 </body>
 </html>
