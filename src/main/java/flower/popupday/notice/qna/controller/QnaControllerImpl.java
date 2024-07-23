@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.System.out;
+
 @Controller("qnaController")
 public class QnaControllerImpl implements QnaController {
 
@@ -71,8 +73,8 @@ public class QnaControllerImpl implements QnaController {
         String content = request.getParameter("content");
 
         // 디버깅 출력
-        System.out.println("title :" + title);
-        System.out.println("content : " + content);
+        out.println("title :" + title);
+        out.println("content : " + content);
 
         // 제목이 비어있는지 검사
         if (title == null || title.trim().isEmpty()) {
@@ -102,6 +104,20 @@ public class QnaControllerImpl implements QnaController {
     @RequestMapping("/notice/qnaView.do")
     public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // notice_id를 매개변수로 받아 공지사항 글을 조회
         Map qnaView = qnaService.qnaView(qna_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
+
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long loggedInUserId = loginDTO.getId();
+        String userRole = loginDTO.getRole().name();
+
+        QnaDTO qnaDTO = (QnaDTO) qnaView.get("qna");
+        Long writerId = qnaDTO.getUser_id();
+
+        // 작성자 또는 관리자인 경우에만 접근 허용
+        if (!loggedInUserId.equals(writerId) && !userRole.equals("관리자")) {
+            throw new IllegalAccessException("작성자와 관리자만 글을 볼 수 있습니다.");
+        }
+
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
         mav.setViewName("/notice/qnaView"); // 뷰 이름 설정
         mav.addObject("qnaView", qnaView); // "noticeMap"이라는 이름으로 ModelAndView 객체에 추가
@@ -152,8 +168,8 @@ public class QnaControllerImpl implements QnaController {
         String answer = request.getParameter("answer");
         Long qna_id = Long.valueOf(request.getParameter("qna_id"));
 
-        System.out.println("qna_id : " + qna_id );
-        System.out.println("answer : " + answer);
+        out.println("qna_id : " + qna_id );
+        out.println("answer : " + answer);
 
         // 제목이 비어있는지 검사
         if (answer == null || answer.trim().isEmpty()) {
@@ -177,87 +193,6 @@ public class QnaControllerImpl implements QnaController {
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
-
-//        // qnaIdParam이 null이거나 빈 문자열인 경우 예외 처리
-//        if (qnaIdParam == null || qnaIdParam.trim().isEmpty()) {
-//            throw new IllegalArgumentException("Qna ID is required");
-//        }
-//
-//        // qnaIdParam을 Long으로 변환
-//        Long qna_id;
-//        try {
-//            qna_id = Long.parseLong(qnaIdParam);
-//        } catch (NumberFormatException e) {
-//            throw new IllegalArgumentException("Invalid Qna ID format", e);
-//        }
-//
-//        QnaDTO qna = qnaService.getQnaById(qna_id);
-//
-//        //답변 상태설정
-//        qna.setAnswer(content);
-//        qna.setStatus(QnaDTO.Status.답변완료.name());
-//
-//        //답변추가
-//        qnaService.addAnswer(qna);
-//        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
-//        return mav;
-//    }
-//    @Override
-//    @PostMapping("/notice/addAnswer.do")
-//    public void addAnswer(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        response.setContentType("application/json;charset=UTF-8");
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        try {
-//            request.setCharacterEncoding("UTF-8");
-//
-//            String content = request.getParameter("content");
-//            String qnaIdParam = request.getParameter("qna_id");
-//
-//            if (qnaIdParam == null || qnaIdParam.trim().isEmpty()) {
-//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//                response.getWriter().write("{\"error\":\"qna_id는 필수 입력값입니다.\"}");
-//                return;
-//            }
-//
-//            long qna_id;
-//            try {
-//                qna_id = Long.parseLong(qnaIdParam);
-//            } catch (NumberFormatException e) {
-//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//                response.getWriter().write("{\"error\":\"유효하지 않은 qna_id입니다.\"}");
-//                return;
-//            }
-//
-//            QnaDTO qna = qnaService.getQnaById(qna_id);
-//            if (qna == null) {
-//                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-//                response.getWriter().write("{\"error\":\"존재하지 않는 QnA입니다.\"}");
-//                return;
-//            }
-//
-//            if (content == null || content.trim().isEmpty()) {
-//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//                response.getWriter().write("{\"error\":\"답변 내용은 필수 입력값입니다.\"}");
-//                return;
-//            }
-//
-//            qna.setAnswer(content);
-//            qna.setStatus(QnaDTO.Status.답변완료.name());
-//            qnaService.addAnswer(qna);
-//
-//            Map<String, Object> qnaView = qnaService.qnaView(qna_id);
-//
-//            String jsonResponse = objectMapper.writeValueAsString(qnaView);
-//            response.getWriter().write(jsonResponse);
-//
-//        } catch (Exception e) {
-//            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-//            response.getWriter().write("{\"error\":\"서버 오류가 발생했습니다.\"}");
-//            e.printStackTrace(); // 로그에 예외를 기록합니다.
-//        }
-//    }
-
 
 
 }
