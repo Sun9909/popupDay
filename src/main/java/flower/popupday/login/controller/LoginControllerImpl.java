@@ -61,7 +61,7 @@ public class LoginControllerImpl implements LoginController {
         if (loginResult != null) {
             LoginDTO.Status status = loginResult.getStatus();
             if(status == LoginDTO.Status.deleted) { //탈퇴한 회원
-                rAttr.addFlashAttribute("result", "탈퇴한 회원입니다");
+                //rAttr.addFlashAttribute("result", "탈퇴한 회원입니다");
                 mav.setViewName("redirect:/login/login.do");
             } else {
                 HttpSession session = request.getSession();

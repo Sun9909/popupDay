@@ -2,8 +2,10 @@ package flower.popupday.admin.controller;
 
 import flower.popupday.admin.dto.AdminDTO;
 import flower.popupday.admin.service.AdminService;
+import flower.popupday.login.dto.LoginDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,27 @@ public class AdminControllerImpl implements AdminController {
 
     @Autowired
     private AdminDTO adminDTO;
+    @Autowired
+    private LoginDTO loginDTO;
+
+    @Override
+    @RequestMapping("/admin/admin.do")
+    public ModelAndView adminPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //ModelAndView mav = new ModelAndView("/admin/admin");
+        HttpSession session = request.getSession();
+        //세션에서 loginDTO 가져오기
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
+        System.out.println(loginDTO.getUser_nikname());
+
+//        session.setAttribute("admin", loginDTO);
+//        session.setAttribute("isLogOn", true);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/admin/admin");
+        mav.addObject("admin", loginDTO);
+        return mav;
+    }
 
     @RequestMapping("/admin/memberShip.do")
     public ModelAndView memberShip(HttpServletRequest request, HttpServletResponse response) throws Exception {

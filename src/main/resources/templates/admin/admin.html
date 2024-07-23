@@ -14,6 +14,7 @@
 <th:block layout:fragment="content">
     <div class="admin_container">
         <h2>관리자 페이지</h2>
+        <p th:text="${admin.user_nikname} + '님'"></p>
         <ul>
             <a href="#"><li>팝업 신청 검토</a></li>
             <a href="#"><li>커뮤니티</a></li>
@@ -21,9 +22,9 @@
             <a href="#"><li>문의사항 내역</a></li>
         </ul>
         <div class="logout">
-            <a href="#">
-                <img th:src="@{images/person.svg}">
-                <h5><a th:href="@{/login/logout.do}">로그아웃</a></h5>
+            <a th:href="@{/login/logout.do}">
+                <img th:src="@{/images/person.svg}">
+                <h5>로그아웃</h5>
             </a>
         </div>
     </div>
@@ -34,7 +35,7 @@
 =======
 </div>
 <div class="container">
-    <div th:include="admin/adminNotice :: childFragment"></div>
+<!--    <div th:include="admin/adminNotice :: childFragment"></div>-->
 </div>
 >>>>>>> origin/sin
 </th:block>
