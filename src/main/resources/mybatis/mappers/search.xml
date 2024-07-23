@@ -1,19 +1,37 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- MyBatis Mapper 파일의 DTD를 선언하여 MyBatis가 XML 구문을 올바르게 해석할 수 있도록 합니다. -->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 매퍼의 네임스페이스를 지정합니다. 이 네임스페이스는 매퍼 인터페이스와 매핑됩니다. -->
-<mapper namespace="flower.popupday.search.mapper.SearchMapper">
-    <!-- SELECT 쿼리를 정의합니다. -->
-    <!-- id: 매퍼 인터페이스에서 호출할 메서드 이름과 동일해야 합니다. -->
-    <!-- parameterType: 매개변수의 타입을 지정합니다. 이 경우에는 문자열입니다. -->
-    <!-- resultType: 결과 타입을 지정합니다. 이 경우에는 SearchDTO 클래스입니다. -->
-    <select id="searchHashTags" parameterType="String" resultType="flower.popupday.search.dto.SearchDTO">
-        <!-- 실제 SQL 쿼리를 작성합니다. -->
-        <!-- hash_tag_tbl 테이블에서 hash_tag 컬럼이 query 문자열을 포함하는 모든 레코드를 선택합니다. -->
-        <!-- #{query}: 쿼리 매개변수를 바인딩합니다. -->
-        SELECT * FROM hash_tag_tbl WHERE hash_tag LIKE CONCAT('%', #{query}, '%')
 
+<mapper namespace="flower.popupday.search.dao.SearchDAO">
+    <!-- 팝업 정보 결과 매핑 -->
+    <resultMap type="flower.popupday.popup.dto.PopupDTO" id="PopupResult">
+        <result property="popup_id" column="popup_id"/>
+        <result property="title" column="title"/>
+        <result property="info" column="info"/>
+        <result property="start_date" column="start_date"/>
+        <result property="end_date" column="end_date"/>
+        <result property="content" column="content"/>
+        <result property="address" column="address"/>
+        <result property="brand_page" column="brand_page"/>
+        <result property="role" column="role"/>
+        <result property="user_id" column="user_id"/>
+        <result property="created_date" column="created_date"/>
+        <result property="hits" column="hits"/>
+        <result property="monday_time" column="monday_time"/>
+        <result property="tuesday_time" column="tuesday_time"/>
+        <result property="wednesday_time" column="wednesday_time"/>
+        <result property="thursday_time" column="thursday_time"/>
+        <result property="friday_time" column="friday_time"/>
+        <result property="saturday_time" column="saturday_time"/>
+        <result property="sunday_time" column="sunday_time"/>
+    </resultMap>
+
+    <!-- 해시태그로 팝업 검색 -->
+    <select id="searchPopupsByHashTag" resultMap="PopupResult" parameterType="string">
+        SELECT p.*
+        FROM popup_tbl p
+                 JOIN popup_hash_tag_tbl pht ON p.popup_id = pht.popup_id
+                 JOIN hash_tag_tbl ht ON pht.hash_tag_id = ht.hash_tag_id
+        WHERE ht.hash_tag LIKE CONCAT('%', #{query}, '%')
     </select>
 </mapper>

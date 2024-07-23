@@ -15,9 +15,5 @@ public interface PopupService {
 
     public void updateHits(Long popup_id) throws DataAccessException;
 
-    public boolean isLiked(Long id, Long popup_id) throws DataAccessException;
-
-    public void removeLike(Long id, Long popup_id) throws DataAccessException;
-
-    public void addLike(Long id, Long popup_id) throws DataAccessException;
+    public boolean toggleLike(Long popup_id, Long user_id) throws DataAccessException;
 }

@@ -10,12 +10,14 @@
 
 .category-info {
     width: 720px;
-    height: 83vh;
+    height: calc(99vh - 110px);
     display: none;
     position: absolute;
     bottom: 70px;
     left: 0;
     background-color: #F9F8FF;
+    z-index: 4;
+
 }
 
 #category_box>a {
@@ -97,5 +99,6 @@
 
     #category_box, #businessperson_box {
         padding: 50px 20px;
+        height: calc(120vh - 110px);
     }
 }

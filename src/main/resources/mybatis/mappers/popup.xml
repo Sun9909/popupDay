@@ -69,7 +69,7 @@
     <![CDATA[
         insert into popup_tbl (popup_id, title, info, start_date, end_date, content, address, brand_page, user_id, created_date, monday_time, tuesday_time,
                                wednesday_time, thursday_time, friday_time, saturday_time, sunday_time)
-        values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, '7' , now() ,#{monday_time},
+        values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, '8' , now() ,#{monday_time},
                 #{tuesday_time}, #{wednesday_time}, #{thursday_time}, #{friday_time}, #{saturday_time}, #{sunday_time})
         ]]>
     </insert>
@@ -121,7 +121,7 @@
     <!-- 특정 팝업의 해시태그 리스트 조회 -->
     <select id="selectHashTagList" resultMap="hashTagDTO" parameterType="Long">
         select ht.hash_tag_id, ht.hash_tag from popup_hash_tag_tbl pht
-        join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
+                                                    join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
         where pht.popup_id = #{popup_id}
     </select>
 
@@ -135,24 +135,23 @@
         update popup_tbl set hits = hits + 1 where popup_id = #{popup_id}
     </update>
 
-    <!-- 찜 여부 확인 -->
+    <!-- 팝업 ID와 사용자 ID로 찜 상태 조회 -->
     <select id="isLiked" parameterType="map" resultType="boolean">
         select count(*) > 0
-        from likes
-        where popup_id = #{popup_id} and user_id = #{id}
-        select * from popup_image_tbl where popup_id = #{popup_id}
+        from popup_like_tbl
+        where popup_id = #{popup_id} and user_id = #{user_id}
     </select>
 
     <!-- 찜 추가 -->
     <insert id="addLike" parameterType="map">
-        insert into popup_like_tbl (user_id,popup_id)
-        values (#{id},#{popup_id})
+        insert into popup_like_tbl (popup_id, user_id)
+        values (#{popup_id}, #{user_id})
     </insert>
 
     <!-- 찜 제거 -->
     <delete id="removeLike" parameterType="map">
         delete from popup_like_tbl
-        where popup_id = #{popup_id} and user_id = #{id}
+        where popup_id = #{popup_id} and user_id = #{user_id}
     </delete>
 
 </mapper>

@@ -43,10 +43,10 @@ public interface PopupDAO {
 
     public void updateHits(Long popup_id) throws DataAccessException;
 
-    public boolean isLiked(Long popup_id, Long memberId) throws DataAccessException;
+    public boolean addLike(Long popup_id, Long user_id) throws DataAccessException;
 
-    public void addLike(Long popup_id, Long memberId) throws DataAccessException;
+    public boolean removeLike(Long popup_id, Long user_id) throws DataAccessException;
 
-    public void removeLike(Long popup_id, Long memberId) throws DataAccessException;
+    public boolean isLiked(Long popup_id, Long user_id)throws DataAccessException;
 
 }

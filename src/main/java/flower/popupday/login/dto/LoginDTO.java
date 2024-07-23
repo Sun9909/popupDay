@@ -25,7 +25,7 @@ public class LoginDTO {
     }
 
     public enum Status {
-        active, delete
+        active, deleted
     }
 
     public LoginDTO(Long id, String user_id, String name, String pwd, String email, Date reg_date, String business_num, String role, String status) {
