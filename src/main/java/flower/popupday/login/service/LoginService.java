@@ -37,6 +37,9 @@ public interface LoginService {
     // 주어진 닉네임의 중복 여부를 확인하는 메서드
     // String 타입의 user_nikname을 매개변수로 받아서 해당 닉네임이 이미 존재하는지 확인하고, 결과를 반환.
 
+    //회원 탈퇴 확인
+    boolean dropCheck(String user_id);
+
     //카카오 소셜 로그인
     public String getKakaoAccessToken(String code) throws Exception;
 

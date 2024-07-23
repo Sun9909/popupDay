@@ -202,7 +202,13 @@ img {
     justify-content: center;
 }
 
-.search > input {
+.search >form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search  input {
     border: 1px solid #ccc;
     width: 650px;
     height: 28px;

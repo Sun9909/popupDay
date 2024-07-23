@@ -74,6 +74,7 @@
 .operating-time > div {
     display: inline-block;
     flex-grow: 1;
+    margin-bottom: 5px;
 }
 
 .operating-time .times {
@@ -142,4 +143,12 @@
 
 .allpop {
     min-height: 1900px;
+}
+
+.checkbox_tag > input{
+    margin-bottom: 10px;
+}
+
+#dock_hash_tag {
+    margin-right: 10px;
 }

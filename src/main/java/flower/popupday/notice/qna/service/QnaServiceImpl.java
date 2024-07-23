@@ -44,7 +44,10 @@ public class QnaServiceImpl implements QnaService {
         QnaDTO qnaDTO = qnaDAO.selectQna(qna_id);  // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
         qnaMap.put("qna", qnaDTO);
         return qnaMap;
+
     }
+
+
 
     @Override
     public void modQna(QnaDTO qnaDTO) throws DataFormatException {
@@ -61,8 +64,8 @@ public class QnaServiceImpl implements QnaService {
     }
 
     @Override
-    public QnaDTO getQnaById(long qna_Id) throws DataAccessException {
-        qnaDAO.selectQnaById(qna_Id);
+    public QnaDTO getQnaById(long qna_id) throws DataAccessException {
+        qnaDAO.selectQnaById(qna_id);
         return null;
     }
 

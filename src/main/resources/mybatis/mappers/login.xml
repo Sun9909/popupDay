@@ -71,6 +71,13 @@
         ]]>
     </select>
 
+    <!-- 회원 탈퇴 확인 -->
+    <select id="getStatus" parameterType="String" resultType="String">
+        select status
+        from user_tbl
+        where user_id = #{user_id}
+    </select>
+
     <!-- 카카오 REST API -->
     <insert id="kakaoInsert" parameterType="LoginDTO">
         insert into user_tbl (id, user_id, user_nikname, name, pwd, email, reg_date, business_num, role, status)

@@ -1,5 +1,8 @@
 package flower.popupday.notice.qna.dto;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -7,6 +10,9 @@ import java.sql.Date;
 @Component("qnaDTO")
 public class QnaDTO {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long qna_id;
     private long user_id;
     private String title;
