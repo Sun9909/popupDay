@@ -20,9 +20,12 @@
                 </div>
 
                 <div class="fillout-form">
-                    <label>팝업스토어 이미지 *크기 width: 960, height: 480 권장</label>
-                    <input type="button" value="파일추가" name="image_file_name" onclick="fn_addFile()">
-                    <td><div id="dock_file"></div></td>
+                    <label>첫 번째 이미지가 썸네일이 됩니다.<br>팝업스토어 이미지 *크기 width: 960, height: 480 권장</label>
+                    <input type="file" id="imageFiles" name="image_file_name" class="hidden-input" multiple>
+                    <button type="button" class="custom-button" id="customFileButton">파일 선택</button>
+                    <div id="dock_file" class="file-display"></div>
+                    <button type="button" id="resetButton">취소</button>
+                    <p id="fileCount">0개</p>
                 </div>
 
                 <div class="fillout-form">

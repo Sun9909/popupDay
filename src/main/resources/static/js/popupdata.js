@@ -22,25 +22,90 @@ function count_check(obj){
     }
 }
 
-//이미지 미리보기 구현
-function readImage(input) {
-    if(input.files && input.files[0]) {
-        let reader=new FileReader();
-        reader.onload=function (event) {
-            $('#preview').attr('src', event.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }else {
-        $('#preview').attr('src', '#');
-    }
-}
+document.addEventListener('DOMContentLoaded', function() {
+    var fileInput = document.getElementById('imageFiles');
+    var dockFileDiv = document.getElementById('dock_file');
+    var fileCountElem = document.getElementById('fileCount');
+    var currentFiles = []; // 현재 파일 목록
 
-//여러 개의 이미지 추가
-let count=1; //초기값 지정
-function fn_addFile() { //이미지 여러개 올리기 위한 함수
-    $('#dock_file').append('<input class="file-loads" type="file" name="imgFile' + count + '">');
-    count++;
-}
+    // 사용자 정의 버튼 클릭 시 파일 입력 요소 클릭
+    document.getElementById('customFileButton').addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // 파일 선택 시 파일 리스트 업데이트
+    fileInput.addEventListener('change', function() {
+        var selectedFiles = Array.from(fileInput.files);
+
+        if (selectedFiles.length === 0) {
+            // 파일이 선택되지 않은 경우, 기존 리스트를 유지
+            return;
+        }
+
+        // 기존 파일 목록과 선택된 파일을 병합
+        currentFiles = Array.from(new Set([...currentFiles, ...selectedFiles]));
+
+        updateFileList(currentFiles);
+        updateFileCount();
+    });
+
+    // 파일 리스트 업데이트 함수
+    function updateFileList(fileList) {
+        dockFileDiv.innerHTML = ''; // 기존 파일 리스트 초기화
+
+        fileList.forEach(function(file) {
+            var fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+
+            // 이미지 미리보기
+            var img = document.createElement('img');
+            img.className = 'file-preview';
+            img.file = file;
+            fileItem.appendChild(img);
+
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'x';
+            removeButton.className = 'remove-file';
+            removeButton.onclick = function() {
+                // 파일 삭제 시 업데이트된 파일 목록 생성
+                currentFiles = currentFiles.filter(f => f !== file);
+                var dataTransfer = new DataTransfer();
+                currentFiles.forEach(f => dataTransfer.items.add(f));
+                fileInput.files = dataTransfer.files; // 업데이트된 파일 목록 적용
+
+                // 파일 리스트와 개수 업데이트
+                updateFileList(currentFiles);
+                updateFileCount();
+            };
+
+            fileItem.appendChild(removeButton);
+            dockFileDiv.appendChild(fileItem);
+
+            // FileReader를 사용하여 파일을 읽고 미리보기 표시
+            var reader = new FileReader();
+            reader.onload = (function(aImg) {
+                return function(e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // 파일 개수 업데이트
+    function updateFileCount() {
+        var fileCount = currentFiles.length;
+        fileCountElem.textContent = fileCount === 0 ? '선택된 파일 없음' : fileCount + '개';
+    }
+
+    // 파일 리스트 초기화 버튼 클릭 이벤트
+    document.getElementById('resetButton').addEventListener('click', function() {
+        fileInput.value = ''; // 파일 인풋 초기화
+        dockFileDiv.innerHTML = ''; // 파일 리스트 초기화
+        currentFiles = []; // 현재 파일 목록 초기화
+        updateFileCount(); // 파일 개수 초기화
+    });
+});
 
 // 해시태그 추가
 let hash_count=1; //초기값 지정
