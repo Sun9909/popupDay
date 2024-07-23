@@ -50,7 +50,7 @@
 
 
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
-    <insert id="insertNewNotice" parameterType="java.util.Map" useGeneratedKeys="true">
+    <insert id="insertNewNotice" parameterType="noticeDTO" useGeneratedKeys="true" keyProperty="notice_id">
       <![CDATA[
         insert into notice_tbl(user_id, title, content, created_date) values(#{id},#{title},#{content},now())
         ]]>

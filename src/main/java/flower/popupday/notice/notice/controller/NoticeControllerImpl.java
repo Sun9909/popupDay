@@ -189,7 +189,7 @@ public class NoticeControllerImpl implements NoticeController {
 
         //게시글 추가 및 이미지 파일 이동
         try {
-            int imageId = noticeService.addNotice(noticeMap); // 글을 추가하고 작성자아이디를 받아옴
+            long imageId = noticeService.addNotice(noticeMap); // 글을 추가하고 작성자아이디를 받아옴
             if(imageFileList != null && imageFileList.size() != 0) { // 이미지 파일이 있을 경우
                 for(NoticeimageDTO noticeimageDTO : imageFileList) { // 이미지 파일 리스트를 반복
                     imageFileName = noticeimageDTO.getImage_file_name();

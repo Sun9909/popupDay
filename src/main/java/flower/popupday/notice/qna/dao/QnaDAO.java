@@ -1,3 +1,4 @@
+
 package flower.popupday.notice.qna.dao;
 
 import flower.popupday.notice.faq.dto.FaqDTO;
@@ -28,5 +29,6 @@ public interface QnaDAO {
     public void insertAnswer(QnaDTO qnaDTO) throws DataAccessException;
 
     public void selectQnaById(long qna_id) throws DataAccessException;
+
 
 }

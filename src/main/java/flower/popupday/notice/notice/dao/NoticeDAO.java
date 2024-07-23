@@ -1,6 +1,7 @@
 package flower.popupday.notice.notice.dao;
 
 import flower.popupday.notice.notice.dto.NoticeDTO;
+import flower.popupday.notice.notice.dto.NoticeimageDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
@@ -25,7 +26,7 @@ public interface NoticeDAO {
 
     // 여러개의 글과 이미지 상세 글보기
     public NoticeDTO selectNotice(long notice_id) throws DataAccessException;
-    public List selectImageFileList(long notice_id) throws DataAccessException;
+    public List<NoticeimageDTO> selectImageFileList(long notice_id) throws DataAccessException;
 
     // 여러개이 글과 이미지 수정
     public void updateNotice(Map noticeMap) throws DataAccessException;
@@ -34,4 +35,6 @@ public interface NoticeDAO {
     // 여러개의 글과 이미지 삭제
     public void deleteImage(long notice_id) throws DataAccessException;
     public void deleteNotice(long notice_id) throws DataAccessException;
+
+    public long getNotice_id()  throws DataAccessException;
 }
