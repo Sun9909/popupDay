@@ -64,13 +64,18 @@ public class PopupServiceImpl implements PopupService {
         return popup_id; // 등록된 팝업 ID 반환
     }
 
+
     // 팝업 상세보기
-    public Map popupView(Long popup_id) throws DataAccessException {
+    public Map<String, Object>  popupView(Long popup_id, Long id) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
         PopupDTO popupList = popupDAO.selectPopup(popup_id);
         List<ImageDTO> imageFileList = popupDAO.selectImageFileList(popup_id);
         List<HashTagDTO> hashTagList = popupDAO.selectHashTagList(popup_id);
 
+        // 찜 상태 조회
+        boolean isLiked = id != null && popupDAO.isLiked(popup_id, id);
+
+        popupMap.put("isLiked", isLiked);
         popupMap.put("popupList", popupList);
         popupMap.put("imageFileList", imageFileList);
         popupMap.put("hashTagList", hashTagList);
@@ -110,19 +115,18 @@ public class PopupServiceImpl implements PopupService {
         popupDAO.updateHits(popup_id);
     }
 
-    // 팝업 찜 상태 토글
     @Override
-    public boolean toggleLike(Long popup_id, Long user_id) {
+    public boolean toggleLike(Long popup_id, Long id) {
         // 기존 찜 여부 확인
-        boolean isLiked = popupDAO.isLiked(popup_id, user_id);
+        boolean isLiked = popupDAO.isLiked(popup_id, id);
 
         if (isLiked) {
             // 찜이 이미 있는 경우, 제거
-            popupDAO.removeLike(popup_id, user_id);
+            popupDAO.removeLike(popup_id, id);
             return false; // 찜이 해제됨
         } else {
             // 찜이 없는 경우, 추가
-            popupDAO.addLike(popup_id, user_id);
+            popupDAO.addLike(popup_id, id);
             return true; // 찜이 추가됨
         }
     }

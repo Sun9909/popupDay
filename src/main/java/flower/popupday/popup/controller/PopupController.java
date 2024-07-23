@@ -23,6 +23,6 @@ public interface PopupController {
 
     public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id);
+    public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id ,HttpServletRequest request, HttpServletResponse response);
 
 }

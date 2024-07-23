@@ -48,7 +48,7 @@
     </resultMap>
 
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl order by created_date desc LIMIT #{count}, 9
+        select * from popup_tbl where role="승인" order by created_date desc LIMIT #{count}, 9
     </select>
 
     <select id="selectToPopup" resultType="int">

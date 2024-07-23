@@ -37,11 +37,13 @@
                     <div class="popupdetail-title-infor">
                         <div class="popup-title">
                             <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
-                            <button id="heart-icon" th:data-popup-id="${popupMap.popupList.popup_id}" th:data-login-check="${loginCheck}">
-                                <img id="heart-image" class="heart" th:src="@{/images/heart_empty.svg}" alt="찜">
+                            <button id="heart-icon" th:data-login-check="${loginCheck}">
+                                <img id="heart-image" class="heart"
+                                     th:src="${loginCheck ? (popupMap.isLiked ? '/images/heart_fill.svg' : '/images/heart_empty.svg') : '/images/heart_empty.svg'}"
+                                     th:data-popup-id="${popupMap.popupList.popup_id}" alt="찜">
                             </button>
                         </div>
-
+<!--                        <img id="heart-image" class="heart" th:data-popup-id="${popupMap.popupList.popup_id}" th:src="@{/images/heart_empty.svg}" alt="찜">-->
                         <div class="date">
                             <img th:src="@{/images/date.svg}" alt="달력">
                             <p>24.07.08 - 24.07.30</p>
