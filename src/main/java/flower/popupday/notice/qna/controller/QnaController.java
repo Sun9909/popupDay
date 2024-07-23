@@ -2,12 +2,11 @@ package flower.popupday.notice.qna.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface QnaController {
-
-    public ModelAndView addQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     // 폼
     public ModelAndView qnaForm (HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -16,10 +15,11 @@ public interface QnaController {
     public ModelAndView qnaList (@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     String _pageNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView addQna(HttpServletRequest request)throws Exception;
 
     public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 

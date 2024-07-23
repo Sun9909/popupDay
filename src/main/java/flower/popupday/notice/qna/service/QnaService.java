@@ -1,6 +1,5 @@
 package flower.popupday.notice.qna.service;
 
-import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import org.springframework.dao.DataAccessException;
 
@@ -12,7 +11,7 @@ public interface QnaService {
 
     public void addQna(QnaDTO qnaDTO) throws DataFormatException;
 
-    public List listQna(int section, int pageNum) throws DataAccessException;
+    public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException;
 
     public void modQna(QnaDTO qnaDTO) throws DataFormatException;
 

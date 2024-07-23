@@ -1,5 +1,7 @@
 package flower.popupday.notice.qna.service;
 
+import flower.popupday.notice.faq.dto.FaqDTO;
+import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.qna.dao.QnaDAO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,35 +21,41 @@ public class QnaServiceImpl implements QnaService {
 
     @Override
     public void addQna(QnaDTO qnaDTO) throws DataFormatException {
-        qnaDAO.insertQna(qnaDTO);
+            qnaDAO.insertQna(qnaDTO);
     }
 
     @Override
-    public List listQna(int section, int pageNum) throws DataAccessException {
-        int count = (section - 1 ) * 100 + (pageNum - 1) * 10; // 현재 페이지의 시작 인텍스를 계산
-        List<QnaDTO> qnaList = qnaDAO.selectAllQnaList(count); // QnaDAO를 통해 해당 인덱스부터 10개의 QnaDTO 객체 리스트를 가져옴
+    public Map<String, Object> listQna(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map<String, Object> qnaMap = new HashMap<>(); // 공지사항 목록과 관련 데이터를 저장할 맵을 생성
 
-        int totQna = qnaDAO.selectToQna(); // 전체 Qna의 총 개수를 가져옴
+        int section = pagingMap.get("section"); // pagingMap에서 section 값을 가져와 section 변수에 저장
+        int pageNum = pagingMap.get("pageNum"); // pagingMap에서 pageNum 값을 가져와 pageNum 변수에 저장
 
-        // 가져온 각각의 QnaDTO 객체에 전체 Q&A 개수를 설정
-        for (QnaDTO tqna: qnaList){
-            tqna.setTotQna(totQna);
-        }
-        return qnaList;
+        int count = (section -1) * 100 + (pageNum - 1) * 10; // section,pageNum을 사용해 DB쿼리의 시작 위치를 계산 -> section은 100개의 공지사항을 pageNum은 10개의 공지사항을 나타냄.
+
+        List<QnaDTO> listQna = qnaDAO.selectAllQnaList(count); //noticeDAO를 사용해 count 위치부터 공지사항 목록을 가져옴 -> NoticeDTO 객체의 리스트로 반환 됨 (전체 글 조회)
+        int totQna = qnaDAO.selectToQna(); // noticeDAO를 사용해 전체 공지사항 수를 가져옴.
+
+        qnaMap.put("listQna", listQna); // noticeList를 noticeMap에 추가
+        qnaMap.put("totQna", totQna);   // totNotice를 noticeMap에 추가
+        //qnaMap.put("totQna", 324);
+
+        // Debugging 로그 추가
+        System.out.println("listQna: " + listQna);
+        System.out.println("totQna: " + totQna);
+
+        return qnaMap;  // 공지사항 목록과 전체 공지사항 수를 포함한 noticeMap으로 반환
     }
-
 
     // 공지사항 상세보기
     @Override
     public Map qnaView(long qna_id) throws DataAccessException {
         Map qnaMap = new HashMap();
-        QnaDTO qnaDTO = qnaDAO.selectQna(qna_id);  // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
+        QnaDTO qnaDTO = qnaDAO.selectQna(qna_id); // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
         qnaMap.put("qna", qnaDTO);
         return qnaMap;
 
     }
-
-
 
     @Override
     public void modQna(QnaDTO qnaDTO) throws DataFormatException {
@@ -68,6 +76,5 @@ public class QnaServiceImpl implements QnaService {
         qnaDAO.selectQnaById(qna_id);
         return null;
     }
-
 
 }
