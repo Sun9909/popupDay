@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/notice/noticeList.do}">
+                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/join.do\')'">
                                 Notice
                                 <span>공지사항</span>
                             </a>

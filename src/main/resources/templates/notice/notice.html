@@ -67,11 +67,12 @@
             </div>
         </div>
 
-        <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
+       <!-- <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
             <a class="wirte" th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">글쓰기</a>
+        </div>-->
+        <div class="notice-btn" >
+        <button th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}"><a th:href="@{/notice/noticeForm.do}">Notice작성하기</a></button>
         </div>
-
-
 
         <div class="number" th:if="${noticeMap.totNotice > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
 
