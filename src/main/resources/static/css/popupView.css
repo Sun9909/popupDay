@@ -5,8 +5,7 @@
     width: 720px;
     height: 1800px;
     overflow: hidden;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 20px 25px;
 }
 
 /*이미지슬라이드*/
@@ -29,6 +28,13 @@
     margin: 0 10px; /* 이미지 사이 간격 조정 */
     cursor: pointer; /* 포인터 커서로 변경 */
 }
+
+.main-article {
+    overflow: hidden;
+    width: 600px;
+    height: 400px;
+}
+
 /*
 .popupdetail-banner .banner-img {
     flex: 0 0 auto;  이미지 크기 고정
@@ -39,9 +45,7 @@ cursor: pointer; 포인터 커서로 변경
 /* 팝업 정보 */
 .popupdetail-inner {
     padding: 10px 40px 10px 40px;
-}
-.popupdetail-title-infor {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ccc;
 }
 .popupdetail-title {
     margin: 0;
@@ -78,14 +82,6 @@ cursor: pointer; 포인터 커서로 변경
     padding-bottom: 15px;
     justify-content: space-between;
 }
-.tag{
-    border-radius: 30px;
-    border: 1px #8B8BDA solid;
-    background-color: #FDFEFF;
-    padding: 6px 10px;
-    margin-right: 15px;
-}
-
 .date, .location {
     display: flex;
 }
@@ -131,7 +127,7 @@ cursor: pointer; 포인터 커서로 변경
     display: flex;
     padding: 20px;
     justify-content: space-evenly;
-    border-bottom: 1px black solid;
+    border-bottom: 1px #ccc solid;
     text-align: center;
 }
 .popupdetail-icon-area img {
@@ -141,7 +137,7 @@ cursor: pointer; 포인터 커서로 변경
 .popupdetail-time {
     display: flow;
     padding: 15px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px #ccc black;
 }
 .popupdetail-time .popup-time {
     display: flex;
@@ -161,7 +157,7 @@ cursor: pointer; 포인터 커서로 변경
 }
 /* 팝업스토어 소개글*/
 .popupdetail-info-inner, .popupdetail-caution, .popupdetail-map {
-    border-bottom: 1px black solid;
+    border-bottom: 1px #ccc solid;
     padding: 15px;
 }
 .infor-tit {
@@ -170,16 +166,16 @@ cursor: pointer; 포인터 커서로 변경
 
 /* 주변 카페 및 놀거리*/
 .popupdetail-play {
-    border-bottom: 1px black solid;
+    border-bottom: 1px #ccc solid;
     padding: 15px;
 }
 
 .popupdetail-review {
-    border-bottom: 1px black solid;
+    border-bottom: 1px #ccc solid;
     padding: 15px;
 }
 .popupdetail-business {
-    border-bottom: 1px black solid;
+    border-bottom: 1px #ccc solid;
     padding: 15px;
 }
 .popupdetail-business-info {
@@ -197,4 +193,39 @@ cursor: pointer; 포인터 커서로 변경
     width: 50px;
     height: 50px;
     color: black;
+}
+
+/* 수정본 */
+#heart-icon {
+    background-color: unset;
+    border: none;
+}
+
+.popupdetail  input {
+    background-color: unset;
+    border: none;
+    font-size: 20px;
+}
+
+.option input {
+    font-size: 12px;
+    background-color: field;
+    border: 1px solid #ccc;
+}
+
+#tag{
+    border-radius: 30px;
+    border: 1px #8B8BDA solid;
+    background-color: #FDFEFF;
+    padding: 6px 10px;
+    margin-right: 15px;
+}
+
+.location > input {
+    font-size: 15px;
+}
+
+.popupdetail-inner img {
+    width: 25px;
+    height: 25px;
 }

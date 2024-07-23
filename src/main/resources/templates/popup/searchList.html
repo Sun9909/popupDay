@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <title>Popup List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/popList.css}">
 </head>
 <body>
-<div class="container">
-    <!-- 검색 결과를 표시할 섹션 -->
-    <section class="search-results-section">
-        <h2>검색 결과</h2>
-        <div th:if="${#lists.isEmpty(results)}">
-            <p>검색 결과가 없습니다.</p>
-        </div>
-        <div class="popup-list" th:each="result : ${results}">
-            <div class="popup-item">
-                <div class="popup-image">
-                    <img th:src="@{${result.brand_page}}" alt="Popup Image">
+<th:block layout:fragment="content">
+        <!-- 기존의 팝업 리스트 섹션 -->
+    <div class="containers">
+        <!-- 검색 결과를 표시할 섹션 -->
+        <section class="search-results-section">
+            <div th:if="${#lists.isEmpty(results)}">
+                <p class="pop-table-none">검색 결과가 없습니다.</p>
+            </div>
+            <div class="popup-list" th:each="result : ${results}" th:unless="${#lists.isEmpty(results)}">
+                <div class="popup-item">
+                    <div class="popup-image">
+                        <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                    </div>
+                    <p th:text="${result.title}"></p>
+                    <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                    <p th:text="${result.address}"></p>
                 </div>
-                <p th:text="${result.title}"></p>
-                <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
-                <p th:text="${result.address}"></p>
             </div>
         </div>
         <div th:each="popup : ${popups}">
@@ -95,7 +99,8 @@
             </div>
         </section>
     </div>
-</div>
+
+</th:block>
 <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
 <script th:src="@{js/jquery-ui.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

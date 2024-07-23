@@ -19,4 +19,13 @@ public class PopupDayController {
         mav.setViewName("main");
         return mav;
     }
+
+    @GetMapping("/main2.do")
+    public ModelAndView main2(HttpServletRequest request,
+                             HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        // main 뷰를 설정 (main.html 또는 main.jsp 파일이 있어야 함)
+        mav.setViewName("/admin/admin");
+        return mav;
+    }
 }

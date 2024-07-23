@@ -41,7 +41,7 @@
                 <td>
                     <a th:href="@{/popup/popupView.do(popup_id=${popupInfo.popup.popup_id})}" th:text="${popupInfo.popup.title}"></a>
                 </td>
-                <td th:text="${#dates.format(popupInfo.popup.created_date, 'yyyy-MM-dd')}"></td>
+                <td th:text="${popupInfo.popup.start_date} + ' ~ ' + ${popupInfo.popup.end_date}"></td>
             </tr>
             </tbody>
         </table>

@@ -56,12 +56,12 @@
 
                         <div class="abc">
                             <div class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
-                                <input class="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
+                                <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
                             </div>
                         </div>
                         <div class="popup-Icon">
                             <img class="eye" th:src="@{/images/eye.svg}" alt="조회수눈">
-                            <p th:value="${popupMap.popupList.hits}" class="hits"></p>
+                            <p th:text="${popupMap.popupList.hits}" class="hits"></p>
                             <a th:href="${main}"><img class="send" th:src="@{/images/send.svg}" alt="보내기"></a> <!-- 카카오 보내기 혹은 url-->
                         </div>
                     </div>

@@ -100,5 +100,14 @@ h2 {
     min-height: 1950px;
 }
 
+.pop-table-none {
+    padding: 10px 20px;
+}
+
+.search-results-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+}
 
 
