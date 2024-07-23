@@ -18,14 +18,20 @@ public class NoticeServiceImpl implements NoticeService {
     private NoticeDAO noticeDAO;
 
     // 공지사항 추가
-    public int addNotice(Map<String, Object> noticeMap) throws DataAccessException {
-        int notice_id = noticeDAO.insertNewNotice(noticeMap); // notice_id를 받아오는 메서드
-        noticeMap.put("notice_id", notice_id); // 받아온 notice_id를 주입
+    public long addNotice(Map<String, Object> noticeMap) throws DataAccessException {
+        long notice_id = noticeDAO.getNotice_id();
+        noticeMap.put("notice_id", notice_id);
+        noticeDAO.insertNewNotice(noticeMap); // notice_id를 받아오는 메서드
 
         if(noticeMap.get("imageFileList") != null) {
             noticeDAO.insertNewImages(noticeMap);
         }
         return notice_id;
+    }
+
+
+    public void addimageNotice(Map<String,Object> noticeMap) throws DataAccessException {
+        noticeDAO.insertNewImages(noticeMap);
     }
 
     //글 목록, 페이징처리
@@ -60,6 +66,7 @@ public class NoticeServiceImpl implements NoticeService {
         NoticeDTO noticeDTO = noticeDAO.selectNotice(notice_id);  // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
 
         List<NoticeimageDTO> imageFileList = noticeDAO.selectImageFileList(notice_id); // noticeDAO를 사용해 notice_id에 해당하는 이미지 파일 리스트를 가져옴
+        System.out.println("noticeview :" + imageFileList);
 
         // noticeDTO와 imageFileList를 noticeMap에 추가
         noticeMap.put("imageFileList" ,imageFileList);

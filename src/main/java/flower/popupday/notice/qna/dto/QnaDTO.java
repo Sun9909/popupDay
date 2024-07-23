@@ -10,9 +10,6 @@ import java.sql.Date;
 @Component("qnaDTO")
 public class QnaDTO {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long qna_id;
     private long user_id;
     private String title;
@@ -21,6 +18,7 @@ public class QnaDTO {
     private String answer;
     private Date answer_date;
     private String status;
+    private String category_name;
 
     private int totQna;
 
@@ -104,7 +102,15 @@ public class QnaDTO {
         this.totQna = totQna;
     }
 
-    public QnaDTO(long qna_id, long user_id, String title, String content, Date created_date, String answer, Date answer_date, String status, int totQna) {
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public QnaDTO(long qna_id, long user_id, String title, String content, Date created_date, String answer, Date answer_date, String status, String category_name, int totQna) {
         this.qna_id= qna_id;
         this.user_id = user_id;
         this.title = title;
@@ -113,6 +119,7 @@ public class QnaDTO {
         this.answer = answer;
         this.answer_date = answer_date;
         this.status = status.valueOf(status);
+        this.category_name = category_name;
     }
 
 

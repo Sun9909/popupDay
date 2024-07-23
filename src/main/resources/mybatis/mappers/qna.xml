@@ -13,24 +13,26 @@
         <result property="answer" column="answer"/>
         <result property="answer_date" column="answer_date"/>
         <result property="status" column="status"/>
+        <result property="category_name" column="category_name"/>
     </resultMap>
 
     <!--qna 등록 -->
     <insert id="insertQna" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
-        INSERT INTO qna_tbl(user_id, title, content)
-        VALUES (#{user_id}, #{title}, #{content})
+        INSERT INTO qna_tbl(user_id, title, content, category_name)
+        VALUES (#{user_id}, #{title}, #{content}, #{category_name})
     </insert>
 
     <!--qna 답변 -->
-    <update id="addAnswer" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
+    <update id="updateAnswer" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
         UPDATE qna_tbl
         SET answer = #{answer}, status = '답변완료'
         WHERE qna_id = #{qna_id}
     </update>
 
-    <!-- 등록된 qna 리스트 화면출력 -->
-    <select id="selectAllQnaList" resultMap="qnaResult" parameterType="int">
+    <!-- 등록된 qna 리스트 화면출력  -->
+    <select id="selectAllQnaList" resultMap="qnaResult" parameterType="java.util.Map">
         select * from qna_tbl order by created_date LIMIT #{count}, 10
+
     </select>
 
     <!-- 등록된 qna 개수 가져오기 -->
@@ -43,7 +45,7 @@
     <!--글번호생성-->
     <select id="getQna_id" resultType="long">
          <![CDATA[
-        SELECT IFNULL(MAX(qna_Id), 0) + 1 FROM qna_tbl
+        SELECT IFNULL(MAX(qna_id), 0) + 1 FROM qna_tbl
         ]]>
     </select>
 
@@ -61,14 +63,9 @@
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
 
-    <select id="selectOriginalContentById" parameterType="long" resultType="String">
-        SELECT original_content
-        FROM qna_tbl
-        WHERE qna_id = #{qna_id}
-    </select>
-
     <select id="selectQnaById" parameterType="long" resultType="flower.popupday.notice.qna.dto.QnaDTO">
         SELECT * FROM qna_tbl WHERE qna_id = #{qna_id}
     </select>
+
 
 </mapper>

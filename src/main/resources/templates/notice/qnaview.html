@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
+    <title>QNA상세페이지, 답글</title>
+
+    <script>
+        function toggleAnswerQna() {
+            var answerQnaDiv = document.getElementById('answer_qna_div');
+            if (answerQnaDiv.style.display === 'none') {
+                answerQnaDiv.style.display = 'block'; // 보이기
+            } else {
+                answerQnaDiv.style.display = 'none';  // 숨기기
+            }
+        }
+    </script>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="containers">
+        <div class="notice-view">
+            <form class="qna-form" name="qnaView" method="post" action="notice/addQna.do">
+                <div class="viewForm">
+                    <p>제목</p>
+                    <input class="view-title" id="title"  name="title" th:value="${qnaView.qna.title}" disabled>
+                </div>
+                <div class="viewForm">
+                    <p>내용</p>
+                    <input class="view-content" id="content" name="content" th:value="${qnaView.qna.content}" disabled>
+                </div>
+            </form>
+
+            <div class="qna-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
+                <!-- 버튼 클릭 시 toggleAnswerQna() 함수 호출 -->
+                <button type="button" onclick="toggleAnswerQna()">답변하기</button>
+
+                <!-- 초기에 숨겨진 상태로 설정 -->
+                <div id="answer_qna_div" class="answer_qna" style="display: none;">
+<!--                    <div th:if="${qnaView != null}">-->
+<!--                        <p th:text="${qnaView.qna.title}">Title</p>-->
+<!--                        <p th:text="${qnaView.qna.content}">Content</p>-->
+<!--                    </div>-->
+                    <form class="answer-content" th:action="@{/notice/addAnswer.do}" method="post">
+                        <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
+                        <textarea id="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100" name="answer"></textarea>
+                        <button type="submit">등록하기</button>
+                        <button><a th:href="@{/notice/qnaList.do}">취소하기</a></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- 답변 내용이 있을 경우 답변 표시 -->
+        <div class="answer-section" th:if="${qnaView.qna.answer != null}" name="answer">
+            <p>답변</p>
+            <p th:text="${qnaView.qna.answer}"></p>
+            <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>
+        </div>
+
+    </div>
+
+
+
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/notice.js}"></script>
+</th:block>
+</body>
+</html>

@@ -25,9 +25,18 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div class="containers">
+    <div class="containers">```````````````
         <div class="question-form">
             <form action="/notice/addQna.do" method="post" >
+                <div class="question">
+                    <label for="category_name">카테고리</label>
+                    <select id="category_name" name="category_name">
+                        <option value="">선택하세요</option>
+                        <option value="공지/이벤트">공지/이벤트</option>
+                        <option value="팝업관련">팝업관련</option>
+                    </select>
+                </div>
+
                 <div><!-- 글번호 -->
                     <input type="hidden" name="qna_id">
                 </div>

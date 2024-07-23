@@ -50,13 +50,11 @@
 
 
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
-    <insert id="insertNewNotice" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="notice_id">
-    <![CDATA[
-        insert into notice_tbl(user_id, title, content, created_date)
-        values(#{id}, #{title}, #{content}, now())
+    <insert id="insertNewNotice" parameterType="noticeDTO" useGeneratedKeys="true" keyProperty="notice_id">
+      <![CDATA[
+        insert into notice_tbl(user_id, title, content, created_date) values(#{id},#{title},#{content},now())
         ]]>
-</insert>
-
+   </insert>
 
 
     <!-- 여러개의 이미지
@@ -65,19 +63,12 @@
         insert into notice_image_tble('notice_image_id', 'notice_id', 'image_file_namge') values(#{notice_image_id}, #{notice_id}, #{image_file_name})
         ]]>
     </insert>-->
-    <!--<insert id="insertNewImages" parameterType="java.util.Map">
-        insert into notice_image_tbl values
-        <foreach collection="imageFileList" item="item" separator=","> 구분자 , 로
-        </foreach> values에 있는 값 업데이트
-    </insert>-->
     <insert id="insertNewImages" parameterType="java.util.Map">
-        insert into notice_image_tbl (notice_id, image_file_name)
-        values
-        <foreach collection="imageFileList" item="item" separator=",">
-            (#{notice_id}, #{item.image_file_name})
-        </foreach>
+        insert into notice_image_tbl values
+        <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
+            (#{item.notice_image_id},#{notice_id}, #{item.image_file_name})
+        </foreach> <!-- values에 있는 값 업데이트 -->
     </insert>
-
 
 
     <!-- 이미지 여러개 글 수정 (제목과 내용만 수정하면 돼서 간단함) -->
