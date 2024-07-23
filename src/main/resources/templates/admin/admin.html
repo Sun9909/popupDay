@@ -28,11 +28,11 @@
                 </a>
             </div>
         </div>
-        <iframe th:src="@{/main.do}" class="container">
+        <iframe th:src="@{/main.do}" id="frames">
         <!--    <div th:include="admin/adminNotice :: childFragment"></div>-->
         </iframe>
     </div>
-
+    <script th:href="@{/js/admin.js}"/>
 </th:block>
 </body>
 </html>

@@ -11,18 +11,18 @@ body {
     padding-top: 50px;
     margin: 30px auto;
     background-color: #8B8BDA;
-    width: 710px;
+    width: 712px;
     min-height: 910px;
     max-height: 1600px;
     position: fixed;
     top: 0;
 }
 
-iframe #category_box, #businessperson_box {
+#category_box, #businessperson_box {
     padding: 50px 20px;
 }
 
-iframe #category_box>li>a {
+#category_box>li>a {
     font-size: 45px;
 }
 
@@ -67,16 +67,12 @@ iframe #category_box>li>a {
     color: #FDFEFF;
     margin: 5px 10px 10px;
 }
-.container {
+#frames {
     float: right;
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 730px;
     height: 940px;
-}
-.container object {
-    width: 750px;
-    height: 1110px;
 }
 
 #admin_header {

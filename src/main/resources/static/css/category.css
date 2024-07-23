@@ -57,7 +57,7 @@
 }
 #category_box, #businessperson_box {
     list-style: none;
-    padding: 20px;
+    padding: 50px 20px;
     margin: 0;
     color: black;
 }
