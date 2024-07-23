@@ -3,6 +3,11 @@
     box-sizing: border-box;
     font-family: 'Roboto','Noto Sans KR','Do Hyeon';
 }
+
+body{
+    width: 100%;
+    height: 100%;
+}
 a {
     font-weight: 500;
     text-decoration: none;
@@ -79,9 +84,9 @@ header >img {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
-    /*min-height: 1700px;*/
-    /*height:calc(100vh - 100px);*/
-    /*max-height: 5000px;*/
+    min-height: 1700px;
+    height:calc(100vh - 100px);
+    max-height: 5000px;
 }
 
 
@@ -97,7 +102,7 @@ header >img {
 
 .arrow_up {
     height: 40px;
-    z-index: 99;
+    z-index: 3;
     position: fixed;
     background-color:white;
     padding: 5px;
@@ -239,7 +244,7 @@ li::marker { color: #8F8CBB; }
 .search-info {
     display: none;
     background: rgba(249, 248, 255, 0.8);
-    height: 83vh;
+    height: calc(120vh - 100px);
 }
 
 .search > button {

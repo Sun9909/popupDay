@@ -17,11 +17,11 @@
         <!-- 공지사항 -->
         <div class="submenu-wrap">
             <section id="submenu">
-                <a class="contact active" >
-                    <h2 class="active-category" th:href="@{/notice/noticList.do}">공지사항</h2>
+                <a class="contact" >
+                    <h2 th:href="@{/notice/noticList.do}">공지사항</h2>
                 </a>
                 <a class="contact" th:href="@{/notice/faqList.do}" >
-                    <h2>FAQ</h2>
+                    <h2 class="active-category">FAQ</h2>
                 </a>
                 <a class="contact"  th:href="@{/notice/qnaList.do}">
                     <h2>Q&A</h2>
@@ -40,11 +40,11 @@
                         <form name="faqArticle" method="post">
                             <li class="faqitem" th:each="faq: ${faqList}">
                                 <p class="faq-category">이용안내</p>
-                                <a class="answerop">
-                                    <span><input id="faq_title" type="text" name="title" th:value="${faq.title}" disabled></span>
+                                <span class="answerop">
+                                    <input id="faq_title" type="text" name="title" th:value="${faq.title}">
                                     <input type="hidden" name="faq_id" th:value="${faq.faq_id}">
                                     <img id="toggle" th:src="@{/images/angle-down-solid.svg}" alt="내려보기">
-                                </a>
+                                </span>
                                 <div class="answer" style="display: none;">
                                     <input id="faq_content" type="text" name="content" th:value="${faq.content}" disabled>
                                 </div>
