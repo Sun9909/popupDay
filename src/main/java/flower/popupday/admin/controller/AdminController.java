@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public interface AdminController {
     public ModelAndView adminPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //관리자 - 회원 관리
     public ModelAndView memberShip(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView memberModify(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception;

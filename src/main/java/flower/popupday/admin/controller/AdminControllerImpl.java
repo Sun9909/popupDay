@@ -3,6 +3,7 @@ package flower.popupday.admin.controller;
 import flower.popupday.admin.dto.AdminDTO;
 import flower.popupday.admin.service.AdminService;
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.popup.service.PopupServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller("adminController")
 public class AdminControllerImpl implements AdminController {
@@ -23,6 +26,8 @@ public class AdminControllerImpl implements AdminController {
     private AdminDTO adminDTO;
     @Autowired
     private LoginDTO loginDTO;
+    @Autowired
+    private PopupServiceImpl popupService;
 
     @Override
     @RequestMapping("/admin/admin.do")
