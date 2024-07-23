@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#search-banner .search").click(function() {
+    $("#search-banner .searchHashtag").click(function() {
         var submenu = $(this).next("div");
 
         if(submenu.is(":visible")) {
