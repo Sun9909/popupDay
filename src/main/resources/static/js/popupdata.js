@@ -38,7 +38,7 @@ function readImage(input) {
 //여러 개의 이미지 추가
 let count=1; //초기값 지정
 function fn_addFile() { //이미지 여러개 올리기 위한 함수
-    $('#dock_file').append('<input type="file" name="imgFile' + count + '"><br>');
+    $('#dock_file').append('<input class="file-loads" type="file" name="imgFile' + count + '">');
     count++;
 }
 

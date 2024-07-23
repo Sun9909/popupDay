@@ -55,7 +55,7 @@
 }
 
 .containers {
-    min-height: 1600px;
+    min-height: 1100px;
 
 }
 /* 운영시간 css */
@@ -128,3 +128,18 @@
     left: 0;
 }
 
+/* 수정 추가 */
+.file-loads {
+    width: 200px;
+}
+
+#dock_file {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    justify-items: center;
+}
+
+.allpop {
+    min-height: 1900px;
+}

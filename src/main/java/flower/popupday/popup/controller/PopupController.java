@@ -23,6 +23,6 @@ public interface PopupController {
 
     public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ResponseEntity<Map<String, String>> heartPopup(@RequestParam("popup_id") Long popup_id, HttpSession session) throws Exception;
+    public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id);
 
 }

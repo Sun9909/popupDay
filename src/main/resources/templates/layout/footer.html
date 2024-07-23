@@ -34,7 +34,7 @@
                             </div>
                         </li>
                         <li>
-                            <a th:href="@{/board/popupAllList.do}">
+                            <a th:href="@{/popup/popupAllList.do}">
                                 POPUPLIST
                                 <span>팝업전체보기</span>
                             </a>
@@ -71,7 +71,7 @@
                             <a href="사업자 문의 창">사업자 문의</a>
                         </li>
                         <li>
-                            <a th:href="@{/popup/addPopup.do}">팝업 등록</a>
+                            <a th:href="@{/popup/popupForm.do}">팝업 등록</a>
                         </li>
                         <li>
                             <a href="사업자 팝업 수정 창">팝업 수정</a>
@@ -87,6 +87,20 @@
                 <img th:src="@{/images/person.svg}">
                 <span>마이페이지</span>
             </a>
+<!--            <div>-->
+<!--                <div class="css-footer-buttons" th:if="${session.loginDTO.user_id == 'admin'}">-->
+<!--                    <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/admin/admin.do\', \'/login/join.do\')'">-->
+<!--                        <img th:src="@{/images/person.svg}">-->
+<!--                        <span>관리자 페이지</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="css-footer-buttons" th:unless="${session.loginDTO.user_id == 'admin'}">-->
+<!--                    <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/join.do\')'">-->
+<!--                        <img th:src="@{/images/person.svg}">-->
+<!--                        <span>마이페이지</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <a class="up" href="#"><img class="arrow_up" th:src="@{/images/arror_up.svg}"></a>
     </div>
