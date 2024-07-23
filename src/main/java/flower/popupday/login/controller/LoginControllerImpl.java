@@ -181,12 +181,12 @@ public class LoginControllerImpl implements LoginController {
         return mav; // ModelAndView 반환
     }
 
-    // 사람 이미지 클릭시 join.form 이동
+    /* 사람 이미지 클릭시 join.form 이동
     @Override
     @GetMapping("/join.do")
     public ModelAndView showJoin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("login/join"); // 회원가입 폼 페이지로 이동
-    }
+    } */
 
     // join에서 choiceForm으로 이동
     @Override

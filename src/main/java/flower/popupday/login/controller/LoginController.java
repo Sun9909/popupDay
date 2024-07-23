@@ -43,9 +43,9 @@ public interface LoginController {
                                HttpServletRequest request,
                                HttpServletResponse response) throws Exception;
 
-    // 사람 이미지 클릭시 join.form 이동
+    /* 사람 이미지 클릭시 join.form 이동
     ModelAndView showJoin(HttpServletRequest request,
-                          HttpServletResponse response) throws Exception;
+                          HttpServletResponse response) throws Exception; */
 
     // join에서 choiceForm으로 이동
     ModelAndView showChoiceForm(HttpServletRequest request,
