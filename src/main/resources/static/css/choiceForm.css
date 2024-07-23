@@ -22,7 +22,7 @@
     text-align: center;
     padding-bottom: 20px;
 }
-button {
+.choice-btn {
     width: 100px;
     height: 40px;
     border: none;
