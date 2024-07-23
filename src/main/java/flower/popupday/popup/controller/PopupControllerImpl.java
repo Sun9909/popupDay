@@ -133,7 +133,8 @@ public class PopupControllerImpl implements PopupController {
             e.printStackTrace();
         }
 
-        return new ModelAndView("redirect:/popup/popupAllList.do");
+        //return new ModelAndView("redirect:/popup/popupAllList.do");
+        return new ModelAndView("redirect:/admin/register.do");
     }
 
     // 여러 개의 이미지 파일 업로드

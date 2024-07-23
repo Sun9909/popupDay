@@ -22,6 +22,10 @@ body {
     color: white;
     margin: 30px;
 }
+.admin_container p {
+    font-size: 1.8em;
+    margin: 15px 370px 0 15px;
+}
 .admin_container ul {
     list-style: none;
     margin: 35px;
