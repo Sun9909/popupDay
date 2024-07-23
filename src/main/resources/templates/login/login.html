@@ -25,10 +25,9 @@
                 <div class="login_box">
                     <div class="loginText">
                         <input type="text" name="user_id" placeholder="아이디" required><br>
-
                         <input type="password" name="pwd" placeholder="비밀번호" required><br>
                     </div>
-                    <div class="loginButton" >
+                    <div class="loginButton">
                         <input type="submit" class="login_btn" value="로그인">
                     </div>
                     <div class="loginButton">
@@ -53,6 +52,18 @@
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{/js/kakao.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function() {
+            // Thymeleaf를 사용하여 서버에서 받은 errorMessage를 자바스크립트 변수로 설정
+            var errorMessage = /*[[${errorMessage}]]*/ '';
+            // 오류 메시지가 있을 경우 alert로 표시
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+        });
+        /*]]>*/
+    </script>
 </th:block>
 </body>
 </html>

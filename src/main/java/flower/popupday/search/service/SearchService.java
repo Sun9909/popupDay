@@ -5,7 +5,12 @@ import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
+// SearchService 인터페이스 정의
 public interface SearchService {
-    // 해시태그로 팝업을 검색하는 메서드 선언, DataAccessException을 던질 수 있음
-    List<PopupDTO> searchPopupsByHashTag(String query) throws DataAccessException;
+
+    // 해시태그로 팝업을 검색하는 메서드
+    List<PopupDTO> searchPopupsByHashTag(String query);
+
+    // 단어로 팝업을 검색하는 메서드
+    List<PopupDTO> searchPopupsByWord(String query);
 }

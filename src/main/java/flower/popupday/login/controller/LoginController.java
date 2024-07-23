@@ -3,6 +3,7 @@ package flower.popupday.login.controller;
 import flower.popupday.login.dto.LoginDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +17,7 @@ public interface LoginController {
                           HttpServletResponse response) throws Exception;
 
     // 로그인 폼 이동
-    ModelAndView loginForm(HttpServletRequest request,
-                           HttpServletResponse response) throws Exception;
+    String loginForm(HttpServletRequest request, Model model) throws Exception;
 
     // 로그인.html
     ModelAndView memberLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
@@ -82,4 +82,6 @@ public interface LoginController {
     public ModelAndView oauth(
             @RequestParam(value = "code", required = false) String code,
             HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+
 }

@@ -34,4 +34,15 @@
                  JOIN hash_tag_tbl ht ON pht.hash_tag_id = ht.hash_tag_id
         WHERE ht.hash_tag LIKE CONCAT('%', #{query}, '%')
     </select>
+
+    <!-- 단어 검색시 조회 -->
+    <select id="searchPopupsByWord" resultMap="PopupResult" parameterType="string">
+        SELECT * FROM popup_tbl
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+           OR info LIKE CONCAT('%', #{keyword}, '%')
+           OR content LIKE CONCAT('%', #{keyword}, '%')
+           OR address LIKE CONCAT('%', #{keyword}, '%')
+           OR brand_page LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
 </mapper>

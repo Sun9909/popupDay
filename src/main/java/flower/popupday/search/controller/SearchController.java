@@ -6,6 +6,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 // 검색 컨트롤러 인터페이스 정의
 public interface SearchController {
-    // 검색 메서드 선언. 'query' 파라미터와 'model' 객체를 받아 'ModelAndView'를 반환
-    ModelAndView search(@RequestParam("query") String query, Model model);
+    // 검색 기능을 구현할 메서드의 시그니처를 정의합니다.
+    ModelAndView search(@RequestParam("query") String query, @RequestParam("searchType") String searchType, Model model);
 }
