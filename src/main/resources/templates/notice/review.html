@@ -18,15 +18,15 @@
         <div class="submenu-wrap">
             <section id="submenu">
                 <a class="contact" >
-                    <h2  th:href="@{/notice/noticList.do}">공지사항</h2>
+                    <h2 th:href="@{/notice/noticList.do}">공지사항</h2>
                 </a>
-                <a class="contact" th:href="@{/notice/faqList.do}" >
+                <a class="contact" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'" >
                     <h2>FAQ</h2>
                 </a>
                 <a class="contact"  th:href="@{/notice/qnaList.do}">
                     <h2>Q&A</h2>
                 </a>
-                <a class="contact" th:href="@{/notice/reviewList.do}" >
+                <a class="contact" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
                     <h2 class="active-category">후기</h2>
                 </a>
             </section>

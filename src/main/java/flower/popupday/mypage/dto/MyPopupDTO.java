@@ -19,7 +19,7 @@ public class MyPopupDTO {
     private Date created_date;
 
     public MyPopupDTO() {
-        
+
     }
 
     public enum Role {
