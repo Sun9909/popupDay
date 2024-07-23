@@ -152,3 +152,14 @@
 #dock_hash_tag {
     margin-right: 10px;
 }
+
+.parking img {
+    position: relative;
+    top: 8px;
+}
+
+.ticket img {
+    position: relative;
+    top: 8px;
+}
+

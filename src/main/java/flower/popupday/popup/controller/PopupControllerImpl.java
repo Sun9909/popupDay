@@ -124,7 +124,6 @@ public class PopupControllerImpl implements PopupController {
             e.printStackTrace();
         }
 
-        //return new ModelAndView("redirect:/popup/popupAllList.do");
         return new ModelAndView("redirect:/admin/register.do");
     }
 

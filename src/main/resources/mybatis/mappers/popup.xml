@@ -24,6 +24,8 @@
         <result property="friday_time" column="friday_time"/>
         <result property="saturday_time" column="saturday_time"/>
         <result property="sunday_time" column="sunday_time"/>
+        <result property="parking" column="parking"/>
+        <result property="fee" column="fee"/>
     </resultMap>
 
     <resultMap type="imageDTO" id="imgResult">
@@ -48,7 +50,7 @@
     </resultMap>
 
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where role="승인" order by created_date desc LIMIT #{count}, 9
+        select * from popup_tbl order by created_date desc LIMIT #{count}, 9
     </select>
 
     <select id="selectToPopup" resultType="int">
@@ -68,9 +70,9 @@
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
         insert into popup_tbl (popup_id, title, info, start_date, end_date, content, address, brand_page, user_id, created_date, monday_time, tuesday_time,
-                               wednesday_time, thursday_time, friday_time, saturday_time, sunday_time)
+                               wednesday_time, thursday_time, friday_time, saturday_time, sunday_time, parking, fee)
         values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, '8' , now() ,#{monday_time},
-                #{tuesday_time}, #{wednesday_time}, #{thursday_time}, #{friday_time}, #{saturday_time}, #{sunday_time})
+                #{tuesday_time}, #{wednesday_time}, #{thursday_time}, #{friday_time}, #{saturday_time}, #{sunday_time}, #{parking}, #{fee})
         ]]>
     </insert>
 
