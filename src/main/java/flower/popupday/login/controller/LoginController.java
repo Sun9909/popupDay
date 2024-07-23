@@ -68,6 +68,9 @@ public interface LoginController {
     // 닉네임 중복 확인
     boolean checkNikname(String user_nikname);
 
+    // 아이디 탈퇴 확인
+    boolean dropCheck(String user_id);
+
     public ModelAndView removeNotice(@RequestParam("noticeNo") int noticeNo, HttpServletRequest request, HttpServletResponse response)
             throws Exception;
 
