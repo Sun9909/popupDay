@@ -48,21 +48,21 @@
     font-size: 24px;
 }
 
-#businessperson_box>li>a {
+#businessperson_box>li>a, #admin_box>li>a {
     font-family: 'Do Hyeon';
     font-size: 30px;
     font-weight: 800;
     text-decoration: none;
     color: black;
 }
-#category_box, #businessperson_box {
+#category_box, #businessperson_box, #admin_box {
     list-style: none;
     padding: 50px 20px;
     margin: 0;
     color: black;
 }
 
-#category_box a , #businessperson_box a {
+#category_box a , #businessperson_box a, #admin_box a {
     display: flex;
     gap: 15px;
     align-items: center;
@@ -70,7 +70,7 @@
     justify-content: flex-start;
 }
 
-#businessperson_box>li {
+#businessperson_box>li, #admin_box>li {
     margin-bottom: 10px;
 }
 
@@ -78,6 +78,9 @@
     color: #8B8BDA;
 }
 #businessperson_box li a:hover {
+    color: #8B8BDA;
+}
+#admin_box li a:hover {
     color: #8B8BDA;
 }
 .category-info_login {
@@ -97,7 +100,7 @@
         font-size: 30px;
     }
 
-    #category_box, #businessperson_box {
+    #category_box, #businessperson_box, #admin_box {
         padding: 50px 20px;
         height: calc(120vh - 110px);
     }

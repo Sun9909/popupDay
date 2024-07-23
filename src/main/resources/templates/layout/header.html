@@ -19,12 +19,14 @@
 		</div>
 	</div>
 	<div id="search-banner">
-		<div class="search">
-			<form action="/search" method="get">
-				<input type="text" name="query" id="searchInput" style="cursor: pointer">
-				<button type="submit"><img th:src="@{/images/search.svg}"></button>
+		<div class="searchHashtag">
+			<form id="searchForm" method="get" action="/search" onsubmit="submitForm(); return false;">
+				<input type="text" name="query" id="searchInput1" style="cursor: pointer">
+				<input type="hidden" name="searchType" id="searchType" value="">
+				<button type="submit"><img th:src="@{/images/search.svg}" alt="Search"></button>
 			</form>
 		</div>
+
 		<div class="search-info">
 			<div class="pDiv">
 				<div class="popup">

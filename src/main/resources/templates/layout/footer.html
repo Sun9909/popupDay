@@ -78,6 +78,13 @@
                         </li>
                     </ul>
                 </div>
+                <div class="admin_category" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
+                    <ul id="admin_box">
+                        <li>
+                            <a th:href="@{/admin/admin.do}">관리자 페이지</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <a href="#">
                 <img th:src="@{/images/zzem.svg}">

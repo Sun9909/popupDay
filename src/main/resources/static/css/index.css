@@ -194,7 +194,7 @@ img {
     gap: 6px;
 }
 /* 검색창 js css */
-.search {
+#searchForm {
     display: flex;
     background-color: #F9F8FF;
     padding: 10px;

@@ -61,8 +61,9 @@ public class MyControllerImpl implements MyController {
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
             //System.out.println(loginDTO.getRole());
             mav.setViewName("redirect:/mypage/businessPage.do");
-        }
-        else {
+        } else if (loginDTO.getRole() == LoginDTO.Role.관리자) {
+            mav.setViewName("redirect:/admin/admin.do");
+        } else {
             mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
         }
         return mav;

@@ -32,3 +32,11 @@ function searchHashTags() {
         })
         .catch(error => console.error('Error:', error));
 }
+
+//search타입이 hashtag인지 word인지 구분하는 js
+function submitForm() {
+    var searchInput = document.getElementById('searchInput1').value;
+    var searchType = searchInput.startsWith('#') ? 'hashtag' : 'word';
+    document.getElementById('searchType').value = searchType;
+    document.getElementById('searchForm').submit();
+}

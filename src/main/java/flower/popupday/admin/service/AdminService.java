@@ -4,6 +4,7 @@ import flower.popupday.admin.dto.AdminDTO;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AdminService {
     public List memberShip() throws DataAccessException;
