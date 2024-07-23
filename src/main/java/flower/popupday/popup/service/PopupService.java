@@ -13,6 +13,8 @@ public interface PopupService {
 
     public Map popupAllList(Map<String, Integer> pagingMap) throws  DataAccessException;
 
+    public Map registerList(Map<String, Integer> pagingMap) throws  DataAccessException;
+
     public void updateHits(Long popup_id) throws DataAccessException;
 
     public boolean toggleLike(Long popup_id, Long id) throws DataAccessException;

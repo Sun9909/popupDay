@@ -4,6 +4,9 @@ h2 {
     font-size: 1.8em;
     margin: 20px 0;
 }
+.num {
+    margin: 20px 0 20px 10px;
+}
 /* 찜한 팝업이 없을 때 */
 h4 {
     color: #4B4B65;
@@ -12,18 +15,48 @@ h4 {
     margin: 50px 0;
 }
 /* 찜한 팝업이 있을 때 */
-form {
-    margin: 20px;
+/*form {*/
+/*    margin: 20px;*/
+/*}*/
+/*fieldset {*/
+/*    display: flex;*/
+/*    padding: 20px;*/
+/*    justify-content: space-between;*/
+/*}*/
+/*form p {*/
+/*    font-size: 1.5em;*/
+/*}*/
+table {
+    border: 1px #4B4B65 solid;
+    text-align: center;
+    width: 700px;
+    margin: 10px 10px 30px;
+    border-spacing: 0;
+    border-top: none;
 }
-fieldset {
-    display: flex;
-    padding: 20px;
-    justify-content: space-between;
+tr {
+    text-align: center;
 }
-form p {
-    font-size: 1.5em;
+th {
+    border: 1px #4B4B65 solid;
+    border-left: none;
+}
+tr .del {
+    border-right: none;
+}
+td {
+    background-color: white;
 }
 
+table .tr_title {
+    background-color: #FDFEFF;
+}
+tr h4 {
+    color: #4B4B65;
+    font-size: 1.3em;
+    text-align: center;
+    margin: 15px;
+}
 .containers {
     min-height: 500px;
 }

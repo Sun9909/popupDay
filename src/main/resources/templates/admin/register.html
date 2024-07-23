@@ -16,19 +16,75 @@
     <div class="containers">
         <!-- 팝업 신청 관리 페이지 -->
         <h2>팝업 신청 관리</h2>
+        <p class="num" th:text="'전체 ' + ${totPopup} + '개'"></p>
 
         <!-- 팝업이 없을 때 -->
-        <h4>신청된 팝업이 없습니다</h4>
+<!--        <div th:if="${totPopup == null or totPopup.isEmpty()}">-->
+<!--            <h4>신청된 팝업이 없습니다</h4>-->
+<!--        </div>-->
 
-        <!-- 팝업이 있을 때 -->
-        <form>
-            <fieldset>
-                <a href="#" class="pop" title="팝업">
-                    <p class="popName">동방신기 팝업</p> <!-- popup_tbl title -->
+<!--        &lt;!&ndash; 팝업이 있을 때 &ndash;&gt;-->
+<!--        <form>-->
+<!--            <fieldset>-->
+<!--                <a th:href="@{/admin/register.do}" class="pop" title="팝업">-->
+<!--                    <p class="popName" th:text="${popupInfoList.popup.title}"></p>-->
+<!--                    <p class="popName" th:text="${popupInfoList.popup.user_id}"></p>-->
+<!--                    <p class="popName" th:text="${popupInfoList.popup.created_date}"></p>-->
+<!--                </a>-->
+<!--                <p class="popState" th:text="${popupInfoList.popup.role}"></p>-->
+<!--            </fieldset>-->
+<!--        </form>-->
+
+        <!-- 팝업 게시판 가져오기 -->
+        <table>
+            <tr class="tr_title">
+                <th>팝업 제목</th><th>사업자</th><th>신청 날짜</th><th>승인 상태</th>
+            </tr>
+
+            <!-- 신청된 팝업이 없을 때 -->
+            <tr th:if="${popupInfoList == null or popupInfoList.isEmpty()}">
+                <td colspan="4" rowspan="3">
+                    <h4>신청된 팝업이 없습니다</h4>
+                </td>
+            </tr>
+
+            <tr th:each="popup : ${popupInfoList}">
+                <a th:href="@{/admin/register.do}">
+                    <td th:text="${popup.popup.title}"></td>
+                    <td th:text="${popup.popup.user_id}"></td>
+                    <td th:text="${popup.popup.created_date}"></td>
+                    <td th:text="${popup.popup.role}"></td>
                 </a>
-                <p class="popState">승인</p> <!-- popup_tbl role -->
-            </fieldset>
-        </form>
+            </tr>
+        </table>
+        <div align="center" th:if="${totPopup > 9}">
+            <div th:if="${totPopup > 100}">
+        <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 9) + 1 : 9))}">
+            <span th:if="${section > 1 and num == 1}">
+                <a th:href="@{/popup/registerList.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
+            </span>
+            <span th:if="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">
+                <a class="target" th:href="@{/popup/registerList.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>
+            </span>
+            <span th:unless="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">
+                <a class="noLine" th:href="@{/popup/registerList.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>
+            </span>
+            <span th:if="${num == 9}">
+                <a th:href="@{/popup/registerList.do(section=${section + 1}, pageNum=${section * 9 + 1})}">next</a>
+            </span>
+        </span>
+            </div>
+            <div th:if="${totPopup <= 100}">
+        <span th:each="num : ${#numbers.sequence(1, (totPopup / 9) + 1)}">
+            <span th:if="${num == pageNum}">
+                <a class="target" th:href="@{/popup/registerList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+            </span>
+            <span th:unless="${num == pageNum}">
+                <a class="noLine" th:href="@{/popup/registerList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+            </span>
+        </span>
+            </div>
+        </div>
     </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
