@@ -9,8 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,9 @@ public class PopupControllerImpl implements PopupController {
 
     @Autowired
     PopupService popupService;
+
+    @Autowired
+    private HttpSession session;
 
     @Override
     @RequestMapping("/popup/popupAllList.do")
@@ -154,6 +158,7 @@ public class PopupControllerImpl implements PopupController {
         return fileList;
     }
 
+    @Override
     @RequestMapping("/popup/popupView.do")
     public ModelAndView popupView(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -188,35 +193,43 @@ public class PopupControllerImpl implements PopupController {
             response.addCookie(viewCookie);
         }
 
+        // 사용자 로그인 상태 체크
+        // SecurityContextHolder: 현재 인증된 사용자의 정보를 저장하고 제공하는 컨텍스트 홀더.
+        // Authentication: 현재 인증된 사용자에 대한 정보를 담고 있는 객체.
+        // AnonymousAuthenticationToken: 익명 사용자를 나타내는 토큰.
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean loginCheck = authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken);
+
+
         // 팝업 상세 조회
         Map popupMap = popupService.popupView(popup_id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
+        mav.addObject("loginCheck", loginCheck);
         return mav;
     }
 
     @Override
-    @PostMapping("/popup/heartPopup.do")
+    @PostMapping("/popup/popupLike.do")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> heartPopup(@RequestParam("popup_id") Long popup_id, HttpSession session) throws Exception{
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("member");
-        Map<String, String> response = new HashMap<>();
+    public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id) {
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long user_id=loginDTO.getId();
+        session.setAttribute("loginDTO", loginDTO); //업데이트된 정보를 세션에 저장
 
-        if (loginDTO == null) {
-            response.put("message", "로그인이 필요합니다.");
-            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        // 사용자 ID가 세션에 없으면 로그인하지 않은 것으로 간주
+        if (user_id == null) {
+            return Map.of("success", false, "message", "로그인이 필요합니다.");
         }
 
-        boolean isLiked = popupService.isLiked(loginDTO.getId(), popup_id);
-        if (isLiked) {
-            popupService.removeLike(loginDTO.getId(), popup_id);
-            response.put("message", "팝업 찜을 취소했습니다.");
-        } else {
-            popupService.addLike(loginDTO.getId(), popup_id);
-            response.put("message", "팝업을 찜 목록에 추가했습니다!");
-        }
+        // 찜 상태를 토글
+        boolean isLiked = popupService.toggleLike(popup_id, user_id);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("isLiked", isLiked);
+
+        return response;
     }
 }
