@@ -178,7 +178,7 @@ public class MyControllerImpl implements MyController {
         //loginDTO.setId(request.getParameter("id"));
 
         myService.dropMember(loginDTO);
-        ModelAndView mav = new ModelAndView("redirect:/main.do");
+        ModelAndView mav = new ModelAndView("redirect:/login/logout.do");
         return mav;
     }
 

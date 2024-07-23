@@ -15,7 +15,20 @@ $(function(){
         $(".category-info").slideToggle();
     });
 });
-function search() {
-    const query = document.getElementById('searchInput').value;
-    window.location.href = `/search?query=${encodeURIComponent(query)}`;
+
+//검색부분
+function searchHashTags() {
+    var query = document.getElementById("searchInput").value;
+    fetch(`/search?query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            var resultsDiv = document.getElementById("searchResults");
+            resultsDiv.innerHTML = "";
+            data.forEach(tag => {
+                var tagElement = document.createElement("div");
+                tagElement.textContent = tag.hashTag;
+                resultsDiv.appendChild(tagElement);
+            });
+        })
+        .catch(error => console.error('Error:', error));
 }

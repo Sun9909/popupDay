@@ -314,3 +314,25 @@ function fn_articleForm(isLogOn, articleForm, loginForm) { /*boolean, 이동하�
         location.href = loginForm + '?action=' + encodeURIComponent(articleForm);	//로그인 창으로
     }
 }
+//탈퇴한 회원으로 로그인시 알림
+function dropMember() {
+    //let isUserIdValid = false;
+    //event.preventDefault()
+    let userId = document.querySelector('input[name="user_id"]').value;
+    console.log("User ID:", userId); // 디버깅용 로그
+
+    $.ajax({
+        url: "/login/drop-id",
+        data: { 'user_id': userId },
+        dataType: 'json',
+        success: function (data) {
+            console.log("AJAX success data:", data); // 디버깅용 로그
+            if (data) {
+                alert("이미 탈퇴한 회원 입니다.");
+            }
+        }
+    })
+}
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.login_btn').addEventListener('click', dropMember);
+});
