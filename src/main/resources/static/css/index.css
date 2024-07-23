@@ -213,6 +213,23 @@ img {
     width: 650px;
     height: 28px;
 }
+
+.search-btn {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 2px 4px;
+    width: 48px;
+    height: 28px;
+}
+
+.search-btn >img {
+    top: 0;
+    position: absolute;
+    height: 26px;
+    width: 28px;
+    left: 10px;
+}
+
 /* 헤더부분 */
 .popup li {
     padding: 3px;

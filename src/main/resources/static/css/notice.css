@@ -383,12 +383,12 @@
 
 }
 .view-title{
-    width: 565px;
+    width: 600px;
     height: 30px;
 }
 
 .view-content {
-    width: 565px;
+    width: 600px;
     height: 100px;
 }
 
@@ -484,4 +484,15 @@ a.write {
     justify-content: space-between;
     align-items: flex-start;
     height: 100px;
+}
+
+.containers {
+    min-height: 700px;
+}
+
+/* 수정추가 */
+
+.notice-form {
+    margin: 0 auto;
+    width: 600px;
 }

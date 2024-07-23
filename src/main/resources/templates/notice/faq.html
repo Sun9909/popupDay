@@ -17,8 +17,8 @@
         <!-- 공지사항 -->
         <div class="submenu-wrap">
             <section id="submenu">
-                <a class="contact" >
-                    <h2 th:href="@{/notice/noticList.do}">공지사항</h2>
+                <a class="contact"  th:href="@{/notice/noticeList.do}">
+                    <h2>공지사항</h2>
                 </a>
                 <a class="contact" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'" >
                     <h2 class="active-category">FAQ</h2>
