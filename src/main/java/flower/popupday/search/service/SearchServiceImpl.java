@@ -6,19 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service // 이 클래스가 서비스 계층의 컴포넌트임을 나타냅니다.
 public class SearchServiceImpl implements SearchService {
 
-    // SearchDAO를 자동으로 주입
     @Autowired
     private SearchDAO searchDAO;
 
-    // SearchService 인터페이스의 메서드를 구현
     @Override
-    public List<PopupDTO> searchPopupsByHashTag(String query) throws DataAccessException {
-        // searchDAO를 통해 해시태그로 팝업 검색 결과를 반환
+    public List<PopupDTO> searchPopupsByHashTag(String query) {
         return searchDAO.searchPopupsByHashTag(query);
+    }
+
+    @Override
+    public List<PopupDTO> searchPopupsByWord(String query) {
+        return searchDAO.searchPopupsByWord(query);
     }
 }

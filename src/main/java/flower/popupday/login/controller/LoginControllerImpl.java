@@ -5,9 +5,9 @@ import flower.popupday.login.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.engine.spi.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,43 +42,81 @@ public class LoginControllerImpl implements LoginController {
     }
 
     // 로그인 폼 이동
+    // 로그인 폼 이동 및 로그인 실패 시 오류 메시지를 처리하는 메서드
     @Override
     @GetMapping("/login.do")
-    public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("/login/login");
+    public String loginForm(HttpServletRequest request, Model model) {
+        // 요청에서 세션을 가져옵니다. 세션이 없으면 null을 반환합니다.
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 오류 메시지를 가져옵니다.
+            String errorMessage = (String) session.getAttribute("errorMessage");
+            if (errorMessage != null) {
+                // 모델에 오류 메시지를 추가합니다.
+                model.addAttribute("errorMessage", errorMessage);
+                // 세션에서 오류 메시지를 제거합니다.
+                session.removeAttribute("errorMessage");
+            }
+        }
+        // 로그인 페이지로 이동합니다.
+        return "login/login";
     }
 
-    // 로그인 값저장
+
+    // 로그인 처리 메서드
     @Override
     @PostMapping("/log.do")
     public ModelAndView memberLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                                     RedirectAttributes rAttr,
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws Exception {
+        // 입력된 로그인 정보를 바탕으로 로그인 시도
         LoginDTO loginResult = loginService.memberLogin(loginDTO);
         ModelAndView mav = new ModelAndView();
-        System.out.println(loginResult.getStatus());
-        if (loginResult != null) {
+
+        // 로그인 결과 처리
+        if (loginResult != null) { // 로그인 성공 시
+            // 로그인 상태 확인
             LoginDTO.Status status = loginResult.getStatus();
-            if(status == LoginDTO.Status.deleted) { //탈퇴한 회원
+            if (status == LoginDTO.Status.deleted) { // 탈퇴한 회원일 경우
                 rAttr.addFlashAttribute("result", "탈퇴한 회원입니다");
                 mav.setViewName("redirect:/login/login.do");
-            } else {
+            } else { // 정상 회원일 경우
                 HttpSession session = request.getSession();
                 session.setAttribute("loginDTO", loginResult);
                 session.setAttribute("isLogOn", true);
                 String action = (String) session.getAttribute("action");
                 if (action != null) {
-                    mav.setViewName("redirect:" + action); // action 값이 있을 경우 해당 경로로 리디렉션
+                    mav.setViewName("redirect:" + action); // 이전 페이지로 리다이렉트
                 } else {
-                    mav.setViewName("redirect:/main.do"); // action 값이 없을 경우 기본적으로 /main.do로 리디렉션
+                    mav.setViewName("redirect:/main.do"); // 기본 메인 페이지로 리다이렉트
                 }
             }
-        } else {
-            rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요");
-            mav.setViewName("redirect:/login/login.do"); // 로그인 실패 시 로그인 페이지로 리디렉션
+        } else { // 로그인 실패 시
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", "아이디나 비밀번호를 다시 입력해주세요"); // 오류 메시지를 세션에 저장
+            mav.setViewName("redirect:/login/login.do"); // 로그인 페이지로 리디렉트
         }
-        return mav;
+        return mav; // ModelAndView 반환
+    }
+
+    //로그인 실패 시 오류 메시지를 처리하는 메서드
+    @GetMapping("/login/login.do")
+    public String showLoginPage(HttpServletRequest request, Model model) {
+        // 요청에서 세션을 가져옵니다. 세션이 없으면 null을 반환합니다.
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 오류 메시지를 가져옵니다.
+            String errorMessage = (String) session.getAttribute("errorMessage");
+            if (errorMessage != null) {
+                // 모델에 오류 메시지를 추가합니다.
+                model.addAttribute("errorMessage", errorMessage);
+                // 세션에서 오류 메시지를 제거합니다.
+                session.removeAttribute("errorMessage");
+            }
+        }
+        // 로그인 페이지로 이동합니다.
+        return "login/login";
     }
 
     // 사업자 회원가입
@@ -134,7 +172,7 @@ public class LoginControllerImpl implements LoginController {
             if (action != null) {
                 mav.setViewName("redirect:" + action); // 로그인 진행한 위치로 리다이렉트
             } else {
-                mav.setViewName("redirect:/main.do"); // 기본적으로 메인 페이지로 리다이렉트
+                mav.setViewName("redirect:/main.do"); // 기본적으로 메인 페이지로 리디렉트
             }
         } else { // 회원 정보가 없는 경우
             rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요"); // 에러 메시지 추가
@@ -237,7 +275,6 @@ public class LoginControllerImpl implements LoginController {
         return new ModelAndView("redirect:/login/login.do"); // 로그인 실패 시 로그인 페이지로 리디렉션
     }
 
-
     @Override
     @GetMapping("/logout.do")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -247,4 +284,11 @@ public class LoginControllerImpl implements LoginController {
         mav.setViewName("redirect:/main.do"); // 로그아웃 후 메인 페이지로 리디렉트
         return mav;
     }
+
+    @PostMapping("/clear-error-message")
+    public void clearErrorMessage(HttpSession session) {
+        session.removeAttribute("errorMessage");
+    }
+
+
 }
