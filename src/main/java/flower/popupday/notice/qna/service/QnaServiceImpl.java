@@ -60,7 +60,7 @@ public class QnaServiceImpl implements QnaService {
     }
     @Override
     public void addAnswer(QnaDTO qnaDTO) throws DataAccessException {
-        qnaDAO.insertAnswer(qnaDTO);
+        qnaDAO.updateAnswer(qnaDTO);
     }
 
     @Override

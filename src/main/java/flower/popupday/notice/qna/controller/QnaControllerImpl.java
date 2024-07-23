@@ -149,36 +149,59 @@ public class QnaControllerImpl implements QnaController {
     @RequestMapping("/notice/addAnswer.do")
     public ModelAndView addAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
-        String content = request.getParameter("content");
-        String qnaIdParam  = request.getParameter("qna_id");
+        String answer = request.getParameter("answer");
+        Long qna_id = Long.valueOf(request.getParameter("qna_id"));
 
-        System.out.println("qna_id : " + qnaIdParam );
-        System.out.println("content : " + content);
+        System.out.println("qna_id : " + qna_id );
+        System.out.println("answer : " + answer);
 
-        // qnaIdParam이 null이거나 빈 문자열인 경우 예외 처리
-        if (qnaIdParam == null || qnaIdParam.trim().isEmpty()) {
-            throw new IllegalArgumentException("Qna ID is required");
+        // 제목이 비어있는지 검사
+        if (answer == null || answer.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty");
         }
 
-        // qnaIdParam을 Long으로 변환
-        Long qna_id;
-        try {
-            qna_id = Long.parseLong(qnaIdParam);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid Qna ID format", e);
-        }
+        // 로그인 정보 가져오기
+        HttpSession session=request.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long user_id=loginDTO.getId();
+        //qnaMap.put("id", id);
 
-        QnaDTO qna = qnaService.getQnaById(qna_id);
+        // qnaDTO개체 생성 및설정
+        QnaDTO qnaDTO = new QnaDTO();
+        qnaDTO.setUser_id(user_id);
+        qnaDTO.setQna_id(qna_id);
+        qnaDTO.setAnswer(answer);
+        //qnaMap.put("qnaDTO",qnaDTO);
+        qnaService.addAnswer(qnaDTO);  //서비스 호출
 
-        //답변 상태설정
-        qna.setAnswer(content);
-        qna.setStatus(QnaDTO.Status.답변완료.name());
-
-        //답변추가
-        qnaService.addAnswer(qna);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
+
+//        // qnaIdParam이 null이거나 빈 문자열인 경우 예외 처리
+//        if (qnaIdParam == null || qnaIdParam.trim().isEmpty()) {
+//            throw new IllegalArgumentException("Qna ID is required");
+//        }
+//
+//        // qnaIdParam을 Long으로 변환
+//        Long qna_id;
+//        try {
+//            qna_id = Long.parseLong(qnaIdParam);
+//        } catch (NumberFormatException e) {
+//            throw new IllegalArgumentException("Invalid Qna ID format", e);
+//        }
+//
+//        QnaDTO qna = qnaService.getQnaById(qna_id);
+//
+//        //답변 상태설정
+//        qna.setAnswer(content);
+//        qna.setStatus(QnaDTO.Status.답변완료.name());
+//
+//        //답변추가
+//        qnaService.addAnswer(qna);
+//        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
+//        return mav;
+//    }
 //    @Override
 //    @PostMapping("/notice/addAnswer.do")
 //    public void addAnswer(HttpServletRequest request, HttpServletResponse response) throws IOException {

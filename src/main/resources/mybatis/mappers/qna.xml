@@ -22,7 +22,7 @@
     </insert>
 
     <!--qna 답변 -->
-    <update id="addAnswer" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
+    <update id="updateAnswer" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
         UPDATE qna_tbl
         SET answer = #{answer}, status = '답변완료'
         WHERE qna_id = #{qna_id}
@@ -60,12 +60,6 @@
     <delete id="deleteFaq" parameterType="int">
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
-
-    <select id="selectOriginalContentById" parameterType="long" resultType="String">
-        SELECT original_content
-        FROM qna_tbl
-        WHERE qna_id = #{qna_id}
-    </select>
 
     <select id="selectQnaById" parameterType="long" resultType="flower.popupday.notice.qna.dto.QnaDTO">
         SELECT * FROM qna_tbl WHERE qna_id = #{qna_id}

@@ -26,7 +26,7 @@ public interface QnaDAO {
 
     public void deleteQna(long qna_id) throws DataAccessException;
 
-    public void insertAnswer(QnaDTO qnaDTO) throws DataAccessException;
+    public void updateAnswer(QnaDTO qnaDTO) throws DataAccessException;
 
     public void selectQnaById(long qna_id) throws DataAccessException;
 

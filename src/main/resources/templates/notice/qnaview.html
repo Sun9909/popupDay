@@ -26,7 +26,7 @@
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="notice-view">
-            <form class="qna-form" name="qnaView" method="post" >
+            <form class="qna-form" name="qnaView" method="post" action="notice/addQna.do">
                 <div class="viewForm">
                     <p>제목</p>
                     <input class="view-title" id="title"  name="title" th:value="${qnaView.qna.title}" disabled>
@@ -36,26 +36,33 @@
                     <input class="view-content" id="content" name="content" th:value="${qnaView.qna.content}" disabled>
                 </div>
             </form>
+
             <div class="qna-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                 <!-- 버튼 클릭 시 toggleAnswerQna() 함수 호출 -->
                 <button type="button" onclick="toggleAnswerQna()">답변하기</button>
 
                 <!-- 초기에 숨겨진 상태로 설정 -->
                 <div id="answer_qna_div" class="answer_qna" style="display: none;">
-                    <div th:if="${qnaView != null}">
-                        <p th:text="${qnaView['title']}">Title</p>
-                        <p th:text="${qnaView['content']}">Content</p>
-                    </div>
+<!--                    <div th:if="${qnaView != null}">-->
+<!--                        <p th:text="${qnaView.qna.title}">Title</p>-->
+<!--                        <p th:text="${qnaView.qna.content}">Content</p>-->
+<!--                    </div>-->
                     <form class="answer-content" th:action="@{/notice/addAnswer.do}" method="post">
-                        <input type="hidden" name="qna_id" th:value="${qnaView['id']}">
-                        <textarea id="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100"></textarea>
+                        <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
+                        <textarea id="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100" name="answer"></textarea>
                         <button type="submit">등록하기</button>
                         <button><a th:href="@{/notice/qnaList.do}">취소하기</a></button>
                     </form>
                 </div>
             </div>
-
         </div>
+        <!-- 답변 내용이 있을 경우 답변 표시 -->
+        <div class="answer-section" th:if="${qnaView.qna.answer != null}" name="answer">
+            <p>답변</p>
+            <p th:text="${qnaView.qna.answer}"></p>
+            <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>
+        </div>
+
     </div>
 
 

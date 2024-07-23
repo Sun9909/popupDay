@@ -476,3 +476,12 @@ a.write {
 .notice_img {
     height: 700px;
 }
+.answer-section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100px;
+}
