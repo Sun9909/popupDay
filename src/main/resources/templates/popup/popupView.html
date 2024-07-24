@@ -180,6 +180,10 @@
                         <h3 class="infor-tit">리뷰 작성하기</h3>
                     </a>
                 </div>
+
+                <span th:if="${popupMap != null && popupMap.popupList != null && loginCheck && popupMap.popupList.user_id == id}">
+                     <a href="#" th:href="@{/popup/modPopupForm.do(popup_id=${popupMap.popupList.popup_id}, user_id=${popupMap.popupList.user_id})}" class="btn-edit">수정하기</a>
+                </span>
             </div>
         </div>
     </div>

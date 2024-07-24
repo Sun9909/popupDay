@@ -223,6 +223,7 @@ public class PopupControllerImpl implements PopupController {
         // 찜 기능 세션 가져오기
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
         boolean loginCheck = loginDTO != null;
         Long id = loginCheck ? loginDTO.getId() : null;
 
@@ -232,9 +233,11 @@ public class PopupControllerImpl implements PopupController {
         mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
         mav.addObject("loginCheck", loginCheck);
+        mav.addObject("id", id);
         return mav;
     }
 
+    @Override
     @PostMapping("/popup/popupLike.do")
     @ResponseBody
     public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) {
@@ -254,4 +257,15 @@ public class PopupControllerImpl implements PopupController {
 
         return LikeMap;
     }
+
+//    @Override
+//    @PostMapping("/popup/modPopupForm.do")
+//    public ModelAndView modPopupForm(@RequestParam("popup_id") Long popup_id, @RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) {
+//        Map<String, Object> popupMap = popupService.popupView(popup_id, id);
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("popupMap", popupMap);
+//        mav.setViewName("popup/modPopupForm");
+//        return mav;
+//    }
+
 }
