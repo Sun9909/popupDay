@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -222,17 +223,16 @@ public class QnaControllerImpl implements QnaController {
         qnaDTO.setAnswer(answer);
 
         // 서비스 호출
-        qnaService.modQna(qnaDTO); // modQna메서들 호출 (qnaDTO :title,contetn, qna_id)를 가져옴
+        qnaService.modAnswer(qnaDTO); // modAnswer 메서드 호출
 
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
-
-    //답변 삭제하기
+    //답변 수정
     @Override
-    @RequestMapping("/notice/removeAnswer.do")
-    public ModelAndView removeAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/notice/removeAnswer.do", method = RequestMethod.POST)
+    public ModelAndView removedAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         qnaService.removeAnswer(qna_id);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;

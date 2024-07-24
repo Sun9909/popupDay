@@ -77,14 +77,14 @@ public class QnaServiceImpl implements QnaService {
         return null;
     }
 
+    //답변 수정
     @Override
-    public void modAnswer(QnaDTO qnaDTO) throws DataFormatException {
-        qnaDAO.changeAnswer(qnaDTO);
+    public void modAnswer(QnaDTO qnaDTO) throws DataAccessException {
+        qnaDAO.updateAnswer(qnaDTO);
     }
 
-    @Override
+    // 답변 삭제 메서드 추가
     public void removeAnswer(long qna_id) throws DataAccessException {
         qnaDAO.deleteAnswer(qna_id);
     }
-
 }
