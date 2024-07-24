@@ -31,12 +31,14 @@
                 <button type="button" class="id_overlap_button">중복 확인</button>
                 <br>
                 <input type="text" name="user_id" th:value="${member.user_id}">
+                <input type="hidden" name="origin_id" th:value="${myInfo.user_id}">
             </p>
             <p>
                 <label>닉네임<strong class="require"></strong></label>
                 <button type="button" name="user_nikname_overlap_button">중복 확인</button>
                 <br>
-                <input type="text" name="user_nikname" th:value="${member.user_nikname}" check_result="true">
+                <input type="text" name="user_nikname" th:value="${member.user_nikname}">
+                <input type="hidden" name="origin_nikname" th:value="${myInfo.user_nikname}">
             </p>
             <p>
                 <label>이름<strong class="require"></strong></label><br>

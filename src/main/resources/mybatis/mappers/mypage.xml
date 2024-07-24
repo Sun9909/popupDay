@@ -70,7 +70,7 @@
     <select id="getreCommentCount" parameterType="String" resultType="String">
         <!--        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id-->
         <!--        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id-->
-        select count(*) from review_comment where user_id=#{id}
+        select count(*) from review_comment_tbl where user_id=#{id}
 
         <!--        SELECT-->
         <!--        COALESCE(SUM(a.comment_count), 0) AS total_comments_a,-->
