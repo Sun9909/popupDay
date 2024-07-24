@@ -58,7 +58,7 @@
                     curr_date.addClass("event-date");
                 }
                 // Set onClick handler for clicking a date
-                curr_date.click({events: events, month: months[month], day:day, year: year}, date_click);
+                curr_date.click({events: events, month: month+1, day:day, year: year}, date_click);
                 row.append(curr_date);
             }
         }
@@ -92,6 +92,9 @@
         event_data["events"].push(selectedDate);
         console.log("Selected Date Added: ", selectedDate);
         console.log("Updated event_data: ", event_data);
+
+        // selectedDateAdded input에 값 설정 (형식을 'YYYY-MM-DD'로 변경)
+        document.getElementById('selectedDateAdded').value = `${event.data.year}-${String(event.data.month).padStart(2, '0')}-${String(event.data.day).padStart(2, '0')}`;
     }
 
     // Event handler for when a month is clicked
@@ -126,56 +129,6 @@
         init_calendar(date);
     }
 
-    // Event handler for clicking the new event button
-    function new_event(event) {
-        // if a date isn't selected then do nothing
-        if($(".active-date").length===0)
-            return;
-        // remove red error input on click
-        $("input").click(function(){
-            $(this).removeClass("error-input");
-        })
-        // empty inputs and hide events
-        $("#dialog input[type=text]").val('');
-        $("#dialog input[type=number]").val('');
-        $(".events-container").hide(250);
-        $("#dialog").show(250);
-        // Event handler for cancel button
-        $("#cancel-button").click(function() {
-            $("#name").removeClass("error-input");
-            $("#dialog").hide(250);
-            $(".events-container").show(250);
-        });
-        // Event handler for ok button
-        $("#ok-button").unbind().click({date: event.data.date}, function() {
-            var date = event.data.date;
-            var name = $("#name").val().trim();
-            var day = parseInt($(".active-date").html());
-            // Basic form validation
-            if(name.length === 0) {
-                $("#name").addClass("error-input");
-            }
-            else {
-                $("#dialog").hide(250);
-                console.log("new event");
-                new_event_json(name, date, day);
-                date.setDate(day);
-                init_calendar(date);
-            }
-        });
-    }
-
-    // Adds a json event to event_data
-    function new_event_json(name, date, day) {
-        var event = {
-            "occasion": name,
-            "year": date.getFullYear(),
-            "month": date.getMonth()+1,
-            "day": day
-        };
-        event_data["events"].push(event);
-    }
-
     // Display all events of the selected date in card views
     function show_events(events, month, day) {
         // Clear the dates container
@@ -185,7 +138,7 @@
         // If there are no events for this date, notify the user
         if(events.length===0) {
             var event_card = $("<div class='event-card'></div>");
-            var event_name = $("<div class='event-name'>There are no events planned for "+month+" "+day+".</div>");
+            var event_name = $("<div class='event-name'>There are no events planned for "+months[month-1]+" "+day+".</div>");
             $(event_card).css({ "border-left": "10px solid #FF1744" });
             $(event_card).append(event_name);
             $(".events-container").append(event_card);
@@ -298,8 +251,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 예시로 7월 달력 날짜 셀을 동적으로 생성
     for (let i = 1; i <= 31; i++) {
-        const dateCell = document.createElement('td');
-        dateCell.className = 'date-cell';
+        const dateCell = document.createElement('tr');
+        dateCell.className = 'table-row';
         const date = `2024-07-${String(i).padStart(2, '0')}`;
         dateCell.setAttribute('data-date', date);
         dateCell.textContent = i;
@@ -307,30 +260,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 날짜 셀 클릭 이벤트 처리
         dateCell.addEventListener('click', function() {
-            selectedDate = this.getAttribute('selectedDateAdded');
-            selectedDateInput.value = selectedDateAdded;
+            selectedDate = this.getAttribute('data-date');
+            selectedDateInput.value = selectedDate;
 
             // 이전에 선택된 날짜 셀에서 선택 클래스 제거
             const previouslySelected = document.querySelector('.date-cell.selected-date');
             if (previouslySelected) {
-                previouslySelected.classList.remove('selectedDateAdded');
+                previouslySelected.classList.remove('selected-date');
             }
 
             // 현재 선택된 날짜 셀에 선택 클래스 추가
-            this.classList.add('selectedDateAdded');
-        });
-    }
+            this.classList.add('selected-date');
 
-    // 팝업 조회 버튼 클릭 이벤트 처리
-    const popupButton = document.getElementById('add-button');
-    if (popupButton) {
-        popupButton.addEventListener('click', function(event) {
-            if (selectedDate == null) {
-                alert("날짜를 선택해주세요.");
-                event.preventDefault();  // 폼 제출 방지
-            } else {
-                console.log("Selected Date Added: ", selectedDate);
-            }
+            console.log("Selected Date Added: ", selectedDate); // 선택된 날짜 콘솔에 출력
         });
     }
 });
