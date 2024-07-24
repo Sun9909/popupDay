@@ -107,19 +107,10 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button class="button" id="add-button">팝업 조회</button>
-                                    </div>
-                                </div>
-                                <div class="events-container">
-                                    <div class="dialog" id="dialog">
-                                        <h2 class="dialog-header">팝업 일정 추가</h2>
-                                        <form class="form" id="form" method="get" action="/search/searchPopups">
-                                            <div class="form-container">
-                                                <label class="form-label" for="selectedDate">선택한 날짜</label>
-                                                <input class="input" type="text" id="selectedDate" name="selectedDate" readonly>
-                                                <input type="button" value="취소" class="button" id="cancel-button">
-                                                <input type="submit" value="확인" class="button button-white" id="ok-button">
-                                            </div>
+                                        <form class="form" id="search-form" method="get" action="/search/searchPopups">
+                                            <label class="form-label"  for="selectedDateAdded">선택한 날짜</label>
+                                            <input class="input" type="text" id="selectedDateAdded" name="selectedDateAdded" readonly>
+                                            <button class="button" id="add-button" type="submit">팝업 조회</button>
                                         </form>
                                     </div>
                                 </div>
