@@ -9,9 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,6 +83,12 @@ public class PopupControllerImpl implements PopupController {
             popupMap.put("hash_tag", Arrays.asList(hashTags));
         }
 
+        // 작성자 id 가져오기
+        HttpSession session=multipartRequest.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id=loginDTO.getId();
+        popupMap.put("user_id", id);
+
         // 파일 업로드 처리
         List<String> fileList = multiFileUpload(multipartRequest);
         List<ImageDTO> imageFileList = new ArrayList<>();
@@ -123,9 +126,8 @@ public class PopupControllerImpl implements PopupController {
             }
             e.printStackTrace();
         }
-
-        //return new ModelAndView("redirect:/popup/popupAllList.do");
-        return new ModelAndView("redirect:/admin/register.do");
+        return new ModelAndView("redirect:/popup/popupAllList.do");
+//        return new ModelAndView("redirect:/admin/register.do");
     }
 
     // 여러 개의 이미지 파일 업로드

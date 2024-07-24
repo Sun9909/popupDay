@@ -46,7 +46,7 @@
 <!--                        <img id="heart-image" class="heart" th:data-popup-id="${popupMap.popupList.popup_id}" th:src="@{/images/heart_empty.svg}" alt="찜">-->
                         <div class="date">
                             <img th:src="@{/images/date.svg}" alt="달력">
-                            <p>24.07.08 - 24.07.30</p>
+                            <p th:text="${popupMap.popupList.start_date} + ' ~ ' + ${popupMap.popupList.end_date}"></p>
                         </div>
 
                         <div class="location">
@@ -67,24 +67,18 @@
                     </div>
                 </div>
 
-                <!--리뷰보러가기
-                <div class="see-review">
-                    <a href="#">
-                        <p class="see-review-go"><img th:src="@{images/talk.svg}" alt="말풍선">리뷰 보러가기<img th:src="@{images/angle-down-solid.svg}" alt="아래화살표"></p>
-                    </a>
-                </div> -->
-
                 <!--주차 입장료 여부-->
                 <div class="popupdetail-icon-area">
                     <div class="parking">
-                        <img th:src="@{/images/parking.svg}" alt="주차">
-                        <p>주자가능</p>
+                        <img th:src="${popupMap.popupList.parking == '주차가능' ? '/images/parking.jpg' : '/images/unparking.jpg'}" alt="주차">
+                        <p th:text="${popupMap.popupList.parking}"></p>
                     </div>
                     <div class="ticket">
-                        <img th:src="@{/images/ticket.svg}" alt="주차">
-                        <p>입장료무료</p>
+                        <img th:src="${popupMap.popupList.fee == '입장비무료' ? '/images/ticket.svg' : '/images/ticket.svg'}" alt="입장료">
+                        <p th:text="${popupMap.popupList.fee}"></p>
                     </div>
                 </div>
+
                 <!-- 운영시간 -->
                 <div class="popupdetail-time">
                     <div class="popup-time">
@@ -147,7 +141,7 @@
                         </div>
                     </article>
                     <ul>
-                        <li><p>서울특별시 강남구 주유성빌딩</p></li>
+                        <li><p th:value="${popupMap.popupList.address}"></p></li>
                         <li><button type="button">주소복사</button></li>
                     </ul>
                 </div>
@@ -175,6 +169,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!--리뷰-->
                 <div class="popupdetail-review">
                     <a class="popupdetail-total" th:href="@{/notice/reviewForm.do}">
