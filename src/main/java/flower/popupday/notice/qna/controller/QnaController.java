@@ -3,7 +3,9 @@ package flower.popupday.notice.qna.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface QnaController {
@@ -20,6 +22,8 @@ public interface QnaController {
     public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    //public ModelAndView modQna(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
