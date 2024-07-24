@@ -59,6 +59,16 @@
         ]]>
    </select>
 
+    <select id="pickAllPopup" resultMap="popResult" parameterType="int">
+        select * from popup_tbl where role="미승인" order by created_date desc LIMIT #{count}, 9
+    </select>
+
+    <select id="pickToPopup" resultType="int">
+      <![CDATA[
+        select count(*) from popup_tbl
+        ]]>
+   </select>
+
     <!-- 글번호 생성 -->
     <select id="getNewPopupId" resultType="Long">
     <![CDATA[

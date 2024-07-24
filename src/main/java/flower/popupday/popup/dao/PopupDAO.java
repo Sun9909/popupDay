@@ -17,6 +17,9 @@ public interface PopupDAO {
 
     public List selectAllPopup(@Param("count") int count) throws DataAccessException;
 
+    //admin
+    public List pickAllPopup(@Param("count") int count) throws DataAccessException;
+
     public Long getNewPopupId() throws DataAccessException;
 
     public void insertNewPopup(Map popupMap) throws DataAccessException;
@@ -38,6 +41,9 @@ public interface PopupDAO {
     public List<HashTagDTO> selectHashTagList(Long popup_id) throws DataAccessException;
 
     public int selectToPopup() throws DataAccessException;
+
+    //admin
+    public int pickToPopup() throws DataAccessException;
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
