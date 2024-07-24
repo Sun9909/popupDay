@@ -168,6 +168,7 @@
 }
 
 .answerop  input {
+    width: 100%;
     background-color: unset;
     border: none;
     font-size: 24px;
@@ -181,6 +182,7 @@
 }
 
 .answer > input {
+    width: 100%;
     border: none;
     background-color: unset;
     font-size: 18px;
@@ -395,8 +397,8 @@
 .review-show {
     background-color: white;
     padding: 20px;
-    margin: 20px auto 0;
-    width: 650px;
+    margin: 20px auto;
+    width: 685px;
     border-radius: 10px;
 }
 
@@ -471,11 +473,6 @@ a.write {
     justify-content: center;
     margin: 20px;
 }
-
-
-.notice_img {
-    height: 700px;
-}
 .answer-section {
     display: flex;
     flex-direction: column;
@@ -495,4 +492,13 @@ a.write {
 .notice-form {
     margin: 0 auto;
     width: 600px;
+}
+
+#notice-mbtn {
+    display: none;
+}
+
+.notice-img {
+    width: 600px;
+    height: auto;
 }
