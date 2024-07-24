@@ -49,8 +49,7 @@
     <select id="searchPopupsByDate" resultMap="PopupResult" parameterType="java.sql.Date">
         <![CDATA[
         SELECT * FROM popup_tbl
-        WHERE start_date <= #{selectedDate} AND end_date >= #{selectedDate}
+        WHERE start_date <= #{selectedDateAdded} AND end_date >= #{selectedDateAdded}
         ]]>
     </select>
-
 </mapper>

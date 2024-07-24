@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,7 +28,7 @@ public class SearchControllerImpl implements SearchController {
         } else {
             results = searchService.searchPopupsByWord(query);
         }
-        model.addAttribute("results", results);
+        model.addAttribute("searchResults", results);
         return new ModelAndView("/popup/searchList");
     }
 
