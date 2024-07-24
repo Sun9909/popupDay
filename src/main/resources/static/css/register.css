@@ -29,7 +29,7 @@ h4 {
 table {
     border: 1px #4B4B65 solid;
     text-align: center;
-    width: 700px;
+    width: 840px;
     margin: 10px 10px 30px;
     border-spacing: 0;
     border-top: none;
@@ -41,7 +41,7 @@ th {
     border: 1px #4B4B65 solid;
     border-left: none;
 }
-tr .del {
+tr .ok {
     border-right: none;
 }
 td {
@@ -67,6 +67,21 @@ tr h4 {
     font-weight: normal;
     font-size: 1em;
 }
+/* 추가해야하는 css */
+
 .containers {
-    min-height: 500px;
+    min-height: 900px;
+    float: right;
+    width: 860px;
+}
+header {
+    width: 1440px;
+}
+
+.admin_container {
+    width: 580px;
+}
+
+.images > div {
+    width: 1440px;
 }
