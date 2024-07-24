@@ -17,8 +17,8 @@
         <!-- 공지사항 -->
         <div class="submenu-wrap">
             <section id="submenu">
-                <a class="contact" >
-                    <h2 th:href="@{/notice/noticList.do}">공지사항</h2>
+                <a class="contact"  th:href="@{/notice/noticeList.do}">
+                    <h2>공지사항</h2>
                 </a>
                 <a class="contact" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'" >
                     <h2 class="active-category">FAQ</h2>
@@ -26,7 +26,7 @@
                 <a class="contact"  th:href="@{/notice/qnaList.do}">
                     <h2>Q&A</h2>
                 </a>
-                <a class="contact" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/join.do\')'">
+                <a class="contact" th:href="@{/notice/reviewList.do}">
                     <h2>후기</h2>
                 </a>
             </section>
@@ -34,8 +34,10 @@
         <!-- faq -->
         <div>
             <div class="contact2-wrap">
-                <button th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}"><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
-                <div class="faq-list-wrap">
+                <div th:if="${session.loginDTO != null}">
+                    <button th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}"><a th:href="@{/notice/getFaq.do}">FAQ작성하기</a></button>
+                </div>
+                <div class="faq-list-wrap" th:unless="${session.loginDTO != null || session.loginDTO == null}">
                     <ul>
                         <form name="faqArticle" method="post">
                             <li class="faqitem" th:each="faq: ${faqList}">

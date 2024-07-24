@@ -52,13 +52,13 @@
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/login.do\')'">
+                            <a th:href="@{/notice/faqList.do}">
                                 FAQ
                                 <span>자주 묻는 질문</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewList.do\', \'/login/login.do\')'">
+                            <a th:href="@{/notice/reviewList.do}">
                                 REVIEW
                                 <span>후기</span>
                             </a>

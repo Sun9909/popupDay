@@ -48,9 +48,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </form>
             <!-- admin만 보이는 구간-->
             <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
