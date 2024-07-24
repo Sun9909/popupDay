@@ -39,6 +39,7 @@
                     <!-- 상세보기된 팝업 정보 -->
                     <div class="popupdetail-title-infor">
                         <div class="popup-title">
+                            <input type="text" th:value="${popupMap.popupList.user_nikname}" disabled>
                             <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
                             <button id="heart-icon" th:data-login-check="${loginCheck}">
                                 <img id="heart-image" class="heart"
@@ -175,41 +176,9 @@
 
                 <!--리뷰-->
                 <div class="popupdetail-review">
-                    <a class="popupdetail-total" th:href="@{/notice/reviewForm.do}">
+                    <a class="popupdetail-total" th:href="@{/notice/reviewList.do}">
                         <h3 class="infor-tit">리뷰 작성하기</h3>
-                        <img id="toggle2" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
                     </a>
-                    <div class="answer" style="display: none;">
-                        <ul>
-                            <p>리뷰남겨요</p>
-                            <p>리뷰남겨요</p>
-                        </ul>
-                    </div>
-                </div>
-
-                <!--사업자정보-->
-                <div class="popupdetail-business">
-                    <a class="popupdetail-total">
-                        <h3 class="infor-tit">사업자정보</h3>
-                        <img id="toggle3" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
-                    </a>
-                    <div class="answer" style="display: none;">
-                        <ul>
-                            <p>회사명 : </p>
-                            <p>대표명 : </p>
-                        </ul>
-                    </div>
-                </div>
-
-                <!--사업자 문의-->
-                <div class="popupdetail-business-info">
-                    <a class="popupdetail-total">
-                        <h3 class="infor-tit">사업자문의</h3>
-                        <img id="toggle4" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
-                    </a>
-                    <ul>
-                        <a href="#">사업자문의는 전화 혹은 Q&A이용해주시길 바랍니다.</a>
-                    </ul>
                 </div>
             </div>
         </div>

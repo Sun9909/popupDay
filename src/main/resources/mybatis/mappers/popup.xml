@@ -127,7 +127,10 @@
 
     <!-- 팝업 조회 -->
     <select id="selectPopup" resultMap="popResult" parameterType="Long">
-        select * from popup_tbl where popup_id = #{popup_id}
+        SELECT p.*, u.user_nikname
+        FROM popup_tbl p
+                 JOIN user_tbl u ON p.user_id = u.id
+        WHERE p.popup_id = #{popup_id};
     </select>
 
     <select id="selectRegisterPopup" resultMap="popResult" parameterType="Long">
