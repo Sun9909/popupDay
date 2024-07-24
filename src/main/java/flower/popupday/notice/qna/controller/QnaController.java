@@ -21,9 +21,7 @@ public interface QnaController {
 
     public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
-    //public ModelAndView modQna(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView modQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
@@ -32,4 +30,9 @@ public interface QnaController {
 
     // 답글 저장
     public ModelAndView addAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView modAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView removeAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 }
