@@ -81,7 +81,15 @@ public class PopupControllerImpl implements PopupController {
         mav.addObject("popupMap", popupMap);
         // 팝업 상세 조회
         return mav;
+    }
 
+    @Override
+    @RequestMapping("/admin/roleUpdate.do")
+    public ModelAndView roleUpdate(@RequestParam("popup_id") Long popup_id,@RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        popupService.roleUpdate(popup_id, role);
+
+        ModelAndView mav = new ModelAndView("redirect:/admin/register.do");
+        return mav;
     }
 
     @Override

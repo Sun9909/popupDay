@@ -149,6 +149,11 @@
         select * from popup_image_tbl where popup_id = #{popup_id}
     </select>
 
+    <!-- 신청된 팝업 승인 -->
+    <update id="roleUpdate" parameterType="java.util.Map">
+        update popup_tbl set role = #{role} where popup_id = #{popup_id}
+    </update>
+
     <!-- 팝업 조회시 쿠키로 조회수 증가 -->
     <update id="updateHits" parameterType="long">
         update popup_tbl set hits = hits + 1 where popup_id = #{popup_id}

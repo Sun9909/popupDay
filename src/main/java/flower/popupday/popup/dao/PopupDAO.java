@@ -50,6 +50,8 @@ public interface PopupDAO {
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
+    public void roleUpdate(Long popup_id, String role) throws DataAccessException;
+
     public void updateHits(Long popup_id) throws DataAccessException;
 
     public boolean addLike(Long popup_id, Long user_id) throws DataAccessException;
