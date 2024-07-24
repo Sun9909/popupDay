@@ -10,27 +10,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-@Controller // 이 클래스가 Spring MVC의 컨트롤러임을 나타냅니다.
-@RequestMapping("/search") // 이 컨트롤러가 "/search" 경로와 매핑됨을 나타냅니다.
+@Controller
+@RequestMapping("/search")
 public class SearchControllerImpl implements SearchController {
 
-    @Autowired // Spring이 SearchService를 자동으로 주입하도록 합니다.
+    @Autowired
     private SearchService searchService;
 
-    @GetMapping // 이 메서드가 GET 요청을 처리하도록 합니다.
+    @GetMapping
     public ModelAndView search(@RequestParam("query") String query, @RequestParam("searchType") String searchType, Model model) {
-        // 요청 매개변수 "query"와 "searchType"을 받아옵니다. Model 객체를 통해 데이터를 뷰로 전달합니다.
-        List<PopupDTO> results; // 검색 결과를 담을 리스트를 선언합니다.
+        List<PopupDTO> results;
         if ("hashtag".equals(searchType)) {
-            // searchType이 "hashtag"이면 searchPopupsByHashTag 메서드를 호출하여 검색합니다.
             results = searchService.searchPopupsByHashTag(query);
         } else {
-            // 그렇지 않으면 searchPopupsByWord 메서드를 호출하여 검색합니다.
             results = searchService.searchPopupsByWord(query);
         }
-        model.addAttribute("results", results); // 검색 결과를 모델에 추가합니다.
-        return new ModelAndView("/popup/searchList"); // 검색 결과 페이지로 이동합니다.
+        model.addAttribute("results", results);
+        return new ModelAndView("/popup/searchList");
+    }
+
+    @RequestMapping("/searchPopups")
+    public String searchPopupsByDate(@RequestParam("selectedDate") Date selectedDate, Model model) {
+        List<PopupDTO> searchResults = searchService.searchPopupsByDate(selectedDate);
+        model.addAttribute("searchResults", searchResults);
+        return "/popup/searchList";
     }
 }

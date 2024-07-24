@@ -4,7 +4,10 @@ import flower.popupday.popup.dto.PopupDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Mapper // MyBatis 매퍼 인터페이스임을 나타냄
 public interface SearchDAO {
@@ -13,4 +16,6 @@ public interface SearchDAO {
     List<PopupDTO> searchPopupsByHashTag(String query) throws DataAccessException;
 
     List<PopupDTO> searchPopupsByWord(String keyword) throws DataAccessException;
+
+    List<PopupDTO> searchPopupsByDate(Date selectedDate) throws DataAccessException;
 }
