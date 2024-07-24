@@ -29,7 +29,7 @@ public class NoticeControllerImpl implements NoticeController {
 
 
     //이미지 파일을 저장할 디렉토리 경로
-    private static String ARRICLE_IMG_REPO = "D:\\Sun\\fileupload";
+    private static String ARRICLE_IMG_REPO = "D:\\Yoni\\fileupload3";
 
 
     //공지사항 리스트

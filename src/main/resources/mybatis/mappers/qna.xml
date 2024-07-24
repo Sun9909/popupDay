@@ -59,7 +59,7 @@
         update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
     </update>
     <!-- faq 글 삭제하기 -->
-    <delete id="deleteFaq" parameterType="int">
+    <delete id="deleteQna" parameterType="long">
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
 

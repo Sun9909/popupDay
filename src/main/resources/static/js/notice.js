@@ -214,4 +214,35 @@ function Imageread_notice(input, num) {
 
 /*********************** Q&AQ&AQ&A *****************************/
 
+// 공지사항 수정 반영하기
+function qna_modify(obj) {
+    obj.action="/notice/modQna.do";
+    obj.submit();
+
+}
+
+//공지사항 삭제 반영하기
+function fn_remove_qna(url, qna_id){
+    if(confirm("공지사항을 삭제하시겠습니까?")){
+        let dele_form = document.createElement("form");
+        dele_form.setAttribute("action", url);
+        dele_form.setAttribute("method","post");
+        let qnaInput = document.createElement("input");
+        qnaInput.setAttribute("type","hidden");
+        qnaInput.setAttribute("name","qna_id");
+        qnaInput.setAttribute("value", qna_id);
+        dele_form.appendChild(qnaInput);
+        document.body.appendChild(dele_form);
+        dele_form.submit();
+    }
+
+}
+
+//공지사항 수정하기
+function qna_enable(obj) {
+    document.getElementById("qna-mbtn").style.display = "block";
+    document.getElementById("qna-btn").style.display = "none";
+    document.getElementById("title").disabled = false;
+    document.getElementById("content").disabled = false;
+}
 

@@ -12,12 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import static java.lang.Long.parseLong;
 import static java.lang.System.out;
 
 @Controller("qnaController")
@@ -63,7 +64,7 @@ public class QnaControllerImpl implements QnaController {
         qnaMap.put("pageNum", pageNum); // noticeMap에 pageNum 값을 추가 함
 
         // Debuggin 로그 추가(noticeMap(section,pageNum)이 잘 넘어오는지 확인)
-        System.out.println("qnaMap: " + qnaMap);
+        out.println("qnaMap: " + qnaMap);
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
         mav.setViewName("/notice/qna"); // 이 뷰로 이동
@@ -72,6 +73,7 @@ public class QnaControllerImpl implements QnaController {
         return mav;
     }
 
+    //등록및 저장
     @Override
     @PostMapping("/notice/addQna.do")
     public ModelAndView addQna(HttpServletRequest request) throws Exception {
@@ -107,8 +109,8 @@ public class QnaControllerImpl implements QnaController {
     // 상세보기
     @Override
     @RequestMapping("/notice/qnaView.do")
-    public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // notice_id를 매개변수로 받아 공지사항 글을 조회
-        Map qnaView = qnaService.qnaView(qna_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
+    public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // qna_id 매개변수로 받아 공지사항 글을 조회
+        Map qnaView = qnaService.qnaView(qna_id); // qnaService qna_id 해당하는 공지사항 글을 조회하며 noticeMap에 조정
 
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
@@ -134,18 +136,24 @@ public class QnaControllerImpl implements QnaController {
     @Override
     @RequestMapping("/notice/modQna.do")
     public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String title = request.getParameter("title");
+        String title = request.getParameter("title"); //title 파라미터 값을 가져와 title 변수에 저장
         String content = request.getParameter("content");
         String qna_id = request.getParameter("qna_id");
 
-        QnaDTO qnaDTO = new QnaDTO();
-        qnaDTO.setTitle(title);
+        // QnaDTO 객체 생성 및 필드 설정
+        QnaDTO qnaDTO = new QnaDTO(); // 새 객체를 생성
+        qnaDTO.setTitle(title); // qnaDTO 객체의 title 필드를 HTTP 요청에서 받은 title 값으로 설정
         qnaDTO.setContent(content);
         qnaDTO.setQna_id(Long.parseLong(qna_id));
-        qnaService.modQna(qnaDTO);
+
+        // 서비스 호출
+        qnaService.modQna(qnaDTO); // modQna메서들 호출 (qnaDTO :title,contetn, qna_id)를 가져옴
+
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
-        return mav;
-    }
+      return mav;
+   }
+
+
 
     //삭제하기
     @Override
