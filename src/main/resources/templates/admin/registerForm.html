@@ -45,27 +45,60 @@
     <div class="popInfo">
         <h4>팝업 정보</h4>
         <ul>
-            <li>팝업 운영 기간</li>
+            <li>팝업 운영 기간 <p th:text="${popupMap.popupList.start_date} + ' ~ ' + ${popupMap.popupList.end_date}"></p></li>
             <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
-            <li>팝업 한 줄 설명</li>
-            <li>팝업 해시태그</li>
-            <li>팝업 운영 시간</li>
-            <li>팝업 소개</li>
+            <li>팝업 한 줄 설명 <p th:text="${popupMap.popupList.info}"></p></li>
+            <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
+                팝업 해시태그
+                <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
+            </li>
+            <li class="answer">
+                팝업 운영 시간
+                <div>
+                    <label for="monday_time">월:</label>
+                    <input type="text" id="monday_time" th:name="monday_time" th:value="${popupMap.popupList.monday_time}" disabled>
+                </div>
+                <div>
+                    <label for="tuesday_time">화:</label>
+                    <input type="text" id="tuesday_time" th:name="tuesday_time" th:value="${popupMap.popupList.tuesday_time}" disabled>
+                </div>
+                <div>
+                    <label for="wednesday_time">수:</label>
+                    <input type="text" id="wednesday_time" th:name="wednesday_time" th:value="${popupMap.popupList.wednesday_time}" disabled>
+                </div>
+                <div>
+                    <label for="thursday_time">목:</label>
+                    <input type="text" id="thursday_time" th:name="thursday_time" th:value="${popupMap.popupList.thursday_time}" disabled>
+                </div>
+                <div>
+                    <label for="friday_time">금:</label>
+                    <input type="text" id="friday_time" th:name="friday_time" th:value="${popupMap.popupList.friday_time}" disabled>
+                </div>
+                <div>
+                    <label for="saturday_time">토:</label>
+                    <input type="text" id="saturday_time" th:name="saturday_time" th:value="${popupMap.popupList.saturday_time}" disabled>
+                </div>
+                <div>
+                    <label for="sunday_time">일:</label>
+                    <input type="text" id="sunday_time" th:name="sunday_time" th:value="${popupMap.popupList.sunday_time}" disabled>
+                </div>
+            </li>
+            <li>팝업 소개 <p th:text="${popupMap.popupList.content}"></p></li>
         </ul>
     </div>
     <div class="brandUrl">
         <h4>브랜드 홈페이지</h4>
         <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p th:text="${popupMap.popupList.brand_page}"></p></a>
     </div>
-    <form>
-        <label><input type="radio" name="register" value="ok"> 승인</label>
-        <label><input type="radio" name="register" value="ckeck"> 확인 필요</label>
-        <label><input type="radio" name="register" value="refuse"> 불허</label>
-    </form>
+    <form action="">
+        <label><input type="radio" name="role" value="승인"> 승인</label>
+        <label><input type="radio" name="role" value="검토"> 미승인</label>
+        <label><input type="radio" name="role" value="취소">취소</label>
     <div class="check">
         <button type="submit" value="submit">저장</button>
         <button type="reset" value="reset">취소</button>
     </div>
+    </form>
 </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
