@@ -62,7 +62,7 @@
 
                         <div class="abc">
                             <span class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
-                                <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
+                                <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled oninput="adjustWidth(this)">
                             </span>
                         </div>
                         <div class="popup-Icon">

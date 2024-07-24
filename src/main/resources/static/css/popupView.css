@@ -22,7 +22,7 @@
 }
 .popupdetail-banner img {
     display: flex;
-    width: 600px;
+    width: 100%;
     height: 400px;
     padding-bottom: 10px;
     margin: 0 10px; /* 이미지 사이 간격 조정 */
@@ -31,7 +31,7 @@
 
 .main-article {
     overflow: hidden;
-    width: 600px;
+    width: 650px;
     height: 400px;
 }
 
@@ -75,9 +75,9 @@ cursor: pointer; 포인터 커서로 변경
     display: flex;
     flex-direction: column;
 }
-.heart {
-    width: 40px;
-    height: 40px;
+#heart-image {
+    width: 35px;
+    height: 35px;
     margin: 4px 10px;
 }
 
@@ -102,7 +102,7 @@ cursor: pointer; 포인터 커서로 변경
     display: flex;
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 17px;
 
 }
 
@@ -228,12 +228,12 @@ cursor: pointer; 포인터 커서로 변경
     border: 1px #8B8BDA solid;
     background-color: #FDFEFF;
     padding: 6px 10px;
-    margin-right: 15px;
     text-align: center;
     width: 100%;
 }
 
 .location > input {
+    width: 100%;
     font-size: 15px;
 }
 
@@ -253,11 +253,12 @@ cursor: pointer; 포인터 커서로 변경
     justify-content: flex-start;
 }
 
-
 .search-box-inner {
-    padding: 10px;
-    width: 15%;
-    flex-shrink: 1;
+    padding: 5px;
+}
+
+.search-box-inner input {
+    font-size: 13px;
 }
 
 .popupdetail-title-infor {
