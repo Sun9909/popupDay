@@ -4,8 +4,8 @@ h2 {
     font-size: 1.8em;
     margin: 20px 0;
 }
-.num {
-    margin: 20px 0 20px 10px;
+.popCount {
+    margin: 20px 0 20px 20px;
 }
 /* 찜한 팝업이 없을 때 */
 h4 {
@@ -56,6 +56,16 @@ tr h4 {
     font-size: 1.3em;
     text-align: center;
     margin: 15px;
+}
+.target {
+    color: #005cbf;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.noLine {
+    /*color: black;*/
+    font-weight: normal;
+    font-size: 1em;
 }
 .containers {
     min-height: 500px;

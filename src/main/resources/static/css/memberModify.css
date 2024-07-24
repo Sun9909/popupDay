@@ -1,17 +1,14 @@
 @charset "utf-8";
-
 /*회원정보수정 메인 타이틀*/
 .main_title {
     display: flex;
     justify-content: flex-start;
     margin-top: 10px;
-
 }
 .main_title img {
     margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
     width: 30px;
     height: 30px;
-
 }
 
 /*프로필변경*/

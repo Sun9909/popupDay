@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ public interface PopupDAO {
     public Long getHashTagIdByTag(String tag) throws  DataAccessException;
 
     public PopupDTO selectPopup(Long popup_id) throws DataAccessException;
+
+    public PopupDTO selectRegisterPopup(Long popup_id) throws DataAccessException;
 
     public List<ImageDTO> selectImageFileList(Long popup_id) throws DataAccessException;
 
