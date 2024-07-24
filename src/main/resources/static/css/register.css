@@ -57,6 +57,16 @@ tr h4 {
     text-align: center;
     margin: 15px;
 }
+.target {
+    color: #005cbf;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.noLine {
+    /*color: black;*/
+    font-weight: normal;
+    font-size: 1em;
+}
 .containers {
     min-height: 500px;
 }
