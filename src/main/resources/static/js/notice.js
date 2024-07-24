@@ -284,7 +284,6 @@ function submitForm(obj) {
 
 }
 
-// 답변 삭제하기
 function fn_remove_answer(url, qna_id) {
     if (confirm("답변을 삭제하시겠습니까?")) {
         let deleteForm = document.createElement("form");

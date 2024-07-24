@@ -27,7 +27,7 @@ public class QnaDTO {
     }
 
     public enum Status {
-        답변중, 답변완료
+        답변중, 답변완료, 답변대기
     }
 
     public long getQna_id() {

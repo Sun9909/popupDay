@@ -59,20 +59,21 @@
         update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
     </update>
 
-    <!-- 답변글 수정하기 -->
-    <update id="changeAnswer" parameterType="qnaDTO">
-        update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
-    </update>
-
     <!-- faq 글 삭제하기 -->
     <delete id="deleteQna" parameterType="long">
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
 
-    <!-- faq 글 삭제하기 -->
-    <delete id="deleteAnswer" parameterType="long">
-        delete from qna_tbl where qna_id = #{qna_id}
-    </delete>
+    <!-- 답변글 수정하기 -->
+    <update id="changeAnswer" parameterType="qnaDTO">
+        update qna_tbl set answer=#{answer}, answer_date=now() where qna_id = #{qna_id}
+    </update>
+
+    <!-- 답변글 삭제 -->
+    <update id="deleteAnswer" parameterType="long">
+        update qna_tbl set answer=NULL where qna_id = #{qna_id}
+    </update>
+
 
     <select id="selectQnaById" parameterType="long" resultType="flower.popupday.notice.qna.dto.QnaDTO">
         SELECT * FROM qna_tbl WHERE qna_id = #{qna_id}
