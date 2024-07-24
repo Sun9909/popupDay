@@ -491,7 +491,7 @@ a.write {
 }
 
 .containers {
-    min-height: 700px;
+    height: 100%;
 }
 
 /* 수정추가 */
@@ -506,13 +506,13 @@ a.write {
 }
 
 .notice-img {
-    width: 600px;
+    width: 100%;
     height: auto;
 }
 
 .notice-form {
     background-color: white;
-    padding: 20px 10px;
+    padding: 20px 15px 30px;
     border-radius: 10px;
     border: 1px solid #ccc;
 }
@@ -521,4 +521,38 @@ a.write {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+#notice-btn, #notice-mbtn {
+    margin: 10px auto;
+    width: 600px;
+}
+
+#notice-btn >input, #notice-mbtn >input {
+    margin-right: 5px;
+    background-color: #8B8BDA;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.notice-view button {
+    background-color: #8B8BDA;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 60px;
+}
+
+.notice-view button a {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.notice-view {
+    height: calc(100vh - 100px);
 }
