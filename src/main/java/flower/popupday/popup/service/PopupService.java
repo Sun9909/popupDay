@@ -21,4 +21,6 @@ public interface PopupService {
     public void updateHits(Long popup_id) throws DataAccessException;
 
     public boolean toggleLike(Long popup_id, Long id) throws DataAccessException;
+
+    public void updatePopup(Map popupMap) throws DataAccessException;
 }

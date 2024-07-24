@@ -173,4 +173,24 @@
         where popup_id = #{popup_id} and user_id = #{user_id}
     </delete>
 
+    <!-- 글수정 -->
+    <update id="updatePopup" parameterType="java.util.Map">
+        update popup_tbl set
+        title = #{title}, info = #{info}, start_date = #{start_date}, end_date = #{end_date}, content = #{content},
+        address = #{address}, brand_page = #{brand_page}, created_date = now(), monday_time = #{monday_time},
+        tuesday_time = #{tuesday_time}, wednesday_time = #{wednesday_time}, thursday_time = #{thursday_time}, friday_time = #{friday_time},
+        saturday_time = #{saturday_time}, sunday_time = #{sunday_time}, parking = #{parking}, fee = #{fee} WHERE popup_id = #{popup_id}
+    </update>
+
+
+    <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update-->
+    <update id="updateImage" parameterType="java.util.Map">
+        <foreach item="item" collection="imageFileList" separator=";"> <!-- 이미지 담겨있는 곳 -->
+            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" > <!-- 이미지를 선택한것만 업데이트 -->
+                update popup_image_tbl set image_file_name=#{item.image_file_name} where popup_image_id=#{item.popup_image_id} and #{item.image_file_name} != ''
+            </if>
+        </foreach>
+    </update>
+
+
 </mapper>

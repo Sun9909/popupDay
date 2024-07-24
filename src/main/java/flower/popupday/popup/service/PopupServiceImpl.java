@@ -170,4 +170,11 @@ public class PopupServiceImpl implements PopupService {
             return true; // 찜이 추가됨
         }
     }
+
+    // 여러개의 이미지글 수정하기
+    @Override
+    public void updatePopup(Map popupMap) throws DataAccessException {
+        popupDAO.updatePopup(popupMap); // 글수정
+        popupDAO.updateImage(popupMap); // 이미지 수정
+    }
 }
