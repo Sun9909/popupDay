@@ -132,6 +132,20 @@ public class PopupServiceImpl implements PopupService {
         return popupListMap;
     }
 
+    @Override
+    public Map<String, Object> register(Long popup_id) throws DataAccessException {
+        Map<String, Object> popupMap = new HashMap<>();
+        PopupDTO popupList = popupDAO.selectRegisterPopup(popup_id);
+        List<ImageDTO> imageFileList = popupDAO.selectImageFileList(popup_id);
+        List<HashTagDTO> hashTagList = popupDAO.selectHashTagList(popup_id);
+
+        popupMap.put("popupList", popupList);
+        popupMap.put("imageFileList", imageFileList);
+        popupMap.put("hashTagList", hashTagList);
+
+        return popupMap;
+    }
+
     // 조회수 증가
     @Override
     public void updateHits(Long popup_id) throws DataAccessException {

@@ -72,6 +72,19 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
+    @RequestMapping("/admin/registerForm.do")
+    public ModelAndView register(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> popupMap = popupService.register(popup_id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/admin/registerForm");
+        mav.addObject("popupMap", popupMap);
+        // 팝업 상세 조회
+        return mav;
+
+    }
+
+    @Override
     @GetMapping("/popup/popupForm.do")
     public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();

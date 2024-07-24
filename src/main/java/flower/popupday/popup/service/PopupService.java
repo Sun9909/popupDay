@@ -13,7 +13,10 @@ public interface PopupService {
 
     public Map popupAllList(Map<String, Integer> pagingMap) throws  DataAccessException;
 
-    public Map registerList(Map<String, Integer> pagingMap) throws  DataAccessException;
+    //admin
+    public Map<String, Object> registerList(Map<String, Integer> pagingMap) throws  DataAccessException;
+
+    public Map<String, Object> register(Long popup_id) throws DataAccessException;
 
     public void updateHits(Long popup_id) throws DataAccessException;
 

@@ -4,8 +4,8 @@ h2 {
     font-size: 1.8em;
     margin: 20px 0;
 }
-.num {
-    margin: 20px 0 20px 10px;
+.popCount {
+    margin: 20px 0 20px 20px;
 }
 /* 찜한 팝업이 없을 때 */
 h4 {

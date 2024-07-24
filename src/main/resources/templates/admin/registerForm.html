@@ -14,36 +14,41 @@
 <th:block layout:fragment="content">
 <div class="containers">
     <!-- 팝업 신청 관리 페이지 -->
-    <h2>팝업 신청 관리</h2>
-    <!-- popup_tbl popup_id로 가져오기 -->
+    <div class="main_title">
+        <a th:href="@{/admin/register.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+        <h2>팝업 신청 관리</h2>
+    </div>
+
     <!-- 팝업 정보 -->
     <div class="popName">
-        <h4>팝업 이름</h4> <!-- popup_tbl title -->
-        <p>팝업 스토어 이름</p>
+        <h4>팝업 이름</h4>
+        <p th:text="${popupMap.popupList.title}"></p>
     </div>
-    <div class="popImg">
-        <h4>팝업 이미지</h4> <!-- popup_image_tbl image_file_name-->
-        <img src="" alt="팝업 이미지">
+    <div class="popImg" th:if="${not #strings.isEmpty(popupMap.imageFileList)}">
+        <h4>팝업 이미지</h4>
+        <div th:each="imgList, status : ${popupMap.imageFileList}">
+            <img th:id="'preview' + ${status.count}" th:src="@{/popupDownload.do(popup_id=${imgList.popup_id},image_file_name=${imgList.image_file_name})}" width="200" alt="팝업 이미지">
+        </div>
     </div>
     <div class="popInfo">
         <h4>팝업 정보</h4>
         <ul>
-            <li>팝업 운영 기간</li> <!-- popup_tbl  -->
-            <li>팝업 주소</li>
-            <li>팝업 한 줄 설명</li> <!-- popup_tbl info -->
+            <li>팝업 운영 기간</li>
+            <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
+            <li>팝업 한 줄 설명</li>
             <li>팝업 해시태그</li>
             <li>팝업 운영 시간</li>
-            <li>팝업 소개</li> <!-- popup_tbl content -->
+            <li>팝업 소개</li>
         </ul>
     </div>
     <div class="brandUrl">
-        <h4>브랜드 홈페이지</h4> <!--popup_tbl brandPage  -->
-        <a href=""></a>
+        <h4>브랜드 홈페이지</h4>
+        <a href="#"><p th:text="${popupMap.popupList.brand_page}"></p></a>
     </div>
-    <form> <!-- popup_tbl role -->
+    <form>
         <label><input type="radio" name="register" value="ok"> 승인</label>
-        <label><input type="radio" name="register" value="ckeck"> 확인 중</label>
-        <label><input type="radio" name="register" value="refuse"> 반려</label>
+        <label><input type="radio" name="register" value="ckeck"> 확인 필요</label>
+        <label><input type="radio" name="register" value="refuse"> 불허</label>
     </form>
     <div class="check">
         <button type="submit" value="submit">저장</button>
