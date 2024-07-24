@@ -60,7 +60,7 @@
    </select>
 
     <select id="pickAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where role="미승인" order by created_date desc LIMIT #{count}, 9
+        select * from popup_tbl where role="미승인" order by created_date desc LIMIT #{count}, 10
     </select>
 
     <select id="pickToPopup" resultType="int">
@@ -127,6 +127,10 @@
 
     <!-- 팝업 조회 -->
     <select id="selectPopup" resultMap="popResult" parameterType="Long">
+        select * from popup_tbl where popup_id = #{popup_id}
+    </select>
+
+    <select id="selectRegisterPopup" resultMap="popResult" parameterType="Long">
         select * from popup_tbl where popup_id = #{popup_id}
     </select>
 

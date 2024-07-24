@@ -77,4 +77,14 @@ public class QnaServiceImpl implements QnaService {
         return null;
     }
 
+    @Override
+    public void modAnswer(QnaDTO qnaDTO) throws DataFormatException {
+        qnaDAO.changeAnswer(qnaDTO);
+    }
+
+    @Override
+    public void removeAnswer(long qna_id) throws DataAccessException {
+        qnaDAO.deleteAnswer(qna_id);
+    }
+
 }

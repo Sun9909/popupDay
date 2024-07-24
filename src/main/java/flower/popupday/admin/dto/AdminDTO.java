@@ -26,7 +26,7 @@ public class AdminDTO {
     }
 
     public enum Status {
-        active, delete
+        active, deleted
     }
 
     public Long getId() {

@@ -23,4 +23,8 @@ public interface QnaService {
 
     public QnaDTO getQnaById(long qna_id) throws DataAccessException;
 
+    public void modAnswer(QnaDTO qnaDTO) throws DataFormatException;
+
+    public  void removeAnswer(long qna_id) throws DataAccessException;
+
 }
