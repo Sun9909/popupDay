@@ -244,35 +244,101 @@ document.addEventListener('DOMContentLoaded', function () {
 //달력으로 서치 js
 // 달력 부분 추가
 // JavaScript to handle date selection and form submission
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const dateCellsContainer = document.querySelector('.tbody');
     const selectedDateInput = document.getElementById('selectedDateAdded');
     let selectedDate = null;
 
-    // 예시로 7월 달력 날짜 셀을 동적으로 생성
-    for (let i = 1; i <= 31; i++) {
-        const dateCell = document.createElement('tr');
-        dateCell.className = 'table-row';
-        const date = `2024-07-${String(i).padStart(2, '0')}`;
-        dateCell.setAttribute('data-date', date);
-        dateCell.textContent = i;
-        dateCellsContainer.appendChild(dateCell);
+    const year = 2024; // 예시 연도
+    const month = 6; // 6월 (0-based index, 5가 6월)
 
-        // 날짜 셀 클릭 이벤트 처리
-        dateCell.addEventListener('click', function() {
-            selectedDate = this.getAttribute('data-date');
-            selectedDateInput.value = selectedDate;
+    // 초기화
+    function init_calendar(year, month) {
+        dateCellsContainer.innerHTML = ''; // 기존 내용 비우기
 
-            // 이전에 선택된 날짜 셀에서 선택 클래스 제거
-            const previouslySelected = document.querySelector('.date-cell.selected-date');
-            if (previouslySelected) {
-                previouslySelected.classList.remove('selected-date');
+        let date = new Date(year, month, 1);
+        let day_count = days_in_month(month, year);
+        let row = document.createElement('tr');
+        row.className = 'table-row';
+        let first_day = date.getDay();
+
+        for (let i = 0; i < 35 + first_day; i++) {
+            let day = i - first_day + 1;
+            let dateCell;
+
+            if (i % 7 === 0) {
+                if (row.children.length > 0) {
+                    dateCellsContainer.appendChild(row);
+                }
+                row = document.createElement('tr');
+                row.className = 'table-row';
             }
 
-            // 현재 선택된 날짜 셀에 선택 클래스 추가
-            this.classList.add('selected-date');
+            if (i < first_day || day > day_count) {
+                dateCell = document.createElement('td');
+                dateCell.className = 'table-date nil';
+            } else {
+                dateCell = document.createElement('td');
+                dateCell.className = 'table-date';
+                dateCell.textContent = day;
+                let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                dateCell.setAttribute('data-date', dateStr);
 
-            console.log("Selected Date Added: ", selectedDate); // 선택된 날짜 콘솔에 출력
-        });
+                // 클릭 이벤트 처리
+                dateCell.addEventListener('click', function () {
+                    selectedDate = this.getAttribute('data-date');
+                    selectedDateInput.value = selectedDate;
+
+                    // 이전에 선택된 날짜 셀에서 선택 클래스 제거
+                    const previouslySelected = document.querySelector('.table-date.selected-date');
+                    if (previouslySelected) {
+                        previouslySelected.classList.remove('selected-date');
+                    }
+
+                    // 현재 선택된 날짜 셀에 선택 클래스 추가
+                    this.classList.add('selected-date');
+
+                    console.log("Selected Date Added: ", selectedDate);
+                });
+
+                // 기본적으로 오늘 날짜를 선택 상태로 설정
+                if (dateStr === getTodayDateStr(year, month)) {
+                    dateCell.classList.add('selected-date');
+                    selectedDateInput.value = dateStr;
+                    selectedDate = dateStr;
+                }
+            }
+
+            row.appendChild(dateCell);
+        }
+
+        dateCellsContainer.appendChild(row);
+        document.querySelector('.year').textContent = year;
+
+        // 현재 달을 활성화 상태로 설정
+        const months = document.querySelectorAll('.months-row .month');
+        months[month].classList.add('active-month');
     }
+
+    // 달력의 마지막 날짜 수를 구하는 함수
+    function days_in_month(month, year) {
+        let monthStart = new Date(year, month, 1);
+        let monthEnd = new Date(year, month + 1, 1);
+        return (monthEnd - monthStart) / (1000 * 60 * 60 * 24);
+    }
+
+    // 오늘 날짜를 'YYYY-MM-DD' 형식으로 반환하는 함수
+    function getTodayDateStr(year, month) {
+        let today = new Date();
+        let todayYear = today.getFullYear();
+        let todayMonth = today.getMonth(); // 0-based index
+        let todayDate = today.getDate();
+        if (todayYear === year && todayMonth === month) {
+            return `${year}-${String(month + 1).padStart(2, '0')}-${String(todayDate).padStart(2, '0')}`;
+        }
+        return null;
+    }
+
+    // 초기 달력 생성 호출
+    init_calendar(year, month);
 });
