@@ -27,6 +27,7 @@ public class PopupDTO {
     private String sunday_time;
     private String parking;
     private String fee;
+    private String user_nikname;
 
     // Enum for role
     public enum Role {
@@ -192,4 +193,12 @@ public class PopupDTO {
     public String getFee() {return fee;}
 
     public void setFee(String fee) {this.fee = fee;}
+
+    public String getUser_nikname() {
+        return user_nikname;
+    }
+
+    public void setUser_nikname(String user_nikname) {
+        this.user_nikname = user_nikname;
+    }
 }
