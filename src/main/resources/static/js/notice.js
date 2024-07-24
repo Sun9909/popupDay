@@ -162,6 +162,13 @@ function notice_modify(obj) {
     obj.submit();
 }
 
+// 상세 보기로 전환(취소)
+function notice_toList(obj) {
+    obj.action="/notice/noticeView.do"
+    obj.method="post";
+    obj.submit();
+}
+
 //공지사항 삭제 반영하기
 function fn_remove_notice(url, notice_id){
     if(confirm("공지사항을 삭제하시겠습니까?")){

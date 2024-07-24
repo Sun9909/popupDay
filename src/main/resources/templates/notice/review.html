@@ -45,7 +45,7 @@
                 <!-- 후기가 존재하지 않을때 -->
                 <div class="myreview-history" th:if="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
                     <p>작성한 후기가 없습니다.</p>
-                    <button><a th:href="@{/notice/reviewForm.do}">후기 작성하기</a></button>
+                    <button><a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
                 </div>
                 <!-- 후기가 존재할때 -->
                 <div class="myreview-history" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
@@ -54,7 +54,7 @@
                             <p th:text="${review.review_title}"></p><span th:text="${review.created_date}"></span>
                         </a>
                     </div>
-                    <button><a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/join.do\')'">후기 작성하기</a></button>
+                    <button><a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
                     <!--페이징 처리-->
                     <div align="center" th:if="${reviewMap.totReview > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
                         <div th:if="${reviewMap.totReview > 100}"> <!-- 하나에 페이지에 10개씩 글을 담는데 섹션이 100개를 담을 수 있으니 글이 100개를 넘을때 수행 , 삼항연산자 ?(true):?(false)-->

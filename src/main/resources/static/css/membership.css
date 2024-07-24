@@ -36,6 +36,22 @@ tr h4 {
     text-align: center;
     margin: 15px;
 }
+
+/* 추가해야하는 css */
+
 .containers {
-    min-height: 700px;
+    min-height: 900px;
+    float: right;
+    width: 726px;
+}
+header {
+    width: 1440px;
+}
+
+.admin_container {
+    width: 714px;
+}
+
+.images > div {
+    width: 1440px;
 }

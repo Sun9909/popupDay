@@ -22,6 +22,7 @@ public class FaqControllerImpl implements FaqController {
     @Override
     @RequestMapping("/notice/getFaq.do")
     public ModelAndView faqForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/faqForm");
         return mav;
