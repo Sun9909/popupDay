@@ -42,104 +42,6 @@ function submitForm() {
 }
 
 //달력으로 서치 js
-$(document).ready(function(){
-    $("#search-banner .searchHashtag").click(function() {
-        var submenu = $(this).next("div");
-
-        if(submenu.is(":visible")) {
-            submenu.slideUp();
-        } else {
-            submenu.slideDown();
-        }
-    });
-
-    $(".css-footer-buttons .category").click(function() {
-        $(".category-info").slideToggle();
-    });
-});
-
-// 검색 부분
-function searchHashTags() {
-    var query = document.getElementById("searchInput").value;
-    fetch(`/search?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            var resultsDiv = document.getElementById("searchResults");
-            resultsDiv.innerHTML = "";
-            data.forEach(tag => {
-                var tagElement = document.createElement("div");
-                tagElement.textContent = tag.hashTag;
-                resultsDiv.appendChild(tagElement);
-            });
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-// search 타입이 hashtag인지 word인지 구분하는 js
-function submitForm() {
-    var searchInput = document.getElementById('searchInput1').value;
-    var searchType = searchInput.startsWith('#') ? 'hashtag' : 'word';
-    document.getElementById('searchType').value = searchType;
-    document.getElementById('searchForm').submit();
-}
-
-// 달력으로 서치 js
-$(document).ready(function(){
-    $("#search-banner .searchHashtag").click(function() {
-        var submenu = $(this).next("div");
-
-        if(submenu.is(":visible")) {
-            submenu.slideUp();
-        } else {
-            submenu.slideDown();
-        }
-    });
-
-    $(".css-footer-buttons .category").click(function() {
-        $(".category-info").slideToggle();
-    });
-});
-
-// 검색 부분
-function searchHashTags() {
-    var query = document.getElementById("searchInput").value;
-    fetch(`/search?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            var resultsDiv = document.getElementById("searchResults");
-            resultsDiv.innerHTML = "";
-            data.forEach(tag => {
-                var tagElement = document.createElement("div");
-                tagElement.textContent = tag.hashTag;
-                resultsDiv.appendChild(tagElement);
-            });
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-// search 타입이 hashtag인지 word인지 구분하는 js
-function submitForm() {
-    var searchInput = document.getElementById('searchInput1').value;
-    var searchType = searchInput.startsWith('#') ? 'hashtag' : 'word';
-    document.getElementById('searchType').value = searchType;
-    document.getElementById('searchForm').submit();
-}
-
-// 달력으로 서치 js
-$(document).ready(function() {
-    // 검색 부분 유지
-    $("#search-banner .searchHashtag").click(function() {
-        var submenu = $(this).next("div");
-        if(submenu.is(":visible")) {
-            submenu.slideUp();
-        } else {
-            submenu.slideDown();
-        }
-    });
-
-    $(".css-footer-buttons .category").click(function() {
-        $(".category-info").slideToggle();
-    });
 
     // 달력 부분 추가
     const dateCellsContainer = document.querySelector('.tbody');
@@ -183,4 +85,3 @@ $(document).ready(function() {
             }
         });
     }
-});
