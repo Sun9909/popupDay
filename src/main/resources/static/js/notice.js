@@ -193,8 +193,6 @@ function notice_enable(obj) {
 }
 
 
-
-
 // 이미지 미리보기 구현
 function Imageread_notice(input, num) {
     if(input.files && input.files[0]) { // 현재 input 객체 정보 (이미지 선택시)
@@ -213,17 +211,41 @@ function Imageread_notice(input, num) {
 
 
 /*********************** Q&AQ&AQ&A *****************************/
+// 다른 페이지(글 목록)로 이동
+function backToList(obj) {
+    obj.action="/notice/qnaList.do";
+    obj.method="get";
+    obj.submit();
+}
 
-// 공지사항 수정 반영하기
+// 폼 제출 시 카테고리 선택 여부 검사
+function validateForm(event) {
+    var category = document.getElementById("category_name").value;
+    if (category === "선택하세요") {
+        alert("카테고리를 선택해야 합니다.");
+        event.preventDefault(); // 폼 제출을 방지합니다.
+        return false;
+    }
+    return true;
+}
+//qba 수정하기
+function qna_enable(obj) {
+    document.getElementById("qna-mbtn").style.display = "block"; //수정반영하기와수정취소하기
+    document.getElementById("qna-btn").style.display = "none";  // 수정하기와 사젝하기 버트 숨기긱
+    document.getElementById("title").disabled = false;  //제목 입력 필드 활상화
+    document.getElementById("content").disabled = false; // 내용 입력 필드 활성화
+}
+
+// qna수정 반영하기
 function qna_modify(obj) {
     obj.action="/notice/modQna.do";
     obj.submit();
 
 }
 
-//공지사항 삭제 반영하기
+//qna 삭제 반영하기
 function fn_remove_qna(url, qna_id){
-    if(confirm("공지사항을 삭제하시겠습니까?")){
+    if(confirm("Q&A 질문을 삭제하시겠습니까?")){
         let dele_form = document.createElement("form");
         dele_form.setAttribute("action", url);
         dele_form.setAttribute("method","post");
@@ -238,11 +260,38 @@ function fn_remove_qna(url, qna_id){
 
 }
 
-//공지사항 수정하기
-function qna_enable(obj) {
-    document.getElementById("qna-mbtn").style.display = "block";
-    document.getElementById("qna-btn").style.display = "none";
-    document.getElementById("title").disabled = false;
-    document.getElementById("content").disabled = false;
+// 답변 수정하기
+function answer_enable(form) {
+    // 텍스트 영역 활성화
+    form.querySelector('textarea[name="answer"]').removeAttribute('disabled');
+
+    // 버튼 상태 변경
+    document.getElementById('answer-btn').style.display = 'none';
+    document.getElementById('answer-mbtn').style.display = 'block';
+}
+
+// 답변 수정 반영하기
+function submitForm(obj) {
+    obj.action="/notice/modAnswer.do";
+    obj.submit();
+
+}
+
+// 답변 삭제하기
+function fn_remove_answer(url, qna_id) {
+    if (confirm("답변을 삭제하시겠습니까?")) {
+        let deleteForm = document.createElement("form");
+        deleteForm.setAttribute("action", url);
+        deleteForm.setAttribute("method", "post");
+
+        let qnaIdInput = document.createElement("input");
+        qnaIdInput.setAttribute("type", "hidden");
+        qnaIdInput.setAttribute("name", "qna_id");
+        qnaIdInput.setAttribute("value", qna_id);
+
+        deleteForm.appendChild(qnaIdInput);
+        document.body.appendChild(deleteForm);
+        deleteForm.submit();
+    }
 }
 

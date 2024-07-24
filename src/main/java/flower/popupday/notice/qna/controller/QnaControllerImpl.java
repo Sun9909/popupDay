@@ -135,16 +135,17 @@ public class QnaControllerImpl implements QnaController {
     //수정반영하기
     @Override
     @RequestMapping("/notice/modQna.do")
-    public ModelAndView modQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView modQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String title = request.getParameter("title"); //title 파라미터 값을 가져와 title 변수에 저장
         String content = request.getParameter("content");
-        String qna_id = request.getParameter("qna_id");
 
         // QnaDTO 객체 생성 및 필드 설정
         QnaDTO qnaDTO = new QnaDTO(); // 새 객체를 생성
         qnaDTO.setTitle(title); // qnaDTO 객체의 title 필드를 HTTP 요청에서 받은 title 값으로 설정
         qnaDTO.setContent(content);
-        qnaDTO.setQna_id(Long.parseLong(qna_id));
+        qnaDTO.setQna_id(qna_id);
+
+
 
         // 서비스 호출
         qnaService.modQna(qnaDTO); // modQna메서들 호출 (qnaDTO :title,contetn, qna_id)를 가져옴
@@ -205,6 +206,34 @@ public class QnaControllerImpl implements QnaController {
         //qnaMap.put("qnaDTO",qnaDTO);
         qnaService.addAnswer(qnaDTO);  //서비스 호출
 
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
+        return mav;
+    }
+
+    //답변 수정반영하기
+    @Override
+    @RequestMapping("/notice/modAnswer.do")
+    public ModelAndView modAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String answer = request.getParameter("answer");
+
+        // QnaDTO 객체 생성 및 필드 설정
+        QnaDTO qnaDTO = new QnaDTO();
+        qnaDTO.setQna_id(qna_id);
+        qnaDTO.setAnswer(answer);
+
+        // 서비스 호출
+        qnaService.modQna(qnaDTO); // modQna메서들 호출 (qnaDTO :title,contetn, qna_id)를 가져옴
+
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
+        return mav;
+    }
+
+
+    //답변 삭제하기
+    @Override
+    @RequestMapping("/notice/removeAnswer.do")
+    public ModelAndView removeAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        qnaService.removeAnswer(qna_id);
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }

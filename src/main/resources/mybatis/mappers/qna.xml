@@ -58,8 +58,19 @@
     <update id="changeQna" parameterType="qnaDTO">
         update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
     </update>
+
+    <!-- 답변글 수정하기 -->
+    <update id="changeAnswer" parameterType="qnaDTO">
+        update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
+    </update>
+
     <!-- faq 글 삭제하기 -->
     <delete id="deleteQna" parameterType="long">
+        delete from qna_tbl where qna_id = #{qna_id}
+    </delete>
+
+    <!-- faq 글 삭제하기 -->
+    <delete id="deleteAnswer" parameterType="long">
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
 
