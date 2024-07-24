@@ -45,4 +45,12 @@
            OR brand_page LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
+    <!-- 날짜로 팝업 검색 -->
+    <select id="searchPopupsByDate" resultMap="PopupResult" parameterType="java.sql.Date">
+        <![CDATA[
+        SELECT * FROM popup_tbl
+        WHERE start_date <= #{selectedDate} AND end_date >= #{selectedDate}
+        ]]>
+    </select>
+
 </mapper>

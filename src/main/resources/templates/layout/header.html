@@ -21,7 +21,7 @@
 	<div id="search-banner">
 		<div class="searchHashtag">
 			<form id="searchForm" method="get" action="/search" onsubmit="submitForm(); return false;">
-				<input type="text" name="query" id="searchInput1" style="cursor: pointer">
+				<input type="text" name="query" id="searchInput1" placeholder="검색어를 입력하세요" style="cursor: pointer">
 				<input type="hidden" name="searchType" id="searchType" value="">
 				<button type="submit" class="search-btn"><img th:src="@{/images/search.svg}" alt="Search"></button>
 			</form>

@@ -1,15 +1,17 @@
 package flower.popupday.search.service;
 
-import flower.popupday.search.dao.SearchDAO;
 import flower.popupday.popup.dto.PopupDTO;
+import flower.popupday.search.dao.SearchDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Service // 이 클래스가 서비스 계층의 컴포넌트임을 나타냅니다.
+@Service
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
@@ -23,5 +25,10 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<PopupDTO> searchPopupsByWord(String query) {
         return searchDAO.searchPopupsByWord(query);
+    }
+
+    @Override
+    public List<PopupDTO> searchPopupsByDate(Date selectedDate) {
+        return searchDAO.searchPopupsByDate(selectedDate);
     }
 }
