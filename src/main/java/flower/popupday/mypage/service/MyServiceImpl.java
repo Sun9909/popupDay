@@ -4,6 +4,7 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dao.MyDAO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -96,15 +97,15 @@ public class MyServiceImpl implements MyService {
 //        return getPopup;
 //    }
 
-    @Override
-    public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException {
-        return myDAO.getPopup(user_id);
-    }
-
-    @Override
-    public Long getPopupCount(Long user_id) throws DataAccessException {
-//        Long PopupCount = myDAO.getPopupCount(user_id);
-//        return PopupCount;
-        return myDAO.getPopupCount(user_id);
-    }
+//    @Override
+//    public List<PopupDTO> getPopup(String user_id) throws DataAccessException {
+//        return myDAO.getPopup(user_id);
+//    }
+//
+//    @Override
+//    public Long getPopupCount(Long user_id) throws DataAccessException {
+////        Long PopupCount = myDAO.getPopupCount(user_id);
+////        return PopupCount;
+//        return myDAO.getPopupCount(user_id);
+//    }
 }

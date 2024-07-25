@@ -3,6 +3,7 @@ package flower.popupday.mypage.service;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public interface MyService {
 
     //팝업 리스트
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
-    public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
-
-    public Long getPopupCount(Long user_id) throws DataAccessException;
+//    public List<PopupDTO> getPopup(String user_id) throws DataAccessException;
+//
+//    public Long getPopupCount(Long user_id) throws DataAccessException;
 }

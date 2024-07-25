@@ -42,26 +42,26 @@
         <div th:if="${totPopup > 100}">
             <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 10) + 1 : 10))}">
                 <span th:if="${section > 1 and num == 1}">
-                    <a th:href="@{/mypage/registration.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
+                    <a th:href="@{/popup/registration.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
                 </span>
                 <span th:if="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
-                    <a class="target" th:href="@{/mypage/registration.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
+                    <a class="target" th:href="@{/popup/registration.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
                 </span>
                 <span th:unless="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
-                    <a class="noLine" th:href="@{/mypage/registration.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
+                    <a class="noLine" th:href="@{/popup/registration.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
                 </span>
                 <span th:if="${num == 10}">
-                    <a th:href="@{/mypage/registration.do(section=${section + 1}, pageNum=${section * 10 + 1})}">next</a>
+                    <a th:href="@{/popup/registration.do(section=${section + 1}, pageNum=${section * 10 + 1})}">next</a>
                 </span>
             </span>
         </div>
         <div th:if="${totPopup <= 100}">
             <span th:each="num : ${#numbers.sequence(1, (totPopup / 10) + 1)}">
                 <span th:if="${num == pageNum}">
-                    <a class="target" th:href="@{/mypage/registration.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+                    <a class="target" th:href="@{/popup/registration.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
                 </span>
                 <span th:unless="${num == pageNum}">
-                    <a class="noLine" th:href="@{/mypage/registration.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+                    <a class="noLine" th:href="@{/popup/registration.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
                 </span>
             </span>
         </div>
