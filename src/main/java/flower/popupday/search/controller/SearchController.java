@@ -13,6 +13,6 @@ public interface SearchController {
                         @RequestParam("searchType") String searchType,
                         Model model);
 
-    String searchPopupsByDate(@RequestParam("selectedDate") Date selectedDate, Model model);
+    String searchPopupsByDate(@RequestParam("selectedDateAdded") String selectedDateAdded, Model model);
 
 }
