@@ -57,6 +57,7 @@ public class PopupControllerImpl implements PopupController {
     public ModelAndView registerList(@RequestParam(value = "section", required = false) String _section,
                                      @RequestParam(value = "pageNum", required = false) String _pageNum,
                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
         Map<String, Integer> pagingMap = new HashMap<>();
@@ -388,6 +389,29 @@ public class PopupControllerImpl implements PopupController {
         // 리다이렉션
         System.out.println("팝업 목록 페이지로 리다이렉션 중...");
         return new ModelAndView("redirect:/popup/popupAllList.do");
+    }
+
+    @Override
+    @RequestMapping("/mypage/registration.do")
+    public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
+                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
+        int section = Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section); // 섹션
+        pagingMap.put("pageNum", pageNum); // 페이지 번호
+        Map<String, Object> bsPopupList = popupService.bsPopupList(pagingMap); // 서비스에서 팝업 목록 받아오기
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/mypage/registration"); // View 이름 설정
+        mav.addObject("popupInfoList", bsPopupList.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
+        mav.addObject("totPopup", bsPopupList.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        return mav; // ModelAndView 반환
     }
 
 
