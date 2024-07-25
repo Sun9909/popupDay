@@ -97,7 +97,8 @@ h2 {
 }
 
 .containers {
-    min-height: 1950px;
+    overflow: hidden;
+    min-height: 100%;
 }
 
 .pop-table-none {
