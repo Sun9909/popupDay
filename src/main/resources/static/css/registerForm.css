@@ -3,7 +3,7 @@
 .main_title {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    align-items: center;
 
 }
 .main_title img {
@@ -20,14 +20,16 @@ h2 {
 
 .containers div {
     margin: 20px;
-    font-size: 1.3em;
 }
 h4 {
     color: #4B4B65;
+    font-size: 22px;
     margin: 20px 10px 15px;
 }
 .containers .popName {
     display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
 }
 .containers .popName p {
     margin: 20px 10px 15px;
@@ -38,12 +40,22 @@ h4 {
 }
 .containers .popInfo ul {
     list-style: none;
+    padding: 0;
 }
 .containers .popInfo li {
-    margin: 5px;
+    margin: 11px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
 }
 
-form {
+.containers .popInfo li > p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+.radio-form {
     margin: 20px;
     display: flex;
     justify-content: center;
@@ -66,4 +78,43 @@ form label {
 
 .containers {
     min-height: 2000px;
+}
+
+.register-content {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.main-article {
+    display: flex;
+    align-items: center;
+}
+
+.popupdetail-banner img{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+
+
+.popImg {
+    border-bottom: 1px solid #ccc;
+}
+
+.containers .popInfo .answer {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.containers .popInfo .answer div {
+    margin: 10px 0;
+}
+
+
+.answer input {
+    background-color: unset;
+    border: none;
+    width: 100px;
 }
