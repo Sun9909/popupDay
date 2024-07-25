@@ -80,6 +80,7 @@ header {
 
 .admin_container {
     width: 580px;
+    position: relative;
 }
 
 .images > div {

@@ -148,6 +148,11 @@ public class PopupServiceImpl implements PopupService {
         return popupMap;
     }
 
+    @Override
+    public void roleUpdate(Long popup_id, String role) throws DataAccessException {
+        popupDAO.roleUpdate(popup_id, role);
+    }
+
     // 조회수 증가
     @Override
     public void updateHits(Long popup_id) throws DataAccessException {

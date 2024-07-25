@@ -110,7 +110,7 @@
                     <li><a th:href="@{/modify/loginModify.do}">내 정보 수정</a></li>
                     <li><a th:href="@{/modify/passwordModify.do}">비밀번호 수정</a></li>
                     <li><a th:href="@{/login/logout.do}">로그아웃</a></li>
-                    <li><a class="memberDrop" th:href="@{/mypage/dropMember.do}">탈퇴하기</a></li>
+                    <li><a class="memberDrop" onclick="return delete_check()" th:href="@{/mypage/dropMember.do}">탈퇴하기</a></li>
                 </ul>
             </div>
             <!-- 내 정보 영역 -->
@@ -120,6 +120,7 @@
     <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/myinfoCheck.js}"></script>
 </th:block>
 </body>
 </html>

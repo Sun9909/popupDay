@@ -15,17 +15,13 @@
     <!--검색, 서브메뉴-->
     <div class="containers">
         <div class="review-show">
-            <h2>후기</h2>
             <form class="review-form" name="reviewArticle" method="post" enctype="multipart/form-data">
-                <div class="review-view">
-                    <!-- 글번호 -->
-                    <input type="hidden" name="review_id" th:value="${reviewArticle.review.review_id}">
-                </div>
+                <input type="hidden" name="review_id" th:value="${reviewArticle.review.review_id}">
+                <p class="review-date" th:text="${reviewArticle.review.created_date}"></p>
                 <div class="review-view">
                     <input class="view-title" id="review_title" name="review_title" th:value="${reviewArticle.review.review_title}" disabled>
                 </div>
-                <div class="review-view">
-                    <p>내용</p>
+                <div class="review-view contents">
                     <input class="view-content" id="review_content" name="review_content" th:value="${reviewArticle.review.review_content}" disabled>
                 </div>
                 <!-- 이미지가 존재할때만 보임 -->
@@ -49,7 +45,7 @@
                     <input type="button" value="수정하기" onclick="review_enable(this.form)">
                     <input type="button" value="삭제하기" th:onclick="|fn_remove_review('/notice/removeReview.do', ${reviewArticle.review.review_id})|">
                 </div>
-                <input id="backbtn" type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+                <input id="backbtn" type="button" value="리스트로 돌아가기" onclick="backToFaq(this.form)">
             </form>
         </div>
     </div>

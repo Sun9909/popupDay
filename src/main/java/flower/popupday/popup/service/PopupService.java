@@ -18,6 +18,8 @@ public interface PopupService {
 
     public Map<String, Object> register(Long popup_id) throws DataAccessException;
 
+    public void roleUpdate(Long popup_id, String role) throws DataAccessException;
+
     public void updateHits(Long popup_id) throws DataAccessException;
 
     public boolean toggleLike(Long popup_id, Long id) throws DataAccessException;
