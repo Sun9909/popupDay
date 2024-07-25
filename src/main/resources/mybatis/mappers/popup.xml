@@ -199,13 +199,13 @@
 
     <!-- 사업자 팝업 신청 현황 리스트 -->
     <select id="selectBsPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where id=#{id} order by created_date desc LIMIT #{count}, 10
+        select * from popup_tbl where user_id=#{user_id} order by created_date desc LIMIT #{count}, 10
     </select>
 
     <!-- 사업자 신청 팝업 개수 -->
     <select id="selectToBsPopup" resultType="int">
       <![CDATA[
-        select count(*) from popup_tbl where id=#{id}
+        select count(*) from popup_tbl where user_id=#{user_id}
         ]]>
    </select>
 
