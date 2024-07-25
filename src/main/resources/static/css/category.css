@@ -36,8 +36,6 @@
 }
 
 #category_box>li>a {
-    font-family: 'Do Hyeon';
-    font-size: 55px;
     font-weight: 900;
     color: black;
     cursor: pointer;
@@ -46,7 +44,7 @@
 #category_box>li>a>span {
     font-family: 'Do Hyeon';
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 40px;
 }
 
 #businessperson_box>li>a, #admin_box>li>a {
@@ -58,7 +56,7 @@
 }
 #category_box{
     list-style: none;
-    padding: 30px 20px;
+    padding: 30px 20px 0;
     margin: 0;
     color: black;
 }
@@ -105,7 +103,7 @@
 
 @media (max-height: 900px) {
 
-    #category_box>li>a {
+    #category_box>li>a>span {
         font-size: 30px;
     }
 
@@ -130,6 +128,10 @@
     }
     #businessperson_box>li>a, #admin_box>li>a {
         font-size: 20px;
+    }
+
+    .login-content {
+        padding-top: 35px;
     }
 
     #category_box>li>a>span {
