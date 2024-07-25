@@ -13,111 +13,97 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div class="admin-content">
-        <div class="admin_container">
-            <h2>관리자 페이지</h2>
-            <ul>
-                <li><a th:href="@{/admin/register.do}">팝업 신청 검토</a></li>
-                <li><a th:href="@{/admin/memberShip.do}">회원관리</a></li>
-                <li><a th:href="@{/admin/admin.do}">홈</a></li>
-            </ul>
-            <div class="logout">
-                <a href="#">
-                    <img th:src="@{/images/person.svg}">
-                    <h5><a th:href="@{/login/logout.do}">로그아웃</a></h5>
-                </a>
-            </div>
+<div class="containers">
+    <!-- 팝업 신청 관리 페이지 -->
+    <div class="register-content">
+        <div class="main_title">
+            <a th:href="@{/admin/register.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+            <h2>팝업 신청 관리</h2>
         </div>
-        <div class="containers">
-            <!-- 팝업 신청 관리 페이지 -->
-            <div class="main_title">
-                <a th:href="@{/admin/register.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
-                <h2>팝업 신청 관리</h2>
-            </div>
 
-            <!-- 팝업 정보 -->
-            <div class="popName">
-                <h4>팝업 이름</h4>
-                <p th:text="${popupMap.popupList.title}"></p>
-            </div>
-            <div class="popImg" th:if="${#strings.isEmpty(popupMap.imageFileList)}">
-                <h4>팝업 이미지가 없습니다</h4>
-            </div>
-            <div class="popImg" th:if="${not #strings.isEmpty(popupMap.imageFileList)}">
-                <h4>팝업 이미지</h4>
-                <!--                    imageFileList가 비어있지 않은 경우에만 이 div 표시-->
-                <article class="main-article">
-                    <div class="popupdetail-banner" th:each="imgList, status : ${popupMap.imageFileList}">
-                        <!--                            imageFileList의 각 항목에 대해 반복문을 돌림-->
-                        <div>
-                            <input type="hidden" th:name="'originalFileName' + ${status.count}" th:value="${imgList.image_file_name}"> <!-- 이름이 하나로 고정 -->
-                            <input type="hidden" th:name="'image_file_name' + ${status.count}" th:value="${imgList.popup_image_id}"> <!-- 파일 번호가져감 -->
-                            <img th:id="'preview' + ${status.count}" th:src="@{/popupDownload.do(popup_id=${imgList.popup_id},image_file_name=${imgList.image_file_name})}">
-                            <!--                                이미지 표시, 각 이미지에 대해 고유한 id를 부여하고 src에 이미지 파일 경로를 할당-->
-                        </div>
+        <!-- 팝업 정보 -->
+        <div class="popName">
+            <h4>팝업 이름</h4>
+            <p th:text="${popupMap.popupList.title}"></p>
+        </div>
+        <div class="popImg" th:if="${#strings.isEmpty(popupMap.imageFileList)}">
+            <h4>팝업 이미지가 없습니다</h4>
+        </div>
+        <div class="popImg" th:if="${not #strings.isEmpty(popupMap.imageFileList)}">
+            <h4>팝업 이미지</h4>
+            <!--                    imageFileList가 비어있지 않은 경우에만 이 div 표시-->
+            <article class="main-article">
+                <div class="popupdetail-banner" th:each="imgList, status : ${popupMap.imageFileList}">
+                    <!--                            imageFileList의 각 항목에 대해 반복문을 돌림-->
+                    <div>
+                        <input type="hidden" th:name="'originalFileName' + ${status.count}" th:value="${imgList.image_file_name}"> <!-- 이름이 하나로 고정 -->
+                        <input type="hidden" th:name="'image_file_name' + ${status.count}" th:value="${imgList.popup_image_id}"> <!-- 파일 번호가져감 -->
+                        <img th:id="'preview' + ${status.count}" th:src="@{/popupDownload.do(popup_id=${imgList.popup_id},image_file_name=${imgList.image_file_name})}">
+                        <!--                                이미지 표시, 각 이미지에 대해 고유한 id를 부여하고 src에 이미지 파일 경로를 할당-->
                     </div>
-                </article>
-            </div>
-            <div class="popInfo">
-                <h4>팝업 정보</h4>
-                <ul>
-                    <li>팝업 운영 기간 <p th:text="${popupMap.popupList.start_date} + ' ~ ' + ${popupMap.popupList.end_date}"></p></li>
-                    <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
-                    <li>팝업 한 줄 설명 <p th:text="${popupMap.popupList.info}"></p></li>
-                    <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
-                        팝업 해시태그
-                        <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
-                    </li>
-                    <li class="answer">
-                        팝업 운영 시간
-                        <div>
-                            <label for="monday_time">월:</label>
-                            <input type="text" id="monday_time" th:name="monday_time" th:value="${popupMap.popupList.monday_time}" disabled>
-                        </div>
-                        <div>
-                            <label for="tuesday_time">화:</label>
-                            <input type="text" id="tuesday_time" th:name="tuesday_time" th:value="${popupMap.popupList.tuesday_time}" disabled>
-                        </div>
-                        <div>
-                            <label for="wednesday_time">수:</label>
-                            <input type="text" id="wednesday_time" th:name="wednesday_time" th:value="${popupMap.popupList.wednesday_time}" disabled>
-                        </div>
-                        <div>
-                            <label for="thursday_time">목:</label>
-                            <input type="text" id="thursday_time" th:name="thursday_time" th:value="${popupMap.popupList.thursday_time}" disabled>
-                        </div>
-                        <div>
-                            <label for="friday_time">금:</label>
-                            <input type="text" id="friday_time" th:name="friday_time" th:value="${popupMap.popupList.friday_time}" disabled>
-                        </div>
-                        <div>
-                            <label for="saturday_time">토:</label>
-                            <input type="text" id="saturday_time" th:name="saturday_time" th:value="${popupMap.popupList.saturday_time}" disabled>
-                        </div>
-                        <div>
-                            <label for="sunday_time">일:</label>
-                            <input type="text" id="sunday_time" th:name="sunday_time" th:value="${popupMap.popupList.sunday_time}" disabled>
-                        </div>
-                    </li>
-                    <li>팝업 소개 <p th:text="${popupMap.popupList.content}"></p></li>
-                </ul>
-            </div>
-            <div class="brandUrl">
-                <h4>브랜드 홈페이지</h4>
-                <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p th:text="${popupMap.popupList.brand_page}"></p></a>
-            </div>
-            <form action="/admin/roleUpdate.do">
-                <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
-                <label><input type="radio" name="role" value="승인"> 승인</label>
-                <label><input type="radio" name="role" value="미승인"> 미승인</label>
-                <label><input type="radio" name="role" value="취소">취소</label>
+                </div>
+            </article>
+        </div>
+        <div class="popInfo">
+            <h4>팝업 정보</h4>
+            <ul>
+                <li>팝업 운영 기간 <p th:text="${popupMap.popupList.start_date} + ' ~ ' + ${popupMap.popupList.end_date}"></p></li>
+                <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
+                <li>팝업 한 줄 설명 <p th:text="${popupMap.popupList.info}"></p></li>
+                <h4>팝업 해시태그</h4>
+                <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
+
+                    <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
+                </li>
+                <h4>팝업 운영 시간</h4>
+                <li class="answer">
+                    <div>
+                        <label for="monday_time">월:</label>
+                        <input type="text" id="monday_time" th:name="monday_time" th:value="${popupMap.popupList.monday_time}" disabled>
+                    </div>
+                    <div>
+                        <label for="tuesday_time">화:</label>
+                        <input type="text" id="tuesday_time" th:name="tuesday_time" th:value="${popupMap.popupList.tuesday_time}" disabled>
+                    </div>
+                    <div>
+                        <label for="wednesday_time">수:</label>
+                        <input type="text" id="wednesday_time" th:name="wednesday_time" th:value="${popupMap.popupList.wednesday_time}" disabled>
+                    </div>
+                    <div>
+                        <label for="thursday_time">목:</label>
+                        <input type="text" id="thursday_time" th:name="thursday_time" th:value="${popupMap.popupList.thursday_time}" disabled>
+                    </div>
+                    <div>
+                        <label for="friday_time">금:</label>
+                        <input type="text" id="friday_time" th:name="friday_time" th:value="${popupMap.popupList.friday_time}" disabled>
+                    </div>
+                    <div>
+                        <label for="saturday_time">토:</label>
+                        <input type="text" id="saturday_time" th:name="saturday_time" th:value="${popupMap.popupList.saturday_time}" disabled>
+                    </div>
+                    <div>
+                        <label for="sunday_time">일:</label>
+                        <input type="text" id="sunday_time" th:name="sunday_time" th:value="${popupMap.popupList.sunday_time}" disabled>
+                    </div>
+                </li>
+                <li>팝업 소개 <p th:text="${popupMap.popupList.content}"></p></li>
+            </ul>
+        </div>
+        <div class="brandUrl">
+            <h4>브랜드 홈페이지</h4>
+            <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p th:text="${popupMap.popupList.brand_page}"></p></a>
+        </div>
+        <form action="" class="radio-form">
+            <label><input type="radio" name="role" value="승인"> 승인</label>
+            <label><input type="radio" name="role" value="검토"> 미승인</label>
+            <label><input type="radio" name="role" value="취소">취소</label>
             <div class="check">
                 <button type="submit" value="submit">저장</button>
                 <button type="reset" value="reset">취소</button>
             </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

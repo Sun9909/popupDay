@@ -39,8 +39,10 @@
                     <!-- 상세보기된 팝업 정보 -->
                     <div class="popupdetail-title-infor">
                         <div class="popup-title">
-                            <input type="text" th:value="${popupMap.popupList.user_nikname}" disabled>
-                            <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
+                            <div>
+                                <input type="text" th:value="${popupMap.popupList.user_nikname}" disabled>
+                                <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
+                            </div>
                             <button id="heart-icon" th:data-login-check="${loginCheck}">
                                 <img id="heart-image" class="heart"
                                      th:src="${loginCheck ? (popupMap.isLiked ? '/images/heart_fill.svg' : '/images/heart_empty.svg') : '/images/heart_empty.svg'}"
@@ -59,9 +61,9 @@
                         </div>
 
                         <div class="abc">
-                            <div class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
-                                <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
-                            </div>
+                            <span class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
+                                <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled oninput="adjustWidth(this)">
+                            </span>
                         </div>
                         <div class="popup-Icon">
                             <img class="eye" th:src="@{/images/eye.svg}" alt="조회수눈">
@@ -74,7 +76,7 @@
                 <!--주차 입장료 여부-->
                 <div class="popupdetail-icon-area">
                     <div class="parking">
-                        <img th:src="${popupMap.popupList.parking == '주차가능' ? '/images/parking.jpg' : '/images/unparking.jpg'}" alt="주차">
+                        <img th:src="${popupMap.popupList.parking == '주차가능' ? '/images/parking.svg' : '/images/unparking.svg'}" alt="주차">
                         <p th:text="${popupMap.popupList.parking}"></p>
                     </div>
                     <div class="ticket">

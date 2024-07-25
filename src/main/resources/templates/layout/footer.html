@@ -35,31 +35,31 @@
                         </li>
                         <li>
                             <a th:href="@{/popup/popupAllList.do}">
-                                POPUPLIST
+                                <span>POPUPLIST</span>
                                 <span>팝업전체보기</span>
                             </a>
                         </li>
                         <li>
                             <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/login.do\')'">
-                                Notice
+                                <span>Notice</span>
                                 <span>공지사항</span>
                             </a>
                         </li>
                         <li>
                             <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/login/login.do\')'">
-                                Q&A
+                                <span>Q&A</span>
                                 <span>질문 & 답변</span>
                             </a>
                         </li>
                         <li>
                             <a th:href="@{/notice/faqList.do}">
-                                FAQ
+                                <span>FAQ</span>
                                 <span>자주 묻는 질문</span>
                             </a>
                         </li>
                         <li>
                             <a th:href="@{/notice/reviewList.do}">
-                                REVIEW
+                                <span>REVIEW</span>
                                 <span>후기</span>
                             </a>
                         </li>
