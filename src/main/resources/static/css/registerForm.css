@@ -106,6 +106,7 @@ form label {
 .containers .popInfo .answer {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
 }
 
 .containers .popInfo .answer div {
