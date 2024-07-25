@@ -55,7 +55,7 @@ public class NoticeControllerImpl implements NoticeController {
         System.out.println("noticeMap: " + noticeMap);
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("/notice/notice"); // 이 뷰로 이동
+        mav.setViewName("notice/notice"); // 이 뷰로 이동
         mav.addObject("noticeMap", noticeMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
 
         return mav;

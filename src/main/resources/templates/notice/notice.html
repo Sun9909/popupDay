@@ -10,18 +10,18 @@
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>공지사항페이지</title>
 
-    <script> // true false , 로그인중이면 articleForm 정보 받음 , 로그인 안했으면 loginForm으로 보냄
-    function fn_noticeForm(isLogOn, noticeForm, loginForm) {
-        if(isLogOn===true) {
-            location.href=noticeForm;
-        }else {
-            alert("isLogOn : " + isLogOn);
-            alert("로그인 후 글쓰기가 가능합니다.");
-            location.href=loginForm + '?action=/notice/noticeForm.do';
-        }
-    }
-    // isLogOn != '' && isLogOn != 'false'
-    </script>
+<!--    <script> // true false , 로그인중이면 articleForm 정보 받음 , 로그인 안했으면 loginForm으로 보냄-->
+<!--    function fn_noticeForm(isLogOn, noticeForm, loginForm) {-->
+<!--        if(isLogOn===true) {-->
+<!--            location.href=noticeForm;-->
+<!--        }else {-->
+<!--            alert("isLogOn : " + isLogOn);-->
+<!--            alert("로그인 후 글쓰기가 가능합니다.");-->
+<!--            location.href=loginForm + '?action=/notice/noticeForm.do';-->
+<!--        }-->
+<!--    }-->
+<!--    // isLogOn != '' && isLogOn != 'false'-->
+<!--    </script>-->
 
 </head>
 
@@ -70,8 +70,9 @@
        <!-- <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
             <a class="wirte" th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">글쓰기</a>
         </div>-->
-        <div class="notice-btn" >
-        <button th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}"><a th:href="@{/notice/noticeForm.do}">Notice작성하기</a></button>
+        <div class="notice-btn">
+            <!-- 사용자가 관리자일 때만 버튼을 표시합니다. -->
+            <a th:if="${session.loginDTO != null and session.loginDTO.role == '관리자'}" th:href="@{/notice/noticeForm.do}">Notice 작성하기</a>
         </div>
 
         <div class="number" th:if="${noticeMap.totNotice > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
