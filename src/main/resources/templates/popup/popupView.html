@@ -135,17 +135,13 @@
 
                 <!--오시는길-->
                 <div class="popupdetail-map">
-
                     <h3 class="infor-tit">스토어 주소</h3>
                     <article class="map-area-wrap">
                         <div class="map-area">
-                            <input type="text" th:name="address" th:value="${popupMap.popupList.address}" disabled>
+                            <input type="text" id="address" th:value="${popup.address}" disabled>
                         </div>
                     </article>
-                    <ul>
-                        <li><p th:value="${popupMap.popupList.address}"></p></li>
-                        <li><button type="button">주소복사</button></li>
-                    </ul>
+                    <div id="staticMap" style="width:600px;height:350px;"></div>
                 </div>
                 <!--주변 카페 및 놀거리-->
                 <div class="popupdetail-play">
@@ -199,6 +195,7 @@
     <script th:src="@{/js/boardDetail.js}"></script>
     <script type="text/javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=089d852b497e6c513c79b8561670e3a0&libraries=services,clusterer,drawing'}"></script>
     <script th:src="@{/js/popupListMap.js}"></script>
+    <script th:src="@{/js/map2.js}"></script>
     <script th:src="@{/js/popupView.js}"></script>
     <script>
         var script = document.createElement('script');
