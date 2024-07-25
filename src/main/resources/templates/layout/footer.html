@@ -26,10 +26,10 @@
                 <div class="categoryMember">
                     <ul id="category_box">
                         <li>
-                            <div th:if="${session.isLogOn} and ${session.loginDTO != null} and ${session.loginDTO.user_nikname != null}">
+                            <div th:if="${session.isLogOn} and ${session.loginDTO != null} and ${session.loginDTO.user_nikname != null}" class="login-content">
                                 <a th:href="@{/login/logout.do}">로그아웃</a>
                             </div>
-                            <div th:unless="${session.isLogOn == true }">
+                            <div th:unless="${session.isLogOn == true }" class="login-content">
                                 <a th:href="@{/login/login.do}">로그인</a>
                             </div>
                         </li>

@@ -87,10 +87,9 @@
                     <div class="popup-time">
                         <a class="popupdetail-total">
                             <h3 class="infor-tit">운영시간</h3>
-                            <a><img id="toggle0" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표"></a>
                         </a>
                     </div>
-                    <div class="answer" style="display: none;">
+                    <div class="answer">
                         <div>
                             <label for="monday_time">월:</label>
                             <input type="text" id="monday_time" th:name="monday_time" th:value="${popupMap.popupList.monday_time}" disabled>
@@ -137,7 +136,7 @@
                 <!--오시는길-->
                 <div class="popupdetail-map">
 
-                    <h3 class="infor-tit">오시는 길</h3>
+                    <h3 class="infor-tit">스토어 주소</h3>
                     <article class="map-area-wrap">
                         <div class="map-area">
                             <input type="text" th:name="address" th:value="${popupMap.popupList.address}" disabled>
@@ -152,16 +151,15 @@
                 <div class="popupdetail-play">
                     <a class="popupdetail-total">
                         <h3 class="infor-tit">주변 카페 및 놀거리</h3>
-                        <img id="toggle1" class="open" th:src="@{/images/angle-down-solid.svg}" alt="아래화살표">
                     </a>
-                    <div class="map_wrap answer" style="display: none">
+                    <div class="map_wrap answer">
                         <div id="map" style="width:500px;height:300px;position:relative;overflow:hidden;"></div>
 
                         <div id="menu_wrap" class="bg_white">
                             <div class="option" >
                                 <div>
                                     <form onsubmit="searchPlaces(); return false;">
-                                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                                        키워드 : <input type="text" th:value="${popupMap.popupList.address}" id="keyword" size="15">
                                         <button type="submit">검색하기</button>
                                     </form>
                                 </div>
@@ -182,8 +180,8 @@
 
                 <span th:if="${popupMap != null && popupMap.popupList != null && loginCheck && popupMap.popupList.user_id == id}">
                     <form action="#" method="post" th:action="@{/popup/modPopupForm.do}">
-                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}" />
-                        <input type="hidden" name="user_id" th:value="${popupMap.popupList.user_id}" />
+                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}"/>
+                        <input type="hidden" name="user_id" th:value="${popupMap.popupList.user_id}"/>
                         <button type="submit" class="btn-edit">수정하기</button>
                     </form>
                 </span>
