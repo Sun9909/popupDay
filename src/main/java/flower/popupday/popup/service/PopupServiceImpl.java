@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,12 @@ public class PopupServiceImpl implements PopupService {
 
     @Autowired
     private PopupDAO popupDAO;
+
+    @Override
+    public List<Popup> topViewPopup() throws DataAccessException {
+
+        return List.of();
+    }
 
     // 팝업 전체 리스트
     @Override
@@ -208,4 +215,5 @@ public class PopupServiceImpl implements PopupService {
         bsPopupList.put("totPopup", totPopup);
         return bsPopupList;
     }
+
 }

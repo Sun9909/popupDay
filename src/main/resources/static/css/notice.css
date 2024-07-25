@@ -161,6 +161,10 @@
     float: left;
     margin-top: 10px;
 }
+
+#faq_title {
+    pointer-events: none;
+}
 .answerop {
     display: flex;
     justify-content: space-between;

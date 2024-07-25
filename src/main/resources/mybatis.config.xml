@@ -13,5 +13,6 @@
 		<mapper resource="mybatis/mappers/QnA.xml"/>
 		<mapper resource="mybatis/mappers/review.xml"/>
 		<mapper resource="flower/popupday/search/dao/SearchMapper.xml"/>
+		<mapper resource="mybatis/mappers/mapaddress.xml"/>
 		</mappers>
 	</configuration>

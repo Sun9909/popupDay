@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Controller("popupController")
@@ -25,8 +25,20 @@ public class PopupControllerImpl implements PopupController {
     private static String ARTICLE_IMG_REPO = "D:\\Sun\\fileupload";
     private static final long COOKIE_EXPIRY_DAYS = 1; // 쿠키 만료 시간
 
+
     @Autowired
     PopupService popupService;
+
+    @Override
+    @PostMapping("/main.do")
+    public  ModelAndView main(MultipartHttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView();
+        Map<String, Integer> popupMap = new HashMap<>();
+        List<Popup> topViewPopup = popupService.topViewPopup();
+        mav.addObject(topViewPopup);
+        mav.setViewName("main");
+        return mav;
+    }
 
     @Override
     @RequestMapping("/popup/popupAllList.do")
