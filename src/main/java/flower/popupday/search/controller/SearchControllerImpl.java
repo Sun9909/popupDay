@@ -33,7 +33,13 @@ public class SearchControllerImpl implements SearchController {
     }
 
     @RequestMapping("/searchPopups")
-    public String searchPopupsByDate(@RequestParam("selectedDate") Date selectedDate, Model model) {
+    public String searchPopupsByDate(@RequestParam("selectedDateAdded") String selectedDateAdded, Model model) {
+        // 입력 받은 날짜 형식이 '2024-07-24'과 같은지 확인
+        System.out.println("Received date: " + selectedDateAdded);
+
+        // 형식을 SQL 형식으로 변환
+        Date selectedDate = Date.valueOf(selectedDateAdded);
+
         List<PopupDTO> searchResults = searchService.searchPopupsByDate(selectedDate);
         model.addAttribute("searchResults", searchResults);
         return "/popup/searchList";
