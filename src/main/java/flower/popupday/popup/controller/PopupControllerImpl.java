@@ -293,23 +293,19 @@ public class PopupControllerImpl implements PopupController {
 
         // 요청 파라미터 로깅
         Enumeration<?> enu = multipartRequest.getParameterNames();
-        System.out.println("요청 파라미터:");
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
             String value = multipartRequest.getParameter(name);
-            System.out.println(name + " : " + value);
             popupMap.put(name, value);
         }
 
         // 파일 업로드 처리
         List<String> fileList = multiFileUpload(multipartRequest);
         String popup_id = (String) popupMap.get("popup_id");
-        System.out.println("팝업 ID: " + popup_id);
 
         List<ImageDTO> imageFileList = new ArrayList<>();
         int modityNumber = 0;
         if (fileList != null && !fileList.isEmpty()) {
-            System.out.println("처리할 파일 목록:");
             for (String fileName : fileList) {
                 modityNumber++;
                 ImageDTO imageDTO = new ImageDTO();
@@ -318,77 +314,46 @@ public class PopupControllerImpl implements PopupController {
                 Long popupImageId = (popupImageIdStr != null && !popupImageIdStr.isEmpty()) ? Long.parseLong(popupImageIdStr) : null; //팝업이미지아이디
                 imageDTO.setPopup_image_id(popupImageId);
                 imageFileList.add(imageDTO);
-                System.out.println("파일: " + fileName + ", 팝업 이미지 ID: " + popupImageId);
             }
             popupMap.put("imageFileList", imageFileList);
         }
 
         try {
             // 팝업 정보 업데이트
-            System.out.println("팝업 업데이트 중...");
             popupService.updatePopup(popupMap);
-            System.out.println("팝업 업데이트 성공.");
 
             // 이미지 파일 처리
             if (imageFileList != null && !imageFileList.isEmpty()) {
                 int cnt = 0;
                 for (ImageDTO imageDTO : imageFileList) {
-                    cnt++;
+
                     String imageFileName = imageDTO.getImage_file_name();
                     Long popupImageId = imageDTO.getPopup_image_id();
                     if (imageFileName != null && !imageFileName.isEmpty()) {
                         File srcFile = new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
                         File destDir = new File(ARTICLE_IMG_REPO + "\\" + popup_id);
                         File destFile = new File(destDir, imageFileName);
-                        File oldFile = (popupImageId != null) ? new File(ARTICLE_IMG_REPO + "\\" + popup_id + "\\" + (String) popupMap.get("originalFileName_" + cnt)) : null;
-
-                        // 파일 경로 로깅
-                        System.out.println("처리 중 파일: " + imageFileName);
-                        System.out.println("원본 파일 경로: " + srcFile.getAbsolutePath());
-                        System.out.println("대상 디렉토리: " + destDir.getAbsolutePath());
-                        System.out.println("대상 파일 경로: " + destFile.getAbsolutePath());
-
+                        File oldFile = (popupImageId != null) ? new File(ARTICLE_IMG_REPO + "\\" + popup_id + "\\" + (String) popupMap.get("image_file_name" + cnt)) : null;
                         // 기존 파일 삭제
                         if (oldFile != null && oldFile.exists()) {
-                            System.out.println("기존 파일이 존재합니다. 삭제 중...");
                             if (oldFile.delete()) {
-                                System.out.println("기존 파일 삭제 성공.");
-                            } else {
-                                System.out.println("기존 파일 삭제 실패.");
                             }
-                        } else if (oldFile == null) {
-                            System.out.println("기존 파일 경로가 null입니다.");
-                        } else {
-                            System.out.println("기존 파일이 존재하지 않습니다.");
                         }
-
+                        cnt++;
                         // 새 파일 이동
                         if (srcFile.exists()) {
-                            System.out.println("파일 이동 중...");
-                            try {
-                                if (!destDir.exists()) {
+                            if (!destDir.exists()) {
                                     destDir.mkdirs();
                                 }
-                                FileUtils.moveFile(srcFile, destFile);
-                                System.out.println("파일 이동 성공.");
-                            } catch (IOException e) {
-                                System.out.println("파일 이동 실패: " + e.getMessage());
-                            }
-                        } else {
-                            System.out.println("원본 파일이 존재하지 않습니다.");
+                            FileUtils.moveFile(srcFile, destFile);
                         }
                     }
                 }
             }
         } catch (Exception e) {
-            System.out.println("예외 발생: " + e.getMessage());
             e.printStackTrace();
         }
-
-        // 리다이렉션
-        System.out.println("팝업 목록 페이지로 리다이렉션 중...");
         return new ModelAndView("redirect:/popup/popupAllList.do");
     }
-
 
 }
