@@ -11,7 +11,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -191,29 +190,17 @@ public class PopupServiceImpl implements PopupService {
     }
 
     @Override
-    public Map<String, Object> bsPopupList(Map<String, Object> pagingMap) throws DataAccessException {
-        Map<String, Object> bsPopupList = new HashMap<>();
-        int section = (Integer) pagingMap.get("section");
-        int pageNum = (Integer) pagingMap.get("pageNum");
-        Long id = (Long) pagingMap.get("id");
+    public Map bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map bsPopupList = new HashMap<>();
+        int section = pagingMap.get("section");
+        int pageNum = pagingMap.get("pageNum");
+        int id = pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
+        List<PopupDTO> popupList = popupDAO.selectBsPopup(count, id); // 팝업 목록 조회
+        int totPopup = popupDAO.selectToBsPopup(); // 전체 팝업 수 조회
 
-        List<PopupDTO> popupList = popupDAO.selectBsPopup(id, count); // 팝업 목록 조회
-        int totPopup = popupDAO.selectToBsPopup(id); // 전체 팝업 수 조회
-
-        List<Map<String, Object>> popupInfoList = new ArrayList<>();
-        for (PopupDTO popup : popupList) {
-            Long popup_id = popup.getPopup_id();
-            ImageDTO thumbnailImage = popupDAO.selectFirstImage(popup_id); // 각 팝업의 첫 번째 이미지 조회
-            Map<String, Object> popupInfo = new HashMap<>();
-            popupInfo.put("popup", popup); // 팝업 정보 추가
-            popupInfo.put("thumbnailImage", thumbnailImage); // 이미지 정보 추가
-            popupInfoList.add(popupInfo);
-        }
-
-        bsPopupList.put("popupInfoList", popupInfoList); // 팝업 정보 리스트 추가
+        bsPopupList.put("popupList", popupList); // 팝업 정보 리스트 추가
         bsPopupList.put("totPopup", totPopup);
         return bsPopupList;
     }
-
 }

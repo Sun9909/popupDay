@@ -38,19 +38,6 @@
         <result property="status" column="status"/>
     </resultMap>
 
-    <resultMap type="mypopupDTO" id="popResult">
-        <result property="hash_tag_id" column="hash_tag_id"/>
-        <result property="title" column="title"/>
-        <result property="info" column="info"/>
-        <result property="popup_hours" column="popup_hours"/>
-        <result property="content" column="content"/>
-        <result property="map" column="map"/>
-        <result property="brandPage" column="brandPage"/>
-        <result property="role" column="role"/>
-        <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
-    </resultMap>
-  
     <!-- 로그인한 회원 정보 가져오기 -->
     <select id="getName" parameterType="myDTO">
         select * from user_tbl where id=#{id}

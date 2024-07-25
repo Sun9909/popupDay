@@ -30,8 +30,9 @@ public interface PopupService {
 
     public void updatePopup(Map popupMap) throws DataAccessException;
 
-    //사업자 신청 팝업 리스트
-    public Map<String, Object> bsPopupList(Map<String, Object> pagingMap) throws DataAccessException;
+    //public List<Popup> topViewPopup() throws DataAccessException;
 
-//    public List<Popup> topViewPopup() throws DataAccessException;
+    //사업자 신청 팝업 리스트
+    public Map<String, Object> bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException;
+
 }

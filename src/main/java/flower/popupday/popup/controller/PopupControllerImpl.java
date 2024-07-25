@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Controller("popupController")
@@ -24,7 +24,6 @@ public class PopupControllerImpl implements PopupController {
 
     private static String ARTICLE_IMG_REPO = "D:\\Sun\\fileupload";
     private static final long COOKIE_EXPIRY_DAYS = 1; // 쿠키 만료 시간
-
 
     @Autowired
     PopupService popupService;
@@ -370,29 +369,29 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
-    @RequestMapping("/popup/registration.do")
+    @RequestMapping("/mypage/registration.do")
     public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
                                    @RequestParam(value = "pageNum", required = false) String _pageNum,
                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
-
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        Map<String, Object> pagingMap = new HashMap<>();
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Map<String, Integer> pagingMap = new HashMap<>();
+
         pagingMap.put("section", section); // 섹션
         pagingMap.put("pageNum", pageNum); // 페이지 번호
-        pagingMap.put("id", loginDTO.getId());  //로그인 세션 회원번호(id)
-
-        Map<String, Object> bsPopupList = popupService.bsPopupList(pagingMap); // 서비스에서 팝업 목록 받아오기
+        pagingMap.put("id", id);
+        Map bsPopupList = popupService.bsPopupList(pagingMap); // 서비스에서 팝업 목록 받아오기
+        bsPopupList.put("section",section);
+        bsPopupList.put("pageNum", pageNum);
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/mypage/registration"); // View 이름 설정
-        mav.addObject("popupInfoList", bsPopupList.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
-        mav.addObject("totPopup", bsPopupList.get("totPopup")); // 전체 팝업 수를 View로 전달
-        mav.addObject("section", section);
-        mav.addObject("pageNum", pageNum);
+//        mav.addObject("popupInfoList", bsPopupList.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
+//        mav.addObject("totPopup", bsPopupList.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("bsPopupList", bsPopupList);
 
         return mav; // ModelAndView 반환
     }
