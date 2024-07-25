@@ -16,7 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 제출 버튼 비활성화 시 알림 함수
     function showAlertIfSubmitDisabled() {
         if (!isUserIdValid && !isNicknameValid) {
-            alert('다시 수정 해주세요.');
+            Swal.fire({
+                icon: 'info',
+                title: '다시 수정 해주세요.',
+                showConfirmButton: true
+            });
         }
     }
 
@@ -33,14 +37,22 @@ document.addEventListener('DOMContentLoaded', function() {
         let userId = document.querySelector('input[name="user_id"]').value;
         let origin_id  = document.querySelector('input[name="origin_id"]').value;
         if (userId === '') {
-            alert('아이디를 입력해주세요.');
+            Swal.fire({
+                icon: 'info',
+                title: '아이디를 입력해주세요.',
+                showConfirmButton: true
+            });
             isUserIdValid = false;
             userIdChecked = false;
             updateSubmitButtonState();
             return;
         }
         else if (userId === origin_id) {
-            alert('기존 아이디와 동일합니다.');
+            Swal.fire({
+                icon: 'info',
+                title: '기존 아이디와 동일합니다.',
+                showConfirmButton: true
+            });
             isUserIdValid = true;
             userIdChecked = true;
             updateSubmitButtonState();
@@ -52,17 +64,29 @@ document.addEventListener('DOMContentLoaded', function() {
             datatype: 'json',
             success: function(data) {
                 if (data) {
-                    alert("이미 존재하는 아이디 입니다.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '이미 존재하는 아이디 입니다.',
+                        showConfirmButton: true
+                    });
                     isUserIdValid = false;
                 } else {
-                    alert("사용가능한 아이디 입니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '사용가능한 아이디 입니다.',
+                        showConfirmButton: true
+                    });
                     isUserIdValid = true;
                 }
                 userIdChecked = true;
                 updateSubmitButtonState();
             },
             error: function() {
-                alert("아이디 중복 확인 중 오류가 발생했습니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '아이디 중복 확인 중 오류가 발생했습니다.',
+                    showConfirmButton: true
+                });
                 isUserIdValid = false;
                 userIdChecked = false;
                 updateSubmitButtonState();
@@ -75,13 +99,21 @@ document.addEventListener('DOMContentLoaded', function() {
         let nickname = document.querySelector('input[name="user_nikname"]').value;
         let origin_nikname  = document.querySelector('input[name="origin_nikname"]').value;
         if (nickname === '') {
-            alert('닉네임을 입력해주세요.');
+            Swal.fire({
+                icon: 'info',
+                title: '닉네임을 입력해주세요.',
+                showConfirmButton: true
+            });
             isNicknameValid = false;
             nicknameChecked = false;
             updateSubmitButtonState();
             return;
         } else if (nickname === origin_nikname) {
-            alert('기존 닉네임과 동일합니다.');
+            Swal.fire({
+                icon: 'info',
+                title: '기존 닉네임과 동일합니다.',
+                showConfirmButton: true
+            });
             isNicknameValid = true;
             nicknameChecked = true;
             updateSubmitButtonState();
@@ -93,17 +125,29 @@ document.addEventListener('DOMContentLoaded', function() {
             datatype: 'json',
             success: function(data) {
                 if (data) {
-                    alert("이미 존재하는 닉네임 입니다.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '이미 존재하는 닉네임 입니다.',
+                        showConfirmButton: true
+                    });
                     isNicknameValid = false;
                 } else {
-                    alert("사용가능한 닉네임 입니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '사용가능한 닉네임 입니다.',
+                        showConfirmButton: true
+                    });
                     isNicknameValid = true;
                 }
                 nicknameChecked = true;
                 updateSubmitButtonState();
             },
             error: function() {
-                alert("닉네임 중복 확인 중 오류가 발생했습니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '닉네임 중복 확인 중 오류가 발생했습니다.',
+                    showConfirmButton: true
+                });
                 isNicknameValid = false;
                 nicknameChecked = false;
                 updateSubmitButtonState();
@@ -120,7 +164,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (frmMemberLogin) {
         frmMemberLogin.addEventListener('submit', function(e) {
             if ((!userIdChecked && !nicknameChecked) || (!isUserIdValid && !isNicknameValid)) {
-                alert('중복 확인 해주세요.');
+                Swal.fire({
+                    icon: 'info',
+                    title: '중복 확인 해주세요.',
+                    showConfirmButton: true
+                });
                 e.preventDefault();
             }
         });
@@ -140,11 +188,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function delete_check() {
-    if (confirm("회원을 삭제하시겠습니까?") == true) {
-        alert("삭제되었습니다");
-        return true;
-    }
-    else {
-        return false;
-    }
+    Swal.fire({
+        title: '회원을 삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: '삭제되었습니다',
+                icon: 'success',
+                showConfirmButton: true
+            });
+            return true;
+        } else {
+            return false;
+        }
+    });
 }
