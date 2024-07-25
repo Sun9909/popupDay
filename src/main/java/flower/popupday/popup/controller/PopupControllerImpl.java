@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Controller("popupController")
@@ -32,6 +33,8 @@ public class PopupControllerImpl implements PopupController {
     public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section,
                                      @RequestParam(value = "pageNum", required = false) String _pageNum,
                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
         Map<String, Integer> pagingMap = new HashMap<>();
@@ -179,17 +182,20 @@ public class PopupControllerImpl implements PopupController {
         Iterator<String> fileNames = multipartRequest.getFileNames();
         while (fileNames.hasNext()) {
             String fileName = fileNames.next();
-            MultipartFile mFile = multipartRequest.getFile(fileName);
-            String originalFileName = mFile.getOriginalFilename();
-            fileList.add(originalFileName);
-            File file = new File(ARTICLE_IMG_REPO + "\\" + fileName);
-            if (mFile.getSize() != 0) {
-                if (!file.exists()) {
-                    if (file.getParentFile().mkdirs()) {
-                        file.createNewFile();
+            List<MultipartFile> mFiles = multipartRequest.getFiles(fileName); // 여러 파일 처리
+            for (MultipartFile mFile : mFiles) {
+                String originalFileName = mFile.getOriginalFilename();
+                fileList.add(originalFileName);
+                System.out.println("업로드 파일 이름: " + originalFileName);
+                File file = new File(ARTICLE_IMG_REPO + "\\" + fileName);
+                if (mFile.getSize() != 0) {
+                    if (!file.exists()) {
+                        if (file.getParentFile().mkdirs()) {
+                            file.createNewFile();
+                        }
                     }
+                    mFile.transferTo(new File(ARTICLE_IMG_REPO + "\\temp\\" + originalFileName));
                 }
-                mFile.transferTo(new File(ARTICLE_IMG_REPO + "\\temp\\" + originalFileName));
             }
         }
         return fileList;
@@ -231,6 +237,7 @@ public class PopupControllerImpl implements PopupController {
         // 찜 기능 세션 가져오기
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
         boolean loginCheck = loginDTO != null;
         Long id = loginCheck ? loginDTO.getId() : null;
 
@@ -240,9 +247,11 @@ public class PopupControllerImpl implements PopupController {
         mav.setViewName("/popup/popupView");
         mav.addObject("popupMap", popupMap);
         mav.addObject("loginCheck", loginCheck);
+        mav.addObject("id", id);
         return mav;
     }
 
+    @Override
     @PostMapping("/popup/popupLike.do")
     @ResponseBody
     public Map<String, Object> popupLike(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) {
@@ -262,4 +271,124 @@ public class PopupControllerImpl implements PopupController {
 
         return LikeMap;
     }
+
+    @Override
+    @PostMapping("/popup/modPopupForm.do")
+    public ModelAndView modPopupForm(@RequestParam("popup_id") Long popup_id, @RequestParam("user_id") Long user_id, HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Map<String, Object> popupMap = popupService.popupView(popup_id, user_id);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("popupMap", popupMap);
+        mav.setViewName("popup/modPopupForm");
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/popup/updatePopup.do")
+    public ModelAndView updatePopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+        // 멀티파트 요청의 문자 인코딩 설정
+        multipartRequest.setCharacterEncoding("utf-8");
+        Map<String, Object> popupMap = new HashMap<>();
+
+        // 요청 파라미터 로깅
+        Enumeration<?> enu = multipartRequest.getParameterNames();
+        System.out.println("요청 파라미터:");
+        while (enu.hasMoreElements()) {
+            String name = (String) enu.nextElement();
+            String value = multipartRequest.getParameter(name);
+            System.out.println(name + " : " + value);
+            popupMap.put(name, value);
+        }
+
+        // 파일 업로드 처리
+        List<String> fileList = multiFileUpload(multipartRequest);
+        String popup_id = (String) popupMap.get("popup_id");
+        System.out.println("팝업 ID: " + popup_id);
+
+        List<ImageDTO> imageFileList = new ArrayList<>();
+        int modityNumber = 0;
+        if (fileList != null && !fileList.isEmpty()) {
+            System.out.println("처리할 파일 목록:");
+            for (String fileName : fileList) {
+                modityNumber++;
+                ImageDTO imageDTO = new ImageDTO();
+                imageDTO.setImage_file_name(fileName);
+                String popupImageIdStr = (String) popupMap.get("popup_image_id_" + (modityNumber - 1)); // index 조정
+                Long popupImageId = (popupImageIdStr != null && !popupImageIdStr.isEmpty()) ? Long.parseLong(popupImageIdStr) : null; //팝업이미지아이디
+                imageDTO.setPopup_image_id(popupImageId);
+                imageFileList.add(imageDTO);
+                System.out.println("파일: " + fileName + ", 팝업 이미지 ID: " + popupImageId);
+            }
+            popupMap.put("imageFileList", imageFileList);
+        }
+
+        try {
+            // 팝업 정보 업데이트
+            System.out.println("팝업 업데이트 중...");
+            popupService.updatePopup(popupMap);
+            System.out.println("팝업 업데이트 성공.");
+
+            // 이미지 파일 처리
+            if (imageFileList != null && !imageFileList.isEmpty()) {
+                int cnt = 0;
+                for (ImageDTO imageDTO : imageFileList) {
+                    cnt++;
+                    String imageFileName = imageDTO.getImage_file_name();
+                    Long popupImageId = imageDTO.getPopup_image_id();
+                    if (imageFileName != null && !imageFileName.isEmpty()) {
+                        File srcFile = new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
+                        File destDir = new File(ARTICLE_IMG_REPO + "\\" + popup_id);
+                        File destFile = new File(destDir, imageFileName);
+                        File oldFile = (popupImageId != null) ? new File(ARTICLE_IMG_REPO + "\\" + popup_id + "\\" + (String) popupMap.get("originalFileName_" + cnt)) : null;
+
+                        // 파일 경로 로깅
+                        System.out.println("처리 중 파일: " + imageFileName);
+                        System.out.println("원본 파일 경로: " + srcFile.getAbsolutePath());
+                        System.out.println("대상 디렉토리: " + destDir.getAbsolutePath());
+                        System.out.println("대상 파일 경로: " + destFile.getAbsolutePath());
+
+                        // 기존 파일 삭제
+                        if (oldFile != null && oldFile.exists()) {
+                            System.out.println("기존 파일이 존재합니다. 삭제 중...");
+                            if (oldFile.delete()) {
+                                System.out.println("기존 파일 삭제 성공.");
+                            } else {
+                                System.out.println("기존 파일 삭제 실패.");
+                            }
+                        } else if (oldFile == null) {
+                            System.out.println("기존 파일 경로가 null입니다.");
+                        } else {
+                            System.out.println("기존 파일이 존재하지 않습니다.");
+                        }
+
+                        // 새 파일 이동
+                        if (srcFile.exists()) {
+                            System.out.println("파일 이동 중...");
+                            try {
+                                if (!destDir.exists()) {
+                                    destDir.mkdirs();
+                                }
+                                FileUtils.moveFile(srcFile, destFile);
+                                System.out.println("파일 이동 성공.");
+                            } catch (IOException e) {
+                                System.out.println("파일 이동 실패: " + e.getMessage());
+                            }
+                        } else {
+                            System.out.println("원본 파일이 존재하지 않습니다.");
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // 리다이렉션
+        System.out.println("팝업 목록 페이지로 리다이렉션 중...");
+        return new ModelAndView("redirect:/popup/popupAllList.do");
+    }
+
+
 }

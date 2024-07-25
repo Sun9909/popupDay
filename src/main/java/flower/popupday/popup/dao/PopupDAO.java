@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +57,11 @@ public interface PopupDAO {
 
     public boolean removeLike(Long popup_id, Long user_id) throws DataAccessException;
 
-    public boolean isLiked(Long popup_id, Long user_id)throws DataAccessException;
+    public boolean isLiked(Long popup_id, Long user_id) throws DataAccessException;
+
+    public void updatePopup(Map popupMap) throws DataAccessException;
+
+    public void updateImage(Map popupMap) throws DataAccessException;
+
 
 }
