@@ -85,6 +85,7 @@ form label {
     float: right;
     width: 769px;
     padding-top: 50px;
+    height: 100%;
 }
 header {
     width: 1440px;
@@ -92,7 +93,7 @@ header {
 
 .admin_container {
     width: 670px;
-    min-height: 1250px;
+    min-height: 1340px;
     position: relative;
 }
 
