@@ -1,4 +1,9 @@
 @charset "utf-8";
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin: 20px 0;
+}
 /*메인 타이틀*/
 .main_title {
     display: flex;
@@ -7,15 +12,11 @@
 
 }
 .main_title img {
-    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
     width: 30px;
     height: 30px;
 }
-h2 {
-    text-align: center;
-    font-size: 1.8em;
-    margin: 20px 0;
-}
+
 /* 팝업 신청 */
 
 .containers div {
@@ -63,7 +64,22 @@ form label {
     padding: 5px 10px;
     margin: 10px;
 }
+/* 추가해야하는 css */
 
 .containers {
-    min-height: 2000px;
+    min-height: 900px;
+    float: right;
+    width: 760px;
+}
+header {
+    width: 1440px;
+}
+
+.admin_container {
+    width: 680px;
+    position: relative;
+}
+
+.images > div {
+    width: 1440px;
 }

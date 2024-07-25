@@ -52,7 +52,9 @@ body {
 }
 .admin_container .logout {
     display: flex;
-    margin: 230px 35px 30px;
+    margin: 30px 35px;
+    position: absolute;
+    bottom: 0;
 }
 .admin_container .logout a {
     text-decoration: none;
