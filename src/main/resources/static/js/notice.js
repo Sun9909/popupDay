@@ -125,7 +125,7 @@ function review_modify(obj) {
 }
 
 // 후기리스트로 돌아가기
-function backToList(obj) {
+function backToFaq(obj) {
     obj.action="/notice/reviewList.do";
     obj.method="post";
     obj.submit();
