@@ -1,4 +1,9 @@
 @charset "utf-8";
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin: 20px 0;
+}
 /*메인 타이틀*/
 .main_title {
     display: flex;
@@ -7,15 +12,11 @@
 
 }
 .main_title img {
-    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
     width: 30px;
     height: 30px;
 }
-h2 {
-    text-align: center;
-    font-size: 1.8em;
-    margin: 20px 0;
-}
+
 /* 팝업 신청 */
 
 .containers div {

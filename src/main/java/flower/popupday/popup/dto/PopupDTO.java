@@ -31,7 +31,7 @@ public class PopupDTO {
 
     // Enum for role
     public enum Role {
-        승인, 미승인, 승인취소
+        승인, 미승인, 취소
     }
 
     public Long getPopup_id() {

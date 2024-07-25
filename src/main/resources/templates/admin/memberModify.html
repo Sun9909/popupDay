@@ -6,56 +6,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
     <link rel="stylesheet" th:href="@{/css/memberModify.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
     <title>회원정보 수정 페이지</title>
 </head>
 <body>
 <th:block layout:fragment="content">
-    <!--회원정보 수정 페이지 -->
-    <div class="containers">
-        <div class="main_title">
-            <a th:href="@{/admin/memberShip.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
-            <h2>회원 정보 수정</h2>
-        </div>
-
-        <form name="memberModifyForm" th:action="@{/admin/updateMember.do}" method="post" class="memberForm"> <!--onsubmit="return modify_check()"-->
-
-            <div id="joinmodify">
-                <img th:src="@{/images/userprofile.svg}" alt="user_profile">
-                <p><a href="#">프로필 변경</a></p>
+    <div class="admin-content">
+        <div class="admin_container">
+            <h2>관리자 페이지</h2>
+            <ul>
+                <li><a th:href="@{/admin/register.do}">팝업 신청 검토</a></li>
+                <li><a th:href="@{/admin/memberShip.do}">회원관리</a></li>
+                <li><a th:href="@{/admin/admin.do}">홈</a></li>
+            </ul>
+            <div class="logout">
+                <a href="#">
+                    <img th:src="@{/images/person.svg}">
+                    <h5><a th:href="@{/login/logout.do}">로그아웃</a></h5>
+                </a>
             </div>
-            <input type="hidden" name="id" th:value="${member.id}">
-            <p>
-                <label>아이디<strong class="require"></strong></label>
-                <button type="button" class="id_overlap_button">중복 확인</button>
-                <br>
-                <input type="text" name="user_id" th:value="${member.user_id}">
-            </p>
-            <p>
-                <label>닉네임<strong class="require"></strong></label>
-                <button type="button" name="user_nikname_overlap_button">중복 확인</button>
-                <br>
-                <input type="text" name="user_nikname" th:value="${member.user_nikname}" check_result="true">
-            </p>
-            <p>
-                <label>이름<strong class="require"></strong></label><br>
-                <input type="text" th:value="${member.name}" disabled>
-                <input type="hidden" name="name" th:value="${member.name}">
-            </p>
-            <input type="hidden" name="pwd" th:value="${member.pwd}">
-            <p>
-                <label>이메일<strong class="require"></strong></label><br>
-                <input type="email" th:value="${member.email}" disabled>
-                <input type="hidden" name="email" th:value="${member.email}">
-            </p>
-            <input type="hidden" name="reg_date" th:value="${member.reg_date}">
-            <input type="hidden" name="role" th:value="${member.role}">
-            <input type="hidden" name="status" th:value="${member.status}">
-            <p>
-                <input type="submit" value="저장">
-            </p>
-        </form>
+        </div>
+        <!--회원정보 수정 페이지 -->
+        <div class="containers">
+            <div class="main_title">
+                <a th:href="@{/admin/memberShip.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+                <h2>회원 정보 수정</h2>
+            </div>
+
+            <form name="memberModifyForm" action="/admin/updateMember.do" method="post" class="memberModifyForm"> <!--onsubmit="return modify_check()"-->
+
+                <div id="joinmodify">
+                    <img th:src="@{/images/userprofile.svg}" alt="user_profile">
+                    <p><a href="#">프로필 변경</a></p>
+                </div>
+                <input type="hidden" name="id" th:value="${member.id}">
+                <p>
+                    <label>아이디<strong class="require"></strong></label>
+                    <button type="button" class="id_overlap_button">중복 확인</button>
+                    <br>
+                    <input type="text" name="user_id" th:value="${member.user_id}">
+                    <input type="hidden" name="origin_id" th:value="${member.user_id}">
+                </p>
+                <p>
+                    <label>닉네임<strong class="require"></strong></label>
+                    <button type="button" class="user_nikname_overlap_button">중복 확인</button>
+                    <br>
+                    <input type="text" name="user_nikname" th:value="${member.user_nikname}">
+                    <input type="hidden" name="origin_nikname" th:value="${member.user_nikname}">
+                </p>
+                <p>
+                    <label>이름<strong class="require"></strong></label><br>
+                    <input type="text" th:value="${member.name}" disabled>
+                    <input type="hidden" name="name" th:value="${member.name}">
+                </p>
+                <input type="hidden" name="pwd" th:value="${member.pwd}">
+                <p>
+                    <label>이메일<strong class="require"></strong></label><br>
+                    <input type="email" th:value="${member.email}" disabled>
+                    <input type="hidden" name="email" th:value="${member.email}">
+                </p>
+                <input type="hidden" name="reg_date" th:value="${member.reg_date}">
+                <input type="hidden" name="role" th:value="${member.role}">
+                <input type="hidden" name="status" th:value="${member.status}">
+                <p>
+                    <input type="submit" value="저장">
+                </p>
+            </form>
+        </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
