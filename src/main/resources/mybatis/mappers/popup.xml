@@ -65,7 +65,7 @@
 
     <select id="pickToPopup" resultType="int">
       <![CDATA[
-        select count(*) from popup_tbl
+        select count(*) from popup_tbl where role="미승인"
         ]]>
    </select>
 

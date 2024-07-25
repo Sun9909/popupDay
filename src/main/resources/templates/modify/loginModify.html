@@ -24,7 +24,7 @@
             <p><a href="#">프로필 변경</a></p>
         </div>
 
-        <form name="loginModifyForm" th:action="@{/mypage/updateLogin.do}" method="post" id="loginModifyForm">
+        <form name="loginModifyForm" action="/mypage/updateLogin.do" method="post" id="loginModifyForm">
             <input type="hidden" name="id" th:value="${myInfo.id}">
             <p>
                 <label>아이디<strong class="require"></strong></label>

@@ -50,6 +50,7 @@ header {
 
 .admin_container {
     width: 500px;
+    position: relative;
 }
 
 .images > div {

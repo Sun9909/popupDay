@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         else if (userId === origin_id) {
-            alert('기존 닉네임과 동일합니다.');
+            alert('기존 아이디와 동일합니다.');
             isUserIdValid = true;
             userIdChecked = true;
             updateSubmitButtonState();
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         $.ajax({
-            url: "/mypage/check-nikname",
+            url: "/login/check-nikname",
             data: { 'user_nikname': nickname },
             datatype: 'json',
             success: function(data) {
