@@ -40,13 +40,13 @@
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/noticeList.do\', \'/login/login.do\')'">
+                            <a th:href="@{/notice/noticeList.do}">
                                 <span>Notice</span>
                                 <span>공지사항</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaList.do\', \'/login/login.do\')'">
+                            <a th:href="@{/notice/qnaList.do}">
                                 <span>Q&A</span>
                                 <span>질문 & 답변</span>
                             </a>

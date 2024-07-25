@@ -2,6 +2,8 @@ package flower.popupday.popup.service;
 
 import org.springframework.dao.DataAccessException;
 
+import javax.swing.*;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,4 +27,6 @@ public interface PopupService {
     public boolean toggleLike(Long popup_id, Long id) throws DataAccessException;
 
     public void updatePopup(Map popupMap) throws DataAccessException;
+
+    public List<Popup> topViewPopup() throws DataAccessException;
 }
