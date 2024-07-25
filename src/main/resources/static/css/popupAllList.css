@@ -175,6 +175,7 @@
 
 /* 사용자 정의 버튼 스타일 */
 .custom-button {
+    margin-top: 10px;
     cursor: pointer;
     padding: 10px;
     background-color: #007bff;
@@ -208,4 +209,25 @@
     margin-right: 10px;
     display: inline-block;
     vertical-align: middle;
+}
+
+.images-form {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.remove-file {
+    border: none;
+    background: unset;
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.remove-file > p {
+    left: 1px;
+    top: 4px;
+    position: absolute;
+    text-align: center;
 }
