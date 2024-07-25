@@ -174,17 +174,20 @@ public class PopupControllerImpl implements PopupController {
         Iterator<String> fileNames = multipartRequest.getFileNames();
         while (fileNames.hasNext()) {
             String fileName = fileNames.next();
-            MultipartFile mFile = multipartRequest.getFile(fileName);
-            String originalFileName = mFile.getOriginalFilename();
-            fileList.add(originalFileName);
-            File file = new File(ARTICLE_IMG_REPO + "\\" + fileName);
-            if (mFile.getSize() != 0) {
-                if (!file.exists()) {
-                    if (file.getParentFile().mkdirs()) {
-                        file.createNewFile();
+            List<MultipartFile> mFiles = multipartRequest.getFiles(fileName); // 여러 파일 처리
+            for (MultipartFile mFile : mFiles) {
+                String originalFileName = mFile.getOriginalFilename();
+                fileList.add(originalFileName);
+                System.out.println("업로드 파일 이름: " + originalFileName);
+                File file = new File(ARTICLE_IMG_REPO + "\\" + fileName);
+                if (mFile.getSize() != 0) {
+                    if (!file.exists()) {
+                        if (file.getParentFile().mkdirs()) {
+                            file.createNewFile();
+                        }
                     }
+                    mFile.transferTo(new File(ARTICLE_IMG_REPO + "\\temp\\" + originalFileName));
                 }
-                mFile.transferTo(new File(ARTICLE_IMG_REPO + "\\temp\\" + originalFileName));
             }
         }
         return fileList;
