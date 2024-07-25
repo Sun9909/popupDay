@@ -28,6 +28,7 @@ public class PopupDTO {
     private String parking;
     private String fee;
     private String user_nikname;
+    private String thumbnail;
 
     // Enum for role
     public enum Role {
@@ -200,5 +201,13 @@ public class PopupDTO {
 
     public void setUser_nikname(String user_nikname) {
         this.user_nikname = user_nikname;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

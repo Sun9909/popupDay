@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +24,15 @@ public class PopupServiceImpl implements PopupService {
     @Autowired
     private PopupDAO popupDAO;
 
-//    @Override
-//    public List<Popup> topViewPopup() throws DataAccessException {
-//
-//        return List.of();
-//    }
+    @Override
+    public Map <String, Object> mainView() throws DataAccessException {
+        Map<String, Object> mainMap = new HashMap<>();
+        List<PopupDTO> bestPopupList = popupDAO.bestPopup();
+        List<HashTagDTO> bestHashTagList = popupDAO.bestHashTagList();
+        mainMap.put("bestPopupList",bestPopupList);
+        mainMap.put("bestHashTagList",bestHashTagList);
+        return mainMap;
+    }
 
     // 팝업 전체 리스트
     @Override
@@ -188,6 +193,7 @@ public class PopupServiceImpl implements PopupService {
         popupDAO.updatePopup(popupMap); // 글수정
         popupDAO.updateImage(popupMap); // 이미지 수정
     }
+
 
     @Override
     public Map bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException {
