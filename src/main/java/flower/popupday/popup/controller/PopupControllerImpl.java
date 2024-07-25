@@ -29,16 +29,16 @@ public class PopupControllerImpl implements PopupController {
     @Autowired
     PopupService popupService;
 
-    @Override
-    @PostMapping("/main.do")
-    public  ModelAndView main(MultipartHttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView();
-        Map<String, Integer> popupMap = new HashMap<>();
-        List<Popup> topViewPopup = popupService.topViewPopup();
-        mav.addObject(topViewPopup);
-        mav.setViewName("main");
-        return mav;
-    }
+//    @Override
+//    @PostMapping("/main.do")
+//    public  ModelAndView main(MultipartHttpServletRequest request, HttpServletResponse response) {
+//        ModelAndView mav = new ModelAndView();
+//        Map<String, Integer> popupMap = new HashMap<>();
+//        List<Popup> topViewPopup = popupService.topViewPopup();
+//        mav.addObject(topViewPopup);
+//        mav.setViewName("main");
+//        return mav;
+//    }
 
     @Override
     @RequestMapping("/popup/popupAllList.do")
