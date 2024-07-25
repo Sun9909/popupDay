@@ -24,11 +24,11 @@ public class PopupServiceImpl implements PopupService {
     @Autowired
     private PopupDAO popupDAO;
 
-    @Override
-    public List<Popup> topViewPopup() throws DataAccessException {
-
-        return List.of();
-    }
+//    @Override
+//    public List<Popup> topViewPopup() throws DataAccessException {
+//
+//        return List.of();
+//    }
 
     // 팝업 전체 리스트
     @Override

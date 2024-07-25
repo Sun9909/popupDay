@@ -32,5 +32,4 @@
     <select id="findById" resultMap="PopupResult" parameterType="long">
         SELECT * FROM popup_tbl WHERE popup_id = #{popup_id}
     </select>
-
 </mapper>
