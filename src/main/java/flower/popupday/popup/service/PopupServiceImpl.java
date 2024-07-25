@@ -191,13 +191,15 @@ public class PopupServiceImpl implements PopupService {
     }
 
     @Override
-    public Map<String, Object> bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException {
+    public Map<String, Object> bsPopupList(Map<String, Object> pagingMap) throws DataAccessException {
         Map<String, Object> bsPopupList = new HashMap<>();
-        int section = pagingMap.get("section");
-        int pageNum = pagingMap.get("pageNum");
+        int section = (Integer) pagingMap.get("section");
+        int pageNum = (Integer) pagingMap.get("pageNum");
+        Long id = (Long) pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
-        List<PopupDTO> popupList = popupDAO.selectBsPopup(count); // 팝업 목록 조회
-        int totPopup = popupDAO.selectToBsPopup(); // 전체 팝업 수 조회
+
+        List<PopupDTO> popupList = popupDAO.selectBsPopup(id, count); // 팝업 목록 조회
+        int totPopup = popupDAO.selectToBsPopup(id); // 전체 팝업 수 조회
 
         List<Map<String, Object>> popupInfoList = new ArrayList<>();
         for (PopupDTO popup : popupList) {

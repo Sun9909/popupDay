@@ -3,6 +3,7 @@ package flower.popupday.mypage.dao;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 
@@ -35,7 +36,7 @@ public interface MyDAO {
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
     //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
-    public List<MyPopupDTO> getPopup(String user_id) throws DataAccessException;
-
-    public Long getPopupCount(Long user_id) throws DataAccessException;
+//    public List<PopupDTO> getPopup(String user_id) throws DataAccessException;
+//
+//    public Long getPopupCount(Long user_id) throws DataAccessException;
 }

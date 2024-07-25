@@ -3,6 +3,7 @@ package flower.popupday.mypage.controller;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -37,7 +38,7 @@ public interface MyController {
 
     public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
     //팝업리스트
-    public ModelAndView getPopup(@ModelAttribute("mypopupDTO") MyPopupDTO mypopupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    //public ModelAndView getPopup(@ModelAttribute("popupDTO") PopupDTO popupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
