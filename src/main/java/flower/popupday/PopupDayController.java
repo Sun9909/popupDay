@@ -11,7 +11,7 @@ public class PopupDayController {
 
 
     // /main.do 경로 요청이 들어오면 main 뷰를 반환
-    @GetMapping("/")
+    @GetMapping("/main.do")
     public ModelAndView main(HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
