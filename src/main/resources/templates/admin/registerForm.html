@@ -109,9 +109,11 @@
                     <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p th:text="${popupMap.popupList.brand_page}"></p></a>
                 </div>
                 <form action="" class="radio-form">
-                    <label><input type="radio" name="role" value="승인"> 승인</label>
-                    <label><input type="radio" name="role" value="검토"> 미승인</label>
-                    <label><input type="radio" name="role" value="취소">취소</label>
+                    <div>
+                        <label><input type="radio" name="role" value="승인"> 승인</label>
+                        <label><input type="radio" name="role" value="검토"> 미승인</label>
+                        <label><input type="radio" name="role" value="취소">취소</label>
+                    </div>
                     <div class="check">
                         <button type="submit" value="submit">저장</button>
                         <button type="reset" value="reset">취소</button>
