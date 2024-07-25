@@ -45,6 +45,7 @@
                         <h4>신청된 팝업이 없습니다</h4>
                     </td>
                 </tr>
+                <!-- 신청된 팝업이 있을 때 -->
                 <tr th:each="popup : ${popupInfoList}">
                     <td><a th:href="@{/admin/registerForm.do(popup_id=${popup.popup.popup_id})}" th:text="${popup.popup.title}"></a></td>
                     <td th:text="${popup.popup.user_id}"></td>
