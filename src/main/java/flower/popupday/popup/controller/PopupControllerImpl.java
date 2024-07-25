@@ -358,16 +358,21 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
-    @RequestMapping("/mypage/registration.do")
+    @RequestMapping("/popup/registration.do")
     public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
                                    @RequestParam(value = "pageNum", required = false) String _pageNum,
                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(); //세션 가져오기(사용자 상태 유지를 위해)
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
+
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        Map<String, Integer> pagingMap = new HashMap<>();
+        Map<String, Object> pagingMap = new HashMap<>();
         pagingMap.put("section", section); // 섹션
         pagingMap.put("pageNum", pageNum); // 페이지 번호
+        pagingMap.put("id", loginDTO.getId());  //로그인 세션 회원번호(id)
+
         Map<String, Object> bsPopupList = popupService.bsPopupList(pagingMap); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();

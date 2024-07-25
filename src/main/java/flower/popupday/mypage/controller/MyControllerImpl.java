@@ -5,6 +5,7 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
+import flower.popupday.popup.dto.PopupDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -61,9 +62,11 @@ public class MyControllerImpl implements MyController {
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
             //System.out.println(loginDTO.getRole());
             mav.setViewName("redirect:/mypage/businessPage.do");
-        } else if (loginDTO.getRole() == LoginDTO.Role.관리자) {
+        }
+        else if (loginDTO.getRole() == LoginDTO.Role.관리자) {
             mav.setViewName("redirect:/admin/admin.do");
-        } else {
+        }
+        else {
             mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
         }
         return mav;
@@ -195,9 +198,10 @@ public class MyControllerImpl implements MyController {
         ModelAndView mav = new ModelAndView("/mypage/businessPage");
         mav.addObject("my", loginDTO);
 
-        Long PopupCount = myService.getPopupCount(myPopupDTO.getUser_id());
+        //Long PopupCount = myService.getPopupCount(myPopupDTO.getUser_id());
 
-        mav.addObject("PopupCount", PopupCount);
+        //
+        // mav.addObject("PopupCount", PopupCount);
         return mav;
     }
 
@@ -216,24 +220,24 @@ public class MyControllerImpl implements MyController {
 //    }
 
     //팝업리스트
-    @Override
-    @RequestMapping("/mypage/myPopup.do")
-    public ModelAndView getPopup(@ModelAttribute("mypopupDTO") MyPopupDTO mypopupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session=request.getSession();
-
-        //mypopupDTO=myService.getPopup(mypopupDTO);
-        String user_id = request.getParameter("user_id");
-        //List<mypopupDTO> myPopup = new ArrayList<mypopupDTO>(); //한개만 가져오는건 가능 map을 사용하던 list를 사용해서 여러개 가져오도록
-        List<MyPopupDTO> myPopup = myService.getPopup(user_id);
-
-        Long PopupCount = myService.getPopupCount(mypopupDTO.getUser_id());
-
-        ModelAndView mav = new ModelAndView("/mypage/myPopup");
-
-        mav.addObject("myPopup", myPopup);
-        mav.addObject("PopupCount", PopupCount);
-        return mav;
-    }
+//    @Override
+//    @RequestMapping("/mypage/myPopup.do")
+//    public ModelAndView getPopup(@ModelAttribute("popupDTO") PopupDTO popupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        HttpSession session=request.getSession();
+//
+//        //mypopupDTO=myService.getPopup(mypopupDTO);
+//        String user_id = request.getParameter("user_id");
+//        //List<mypopupDTO> myPopup = new ArrayList<mypopupDTO>(); //한개만 가져오는건 가능 map을 사용하던 list를 사용해서 여러개 가져오도록
+//        List<PopupDTO> myPopup = myService.getPopup(user_id);
+//
+//        Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
+//
+//        ModelAndView mav = new ModelAndView("/mypage/myPopup");
+//
+//        mav.addObject("myPopup", myPopup);
+//        mav.addObject("PopupCount", PopupCount);
+//        return mav;
+//    }
 
 //    @Override
 //    public ModelAndView registrationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {

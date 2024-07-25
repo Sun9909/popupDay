@@ -15,7 +15,4 @@ public interface AdminService {
 
     public void delMember(Long id) throws DataAccessException;
 
-    boolean checkId(String user_id);
-
-    boolean checkNikname(String user_nikname);
 }
