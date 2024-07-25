@@ -1,8 +1,8 @@
 package flower.popupday.popup.service;
 
+import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.dao.DataAccessException;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +35,5 @@ public interface PopupService {
     //사업자 신청 팝업 리스트
     public Map<String, Object> bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException;
 
+    public List<PopupDTO> searchPopupHasTag(String hashTag);
 }

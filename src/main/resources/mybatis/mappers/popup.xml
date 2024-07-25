@@ -223,4 +223,15 @@
         LIMIT 5; -- 원하는 개수로 조정
     </select>
 
+    <select id="searchPopupHasTag" parameterType="String" resultMap="popResult">
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 JOIN popup_hash_tag_tbl ph ON p.popup_id = ph.popup_id
+                 JOIN hash_tag_tbl h ON ph.hash_tag_id = h.hash_tag_id
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE h.hash_tag = ph.#{hash_tag}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+            LIMIT 4;
+    </select>
+
 </mapper>

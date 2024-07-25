@@ -52,7 +52,11 @@
 
 
             <div class="hash_tags">
-                <a th:each="tag : ${mainMap.bestHashTagList}" class="hash_tag" th:text="${tag.hash_tag}"></a>
+                <a th:each="tag : ${mainMap.bestHashTagList}" class="hash_tag" th:text="${tag.hash_tag}" th:data-tag="${tag.hash_tag}"></a>
+            </div>
+
+            <div id="popup-container" class="popup-container">
+
             </div>
 <!--            <div class="popup_images">-->
 <!--                <span>1<img class="zzem" th:src="@{images/heart_empty.svg}" alt="찜"></span>-->

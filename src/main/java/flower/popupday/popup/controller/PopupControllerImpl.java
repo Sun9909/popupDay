@@ -64,6 +64,14 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
+    @PostMapping("/main/searchPopupHasTag")
+    @ResponseBody
+    public List<PopupDTO> searchPopupHasTag(@RequestParam ("hash_tag") String hash_tag,
+                                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return popupService.searchPopupHasTag(hash_tag);
+    }
+
+    @Override
     @RequestMapping("/popup/popupAllList.do")
     public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section,
                                      @RequestParam(value = "pageNum", required = false) String _pageNum,

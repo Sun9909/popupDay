@@ -33,6 +33,11 @@ public class PopupServiceImpl implements PopupService {
         return mainMap;
     }
 
+    @Override
+    public List<PopupDTO> searchPopupHasTag(String hashtag) {
+        return popupDAO.searchPopupHasTag(hashtag);
+    }
+
     // 팝업 전체 리스트
     @Override
     public Map<String, Object> popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
