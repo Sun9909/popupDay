@@ -51,29 +51,6 @@
         <result property="created_date" column="created_date"/>
     </resultMap>
 
-    <resultMap type="popupDTO" id="popResult">
-        <id property="popup_id" column="popup_id"/>
-        <result property="title" column="title"/>
-        <result property="info" column="info"/>
-        <result property="start_date" column="start_date"/>
-        <result property="end_date" column="end_date"/>
-        <result property="content" column="content"/>
-        <result property="address" column="address"/>
-        <result property="brand_page" column="brand_page"/>
-        <result property="role" column="role"/>
-        <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
-        <result property="hits" column="hits"/>
-        <result property="monday_time" column="monday_time"/>
-        <result property="tuesday_time" column="tuesday_time"/>
-        <result property="wednesday_time" column="wednesday_time"/>
-        <result property="thursday_time" column="thursday_time"/>
-        <result property="friday_time" column="friday_time"/>
-        <result property="saturday_time" column="saturday_time"/>
-        <result property="sunday_time" column="sunday_time"/>
-        <result property="parking" column="parking"/>
-        <result property="fee" column="fee"/>
-    </resultMap>
 
     <!-- 로그인한 회원 정보 가져오기 -->
     <select id="getName" parameterType="myDTO">
