@@ -34,39 +34,3 @@
     </select>
 
 </mapper>
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE mapper
-                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="flower.popupday.map.dao.MapAddressDAO">
-
-<!-- 팝업 정보 결과 매핑 -->
-<resultMap id="PopupResult" type="flower.popupday.popup.dto.PopupDTO">
-    <result property="popup_id" column="popup_id"/>
-    <result property="title" column="title"/>
-    <result property="info" column="info"/>
-    <result property="start_date" column="start_date"/>
-    <result property="end_date" column="end_date"/>
-    <result property="content" column="content"/>
-    <result property="address" column="address"/>
-    <result property="brand_page" column="brand_page"/>
-    <result property="role" column="role"/>
-    <result property="user_id" column="user_id"/>
-    <result property="created_date" column="created_date"/>
-    <result property="hits" column="hits"/>
-    <result property="monday_time" column="monday_time"/>
-    <result property="tuesday_time" column="tuesday_time"/>
-    <result property="wednesday_time" column="wednesday_time"/>
-    <result property="thursday_time" column="thursday_time"/>
-    <result property="friday_time" column="friday_time"/>
-    <result property="saturday_time" column="saturday_time"/>
-    <result property="sunday_time" column="sunday_time"/>
-</resultMap>
-
-<!-- popup_id로 팝업 정보 조회 -->
-<select id="addressFindById" resultMap="PopupResult" parameterType="long">
-    SELECT * FROM popup_tbl WHERE popup_id = #{popup_id}
-</select>
-
-</mapper>
