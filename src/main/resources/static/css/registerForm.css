@@ -61,6 +61,8 @@ h4 {
     display: flex;
     justify-content: center;
     padding: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 form label {
     font-size: 1.5em;
@@ -77,8 +79,26 @@ form label {
     margin: 10px;
 }
 
+
 .containers {
-    min-height: 2000px;
+    min-height: 1280px;
+    float: right;
+    width: 769px;
+    padding-top: 50px;
+    height: 100%;
+}
+header {
+    width: 1440px;
+}
+
+.admin_container {
+    width: 670px;
+    min-height: 1340px;
+    position: relative;
+}
+
+.images > div {
+    width: 1440px;
 }
 
 .register-content {

@@ -64,7 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
             fileItem.appendChild(img);
 
             var removeButton = document.createElement('button');
-            removeButton.textContent = 'x';
+            const tagp = document.createElement('p');
+            tagp.textContent = 'x';
+            removeButton.appendChild(tagp);
             removeButton.className = 'remove-file';
             removeButton.onclick = function() {
                 // 파일 삭제 시 업데이트된 파일 목록 생성
