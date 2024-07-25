@@ -63,5 +63,9 @@ public interface PopupDAO {
 
     public void updateImage(Map popupMap) throws DataAccessException;
 
+    //사업자 신청 팝업 리스트
+    public List selectBsPopup(@Param("count") int count) throws DataAccessException;
 
+    //사업자 신청 팝업 개수
+    public int selectToBsPopup() throws DataAccessException;
 }
