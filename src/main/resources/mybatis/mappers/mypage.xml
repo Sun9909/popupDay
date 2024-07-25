@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -36,19 +36,6 @@
         <result property="answer" column="answer"/>
         <result property="answer_date" column="answer_date"/>
         <result property="status" column="status"/>
-    </resultMap>
-
-    <resultMap type="mypopupDTO" id="popResult">
-        <result property="hash_tag_id" column="hash_tag_id"/>
-        <result property="title" column="title"/>
-        <result property="info" column="info"/>
-        <result property="popup_hours" column="popup_hours"/>
-        <result property="content" column="content"/>
-        <result property="map" column="map"/>
-        <result property="brandPage" column="brandPage"/>
-        <result property="role" column="role"/>
-        <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
     </resultMap>
 
     <!-- 로그인한 회원 정보 가져오기 -->
