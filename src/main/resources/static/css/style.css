@@ -8182,7 +8182,7 @@ h1, h2, h3, h4, h5,
   padding-top: 10px;
   line-height: 26px;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 13px;
   color: #cccccc;
   -webkit-transition: all 250ms;
   -o-transition: all 250ms;
@@ -8220,25 +8220,12 @@ h1, h2, h3, h4, h5,
 .table-date:not(.nil):hover {
   border-color: #cd4dcc; }
 
-.event-date {
-  border-color: #7e0cf5;
-  background: #7e0cf5;
-  color: #fff; }
-  .event-date:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    content: '';
-    background: #28a745; }
 
 .active-date {
   background: #cd4dcc;
   color: #fff; }
 
-.event-date.active-date {
+.active-date {
   background: #7e0cf5; }
 
 /* input dialog */
