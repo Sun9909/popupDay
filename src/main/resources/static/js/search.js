@@ -1,8 +1,8 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $("#search-banner .searchHashtag").click(function() {
         var submenu = $(this).next("div");
 
-        if(submenu.is(":visible")) {
+        if (submenu.is(":visible")) {
             submenu.slideUp();
         } else {
             submenu.slideDown();
@@ -10,7 +10,7 @@ $(document).ready(function(){
     });
 });
 
-$(function(){
+$(function() {
     $(".css-footer-buttons .category").click(function() {
         $(".category-info").slideToggle();
     });
@@ -51,53 +51,46 @@ function submitForm() {
 }
 
 // 해시태그 처리
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const hashTags = document.querySelectorAll('.hash_tag');
 
-    if (hashTags.length === 0) {
-        Swal.fire({
-            icon: 'error',
-            title: '요소를 찾을 수 없습니다.',
-            text: '클래스 "hash_tag"를 가진 요소를 찾을 수 없습니다.',
-            showConfirmButton: true
-        });
-        return;
-    }
-
-    hashTags.forEach(tag => {
-        tag.addEventListener('click', function () {
-            const hash_tag = this.getAttribute('data-tag');
-            fetch(`/main/searchPopupHasTag?hash_tag=${hash_tag}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('서버 응답:', data);
-                    if (data.success) {
-                        displayPopups(data.popups);
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: '팝업 조회 실패',
-                            text: '팝업을 조회하는 데 실패했습니다.',
-                            showConfirmButton: true
-                        });
+    // 요소가 없는 경우 경고를 표시하지 않습니다.
+    if (hashTags.length > 0) {
+        hashTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                const hash_tag = this.getAttribute('data-tag');
+                fetch(`/main/searchPopupHasTag?hash_tag=${hash_tag}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
                 })
-                .catch(error => {
-                    console.error('에러 발생:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: '에러 발생',
-                        text: error.message,
-                        showConfirmButton: true
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('서버 응답:', data);
+                        if (data.success) {
+                            displayPopups(data.popups);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '팝업 조회 실패',
+                                text: '팝업을 조회하는 데 실패했습니다.',
+                                showConfirmButton: true
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('에러 발생:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: '에러 발생',
+                            text: error.message,
+                            showConfirmButton: true
+                        });
                     });
-                });
+            });
         });
-    });
+    }
 
     function displayPopups(popups) {
         const container = document.getElementById('popup-container');
