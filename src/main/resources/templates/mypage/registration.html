@@ -15,8 +15,12 @@
   <div class="body">
     <div class="containers">
       <!-- 팝업 신청 확인 페이지 -->
-      <h2>팝업 신청 확인 관리</h2>
-      <p class="popCount" th:text="'전체 ' + ${bsPopupList.totPopup} + '개'"></p>
+        <div class="main_title">
+            <a th:href="@{/mypage/businessPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+            <h2>팝업 신청 확인 관리</h2>
+        </div>
+
+        <p class="popCount" th:text="'전체 ' + ${bsPopupList.totPopup} + '개'"></p>
 
       <!-- 팝업이 있을 때 -->
       <table>
