@@ -18,14 +18,17 @@
                 <p class="pop-table-none">검색 결과가 없습니다.</p>
             </div>
             <div class="popup-list" th:each="result : ${searchResults}" th:unless="${#lists.isEmpty(searchResults)}">
-                <div class="popup-item">
-                    <div class="popup-image">
-                        <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                <a th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
+                    <div class="popup-item">
+                        <div class="popup-image">
+                            <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                        </div>
+                        <p hidden="hidden" th:text="${result.popup_id}"></p>
+                        <p th:text="${result.title}"></p>
+                        <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                        <p th:text="${result.address}"></p>
                     </div>
-                    <p th:text="${result.title}"></p>
-                    <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
-                    <p th:text="${result.address}"></p>
-                </div>
+                </a>
             </div>
         </section>
         <section class="popup-section">
