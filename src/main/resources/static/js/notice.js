@@ -112,8 +112,8 @@ function review_enable(obj) {
     document.getElementById("review-btn").style.display="none";
     document.getElementById("review_title").disabled=false;
     document.getElementById("review_content").disabled=false;
-    let imgName=document.querySelectorAll("#id_imgFile");
-    let imgBtn = document.querySelectorAll("#modify-img");
+    let imgName=document.querySelectorAll("#id_imgFiles");
+    let imgBtn = document.querySelectorAll("#notice-modify-img");
     if(imgName != null) {
         for(let i=0; i<imgName.length; i++) {
             imgBtn[i].style.display = "inline-block";
@@ -196,10 +196,13 @@ function notice_enable(obj) {
     document.getElementById("notice-btn").style.display="none";
     document.getElementById("title").disabled=false;
     document.getElementById("content").disabled=false;
-    document.getElementById("notice_img").style.display="block";
-    let imgName=document.getElementById("id_imgFiles");
-    if(imgName != null) {
-        imgName.disabled=false;
+    let noimgName=document.querySelectorAll("#id_imgFiles");
+    let noimgBtn = document.querySelectorAll("#id_imgFiles");
+    if(noimgName != null) {
+        for(let i=0; i<noimgName.length; i++) {
+            noimgBtn[i].style.display = "inline-block";
+            noimgName[i].disabled=false;
+        }
     } // if end
 }
 
