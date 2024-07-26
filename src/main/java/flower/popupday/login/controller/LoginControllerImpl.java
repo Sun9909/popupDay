@@ -93,7 +93,7 @@ public class LoginControllerImpl implements LoginController {
         } else {
             rAttr.addFlashAttribute("flashMessage", "아이디 또는 비밀번호를 다시 입력해주세요");
             rAttr.addFlashAttribute("flashType", "error");
-            mav.setViewName("redirect:/login/login.do");
+            mav.setViewName("redirect:login/login.do");
         }
         return mav;
     }
@@ -175,7 +175,7 @@ public class LoginControllerImpl implements LoginController {
         } else { // 회원 정보가 없는 경우
             HttpSession session = request.getSession();
             session.setAttribute("errorMessage", "아이디나 비밀번호를 다시 입력해주세요");
-            mav.setViewName("redirect:/login/login.do");
+            mav.setViewName("redirect:login/login.do");
         }
         return mav; // ModelAndView 반환
     }

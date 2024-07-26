@@ -43,7 +43,7 @@ public class AdminControllerImpl implements AdminController {
 //        session.setAttribute("isLogOn", true);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/admin/admin");
+        mav.setViewName("admin/admin");
         mav.addObject("admin", loginDTO);
         return mav;
     }
@@ -52,7 +52,7 @@ public class AdminControllerImpl implements AdminController {
     public ModelAndView memberShip(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List membersList = adminService.memberShip();
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/admin/memberShip");
+        mav.setViewName("admin/memberShip");
         mav.addObject("membersList", membersList);
         return mav;
     }
