@@ -81,11 +81,9 @@ form label {
 
 
 .containers {
-    min-height: 1280px;
     float: right;
     width: 769px;
     padding-top: 50px;
-    height: 100%;
 }
 header {
     width: 1440px;
@@ -130,7 +128,7 @@ header {
     text-align: center;
 }
 
-.containers .popInfo .answer div {
+ .popInfo .answer div {
     margin: 10px 0;
 }
 

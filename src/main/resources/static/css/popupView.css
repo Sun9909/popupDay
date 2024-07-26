@@ -196,9 +196,7 @@ cursor: pointer; 포인터 커서로 변경
     display: flex;
 }
 
-.containers {
-    height: 100%;
-}
+
 
 .hits {
     width: 50px;

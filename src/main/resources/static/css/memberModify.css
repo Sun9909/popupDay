@@ -110,7 +110,6 @@ h2 {
 /* 추가해야하는 css */
 
 .containers {
-    min-height: 900px;
     float: right;
     width: 770px;
 }

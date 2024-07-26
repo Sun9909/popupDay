@@ -21,7 +21,7 @@
                 <a class="contact" th:href="@{/notice/noticeList.do}">
                     <h2>공지사항</h2>
                 </a>
-                <a class="contact" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/faqList.do\', \'/login/join.do\')'" >
+                <a class="contact" th:href="@{/notice/faqList.do}">
                     <h2>FAQ</h2>
                 </a>
                 <a class="contact"  th:href="@{/notice/qnaList.do}">
