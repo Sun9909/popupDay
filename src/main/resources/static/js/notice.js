@@ -112,9 +112,13 @@ function review_enable(obj) {
     document.getElementById("review-btn").style.display="none";
     document.getElementById("review_title").disabled=false;
     document.getElementById("review_content").disabled=false;
-    let imgName=document.getElementById("id_imgFile");
+    let imgName=document.querySelectorAll("#id_imgFile");
+    let imgBtn = document.querySelectorAll("#modify-img");
     if(imgName != null) {
-        imgName.disabled=false;
+        for(let i=0; i<imgName.length; i++) {
+            imgBtn[i].style.display = "inline-block";
+            imgName[i].disabled=false;
+        }
     } // if end
 }
 
