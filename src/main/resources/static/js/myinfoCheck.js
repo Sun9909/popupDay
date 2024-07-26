@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 닉네임 중복 확인
     function user_nickname_overlap_check() {
         let nickname = document.querySelector('input[name="user_nickname"]').value;
-        let origin_nickname  = document.querySelector('input[name="origin_nickname"]').value;
+        let origin_nikname  = document.querySelector('input[name="origin_nickname"]').value;
 
         if (nickname === '') {
             Swal.fire({

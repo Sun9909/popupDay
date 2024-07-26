@@ -3,8 +3,17 @@ h2 {
     font-size: 1.8em;
     margin: 20px 0 20px 30px;
 }
-
-.num {
+.main_title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+.main_title img {
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    width: 30px;
+    height: 30px;
+}
+.popCount {
     color: #d9d9d9;
     margin: 20px 0 20px 30px;
 }
@@ -27,7 +36,7 @@ fieldset {
 form .pop {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
 }
 form .popImg {
     width: 150px;

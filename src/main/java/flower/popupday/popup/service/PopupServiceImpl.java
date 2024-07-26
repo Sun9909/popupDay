@@ -152,6 +152,7 @@ public class PopupServiceImpl implements PopupService {
     @Override
     public Map<String, Object> register(Long popup_id) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
+        //신청된 팝업
         PopupDTO popupList = popupDAO.selectRegisterPopup(popup_id);
         List<ImageDTO> imageFileList = popupDAO.selectImageFileList(popup_id);
         List<HashTagDTO> hashTagList = popupDAO.selectHashTagList(popup_id);

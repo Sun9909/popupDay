@@ -19,26 +19,33 @@
             <!-- 찜 목록 페이지 -->
             <h2>찜</h2>
             <h3>찜 목록 보기</h3>
-            <div class="all">
-                <p>전체 개수</p>
-                <button>전체 삭제</button>
+            <div class="all" th:if="${totPopup == null}">
+                <p class="num" th:text="'전체 0개'"></p>
+            </div>
+            <div class="all" th:unless="${totPopup == null}">
+                <p class="num " th:text="'전체 '+${totPopup}+'개'"></p>
             </div>
 
             <!-- 찜한 팝업이 없을 때 -->
-            <h4>찜한 팝업이 없습니다.</h4>
+            <form th:if="${popupLike == null or popupLike.isEmpty()}">
+                <h4>현재 등록된 팝업이 없습니다</h4>
+            </form>
 
             <!-- 찜한 팝업이 있을 때 -->
-            <form>
+            <form th:each="popup : ${popupLike}">
                 <fieldset>
                     <a href="#" class="pop" title="팝업">
-                        <div class="popImg">
-                            <img src="" alt="popupImage1">
+                        <div th:if="${popup.thumbnailImage != null}" class="popImg">
+                            <img th:src="@{/popupDownload.do(popup_id=${popup.popup.popup_id}, image_file_name=${popup.thumbnailImage.image_file_name})}" alt="popupImage1">
+                        </div>
+                        <div th:if="${popup.thumbnailImage == null}" class="popImg">
+                            <span>No Image</span> <!-- 이미지가 없는 경우 대체 텍스트 출력 -->
                         </div>
                         <div class="Acc">
                             <div class="popAcc">
-                                <h5>동방신기 팝업1</h5>
-                                <p>08.10.19 ~ 24.12.16</p>
-                                <p>서울시 강남구 서초동</p>
+                                <h5 th:text="${popup.popup.title}"></h5>
+                                <p th:text="${popup.popup.start_date} + ' ~ ' + ${popup.popup.end_date}"></p>
+                                <p th:text="${popup.popup.address}"></p>
                             </div>
                             <div class="tags">
                                 <a href="#" class="tag" title="해시태그"># 아이돌</a>
@@ -53,6 +60,34 @@
                     </a>
                 </fieldset>
             </form>
+            <div align="center" th:if="${totPopup > 9}">
+                <div th:if="${totPopup > 100}">
+                    <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 9) + 1 : 9))}">
+                        <span th:if="${section > 1 and num == 1}">
+                            <a th:href="@{/mypage/memberLike.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
+                        </span>
+                        <span th:if="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">
+                            <a class="target" th:href="@{/mypage/memberLike.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>
+                        </span>
+                        <span th:unless="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">
+                            <a class="noLine" th:href="@{/mypage/memberLike.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>
+                        </span>
+                        <span th:if="${num == 9}">
+                            <a th:href="@{/mypage/memberLike.do(section=${section + 1}, pageNum=${section * 9 + 1})}">next</a>
+                        </span>
+                    </span>
+                </div>
+                <div th:if="${totPopup <= 100}">
+                    <span th:each="num : ${#numbers.sequence(1, (totPopup / 9) + 1)}">
+                        <span th:if="${num == pageNum}">
+                            <a class="target" th:href="@{/mypage/memberLike.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+                        </span>
+                        <span th:unless="${num == pageNum}">
+                            <a class="noLine" th:href="@{/mypage/memberLike.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
+                        </span>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>

@@ -35,13 +35,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkPasswordMatch() {
         let password = document.querySelector('input[name="newpwd"]').value;
         let newPassword = document.querySelector('input[name="newpwdcheck"]').value;
-        if (password === newPassword) {
+        if (password === newPassword && password != '') {
             Swal.fire({
                 icon: 'success',
                 title: '비밀번호가 일치합니다.',
                 showConfirmButton: true
             });
             isPasswordMatch = true;
+        } else if(password === '') {
+            Swal.fire({
+                icon: 'error',
+                title: '비밀번호가 작성되지않았습니다.',
+                showConfirmButton: true
+            });
+            isPasswordMatch = false;
         } else {
             Swal.fire({
                 icon: 'error',

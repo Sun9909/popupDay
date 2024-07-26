@@ -31,6 +31,8 @@ public class MyControllerImpl implements MyController {
 //    private MyDTO myDTO;
     @Autowired
     private MyPopupDTO myPopupDTO;
+    @Autowired
+    private PopupDTO popupDTO;
 //    @Autowired
 //    private LoginDTO loginDTO;
 //    @Autowired
@@ -81,8 +83,8 @@ public class MyControllerImpl implements MyController {
         //myDTO=myService.getName(myDTO);
         Long reviewCount = myService.getReviewCount(loginDTO.getId()); // 리뷰 개수 조회
 
-        String recommentCount = myService.getreCommentCount(loginDTO.getUser_nickname()); //리뷰댓글
-        String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nickname()); //팝업댓글
+        //String recommentCount = myService.getreCommentCount(loginDTO.getUser_nickname()); //리뷰댓글
+        //String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nickname()); //팝업댓글
 
         Long qnaCount = myService.getQnaCount(loginDTO.getId());
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
@@ -90,8 +92,8 @@ public class MyControllerImpl implements MyController {
         ModelAndView mav = new ModelAndView("/mypage/memberPage");
         mav.addObject("my", loginDTO);
         mav.addObject("reviewCount", reviewCount);
-        mav.addObject("recommentCount", recommentCount);
-        mav.addObject("popcommentCount", popcommentCount);
+        //mav.addObject("recommentCount", recommentCount);
+        //mav.addObject("popcommentCount", popcommentCount);
         mav.addObject("qnaCount", qnaCount);
         return mav;
     }
@@ -196,10 +198,12 @@ public class MyControllerImpl implements MyController {
 //        System.out.println(loginDTO.getUser_id());
 //        System.out.println(loginDTO.getUser_nickname());
 
+        Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
+
         ModelAndView mav = new ModelAndView("/mypage/businessPage");
         mav.addObject("my", loginDTO);
 
-        //Long PopupCount = myService.getPopupCount(myPopupDTO.getUser_id());
+        mav.addObject("popupCount", PopupCount);
 
         //
         // mav.addObject("PopupCount", PopupCount);

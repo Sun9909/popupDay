@@ -20,8 +20,8 @@ public interface MyService {
 
     public Long getReviewCount(Long id) throws DataAccessException;
 
-    public String getreCommentCount(String user_nickname) throws DataAccessException;
-    public String getpopCommentCount(String user_nickname) throws DataAccessException;
+    //public String getreCommentCount(String user_nickname) throws DataAccessException;
+    //public String getpopCommentCount(String user_nickname) throws DataAccessException;
 
     public Long getQnaCount(Long id) throws DataAccessException;
 
@@ -42,4 +42,6 @@ public interface MyService {
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
     public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap) throws DataAccessException;
+
+    public Long getPopupCount(Long user_id) throws DataAccessException;
 }

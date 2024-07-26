@@ -4,6 +4,20 @@ h2 {
     font-size: 1.8em;
     margin: 20px 0;
 }
+.main_title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    align-items: center;
+}
+. main_title a {
+    margin: 8px 0 0 10px;
+}
+.main_title img {
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    width: 30px;
+    height: 30px;
+}
 .popCount {
     margin: 20px 0 20px 20px;
 }
@@ -18,7 +32,7 @@ h4 {
 table {
     border: 1px #4B4B65 solid;
     text-align: center;
-    width: 840px;
+    width: 700px;
     margin: 10px 10px 30px;
     border-spacing: 0;
     border-top: none;
