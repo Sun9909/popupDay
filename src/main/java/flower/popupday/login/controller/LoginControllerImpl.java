@@ -70,34 +70,32 @@ public class LoginControllerImpl implements LoginController {
                                     RedirectAttributes rAttr,
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws Exception {
-        // 입력된 로그인 정보를 바탕으로 로그인 시도
         LoginDTO loginResult = loginService.memberLogin(loginDTO);
         ModelAndView mav = new ModelAndView();
 
-        // 로그인 결과 처리
-        if (loginResult != null) { // 로그인 성공 시
-            // 로그인 상태 확인
+        if (loginResult != null) {
             LoginDTO.Status status = loginResult.getStatus();
-            if (status == LoginDTO.Status.deleted) { // 탈퇴한 회원일 경우
-                rAttr.addFlashAttribute("result", "탈퇴한 회원입니다");
+            if (status == LoginDTO.Status.deleted) {
+                rAttr.addFlashAttribute("flashMessage", "탈퇴한 회원입니다");
+                rAttr.addFlashAttribute("flashType", "error");
                 mav.setViewName("redirect:/login/login.do");
-            } else { // 정상 회원일 경우
+            } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginDTO", loginResult);
                 session.setAttribute("isLogOn", true);
                 String action = (String) session.getAttribute("action");
                 if (action != null) {
-                    mav.setViewName("redirect:" + action); // 이전 페이지로 리다이렉트
+                    mav.setViewName("redirect:" + action);
                 } else {
-                    mav.setViewName("redirect:/main.do"); // 기본 메인 페이지로 리다이렉트
+                    mav.setViewName("redirect:/main.do");
                 }
             }
-        } else { // 로그인 실패 시
-            HttpSession session = request.getSession();
-            session.setAttribute("errorMessage", "아이디나 비밀번호를 다시 입력해주세요"); // 오류 메시지를 세션에 저장
-            mav.setViewName("redirect:/login/login.do"); // 로그인 페이지로 리디렉트
+        } else {
+            rAttr.addFlashAttribute("flashMessage", "아이디 또는 비밀번호를 다시 입력해주세요");
+            rAttr.addFlashAttribute("flashType", "error");
+            mav.setViewName("redirect:/login/login.do");
         }
-        return mav; // ModelAndView 반환
+        return mav;
     }
 
     //로그인 실패 시 오류 메시지를 처리하는 메서드
@@ -175,8 +173,9 @@ public class LoginControllerImpl implements LoginController {
                 mav.setViewName("redirect:/main.do"); // 기본적으로 메인 페이지로 리디렉트
             }
         } else { // 회원 정보가 없는 경우
-            rAttr.addFlashAttribute("result", "아이디나 비밀번호를 다시 입력해주세요"); // 에러 메시지 추가
-            mav.setViewName("redirect:/login/businessForm.do"); // 로그인 페이지로 리다이렉트
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", "아이디나 비밀번호를 다시 입력해주세요");
+            mav.setViewName("redirect:/login/login.do");
         }
         return mav; // ModelAndView 반환
     }
