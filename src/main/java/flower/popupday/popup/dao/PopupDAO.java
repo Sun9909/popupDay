@@ -69,6 +69,12 @@ public interface PopupDAO {
     //사업자 신청 팝업 개수
     public int selectToBsPopup() throws DataAccessException;
 
+    public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+
+    public int selectTotPopup() throws DataAccessException;
+
+    public ImageDTO selectFirstImg(Long popup_id) throws DataAccessException;
+
     public List<PopupDTO> bestPopup() throws DataAccessException;
 
     public List<ImageDTO> bestImageFileList() throws DataAccessException;

@@ -212,4 +212,34 @@ public class PopupServiceImpl implements PopupService {
         bsPopupList.put("totPopup", totPopup);
         return bsPopupList;
     }
+
+    @Override
+    public Map<String, Object> myPopupList(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map<String, Object> popupMap = new HashMap<>();
+        int section = pagingMap.get("section");
+        int pageNum = pagingMap.get("pageNum");
+        int id = pagingMap.get("id");
+        int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
+        List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id); // 팝업 목록 조회
+        int totPopup = popupDAO.selectTotPopup(); // 전체 팝업 수 조회
+
+        List<Map<String, Object>> popupInfoList = new ArrayList<>();
+        for (PopupDTO popup : popupList) {
+            Long popup_id = popup.getPopup_id();
+            ImageDTO thumbnailImage = popupDAO.selectFirstImg(popup_id); // 각 팝업의 첫 번째 이미지 조회
+            Map<String, Object> popupInfo = new HashMap<>();
+            popupInfo.put("popup", popup); // 팝업 정보 추가
+            popupInfo.put("thumbnailImage", thumbnailImage); // 이미지 정보 추가
+            popupInfoList.add(popupInfo);
+        }
+
+        popupMap.put("popupInfoList", popupInfoList); // 팝업 정보 리스트 추가
+        popupMap.put("totPopup", totPopup);
+
+        // 디버깅 로그 추가
+        System.out.println("popupInfoList2: " + popupInfoList);
+        System.out.println("totPopup in service: " + totPopup);
+
+        return popupMap;
+    }
 }
