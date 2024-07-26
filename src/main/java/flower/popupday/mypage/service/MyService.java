@@ -7,6 +7,7 @@ import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MyService {
 //    public LoginDTO getname(LoginDTO loginDTO) throws DataAccessException;
@@ -40,9 +41,5 @@ public interface MyService {
 
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
-    //팝업 리스트
-    //public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException;
-//    public List<PopupDTO> getPopup(String user_id) throws DataAccessException;
-//
-//    public Long getPopupCount(Long user_id) throws DataAccessException;
+    public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap) throws DataAccessException;
 }

@@ -4,12 +4,16 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dao.MyDAO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
+import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("myService")
 public class MyServiceImpl implements MyService {
@@ -80,6 +84,36 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
+    public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map<String, Object> popupMap = new HashMap<>();
+        int section = pagingMap.get("section");
+        int pageNum = pagingMap.get("pageNum");
+        int id = pagingMap.get("id");
+        int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
+        List<PopupDTO> popupList = myDAO.selectMyPopup(count, id); // 팝업 목록 조회
+        int totPopup = myDAO.selectToPopup(); // 전체 팝업 수 조회
+
+        List<Map<String, Object>> popupLike = new ArrayList<>();
+        for (PopupDTO popup : popupList) {
+            Long popup_id = popup.getPopup_id();
+            ImageDTO thumbnailImage = myDAO.selectFirstImage(popup_id); // 각 팝업의 첫 번째 이미지 조회
+            Map<String, Object> popupInfo = new HashMap<>();
+            popupInfo.put("popup", popup); // 팝업 정보 추가
+            popupInfo.put("thumbnailImage", thumbnailImage); // 이미지 정보 추가
+            popupLike.add(popupInfo);
+        }
+
+        popupMap.put("popupLike", popupLike); // 팝업 정보 리스트 추가
+        popupMap.put("totPopup", totPopup);
+
+        // 디버깅 로그 추가
+        System.out.println("popupLike: " + popupLike);
+        System.out.println("totPopup in service: " + totPopup);
+
+        return popupMap;
+    }
+
+    @Override
     public boolean checkEmail(String email) {
         return myDAO.checkEmail(email);
     }
@@ -90,22 +124,4 @@ public class MyServiceImpl implements MyService {
     }
 
 
-    //팝업 리스트
-//    @Override
-//    public MyPopupDTO getPopup(MyPopupDTO mypopupDTO) throws DataAccessException {
-//        MyPopupDTO getPopup= myDAO.getPopup(mypopupDTO);
-//        return getPopup;
-//    }
-
-//    @Override
-//    public List<PopupDTO> getPopup(String user_id) throws DataAccessException {
-//        return myDAO.getPopup(user_id);
-//    }
-//
-//    @Override
-//    public Long getPopupCount(Long user_id) throws DataAccessException {
-////        Long PopupCount = myDAO.getPopupCount(user_id);
-////        return PopupCount;
-//        return myDAO.getPopupCount(user_id);
-//    }
 }
