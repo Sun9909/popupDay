@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/popupView.css}">
     <link rel="stylesheet" th:href="@{/css/popupListMap.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>팝업상세페이지</title>
 </head>
@@ -203,6 +204,7 @@
         script.async = true; // 또는 script.defer = true;
         document.head.appendChild(script);
     </script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
 </html>
