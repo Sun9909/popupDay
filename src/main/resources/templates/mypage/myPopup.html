@@ -18,11 +18,11 @@
         <div class="containers">
             <!-- 팝업 리스트 페이지 -->
             <h2>팝업 리스트</h2>
-            <div th:if="${popupInfoList.totPopup == null}">
+            <div th:if="${totPopup == null}">
                 <p class="num" th:text="'전체 0개'"></p>
             </div>
-            <div th:unless="${popupInfoList.totPopup == null}">
-                <p class="num " th:text="'전체 '+${popupInfoList.totPopup}+'개'"></p>
+            <div th:unless="${totPopup == null}">
+                <p class="num " th:text="'전체 '+${totPopup}+'개'"></p>
             </div>
 
             <!-- 팝업이 없을 때 -->

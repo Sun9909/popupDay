@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface MyController {
@@ -37,11 +38,9 @@ public interface MyController {
     public ModelAndView dropMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
-    //팝업리스트
-    //public ModelAndView getPopup(@ModelAttribute("popupDTO") PopupDTO popupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
-    //팝업 신청 결과 확인
-    //public ModelAndView registrationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    //회원 찜목록 페이지로
+    public ModelAndView memberLike(@RequestParam(value = "section", required = false) String _section,
+                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
