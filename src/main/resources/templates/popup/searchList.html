@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Popup List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/popList.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -18,14 +19,17 @@
                 <p class="pop-table-none">검색 결과가 없습니다.</p>
             </div>
             <div class="popup-list" th:each="result : ${searchResults}" th:unless="${#lists.isEmpty(searchResults)}">
-                <div class="popup-item">
-                    <div class="popup-image">
-                        <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                <a th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
+                    <div class="popup-item">
+                        <div class="popup-image">
+                            <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                        </div>
+                        <p hidden="hidden" th:text="${result.popup_id}"></p>
+                        <p th:text="${result.title}"></p>
+                        <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                        <p th:text="${result.address}"></p>
                     </div>
-                    <p th:text="${result.title}"></p>
-                    <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
-                    <p th:text="${result.address}"></p>
-                </div>
+                </a>
             </div>
         </section>
         <section class="popup-section">
@@ -74,5 +78,6 @@
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script th:src="@{/js/search.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </body>
 </html>

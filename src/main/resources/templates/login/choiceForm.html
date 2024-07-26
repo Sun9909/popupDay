@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>사업자 or 개인 회원가입</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/choiceForm.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -24,6 +25,7 @@
             <button onclick="location.href='/login/businessForm.do'">사업자</button>
         </div>
     </div>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
 </html>

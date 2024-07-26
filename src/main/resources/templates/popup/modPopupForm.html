@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>팝업 수정 폼</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/popupAllList.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -148,6 +149,7 @@
     <!-- 지도 API -->
     <script type="text/javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=089d852b497e6c513c79b8561670e3a0&libraries=services,clusterer,drawing'}"></script>
     <script th:src="@{/js/map.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
 </html>
