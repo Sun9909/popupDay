@@ -2,25 +2,23 @@
 h2 {
     text-align: center;
     font-size: 1.8em;
-}
-.main_title {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-}
-.main_title img {
-    margin: 8px 4px 10px 15px; /* 이미지와 텍스트 사이의 간격 조정 */
-    width: 30px;
-    height: 30px;
+    margin: 20px 0;
 }
 .popCount {
     margin: 20px 0 20px 20px;
+}
+/* 찜한 팝업이 없을 때 */
+h4 {
+    color: #4B4B65;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 50px 0;
 }
 /* 찜한 팝업이 있을 때 */
 table {
     border: 1px #4B4B65 solid;
     text-align: center;
-    width: 700px;
+    width: 840px;
     margin: 10px 10px 30px;
     border-spacing: 0;
     border-top: none;

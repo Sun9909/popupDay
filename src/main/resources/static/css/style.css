@@ -6303,7 +6303,7 @@ button.bg-dark:focus {
   width: 75% !important; }
 
 .w-100 {
-  width: 100% !important; }
+  width: 98% !important; }
 
 .w-auto {
   width: auto !important; }
@@ -8055,7 +8055,7 @@ h1, h2, h3, h4, h5,
   position: relative;
   margin: 0 auto;
   height: 100%;
-  width: 50%;
+  width: 100%;
   background: #fff;
   font: 13px Helvetica, Arial, san-serif;
   display: inline-block;
@@ -8167,8 +8167,8 @@ h1, h2, h3, h4, h5,
 
 .day {
   height: 26px;
-  width: 26px;
-  padding: 0 10px;
+  width: 40px;
+  padding: 10px 0;
   line-height: 26px;
   border: 2px solid transparent;
   text-transform: uppercase;
@@ -8189,10 +8189,10 @@ h1, h2, h3, h4, h5,
   transition: all 250ms; }
   @media (max-width: 991.98px) {
     .month {
-      font-size: 8px; } }
+      font-size: 13px; } }
   @media (max-width: 767.98px) {
     .month {
-      font-size: 10.5px; } }
+      font-size: 13px; } }
 
 .active-month {
   font-weight: 700;
@@ -8207,11 +8207,10 @@ h1, h2, h3, h4, h5,
   color: #2b2b2b;
   height: 26px;
   width: 26px;
-  font-size: 15px;
-  padding: 10px;
+  font-size: 18px;
+  padding: 10px 0;
   line-height: 26px;
   text-align: center;
-  border-radius: 50%;
   border: 2px solid transparent;
   -webkit-transition: all 250ms;
   -o-transition: all 250ms;
