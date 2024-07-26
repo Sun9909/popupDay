@@ -72,7 +72,7 @@ h2 {
 }
 
 .memberModifyForm input[type="text"],
-.memberModifyForm input[type="user_nikname"],
+.memberModifyForm input[type="user_nickname"],
 .memberModifyForm input[type="name"],
 .memberModifyForm input[type="email"],
 .memberModifyForm input[type="submit"] {

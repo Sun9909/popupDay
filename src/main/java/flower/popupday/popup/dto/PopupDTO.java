@@ -27,7 +27,7 @@ public class PopupDTO {
     private String sunday_time;
     private String parking;
     private String fee;
-    private String user_nikname;
+    private String user_nickname;
     private String thumbnail;
     private String image_file_name;
 
@@ -196,12 +196,12 @@ public class PopupDTO {
 
     public void setFee(String fee) {this.fee = fee;}
 
-    public String getUser_nikname() {
-        return user_nikname;
+    public String getUser_nickname() {
+        return user_nickname;
     }
 
-    public void setUser_nikname(String user_nikname) {
-        this.user_nikname = user_nikname;
+    public void setUser_nickname(String user_nickname) {
+        this.user_nickname = user_nickname;
     }
 
     public String getThumbnail() {

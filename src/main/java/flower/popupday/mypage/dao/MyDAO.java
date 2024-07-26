@@ -18,8 +18,8 @@ public interface MyDAO {
 
     public Long getReviewCount(Long id) throws DataAccessException;
 
-    public String getreCommentCount(String user_nikname) throws DataAccessException;
-    public String getpopCommentCount(String user_nikname) throws DataAccessException;
+    public String getreCommentCount(String user_nickname) throws DataAccessException;
+    public String getpopCommentCount(String user_nickname) throws DataAccessException;
 
     public Long getQnaCount(Long id) throws DataAccessException;
 
@@ -29,7 +29,7 @@ public interface MyDAO {
 
     public boolean checkEmail(String email) throws DataAccessException;
 
-    public boolean checkNikname(String user_nikname) throws DataAccessException;
+    public boolean checknickname(String user_nickname) throws DataAccessException;
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 

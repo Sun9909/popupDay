@@ -127,7 +127,7 @@
 
     <!-- 팝업 조회 -->
     <select id="selectPopup" resultMap="popResult" parameterType="Long">
-        SELECT p.*, u.user_nikname
+        SELECT p.*, u.user_nickname
         FROM popup_tbl p
                  JOIN user_tbl u ON p.user_id = u.id
         WHERE p.popup_id = #{popup_id};
@@ -237,7 +237,7 @@
                  JOIN popup_hash_tag_tbl ph ON p.popup_id = ph.popup_id
                  JOIN hash_tag_tbl h ON ph.hash_tag_id = h.hash_tag_id
                  LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
-        WHERE h.hash_tag = ph.#{hash_tag}
+        WHERE h.hash_tag = #{hash_tag}
         GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
             LIMIT 4;
     </select>

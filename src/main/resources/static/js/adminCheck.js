@@ -95,9 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 닉네임 중복 확인
-    function user_nikname_overlap_check() {
-        let nickname = document.querySelector('input[name="user_nikname"]').value;
-        let origin_nikname  = document.querySelector('input[name="origin_nikname"]').value;
+    function user_nickname_overlap_check() {
+        let nickname = document.querySelector('input[name="user_nickname"]').value;
+        let origin_nickname  = document.querySelector('input[name="origin_nickname"]').value;
         if (nickname === '') {
             Swal.fire({
                 icon: 'info',
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nicknameChecked = false;
             updateSubmitButtonState();
             return;
-        } else if (nickname === origin_nikname) {
+        } else if (nickname === origin_nickname) {
             Swal.fire({
                 icon: 'info',
                 title: '기존 닉네임과 동일합니다.',
@@ -120,8 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         $.ajax({
-            url: "/login/check-nikname",
-            data: { 'user_nikname': nickname },
+            url: "/login/check-nickname",
+            data: { 'user_nickname': nickname },
             datatype: 'json',
             success: function(data) {
                 if (data) {
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 각 요소 확인 버튼에 이벤트 리스너 추가
     addEventListenerIfExists('.id_overlap_button', 'click', id_overlap_check);
-    addEventListenerIfExists('.user_nikname_overlap_button', 'click', user_nikname_overlap_check);
+    addEventListenerIfExists('.user_nickname_overlap_button', 'click', user_nickname_overlap_check);
 
     // 폼 제출 시 유효성 검사
     const frmMemberLogin = document.querySelector('form[name="memberModifyForm"]');

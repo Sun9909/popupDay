@@ -68,9 +68,9 @@ public class LoginServiceImpl implements LoginService {
 
     // 닉네임 중복 확인
     @Override
-    public boolean checkNikname(String user_nikname) {
-        //return loginDAO.checkNikname(user_nikname);: DAO 객체를 사용하여 닉네임 중복 확인.
-        return loginDAO.checkNikname(user_nikname); // 닉네임 중복 확인 DAO 메서드 호출
+    public boolean checknickname(String user_nickname) {
+        //return loginDAO.checknickname(user_nickname);: DAO 객체를 사용하여 닉네임 중복 확인.
+        return loginDAO.checknickname(user_nickname); // 닉네임 중복 확인 DAO 메서드 호출
     }
 
     // 회원 탈퇴 확인
@@ -127,8 +127,8 @@ public class LoginServiceImpl implements LoginService {
 
                 if (kakao_account.has("profile")) {
                     JSONObject profile = kakao_account.getJSONObject("profile");
-                    String user_nikname = profile.getString("nickname");
-                    loginDTO.setUser_nikname(user_nikname);
+                    String user_nickname = profile.getString("nickname");
+                    loginDTO.setUser_nickname(user_nickname);
                 }
 
                 if (kakao_account.has("email")) {

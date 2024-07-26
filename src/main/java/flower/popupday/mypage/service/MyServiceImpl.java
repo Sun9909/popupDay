@@ -39,14 +39,14 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override   //리뷰 댓글 개수
-    public String getreCommentCount(String user_nikname) {
-        String recommentCount = myDAO.getreCommentCount(user_nikname);
+    public String getreCommentCount(String user_nickname) {
+        String recommentCount = myDAO.getreCommentCount(user_nickname);
         return recommentCount;
     }
 
     @Override   //팝업 댓글 개수
-    public String getpopCommentCount(String user_nikname) {
-        String popcommentCount = myDAO.getpopCommentCount(user_nikname);
+    public String getpopCommentCount(String user_nickname) {
+        String popcommentCount = myDAO.getpopCommentCount(user_nickname);
         return popcommentCount;
     }
 
@@ -85,8 +85,8 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public boolean checkNikname(String user_nikname) {
-        return myDAO.checkNikname(user_nikname);
+    public boolean checknickname(String user_nickname) {
+        return myDAO.checknickname(user_nickname);
     }
 
 

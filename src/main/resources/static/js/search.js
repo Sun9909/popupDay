@@ -55,11 +55,12 @@ document.addEventListener('DOMContentLoaded', function () {
     hashTags.forEach(tag => {
         tag.addEventListener('click', function () {
             const hash_tag = this.getAttribute('data-tag');
-            fetch(`/main/searchPopupHasTag?hash_tag=${hash_tag}`, {
+            fetch('/main/searchPopupHasTag', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify({ hash_tag: hash_tag })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -87,10 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
         popups.forEach(popup => {
             const popupElement = document.createElement('div');
             popupElement.classList.add('popup-item');
+            const imageUrl = `/popupDownload.do?popup_id=${popup.popup_id}&image_file_name=${popup.image_file_name}`;
+            console.log('Generated Image URL:', imageUrl); // URL 확인
+
             popupElement.innerHTML = `
-                <img src="${popup.image_file_name}" alt="팝업 이미지" class="popup-image">
-                <p>${popup.title}</p>
-            `;
+            <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
+            <p>${popup.title}</p>
+            <p>${popup.start_date} ~ ${popup.end_date}</p>
+            <p>${popup.address}</p>
+            <p hidden="hidden">${popup.popup_id}</p>
+        `;
             container.appendChild(popupElement);
         });
     }

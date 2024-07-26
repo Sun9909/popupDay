@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +27,8 @@ public class PopupControllerImpl implements PopupController {
 
     private static String ARTICLE_IMG_REPO = "D:\\Sun\\fileupload";
     private static final long COOKIE_EXPIRY_DAYS = 1; // 쿠키 만료 시간
+    private static final Logger logger = LoggerFactory.getLogger(PopupService.class);
+
 
     @Autowired
     PopupService popupService;
@@ -64,11 +69,22 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
-    @PostMapping("/main/searchPopupHasTag")
-    @ResponseBody
-    public List<PopupDTO> searchPopupHasTag(@RequestParam ("hash_tag") String hash_tag,
-                                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return popupService.searchPopupHasTag(hash_tag);
+    @PostMapping("main/searchPopupHasTag")
+    public ResponseEntity<Map<String, Object>> searchPopupHasTag(@RequestBody Map<String, String> request) {
+        String hashTag = request.get("hash_tag");
+        logger.info("Received search request with hash tag: {}", hashTag);
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            List<PopupDTO> popups = popupService.searchPopupHasTag(hashTag);
+            response.put("success", true);
+            response.put("popups", popups);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("error", e.getMessage());
+        }
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
