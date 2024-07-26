@@ -16,7 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 제출 버튼 비활성화 시 알림 함수
     function showAlertIfSubmitDisabled() {
         if (!isEmailValid && !isNicknameValid) {
-            alert('다시 수정 해주세요.');
+            Swal.fire({
+                icon: 'warning',
+                title: '다시 수정 해주세요.',
+                showConfirmButton: true
+            });
         }
     }
 
@@ -31,15 +35,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이메일 중복 확인
     function email_overlap_check() {
         let email = document.querySelector('input[name="email"]').value;
-        let origin_email  = document.querySelector('input[name="origin_email"]').value;
+        let origin_email = document.querySelector('input[name="origin_email"]').value;
         if (email === '') {
-            alert('이메일을 입력해주세요.');
+            Swal.fire({
+                icon: 'warning',
+                title: '이메일을 입력해주세요.',
+                showConfirmButton: true
+            });
             isEmailValid = false;
             emailChecked = false;
             updateSubmitButtonState();
             return;
         } else if (email === origin_email) {
-            alert('기존 이메일과 동일합니다.');
+            Swal.fire({
+                icon: 'info',
+                title: '기존 이메일과 동일합니다.',
+                showConfirmButton: true
+            });
             isEmailValid = true;
             emailChecked = true;
             updateSubmitButtonState();
@@ -51,17 +63,29 @@ document.addEventListener('DOMContentLoaded', function() {
             datatype: 'json',
             success: function(data) {
                 if (data) {
-                    alert("이미 존재하는 이메일 입니다.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '이미 존재하는 이메일 입니다.',
+                        showConfirmButton: true
+                    });
                     isEmailValid = false;
                 } else {
-                    alert("사용가능한 이메일 입니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '사용가능한 이메일 입니다.',
+                        showConfirmButton: true
+                    });
                     isEmailValid = true;
                 }
                 emailChecked = true;
                 updateSubmitButtonState();
             },
             error: function() {
-                alert("이메일 중복 확인 중 오류가 발생했습니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '이메일 중복 확인 중 오류가 발생했습니다.',
+                    showConfirmButton: true
+                });
                 isEmailValid = false;
                 emailChecked = false;
                 updateSubmitButtonState();
@@ -73,14 +97,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function user_nickname_overlap_check() {
         let nickname = document.querySelector('input[name="user_nickname"]').value;
         let origin_nickname  = document.querySelector('input[name="origin_nickname"]').value;
+
         if (nickname === '') {
-            alert('닉네임을 입력해주세요.');
+            Swal.fire({
+                icon: 'warning',
+                title: '닉네임을 입력해주세요.',
+                showConfirmButton: true
+            });
             isNicknameValid = false;
             nicknameChecked = false;
             updateSubmitButtonState();
             return;
-        } else if (nickname === origin_nickname) {
-            alert('기존 닉네임과 동일합니다.');
+        } else if (nickname === origin_nikname) {
+            Swal.fire({
+                icon: 'info',
+                title: '기존 닉네임과 동일합니다.',
+                showConfirmButton: true
+            });
+          
             isNicknameValid = true;
             nicknameChecked = true;
             updateSubmitButtonState();
@@ -92,17 +126,29 @@ document.addEventListener('DOMContentLoaded', function() {
             datatype: 'json',
             success: function(data) {
                 if (data) {
-                    alert("이미 존재하는 닉네임 입니다.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '이미 존재하는 닉네임 입니다.',
+                        showConfirmButton: true
+                    });
                     isNicknameValid = false;
                 } else {
-                    alert("사용가능한 닉네임 입니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '사용가능한 닉네임 입니다.',
+                        showConfirmButton: true
+                    });
                     isNicknameValid = true;
                 }
                 nicknameChecked = true;
                 updateSubmitButtonState();
             },
             error: function() {
-                alert("닉네임 중복 확인 중 오류가 발생했습니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '닉네임 중복 확인 중 오류가 발생했습니다.',
+                    showConfirmButton: true
+                });
                 isNicknameValid = false;
                 nicknameChecked = false;
                 updateSubmitButtonState();
@@ -119,7 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (frmMemberLogin) {
         frmMemberLogin.addEventListener('submit', function(e) {
             if ((!emailChecked && !nicknameChecked) || !isEmailValid && !isNicknameValid) {
-                alert('중복 확인 해주세요.');
+                Swal.fire({
+                    icon: 'error',
+                    title: '중복 확인 해주세요.',
+                    showConfirmButton: true
+                });
                 e.preventDefault();
             }
         });
@@ -139,11 +189,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function delete_check() {
-    if (confirm("정말 탈퇴하시겠습니까?") == true) {
-        alert("탈퇴되었습니다");
-        return true;
-    }
-    else {
-        return false;
-    }
+    Swal.fire({
+        title: '정말 탈퇴하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '예',
+        cancelButtonText: '아니오'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                icon: 'success',
+                title: '탈퇴되었습니다',
+                showConfirmButton: true
+            }).then(() => {
+                // 실제 탈퇴 처리를 진행
+                // e.g., location.href = '/path/to/delete';
+            });
+        }
+    });
 }

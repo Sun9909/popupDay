@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -205,51 +206,36 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
-    //다음 개수 조회 시 서비스 호출
-    //Long reviewCount = myService.getReviewCount(myDTO.getId());
-    //mav.addObject("reviewCount", reviewCount);
-    //찜목록 상세보기에 추가하기
-//    @Override
-//    @RequestMapping("/mypage/reviewCount.do")
-//    public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        myDTO=myService.getName(myDTO);
-//        Long likeListCount = myService.getLikeListCount(myDTO.getId()); // 리뷰 개수 조회
-//        ModelAndView mav = new ModelAndView();
-//        mav.addObject("likeListCount", likeListCount);
-//        return mav;
-//    }
+    @Override
+    @RequestMapping("/mypage/memberLike.do")
+    public ModelAndView memberLike(@RequestParam(value = "section", required = false) String _section,
+                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
+        int section = Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
 
-    //팝업리스트
-//    @Override
-//    @RequestMapping("/mypage/myPopup.do")
-//    public ModelAndView getPopup(@ModelAttribute("popupDTO") PopupDTO popupDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        HttpSession session=request.getSession();
-//
-//        //mypopupDTO=myService.getPopup(mypopupDTO);
-//        String user_id = request.getParameter("user_id");
-//        //List<mypopupDTO> myPopup = new ArrayList<mypopupDTO>(); //한개만 가져오는건 가능 map을 사용하던 list를 사용해서 여러개 가져오도록
-//        List<PopupDTO> myPopup = myService.getPopup(user_id);
-//
-//        Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
-//
-//        ModelAndView mav = new ModelAndView("/mypage/myPopup");
-//
-//        mav.addObject("myPopup", myPopup);
-//        mav.addObject("PopupCount", PopupCount);
-//        return mav;
-//    }
+        int id = Integer.parseInt(request.getParameter("id"));
 
-//    @Override
-//    public ModelAndView registrationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        HttpSession session = request.getSession();
-//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-//    }
+        Map<String, Integer> pagingMap = new HashMap<>();
 
-//    @Override
-//    public ModelAndView getPopupCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        Long PopupCount = myService.getReviewCount(mypopupDTO.getHash_tag_id());
-//        ModelAndView mav = new ModelAndView("/mypage/myPopup");
-//        mav.addObject("PopupCount", PopupCount);
-//        return mav;
-//    }
+        pagingMap.put("section", section); // 섹션
+        pagingMap.put("pageNum", pageNum); // 페이지 번호
+        pagingMap.put("id", id);
+        Map<String, Object> popupMap = myService.myPopupLike(pagingMap); // 서비스에서 팝업 목록 받아오기
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/mypage/memberLike"); // View 이름 설정
+        mav.addObject("popupLike", popupMap.get("popupLike")); // 팝업 정보 리스트를 View로 전달
+        mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        // 디버깅 로그 추가
+        System.out.println("popupLike: " + popupMap.get("popupLike"));
+        System.out.println("totPopup: " + popupMap.get("totPopup"));
+
+        return mav; // ModelAndView 반환
+    }
+
 }

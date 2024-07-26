@@ -53,10 +53,6 @@
                     curr_date.addClass("active-date");
                     show_events(events, months[month], day);
                 }
-                // If this date has any events, style it with .event-date
-                if(events.length!==0) {
-                    curr_date.addClass("event-date");
-                }
                 // Set onClick handler for clicking a date
                 curr_date.click({events: events, month: month+1, day:day, year: year}, date_click);
                 row.append(curr_date);
