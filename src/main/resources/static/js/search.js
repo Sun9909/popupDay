@@ -92,18 +92,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => {
-                        console.error('에러 발생:', error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: '에러 발생',
-                            text: error.message,
-                            showConfirmButton: true
-                        });
-                    });
             });
         });
-    }
+    })
 
     function displayPopups(popups) {
         const container = document.getElementById('popup-container');
@@ -134,4 +125,3 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(popupElement);
         });
     }
-});
