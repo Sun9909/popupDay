@@ -8,7 +8,7 @@
     <resultMap type="LoginDTO" id="LogResult">
         <result property="id" column="id"/>
         <result property="user_id" column="user_id"/>
-        <result property="user_nikname" column="user_nikname"/>
+        <result property="user_nickname" column="user_nickname"/>
         <result property="name" column="name"/>
         <result property="pwd" column="pwd"/>
         <result property="email" column="email"/>
@@ -27,13 +27,13 @@
 
     <insert id="insertLogin" parameterType="loginDTO">
         <![CDATA[
-        insert into user_tbl values(#{id}, #{user_id}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
+        insert into user_tbl values(#{id}, #{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
         ]]>
     </insert>
 
     <insert id="insertLogin2" parameterType="loginDTO">
         <![CDATA[
-        insert into user_tbl values(#{id}, #{user_id}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
+        insert into user_tbl values(#{id}, #{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
         ]]>
     </insert>
 
@@ -63,11 +63,11 @@
     </select>
 
     <!-- 닉네임 중복 확인 쿼리 -->
-    <select id="checkNikname" parameterType="String" resultType="boolean">
+    <select id="checknickname" parameterType="String" resultType="boolean">
         <![CDATA[
         select count(*) > 0
         from user_tbl
-        where user_nikname = #{user_nikname}
+        where user_nickname = #{user_nickname}
         ]]>
     </select>
 
@@ -80,8 +80,8 @@
 
     <!-- 카카오 REST API -->
     <insert id="kakaoInsert" parameterType="LoginDTO">
-        insert into user_tbl (id, user_id, user_nikname, name, pwd, email, reg_date, business_num, role, status)
-        values (#{id}, #{email}, #{user_nikname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '카카오', 'active')
+        insert into user_tbl (id, user_id, user_nickname, name, pwd, email, reg_date, business_num, role, status)
+        values (#{id}, #{email}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '카카오', 'active')
     </insert>
 
     <select id="isExistKakao" parameterType="LoginDTO" resultType="boolean">
@@ -89,7 +89,7 @@
     </select>
 
     <update id="kakaoUpdate" parameterType="LoginDTO">
-        update user_tbl set user_id=#{email}, user_nikname=#{user_nikname} where user_id=#{email}
+        update user_tbl set user_id=#{email}, user_nickname=#{user_nickname} where user_id=#{email}
     </update>
   
     <select id="getAccessToken" parameterType="String" resultType="String">

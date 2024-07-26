@@ -24,7 +24,7 @@ public interface LoginDAO {
     boolean checkEmail(String email) throws DataAccessException;
 
     // 닉네임 중복 확인
-    boolean checkNikname(String user_nikname) throws DataAccessException;
+    boolean checknickname(String user_nickname) throws DataAccessException;
 
     // 회원 탈퇴 확인
     public String getStatus(String user_id) throws DataAccessException;

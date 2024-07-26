@@ -3,6 +3,8 @@ package flower.popupday.popup.controller;
 import flower.popupday.popup.dto.PopupDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,8 +41,10 @@ public interface PopupController {
 
     public ModelAndView updatePopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
-    public List<PopupDTO> searchPopupHasTag(@RequestParam ("hash_tag") String hash_tag,
-                                            HttpServletRequest request, HttpServletResponse response) throws Exception;
+//    public List<PopupDTO> searchPopupHasTag(@RequestParam ("hash_tag") String hash_tag,
+//                                            HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ResponseEntity<Map<String, Object>> searchPopupHasTag(@RequestBody Map<String, String> request);
 
     //사업자가 보는 팝업 신청 상태 리스트
     public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)

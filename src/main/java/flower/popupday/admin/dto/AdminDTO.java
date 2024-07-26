@@ -8,7 +8,7 @@ import java.sql.Date;
 public class AdminDTO {
     private Long id; //회원번호
     private String user_id; //유저아이디
-    private String user_nikname; //유저닉네임
+    private String user_nickname; //유저닉네임
     private String name; //유저이름
     private String pwd; //유저비번
     private String email;   //유저 이메일
@@ -45,12 +45,12 @@ public class AdminDTO {
         this.user_id = user_id;
     }
 
-    public String getUser_nikname() {
-        return user_nikname;
+    public String getUser_nickname() {
+        return user_nickname;
     }
 
-    public void setUser_nikname(String user_nikname) {
-        this.user_nikname = user_nikname;
+    public void setUser_nickname(String user_nickname) {
+        this.user_nickname = user_nickname;
     }
 
     public String getName() {

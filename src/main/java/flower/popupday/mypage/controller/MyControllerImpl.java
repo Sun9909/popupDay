@@ -52,7 +52,7 @@ public class MyControllerImpl implements MyController {
         session.setAttribute("isLogOn", true);
 
         //값 잘 받아오는지 확인
-//        System.out.println(loginDTO.getUser_nikname());
+//        System.out.println(loginDTO.getUser_nickname());
 //        System.out.println(loginDTO.getRole());
 
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
@@ -81,8 +81,8 @@ public class MyControllerImpl implements MyController {
         //myDTO=myService.getName(myDTO);
         Long reviewCount = myService.getReviewCount(loginDTO.getId()); // 리뷰 개수 조회
 
-        String recommentCount = myService.getreCommentCount(loginDTO.getUser_nikname()); //리뷰댓글
-        String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nikname()); //팝업댓글
+        String recommentCount = myService.getreCommentCount(loginDTO.getUser_nickname()); //리뷰댓글
+        String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nickname()); //팝업댓글
 
         Long qnaCount = myService.getQnaCount(loginDTO.getId());
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
@@ -118,7 +118,7 @@ public class MyControllerImpl implements MyController {
 
         //loginDTO.setId(sessionLoginDTO.getId());  //세션에서 가져온 id를 설정하여 보안 유지
         //MyDTO myDTO = new MyDTO();
-        loginDTO.setUser_nikname(request.getParameter("user_nikname"));
+        loginDTO.setUser_nickname(request.getParameter("user_nickname"));
         loginDTO.setName(request.getParameter("name"));
         loginDTO.setEmail(request.getParameter("email"));
 
@@ -141,10 +141,10 @@ public class MyControllerImpl implements MyController {
 
     //닉네임 중복 확인
     @Override
-    @RequestMapping("/mypage/check-nikname")
+    @RequestMapping("/mypage/check-nickname")
     @ResponseBody
-    public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
-        return myService.checkNikname(user_nikname);
+    public boolean checknickname(@RequestParam("user_nickname") String user_nickname) {
+        return myService.checknickname(user_nickname);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class MyControllerImpl implements MyController {
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
 //        System.out.println(loginDTO.getUser_id());
-//        System.out.println(loginDTO.getUser_nikname());
+//        System.out.println(loginDTO.getUser_nickname());
 
         ModelAndView mav = new ModelAndView("/mypage/businessPage");
         mav.addObject("my", loginDTO);

@@ -20,8 +20,8 @@ public interface MyService {
 
     public Long getReviewCount(Long id) throws DataAccessException;
 
-    public String getreCommentCount(String user_nikname) throws DataAccessException;
-    public String getpopCommentCount(String user_nikname) throws DataAccessException;
+    public String getreCommentCount(String user_nickname) throws DataAccessException;
+    public String getpopCommentCount(String user_nickname) throws DataAccessException;
 
     public Long getQnaCount(Long id) throws DataAccessException;
 
@@ -35,7 +35,7 @@ public interface MyService {
     boolean checkEmail(String email);
 
     //닉네임 중복 체크
-    boolean checkNikname(String user_nikname);
+    boolean checknickname(String user_nickname);
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 

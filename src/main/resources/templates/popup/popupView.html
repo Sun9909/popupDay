@@ -37,7 +37,7 @@
                     <div class="popupdetail-title-infor">
                         <div class="popup-title">
                             <div>
-                                <input type="text" th:value="${popupMap.popupList.user_nikname}" disabled>
+                                <input type="text" th:value="${popupMap.popupList.user_nickname}" disabled>
                                 <input class="tit" type="text" th:name="title" th:value="${popupMap.popupList.title}" disabled>
                             </div>
                             <button id="heart-icon" th:data-login-check="${loginCheck}">
@@ -46,7 +46,7 @@
                                      th:data-popup-id="${popupMap.popupList.popup_id}" alt="찜">
                             </button>
                         </div>
-<!--                        <img id="heart-image" class="heart" th:data-popup-id="${popupMap.popupList.popup_id}" th:src="@{/images/heart_empty.svg}" alt="찜">-->
+                        <!--                        <img id="heart-image" class="heart" th:data-popup-id="${popupMap.popupList.popup_id}" th:src="@{/images/heart_empty.svg}" alt="찜">-->
                         <div class="date">
                             <img th:src="@{/images/date.svg}" alt="달력">
                             <p th:text="${popupMap.popupList.start_date} + ' ~ ' + ${popupMap.popupList.end_date}"></p>

@@ -37,7 +37,7 @@ public class AdminControllerImpl implements AdminController {
         //세션에서 loginDTO 가져오기
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-        System.out.println(loginDTO.getUser_nikname());
+        System.out.println(loginDTO.getUser_nickname());
 
 //        session.setAttribute("admin", loginDTO);
 //        session.setAttribute("isLogOn", true);

@@ -228,10 +228,10 @@ public class LoginControllerImpl implements LoginController {
 
     // 닉네임 중복 확인
     @Override
-    @GetMapping("/check-nikname")
+    @GetMapping("/check-nickname")
     @ResponseBody
-    public boolean checkNikname(@RequestParam("user_nikname") String user_nikname) {
-        return loginService.checkNikname(user_nikname); // 닉네임 중복 확인 서비스 호출
+    public boolean checknickname(@RequestParam("user_nickname") String user_nickname) {
+        return loginService.checknickname(user_nickname); // 닉네임 중복 확인 서비스 호출
     }
 
     //회원 탈퇴 확인

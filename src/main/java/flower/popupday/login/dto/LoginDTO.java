@@ -8,7 +8,7 @@ public class LoginDTO {
 
     private Long id;
     private String user_id;
-    private String user_nikname;
+    private String user_nickname;
     private String name;
     private String pwd;
     private String email;
@@ -56,12 +56,12 @@ public class LoginDTO {
         this.user_id = user_id;
     }
 
-    public String getUser_nikname() {
-        return user_nikname;
+    public String getUser_nickname() {
+        return user_nickname;
     }
 
-    public void setUser_nikname(String user_nikname) {
-        this.user_nikname = user_nikname;
+    public void setUser_nickname(String user_nickname) {
+        this.user_nickname = user_nickname;
     }
 
     public String getName() {

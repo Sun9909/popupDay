@@ -54,15 +54,28 @@ function submitForm() {
 document.addEventListener('DOMContentLoaded', function() {
     const hashTags = document.querySelectorAll('.hash_tag');
 
-    // 요소가 없는 경우 경고를 표시하지 않습니다.
-    if (hashTags.length > 0) {
-        hashTags.forEach(tag => {
-            tag.addEventListener('click', function() {
-                const hash_tag = this.getAttribute('data-tag');
-                fetch(`/main/searchPopupHasTag?hash_tag=${hash_tag}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
+    if (hashTags.length === 0) {
+        console.error('클래스 "hash_tag"를 가진 요소를 찾을 수 없습니다.');
+        return;
+    }
+
+    hashTags.forEach(tag => {
+        tag.addEventListener('click', function () {
+            const hash_tag = this.getAttribute('data-tag');
+            fetch('/main/searchPopupHasTag', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ hash_tag: hash_tag })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('서버 응답:', data);
+                    if (data.success) {
+                        displayPopups(data.popups);
+                    } else {
+                        alert('팝업을 조회하는 데 실패했습니다.');
                     }
                 })
                     .then(response => response.json())
@@ -108,10 +121,16 @@ document.addEventListener('DOMContentLoaded', function() {
         popups.forEach(popup => {
             const popupElement = document.createElement('div');
             popupElement.classList.add('popup-item');
+            const imageUrl = `/popupDownload.do?popup_id=${popup.popup_id}&image_file_name=${popup.image_file_name}`;
+            console.log('Generated Image URL:', imageUrl); // URL 확인
+
             popupElement.innerHTML = `
-                <img src="${popup.image_file_name}" alt="팝업 이미지" class="popup-image">
-                <p>${popup.title}</p>
-            `;
+            <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
+            <p>${popup.title}</p>
+            <p>${popup.start_date} ~ ${popup.end_date}</p>
+            <p>${popup.address}</p>
+            <p hidden="hidden">${popup.popup_id}</p>
+        `;
             container.appendChild(popupElement);
         });
     }

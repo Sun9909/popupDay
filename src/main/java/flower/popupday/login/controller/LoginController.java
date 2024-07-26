@@ -66,7 +66,7 @@ public interface LoginController {
     boolean checkEmail(String email);
 
     // 닉네임 중복 확인
-    boolean checkNikname(String user_nikname);
+    boolean checknickname(String user_nickname);
 
     // 아이디 탈퇴 확인
     boolean dropCheck(String user_id);

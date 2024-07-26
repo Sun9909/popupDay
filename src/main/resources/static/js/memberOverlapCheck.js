@@ -139,8 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSubmitButtonState();
     }
 
-    function user_nikname_overlap_check() {
-        let nickname = document.querySelector('input[name="user_nikname"]').value;
+    function user_nickname_overlap_check() {
+        let nickname = document.querySelector('input[name="user_nickname"]').value;
         if (nickname === '') {
             Swal.fire({
                 icon: 'warning',
@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         $.ajax({
-            url: "/login/check-nikname",
-            data: { 'user_nikname': nickname },
+            url: "/login/check-nickname",
+            data: { 'user_nickname': nickname },
             datatype: 'json',
             success: function(data) {
                 if (data) {
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addEventListenerIfExists('.email_overlap_button', 'click', email_overlap_check);
     addEventListenerIfExists('.id_overlap_button', 'click', id_overlap_check);
     addEventListenerIfExists('.pwd_overlap_button', 'click', checkPasswordMatch);
-    addEventListenerIfExists('.user_nikname_overlap_button', 'click', user_nikname_overlap_check);
+    addEventListenerIfExists('.user_nickname_overlap_button', 'click', user_nickname_overlap_check);
     addEventListenerIfExists('#corp_button', 'click', corp_chk);
 
     const frmBusinessLogin = document.querySelector('form[name="frmBusinessLogin"]');
