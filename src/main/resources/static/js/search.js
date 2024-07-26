@@ -50,7 +50,6 @@ function submitForm() {
     return false;  // 폼이 계속 제출되지 않도록 false를 반환
 }
 
-// 해시태그 처리
 document.addEventListener('DOMContentLoaded', function() {
     const hashTags = document.querySelectorAll('.hash_tag');
 
@@ -59,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    // 해시태그 클릭 이벤트 핸들러
     hashTags.forEach(tag => {
         tag.addEventListener('click', function () {
             const hash_tag = this.getAttribute('data-tag');
@@ -78,23 +78,23 @@ document.addEventListener('DOMContentLoaded', function() {
                         alert('팝업을 조회하는 데 실패했습니다.');
                     }
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('서버 응답:', data);
-                        if (data.success) {
-                            displayPopups(data.popups);
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: '팝업 조회 실패',
-                                text: '팝업을 조회하는 데 실패했습니다.',
-                                showConfirmButton: true
-                            });
-                        }
-                    })
-            });
+                .catch(error => {
+                    console.error('에러 발생:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '에러 발생',
+                        text: error.message,
+                        showConfirmButton: true
+                    });
+                });
         });
-    })
+    });
+
+    // 페이지 로드 시 가장 인기 있는 해시태그 클릭
+    if (hashTags.length > 0) {
+        // 가장 첫 번째 해시태그 클릭 이벤트 트리거
+        hashTags[0].click();
+    }
 
     function displayPopups(popups) {
         const container = document.getElementById('popup-container');
@@ -116,12 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Generated Image URL:', imageUrl); // URL 확인
 
             popupElement.innerHTML = `
-            <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
-            <p>${popup.title}</p>
-            <p>${popup.start_date} ~ ${popup.end_date}</p>
-            <p>${popup.address}</p>
-            <p hidden="hidden">${popup.popup_id}</p>
-        `;
+                <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
+                <p>${popup.title}</p>
+                <p>${popup.start_date} ~ ${popup.end_date}</p>
+                <p>${popup.address}</p>
+                <p hidden="hidden">${popup.popup_id}</p>
+            `;
             container.appendChild(popupElement);
         });
     }
+});

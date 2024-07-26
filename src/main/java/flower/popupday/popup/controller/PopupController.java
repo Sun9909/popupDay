@@ -41,9 +41,6 @@ public interface PopupController {
 
     public ModelAndView updatePopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
-//    public List<PopupDTO> searchPopupHasTag(@RequestParam ("hash_tag") String hash_tag,
-//                                            HttpServletRequest request, HttpServletResponse response) throws Exception;
-
     public ResponseEntity<Map<String, Object>> searchPopupHasTag(@RequestBody Map<String, String> request);
 
     //사업자가 보는 팝업 신청 상태 리스트

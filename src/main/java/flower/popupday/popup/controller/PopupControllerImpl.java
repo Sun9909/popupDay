@@ -35,36 +35,26 @@ public class PopupControllerImpl implements PopupController {
 
     @Override
     @GetMapping("/main.do")
-    public  ModelAndView mainView(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView mainView(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
-        Map <String, Object> mainMap = popupService.mainView();
-        mav.addObject("mainMap",mainMap);
+        Map<String, Object> mainMap = popupService.mainView();
+        mav.addObject("mainMap", mainMap);
         mav.setViewName("main");
-        if (mainMap != null) {
-            // mainMap의 키 확인
-            System.out.println("mainMap의 키: " + mainMap.keySet());
 
+        // mainMap이 null이 아닌 경우에만 추가 처리
+        if (mainMap != null) {
             Object bestPopupListObj = mainMap.get("bestPopupList");
             if (bestPopupListObj instanceof List<?>) {
                 List<?> bestPopupList = (List<?>) bestPopupListObj;
                 bestPopupList.forEach(popup -> {
                     if (popup instanceof PopupDTO) {
                         PopupDTO popupDTO = (PopupDTO) popup;
-                        // PopupDTO의 썸네일 경로 확인
-                        System.out.println("Popup 썸네일: " + popupDTO.getThumbnail());
-                    } else {
-                        // 예기치 않은 타입의 객체가 bestPopupList에 있는 경우
-                        System.out.println("bestPopupList의 예기치 않은 타입: " + popup.getClass().getName());
+                        // 로그 출력용
                     }
                 });
-            } else {
-                // bestPopupList가 리스트가 아닌 경우
-                System.out.println("bestPopupList는 리스트가 아닙니다: " + bestPopupListObj.getClass().getName());
             }
-        } else {
-            // mainMap이 null인 경우
-            System.out.println("mainMap이 null입니다");
         }
+
         return mav;
     }
 
@@ -166,17 +156,14 @@ public class PopupControllerImpl implements PopupController {
     public ModelAndView addPopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
             throws Exception {
         multipartRequest.setCharacterEncoding("utf-8");
-        // HTTP 요청에서 파라미터들을 Map으로 변환
         Map<String, Object> popupMap = new HashMap<>();
         Enumeration enu = multipartRequest.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
             String[] value = multipartRequest.getParameterValues(name);
-            if (value.length == 1) {
-                // 단일 값인 경우
+            if (value.length == 1) { // 단일값
                 popupMap.put(name, value[0]);
             } else {
-                // 다중 값인 경우 (해시태그)
                 List<String> valueList = Arrays.asList(value);
                 popupMap.put(name, valueList);
             }
@@ -231,7 +218,6 @@ public class PopupControllerImpl implements PopupController {
             e.printStackTrace();
         }
         return new ModelAndView("redirect:/popup/popupAllList.do");
-//        return new ModelAndView("redirect:/admin/register.do");
     }
 
     // 여러 개의 이미지 파일 업로드
@@ -425,18 +411,13 @@ public class PopupControllerImpl implements PopupController {
         int id = Integer.parseInt(request.getParameter("id"));
 
         Map<String, Integer> pagingMap = new HashMap<>();
-
-        pagingMap.put("section", section); // 섹션
-        pagingMap.put("pageNum", pageNum); // 페이지 번호
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
         pagingMap.put("id", id);
-        Map bsPopupList = popupService.bsPopupList(pagingMap); // 서비스에서 팝업 목록 받아오기
-        //bsPopupList.put("section",section);
-        //bsPopupList.put("pageNum", pageNum);
+        Map bsPopupList = popupService.bsPopupList(pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/mypage/registration"); // View 이름 설정
-//        mav.addObject("popupInfoList", bsPopupList.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
-//        mav.addObject("totPopup", bsPopupList.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.setViewName("/mypage/registration");
         mav.addObject("bsPopupList", bsPopupList);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
@@ -452,26 +433,20 @@ public class PopupControllerImpl implements PopupController {
         response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-
         int id = Integer.parseInt(request.getParameter("id"));
 
         Map<String, Integer> pagingMap = new HashMap<>();
-
-        pagingMap.put("section", section); // 섹션
-        pagingMap.put("pageNum", pageNum); // 페이지 번호
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
         pagingMap.put("id", id);
-        Map<String, Object> popupMap = popupService.myPopupList(pagingMap); // 서비스에서 팝업 목록 받아오기
+        Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/mypage/myPopup"); // View 이름 설정
-        mav.addObject("popupInfoList", popupMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
-        mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
+        mav.addObject("totPopup", popupMap.get("totPopup"));
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
-
-        // 디버깅 로그 추가
-        System.out.println("popupInfoList: " + popupMap.get("popupInfoList"));
-        System.out.println("totPopup: " + popupMap.get("totPopup"));
 
         return mav; // ModelAndView 반환
     }
