@@ -181,7 +181,6 @@ cursor: pointer; 포인터 커서로 변경
 }
 
 .popupdetail-review {
-    border-bottom: 1px #ccc solid;
     padding: 15px;
 }
 .popupdetail-business {
@@ -196,7 +195,7 @@ cursor: pointer; 포인터 커서로 변경
 }
 
 .containers {
-    min-height: 2000px;
+    height: 100%;
 }
 
 .hits {
