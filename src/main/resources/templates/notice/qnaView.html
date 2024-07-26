@@ -10,18 +10,6 @@
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>QNA상세페이지, 답글</title>
-
-    <script>
-        function toggleAnswerQna() {
-            var answerQnaDiv = document.getElementById('answer_qna_div');
-            if (answerQnaDiv.style.display === 'none') {
-                answerQnaDiv.style.display = 'block'; // 보이기
-            } else {
-                answerQnaDiv.style.display = 'none';  // 숨기기
-            }
-        }
-    </script>
-
 </head>
 <body>
 <th:block layout:fragment="content">
