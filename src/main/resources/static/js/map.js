@@ -1,3 +1,5 @@
+//팝업 폼 제출 시 주소 검색 map js
+
 // 지도를 생성합니다
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 요소를 가져옵니다.
     mapOption = {

@@ -4,7 +4,7 @@ $(document).ready(function(){
 
         if(submenu.is(":visible")) {
             submenu.slideUp();
-        }else{
+        } else {
             submenu.slideDown();
         }
     });
@@ -16,7 +16,7 @@ $(function(){
     });
 });
 
-//검색부분
+// 검색 부분
 function searchHashTags() {
     var query = document.getElementById("searchInput").value;
     fetch(`/search?query=${query}`)
@@ -30,10 +30,18 @@ function searchHashTags() {
                 resultsDiv.appendChild(tagElement);
             });
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: '검색 중 오류가 발생했습니다.',
+                text: error.message,
+                showConfirmButton: true
+            });
+        });
 }
 
-//search타입이 hashtag인지 word인지 구분하는 js
+// search 타입이 hashtag인지 word인지 구분하는 js
 function submitForm() {
     var searchInput = document.getElementById('searchInput1').value;
     var searchType = searchInput.startsWith('#') ? 'hashtag' : 'word';
@@ -42,13 +50,17 @@ function submitForm() {
     return false;  // 폼이 계속 제출되지 않도록 false를 반환
 }
 
-
-// 해시해시해시해시태그
+// 해시태그 처리
 document.addEventListener('DOMContentLoaded', function () {
     const hashTags = document.querySelectorAll('.hash_tag');
 
     if (hashTags.length === 0) {
-        console.error('클래스 "hash_tag"를 가진 요소를 찾을 수 없습니다.');
+        Swal.fire({
+            icon: 'error',
+            title: '요소를 찾을 수 없습니다.',
+            text: '클래스 "hash_tag"를 가진 요소를 찾을 수 없습니다.',
+            showConfirmButton: true
+        });
         return;
     }
 
@@ -67,11 +79,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.success) {
                         displayPopups(data.popups);
                     } else {
-                        alert('팝업을 조회하는 데 실패했습니다.');
+                        Swal.fire({
+                            icon: 'error',
+                            title: '팝업 조회 실패',
+                            text: '팝업을 조회하는 데 실패했습니다.',
+                            showConfirmButton: true
+                        });
                     }
                 })
                 .catch(error => {
                     console.error('에러 발생:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '에러 발생',
+                        text: error.message,
+                        showConfirmButton: true
+                    });
                 });
         });
     });
@@ -79,7 +102,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayPopups(popups) {
         const container = document.getElementById('popup-container');
         if (!container) {
-            console.error('아이디 "popup-container"를 가진 요소를 찾을 수 없습니다.');
+            Swal.fire({
+                icon: 'error',
+                title: '요소를 찾을 수 없습니다.',
+                text: '아이디 "popup-container"를 가진 요소를 찾을 수 없습니다.',
+                showConfirmButton: true
+            });
             return;
         }
         container.innerHTML = '';

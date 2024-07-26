@@ -1,3 +1,5 @@
+//popupView에서 address로 맵 받아오는 js
+
 document.addEventListener("DOMContentLoaded", function() {
     var address = document.getElementById('address').value;
 
