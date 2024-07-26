@@ -91,7 +91,7 @@ public class PopupControllerImpl implements PopupController {
         pagingMap.put("pageNum", pageNum);
         Map<String, Object> popupMap = popupService.popupAllList(pagingMap);
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/popup/popupAllList"); // View 이름 설정
+        mav.setViewName("popup/popupAllList"); // View 이름 설정
         mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
         mav.addObject("totPopup", popupMap.get("totPopup"));
         mav.addObject("section", section);
@@ -113,7 +113,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupListMap = popupService.registerList(pagingMap); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/admin/register"); // View 이름 설정
+        mav.setViewName("admin/register"); // View 이름 설정
         mav.addObject("popupInfoList", popupListMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
         mav.addObject("totPopup", popupListMap.get("totPopup")); // 전체 팝업 수를 View로 전달
         mav.addObject("section", section);
@@ -128,7 +128,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.register(popup_id);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/admin/registerForm");
+        mav.setViewName("admin/registerForm");
         mav.addObject("popupMap", popupMap);
         // 팝업 상세 조회
         return mav;
@@ -147,7 +147,7 @@ public class PopupControllerImpl implements PopupController {
     @GetMapping("/popup/popupForm.do")
     public ModelAndView popupForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/popup/popupForm");
+        mav.setViewName("popup/popupForm");
         return mav;
     }
 
@@ -288,7 +288,7 @@ public class PopupControllerImpl implements PopupController {
         // 팝업 상세 조회
         Map<String, Object> popupMap = popupService.popupView(popup_id, id);
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/popup/popupView");
+        mav.setViewName("popup/popupView");
         mav.addObject("popupMap", popupMap);
         mav.addObject("loginCheck", loginCheck);
         mav.addObject("id", id);
@@ -417,7 +417,7 @@ public class PopupControllerImpl implements PopupController {
         Map bsPopupList = popupService.bsPopupList(pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/mypage/registration");
+        mav.setViewName("mypage/registration");
         mav.addObject("bsPopupList", bsPopupList);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
@@ -442,7 +442,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/mypage/myPopup"); // View 이름 설정
+        mav.setViewName("mypage/myPopup"); // View 이름 설정
         mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
         mav.addObject("totPopup", popupMap.get("totPopup"));
         mav.addObject("section", section);
