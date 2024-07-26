@@ -72,6 +72,7 @@ cursor: pointer; 포인터 커서로 변경
 }
 
 .popup-title > div {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -211,6 +212,7 @@ cursor: pointer; 포인터 커서로 변경
 }
 
 .popupdetail  input {
+    margin-top: 5px;
     background-color: unset;
     border: none;
     font-size: 15px;
@@ -265,7 +267,6 @@ cursor: pointer; 포인터 커서로 변경
 }
 
 .w-100 {
-    object-fit: contain;
     width: 97% !important;
     margin: 0 auto;
 }
@@ -284,4 +285,19 @@ cursor: pointer; 포인터 커서로 변경
 
 .popupdetail h3 {
     font-size: 20px;
+}
+
+.popupdetail-info-inner > textarea {
+    resize: none;
+    overflow-y: hidden;
+}
+
+#myTextarea {
+    padding: 10px;
+    color: black;
+    background: unset;
+    width: 100%;
+}
+.option button {
+    border: 1px solid #ccc;
 }
