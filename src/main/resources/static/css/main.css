@@ -118,7 +118,6 @@ section{
 
 
 .carousel-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* 이미지가 비율을 유지하며 컨테이너를 채우도록 설정 */
+    height: 360px;
+    object-fit: contain;
 }
