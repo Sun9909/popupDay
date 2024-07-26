@@ -60,17 +60,17 @@ public class MyControllerImpl implements MyController {
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
             //System.out.println(loginDTO.getRole());
-            mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
+            mav.setViewName("redirect:mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
         }
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
             //System.out.println(loginDTO.getRole());
             mav.setViewName("redirect:/mypage/businessPage.do");
         }
         else if (loginDTO.getRole() == LoginDTO.Role.관리자) {
-            mav.setViewName("redirect:/admin/admin.do");
+            mav.setViewName("redirect:admin/admin.do");
         }
         else {
-            mav.setViewName("redirect:/login/loginForm"); // 로그인 폼으로 유도
+            mav.setViewName("redirect:login/loginForm"); // 로그인 폼으로 유도
         }
         return mav;
     }
@@ -89,7 +89,7 @@ public class MyControllerImpl implements MyController {
         Long qnaCount = myService.getQnaCount(loginDTO.getId());
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
-        ModelAndView mav = new ModelAndView("/mypage/memberPage");
+        ModelAndView mav = new ModelAndView("mypage/memberPage");
         mav.addObject("my", loginDTO);
         mav.addObject("reviewCount", reviewCount);
         //mav.addObject("recommentCount", recommentCount);
@@ -106,7 +106,7 @@ public class MyControllerImpl implements MyController {
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
 
         MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
-        ModelAndView mav = new ModelAndView("/modify/loginModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
+        ModelAndView mav = new ModelAndView("modify/loginModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
         mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
         return mav;
     }
@@ -156,7 +156,7 @@ public class MyControllerImpl implements MyController {
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
 
         MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
-        ModelAndView mav = new ModelAndView("/modify/passwordModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
+        ModelAndView mav = new ModelAndView("modify/passwordModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
         mav.addObject("myInfo", myDTO); //myDTO객체를 myInfo라는 이름으로 ModelAndView 객체에 추가. 이 데이터가 뷰에서 사용됨. 바인딩?
         return mav;
     }
@@ -200,7 +200,7 @@ public class MyControllerImpl implements MyController {
 
         Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
 
-        ModelAndView mav = new ModelAndView("/mypage/businessPage");
+        ModelAndView mav = new ModelAndView("mypage/businessPage");
         mav.addObject("my", loginDTO);
 
         mav.addObject("popupCount", PopupCount);
@@ -229,7 +229,7 @@ public class MyControllerImpl implements MyController {
         Map<String, Object> popupMap = myService.myPopupLike(pagingMap); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/mypage/memberLike"); // View 이름 설정
+        mav.setViewName("mypage/memberLike"); // View 이름 설정
         mav.addObject("popupLike", popupMap.get("popupLike")); // 팝업 정보 리스트를 View로 전달
         mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
         mav.addObject("section", section);
