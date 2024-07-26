@@ -37,8 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
     fileInput.addEventListener('change', function() {
         var selectedFiles = Array.from(fileInput.files);
 
-        if (selectedFiles.length === 0) {
-            // 파일이 선택되지 않은 경우, 기존 리스트를 유지
+        // 현재 파일 수와 추가하려는 파일 수를 합한 총 개수
+        var totalFiles = currentFiles.length + selectedFiles.length;
+
+        if (totalFiles > 6) {
+            alert('파일은 최대 6개까지 선택할 수 있습니다.');
             return;
         }
 
@@ -97,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 파일 개수 업데이트
     function updateFileCount() {
         var fileCount = currentFiles.length;
-        fileCountElem.textContent = fileCount === 0 ? '0개' : fileCount + '개';
+        var maxFiles = 6;
+        fileCountElem.textContent = `${fileCount}/${maxFiles}`;
     }
 
     // 파일 리스트 초기화 버튼 클릭 이벤트
@@ -108,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateFileCount(); // 파일 개수 초기화
     });
 });
+
 
 // 해시태그 추가
 let hash_count=1; //초기값 지정

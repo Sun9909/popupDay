@@ -29,7 +29,7 @@ public class SearchControllerImpl implements SearchController {
             results = searchService.searchPopupsByWord(query);
         }
         model.addAttribute("searchResults", results);
-        return new ModelAndView("/popup/searchList");
+        return new ModelAndView("popup/searchList");
     }
 
     @RequestMapping("/searchPopups")
@@ -42,6 +42,6 @@ public class SearchControllerImpl implements SearchController {
 
         List<PopupDTO> searchResults = searchService.searchPopupsByDate(selectedDate);
         model.addAttribute("searchResults", searchResults);
-        return "/popup/searchList";
+        return "popup/searchList";
     }
 }

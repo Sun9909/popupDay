@@ -13,8 +13,6 @@ import java.util.Map;
 @Mapper
 public interface PopupDAO {
 
-    public List<Map<String, Object>> selectAllPopup() throws DataAccessException;
-
     public List selectAllPopup(@Param("count") int count) throws DataAccessException;
 
     //admin
