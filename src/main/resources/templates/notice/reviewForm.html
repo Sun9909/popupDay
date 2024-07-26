@@ -43,8 +43,8 @@
             <div class="review-content write-review active">
                 <div class="myreview" id="write-review">
                     <form action="/notice/addReview.do" method="post" enctype="multipart/form-data">
-                        <input name="user_id" th:value="${session.loginDTO.user_id}" readonly><!-- 아이디값 보이기 -->
-                        <input name="id" th:value="${session.loginDTO.id}" type="hidden"><!-- 회원고유번호 전송 -->
+                        <input name="user_id" th:value="${session.loginDTO.user_id}" readonly>
+                        <input name="id" th:value="${session.loginDTO.id}" type="hidden">
                         <input name="review_title" placeholder="후기 제목을 입력해주세요">
                         <textarea placeholder="후기를 작성해주세요" rows="15" cols="200" name="review_content"></textarea>
                         <input type="button" name="image_file_name" value="이미지 추가" onclick="fn_addFile()">
