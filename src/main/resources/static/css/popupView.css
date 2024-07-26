@@ -136,12 +136,14 @@ cursor: pointer; 포인터 커서로 변경
 .popupdetail-icon-area {
     display: flex;
     padding: 20px;
-    justify-content: space-evenly;
+    justify-content: space-around;
     border-bottom: 1px #ccc solid;
     text-align: center;
+    align-items: center;
 }
 .popupdetail-icon-area img {
     width: 80px;
+    margin-top: 10px;
 }
 /* 운영시간 */
 .popupdetail-time {
@@ -213,7 +215,7 @@ cursor: pointer; 포인터 커서로 변경
 .popupdetail  input {
     background-color: unset;
     border: none;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .option input {
@@ -262,4 +264,26 @@ cursor: pointer; 포인터 커서로 변경
 
 .popupdetail-title-infor {
     position: relative;
+}
+
+.w-100 {
+    object-fit: contain;
+    width: 97% !important;
+    margin: 0 auto;
+}
+
+.ticket p, .parking p{
+    margin: 0;
+}
+
+.ticket {
+    height: 70px;
+}
+
+.map-area >input {
+    width: 100%;
+}
+
+.popupdetail h3 {
+    font-size: 20px;
 }

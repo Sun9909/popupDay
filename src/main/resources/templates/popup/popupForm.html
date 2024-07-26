@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>팝업 등록</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/popupAllList.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -144,6 +145,7 @@
         script.async = true; // 또는 script.defer = true;
         document.head.appendChild(script);
     </script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
 </html>
