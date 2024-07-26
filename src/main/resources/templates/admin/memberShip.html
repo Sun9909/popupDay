@@ -31,6 +31,7 @@
         <div class="containers">
             <!-- 회원 관리 -->
             <h2>회원 관리</h2>
+            <p class="popCount" th:text="'전체 ' + ${totmember} + '개'"></p>
 
             <!-- db 회원 게시판 가져오기 -->
             <table>
@@ -61,6 +62,37 @@
 
             </table>
         </div>
+
+        <div class="number" th:if="${memberMap.totmember > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
+            <div align="center" th:if="${memberMap.totmember > 100}">
+                <span th:each="num : ${#numbers.sequence(1, (memberMap.section > memberMap.totmember / 100 ? (memberMap.totmember % 100) / 10 + 1 : 10))}">
+                    <span th:if="${memberMap.section > 1 and num == 1}">
+                        <a th:href="@{/admin/memberShip.do(section=${memberMap.section - 1}, pageNum=${(memberMap.section - 2) * 10 + 1})}">prev</a>
+                    </span>
+                    <span th:if="${num == (memberMap.pageNum % 10 == 0 ? 10 : memberMap.pageNum % 10)}">
+                        <a class="target" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${(memberMap.section - 1) * 10 + num})}" th:text="${(memberMap.section - 1) * 10 + num}"></a>
+                    </span>
+                    <span th:unless="${num == (memberMap.pageNum % 10 == 0 ? 10 : memberMap.pageNum % 10)}">
+                        <a class="noLine" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${(memberMap.section - 1) * 10 + num})}" th:text="${(memberMap.section - 1) * 10 + num}"></a>
+                    </span>
+                    <span th:if="${num == 10}">
+                        <a th:href="@{/admin/memberShip.do(section=${memberMap.section + 1}, pageNum=1)}">next</a>
+                    </span>
+                </span>
+            </div>
+
+            <div class="number" th:if="${memberMap.totmember <= 100}">
+                <span th:each="num : ${#numbers.sequence(1, (memberMap.totmember > 10 ? memberMap.totmember / 10 + 1 : 1))}">
+                    <span th:if="${num == memberMap.pageNum}">
+                        <a class="page-target" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                    </span>
+                    <span th:unless="${num == memberMap.pageNum}">
+                        <a class="page-noLine" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                    </span>
+                </span>
+            </div>
+        </div>
+
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
