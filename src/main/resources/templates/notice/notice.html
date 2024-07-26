@@ -63,21 +63,16 @@
                     </tr>
                     </tbody>
                 </table>
-
+                <div class="notice-btn" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
+                    <!-- 사용자가 관리자일 때만 버튼을 표시합니다. -->
+                    <a th:href="@{/notice/noticeForm.do}">공지사항 작성하기</a>
+                </div>
             </div>
-        </div>
-
-       <!-- <div th:if="${session.loginDTO != null and session.loginDTO.getUser_id() == 'admin' and session.loginDTO.getPwd() == '1234' }">
-            <a class="wirte" th:href="|javascript:fn_noticeForm(${session.isLogOn}, '/notice/noticeForm.do', '/login/loginForm.do')|">글쓰기</a>
-        </div>-->
-        <div class="notice-btn">
-            <!-- 사용자가 관리자일 때만 버튼을 표시합니다. -->
-            <a th:if="${session.loginDTO != null and session.loginDTO.role == '관리자'}" th:href="@{/notice/noticeForm.do}">Notice 작성하기</a>
         </div>
 
         <div class="number" th:if="${noticeMap.totNotice > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
 
-            <div lign="center" th:if="${noticeMap.totNotice > 100}">
+            <div align="center" th:if="${noticeMap.totNotice > 100}">
                 <span th:each="num : ${#numbers.sequence(1, (noticeMap.section > noticeMap.totNotice / 100 ? (noticeMap.totNotice % 100) / 10 + 1 : 10))}">
                     <span th:if="${noticeMap.section > 1 and num == 1}">
                         <a th:href="@{/notice/noticeList.do(section=${noticeMap.section - 1}, pageNum=${(noticeMap.section - 2) * 10 + 1})}">prev</a>

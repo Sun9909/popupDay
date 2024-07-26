@@ -175,10 +175,9 @@
 
 /* 사용자 정의 버튼 스타일 */
 .custom-button {
-    margin-top: 10px;
     cursor: pointer;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 15px;
+    background-color: #ccc;
     color: white;
     border: none;
     border-radius: 4px;
@@ -186,14 +185,11 @@
 
 /* 파일 리스트 표시 영역 */
 .file-display {
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
+    padding: 5px;
 }
 
 /* 버튼 스타일 */
 #resetButton {
-    margin-top: 10px;
     cursor: pointer;
     padding: 10px;
     background-color: #ff4d4d;
@@ -204,24 +200,28 @@
 
 /* 파일 미리보기 이미지 스타일 */
 .file-preview {
-    max-width: 100px;
-    max-height: 100px;
+    width: 80px;
+    height: 80px;
     margin-right: 10px;
     display: inline-block;
     vertical-align: middle;
 }
 
 .images-form {
+    margin-top: 10px;
     gap: 10px;
     display: flex;
     align-items: center;
 }
 
 .remove-file {
+    cursor: pointer;
     border: none;
     background: unset;
-    position: relative;
-    width: 20px;
+    position: absolute;
+    top: -12px;
+    right: 1px;
+    width: 16px;
     height: 20px;
 }
 
@@ -230,4 +230,25 @@
     top: 4px;
     position: absolute;
     text-align: center;
+    color: red;
+    font-size: 20px;
 }
+
+#fileCount {
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 25px;
+}
+.custom-button > img {
+    height: 40px;
+}
+
+.img-btns {
+    position: relative;
+}
+
+.file-item {
+    position: relative;
+}
+

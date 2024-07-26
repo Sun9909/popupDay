@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 파일 개수 업데이트
     function updateFileCount() {
         var fileCount = currentFiles.length;
-        fileCountElem.textContent = fileCount === 0 ? '선택된 파일 없음' : fileCount + '개';
+        fileCountElem.textContent = fileCount === 0 ? '0개' : fileCount + '개';
     }
 
     // 파일 리스트 초기화 버튼 클릭 이벤트

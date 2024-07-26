@@ -127,6 +127,10 @@
     border-bottom: none; /* 마지막*/
 }
 
+#id_imgFiles {
+    display: none;
+}
+
 /**FAQ*****************************************************************/
 .contact2-wrap ul {
     box-sizing: border-box;
@@ -390,7 +394,8 @@
 .view-title{
     background-color: unset;
     border: none;
-    font-size: 24px;
+    font-size: 21px;
+    padding-bottom: 20px;
     width: 100%;
     height: 100%;
 }

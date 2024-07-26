@@ -26,10 +26,6 @@ public class ReviewControllerImpl implements ReviewController {
     // 이미지 저장 경로
     private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
 
-    //    로그인 하면 세션값으로 쓸 메서드
-    //    public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    //    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception
-
     @Override
     @RequestMapping("/notice/reviewList.do")
     public ModelAndView reviewList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
@@ -130,8 +126,6 @@ public class ReviewControllerImpl implements ReviewController {
         return mav;
     }
 
-
-
     //후기 작성저장
     @Override
     @RequestMapping("/notice/addReview.do")
@@ -190,7 +184,6 @@ public class ReviewControllerImpl implements ReviewController {
         ModelAndView mav= new ModelAndView("redirect:/notice/reviewList.do");
         return mav;
     }
-
 
     // 여러개의 이미지파일 업로드
     private List<String> multiFileUpload(MultipartHttpServletRequest multipartrequest) throws Exception{

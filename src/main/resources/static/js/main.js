@@ -210,11 +210,16 @@
 })(jQuery);
 
 function fn_articleForm(isLogOn, articleForm, loginForm) {
-    if(isLogOn===true) {
-        location.href=articleForm;
+    if(isLogOn === true) {
+        location.href = articleForm;
     } else {
-        alert("로그인 후 이용 가능합니다.");
-        location.href = loginForm + '?action=' + encodeURIComponent(articleForm);
+        Swal.fire({
+            icon: 'info',
+            title: '로그인 후 이용 가능합니다.',
+            showConfirmButton: true
+        }).then(() => {
+            location.href = loginForm + '?action=' + encodeURIComponent(articleForm);
+        });
     }
 }
 
