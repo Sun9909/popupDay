@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 @Mapper
@@ -20,9 +21,9 @@ public interface MyDAO {
 
     public Long getReviewCount(Long id) throws DataAccessException;
 
-    public String getreCommentCount(String user_nickname) throws DataAccessException;
+    //public String getreCommentCount(String user_nickname) throws DataAccessException;
   
-    public String getpopCommentCount(String user_nickname) throws DataAccessException;
+    //public String getpopCommentCount(String user_nickname) throws DataAccessException;
 
     public Long getQnaCount(Long id) throws DataAccessException;
 
@@ -43,4 +44,6 @@ public interface MyDAO {
     public int selectToPopup() throws DataAccessException;
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
+
+    public Long getPopupCount(Long user_id) throws DataAccessException;
 }

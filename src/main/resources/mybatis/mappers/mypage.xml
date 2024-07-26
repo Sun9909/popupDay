@@ -84,29 +84,29 @@
     </select>
 
     <!-- 댓글 개수 -->
-    <select id="getreCommentCount" parameterType="String" resultType="String">
-        <!--        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id-->
-        <!--        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id-->
-        select count(*) from review_comment_tbl where user_id=#{id}
+<!--    <select id="getreCommentCount" parameterType="String" resultType="String">-->
+<!--        &lt;!&ndash;        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id&ndash;&gt;-->
+<!--        &lt;!&ndash;        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id&ndash;&gt;-->
+<!--        select count(*) from review_comment_tbl where user_id=#{id}-->
 
-        <!--        SELECT-->
-        <!--        COALESCE(SUM(a.comment_count), 0) AS total_comments_a,-->
-        <!--        COALESCE(SUM(b.comment_count), 0) AS total_comments_b,-->
-        <!--        COALESCE(SUM(a.comment_count), 0) + COALESCE(SUM(b.comment_count), 0) AS total_comments_combined-->
-        <!--        FROM-->
-        <!--        (SELECT member_id, COUNT(*) AS comment_count FROM a_comments GROUP BY member_id) AS a-->
-        <!--        FULL JOIN-->
-        <!--        (SELECT member_id, COUNT(*) AS comment_count FROM b_comments GROUP BY member_id) AS b-->
-        <!--        ON-->
-        <!--        a.member_id = b.member_id-->
-        <!--        WHERE-->
-        <!--        a.member_id = 'your_member_id';-->
-    </select>
+<!--        &lt;!&ndash;        SELECT&ndash;&gt;-->
+<!--        &lt;!&ndash;        COALESCE(SUM(a.comment_count), 0) AS total_comments_a,&ndash;&gt;-->
+<!--        &lt;!&ndash;        COALESCE(SUM(b.comment_count), 0) AS total_comments_b,&ndash;&gt;-->
+<!--        &lt;!&ndash;        COALESCE(SUM(a.comment_count), 0) + COALESCE(SUM(b.comment_count), 0) AS total_comments_combined&ndash;&gt;-->
+<!--        &lt;!&ndash;        FROM&ndash;&gt;-->
+<!--        &lt;!&ndash;        (SELECT member_id, COUNT(*) AS comment_count FROM a_comments GROUP BY member_id) AS a&ndash;&gt;-->
+<!--        &lt;!&ndash;        FULL JOIN&ndash;&gt;-->
+<!--        &lt;!&ndash;        (SELECT member_id, COUNT(*) AS comment_count FROM b_comments GROUP BY member_id) AS b&ndash;&gt;-->
+<!--        &lt;!&ndash;        ON&ndash;&gt;-->
+<!--        &lt;!&ndash;        a.member_id = b.member_id&ndash;&gt;-->
+<!--        &lt;!&ndash;        WHERE&ndash;&gt;-->
+<!--        &lt;!&ndash;        a.member_id = 'your_member_id';&ndash;&gt;-->
+<!--    </select>-->
 
-    <!-- 팝업 댓글 개수 -->
-    <select id="getpopCommentCount" parameterType="String" resultType="String">
-        select count(*) from popup_comment_tbl where user_id=#{id}
-    </select>
+<!--    &lt;!&ndash; 팝업 댓글 개수 &ndash;&gt;-->
+<!--    <select id="getpopCommentCount" parameterType="String" resultType="String">-->
+<!--        select count(*) from popup_comment_tbl where user_id=#{id}-->
+<!--    </select>-->
 
     <!-- 문의 개수 -->
     <select id="getQnaCount" parameterType="Long" resultType="Long">
@@ -158,5 +158,9 @@
 
     <select id="selectFirstImage" resultMap="imgResult" parameterType="Long">
         select * from popup_image_tbl where popup_id = #{popup_id} LIMIT 1
+    </select>
+
+    <select id="getPopupCount" parameterType="Long">
+        select * from popup_tbl where user_id=#{id}
     </select>
 </mapper>

@@ -20,7 +20,7 @@
             <div class="popup-list" th:each="result : ${searchResults}" th:unless="${#lists.isEmpty(searchResults)}">
                 <div class="popup-item">
                     <div class="popup-image">
-                        <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                        <img th:src="${result.brand_page}" alt="Popup Image">
                     </div>
                     <p th:text="${result.title}"></p>
                     <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>

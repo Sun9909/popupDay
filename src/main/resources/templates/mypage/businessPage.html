@@ -10,6 +10,7 @@
     <title>마이페이지(사업자)</title>
     <link rel="stylesheet" th:href="@{/css/business.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
 </head>
 <body>
 <!-- 콘텐츠 영역 -->
@@ -29,9 +30,14 @@
             <!-- 내가 작성한 것들 보는 영역 -->
             <div class="wrote">
                 <article class="comment">
-                    <a th:href="@{/mypage/myPopup.do}">
+                    <a th:href="@{/mypage/myPopup.do(id=${my.id})}">
                         <h5>등록된 팝업</h5>
-                        <p th:text="${PopupCount}+'개'"></p>
+                        <div th:if="${popupCount == null}">
+                            <p th:text="'0개'"></p>
+                        </div>
+                        <div th:unless="${popupCount == null}">
+                            <p th:text="${popupCount}+'개'"></p>
+                        </div>
                     </a>
                 </article>
                 <article class="review">
@@ -90,6 +96,7 @@
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{/js/myinfoCheck.js}"></script>

@@ -42,17 +42,17 @@ public class MyServiceImpl implements MyService {
         return reviewCount;
     }
 
-    @Override   //리뷰 댓글 개수
-    public String getreCommentCount(String user_nickname) {
-        String recommentCount = myDAO.getreCommentCount(user_nickname);
-        return recommentCount;
-    }
-
-    @Override   //팝업 댓글 개수
-    public String getpopCommentCount(String user_nickname) {
-        String popcommentCount = myDAO.getpopCommentCount(user_nickname);
-        return popcommentCount;
-    }
+//    @Override   //리뷰 댓글 개수
+//    public String getreCommentCount(String user_nickname) {
+//        String recommentCount = myDAO.getreCommentCount(user_nickname);
+//        return recommentCount;
+//    }
+//
+//    @Override   //팝업 댓글 개수
+//    public String getpopCommentCount(String user_nickname) {
+//        String popcommentCount = myDAO.getpopCommentCount(user_nickname);
+//        return popcommentCount;
+//    }
 
     @Override   //문의 개수
     public Long getQnaCount(Long id) throws DataAccessException {
@@ -111,6 +111,12 @@ public class MyServiceImpl implements MyService {
         System.out.println("totPopup in service: " + totPopup);
 
         return popupMap;
+    }
+
+    @Override
+    public Long getPopupCount(Long user_id) throws DataAccessException {
+        Long popupCount = myDAO.getPopupCount(user_id);
+        return popupCount;
     }
 
     @Override

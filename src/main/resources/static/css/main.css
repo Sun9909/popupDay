@@ -118,6 +118,5 @@ section{
 
 
 .carousel-item img {
-    height: 360px;
-    object-fit: contain;
+    height: 100%;
 }

@@ -108,8 +108,9 @@
                     <h4>브랜드 홈페이지</h4>
                     <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p th:text="${popupMap.popupList.brand_page}"></p></a>
                 </div>
-                <form action="" class="radio-form">
+                <form action="/admin/roleUpdate.do" class="radio-form">
                     <div>
+                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
                         <label><input type="radio" name="role" value="승인"> 승인</label>
                         <label><input type="radio" name="role" value="검토"> 미승인</label>
                         <label><input type="radio" name="role" value="취소">취소</label>
