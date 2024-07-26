@@ -2,6 +2,7 @@ package flower.popupday.popup.controller;
 
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.popup.dto.ImageDTO;
+import flower.popupday.popup.dto.PopupDTO;
 import flower.popupday.popup.service.PopupService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Controller("popupController")
@@ -28,16 +28,48 @@ public class PopupControllerImpl implements PopupController {
     @Autowired
     PopupService popupService;
 
-//    @Override
-//    @PostMapping("/main.do")
-//    public  ModelAndView main(MultipartHttpServletRequest request, HttpServletResponse response) {
-//        ModelAndView mav = new ModelAndView();
-//        Map<String, Integer> popupMap = new HashMap<>();
-//        List<Popup> topViewPopup = popupService.topViewPopup();
-//        mav.addObject(topViewPopup);
-//        mav.setViewName("main");
-//        return mav;
-//    }
+    @Override
+    @GetMapping("/main.do")
+    public  ModelAndView mainView(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView();
+        Map <String, Object> mainMap = popupService.mainView();
+        mav.addObject("mainMap",mainMap);
+        mav.setViewName("main");
+        if (mainMap != null) {
+            // mainMap의 키 확인
+            System.out.println("mainMap의 키: " + mainMap.keySet());
+
+            Object bestPopupListObj = mainMap.get("bestPopupList");
+            if (bestPopupListObj instanceof List<?>) {
+                List<?> bestPopupList = (List<?>) bestPopupListObj;
+                bestPopupList.forEach(popup -> {
+                    if (popup instanceof PopupDTO) {
+                        PopupDTO popupDTO = (PopupDTO) popup;
+                        // PopupDTO의 썸네일 경로 확인
+                        System.out.println("Popup 썸네일: " + popupDTO.getThumbnail());
+                    } else {
+                        // 예기치 않은 타입의 객체가 bestPopupList에 있는 경우
+                        System.out.println("bestPopupList의 예기치 않은 타입: " + popup.getClass().getName());
+                    }
+                });
+            } else {
+                // bestPopupList가 리스트가 아닌 경우
+                System.out.println("bestPopupList는 리스트가 아닙니다: " + bestPopupListObj.getClass().getName());
+            }
+        } else {
+            // mainMap이 null인 경우
+            System.out.println("mainMap이 null입니다");
+        }
+        return mav;
+    }
+
+    @Override
+    @PostMapping("/main/searchPopupHasTag")
+    @ResponseBody
+    public List<PopupDTO> searchPopupHasTag(@RequestParam ("hash_tag") String hash_tag,
+                                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return popupService.searchPopupHasTag(hash_tag);
+    }
 
     @Override
     @RequestMapping("/popup/popupAllList.do")
@@ -49,17 +81,15 @@ public class PopupControllerImpl implements PopupController {
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
         Map<String, Integer> pagingMap = new HashMap<>();
-        pagingMap.put("section", section); // 섹션
-        pagingMap.put("pageNum", pageNum); // 페이지 번호
-        Map<String, Object> popupMap = popupService.popupAllList(pagingMap); // 서비스에서 팝업 목록 받아오기
-
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
+        Map<String, Object> popupMap = popupService.popupAllList(pagingMap);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/popup/popupAllList"); // View 이름 설정
-        mav.addObject("popupInfoList", popupMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
-        mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
+        mav.addObject("totPopup", popupMap.get("totPopup"));
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
-
         return mav; // ModelAndView 반환
     }
 

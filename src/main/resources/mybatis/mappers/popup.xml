@@ -207,6 +207,31 @@
       <![CDATA[
         select count(*) from popup_tbl where user_id=#{id}
         ]]>
-   </select>
+    </select>
+
+    <select id="bestPopup" resultType="PopupDTO">
+        SELECT p.popup_id ,p.title ,p.start_date ,p.end_date, p.address, img.image_file_name AS thumbnail
+        FROM popup_tbl p LEFT JOIN (SELECT popup_id, image_file_name FROM popup_image_tbl
+        WHERE (popup_id, popup_image_id) IN (SELECT popup_id, MIN(popup_image_id) FROM popup_image_tbl GROUP BY popup_id)) img ON p.popup_id = img.popup_id
+        WHERE p.end_date > NOW() ORDER BY p.hits DESC LIMIT 5;
+    </select>
+
+    <select id="bestHashTagList" resultType="HashTagDTO">
+        SELECT h.hash_tag, COUNT(ph.popup_id) AS usage_count
+        FROM hash_tag_tbl h JOIN popup_hash_tag_tbl ph ON h.hash_tag_id = ph.hash_tag_id
+        GROUP BY h.hash_tag_id, h.hash_tag ORDER BY usage_count DESC
+        LIMIT 5; -- 원하는 개수로 조정
+    </select>
+
+    <select id="searchPopupHasTag" parameterType="String" resultMap="popResult">
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 JOIN popup_hash_tag_tbl ph ON p.popup_id = ph.popup_id
+                 JOIN hash_tag_tbl h ON ph.hash_tag_id = h.hash_tag_id
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE h.hash_tag = ph.#{hash_tag}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+            LIMIT 4;
+    </select>
 
 </mapper>

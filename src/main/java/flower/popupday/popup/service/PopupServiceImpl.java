@@ -23,11 +23,20 @@ public class PopupServiceImpl implements PopupService {
     @Autowired
     private PopupDAO popupDAO;
 
-//    @Override
-//    public List<Popup> topViewPopup() throws DataAccessException {
-//
-//        return List.of();
-//    }
+    @Override
+    public Map <String, Object> mainView() throws DataAccessException {
+        Map<String, Object> mainMap = new HashMap<>();
+        List<PopupDTO> bestPopupList = popupDAO.bestPopup();
+        List<HashTagDTO> bestHashTagList = popupDAO.bestHashTagList();
+        mainMap.put("bestPopupList",bestPopupList);
+        mainMap.put("bestHashTagList",bestHashTagList);
+        return mainMap;
+    }
+
+    @Override
+    public List<PopupDTO> searchPopupHasTag(String hashtag) {
+        return popupDAO.searchPopupHasTag(hashtag);
+    }
 
     // 팝업 전체 리스트
     @Override
@@ -189,6 +198,7 @@ public class PopupServiceImpl implements PopupService {
         popupDAO.updateImage(popupMap); // 이미지 수정
     }
 
+
     @Override
     public Map bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException {
         Map bsPopupList = new HashMap<>();
@@ -198,7 +208,6 @@ public class PopupServiceImpl implements PopupService {
         int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
         List<PopupDTO> popupList = popupDAO.selectBsPopup(count, id); // 팝업 목록 조회
         int totPopup = popupDAO.selectToBsPopup(); // 전체 팝업 수 조회
-
         bsPopupList.put("popupList", popupList); // 팝업 정보 리스트 추가
         bsPopupList.put("totPopup", totPopup);
         return bsPopupList;
