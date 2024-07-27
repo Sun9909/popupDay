@@ -40,10 +40,8 @@ tr h4 {
 /* 추가해야하는 css */
 
 .containers {
-    min-height: 940px;
     float: right;
     width: 940px;
-    height: 100%;
 }
 header {
     width: 1440px;

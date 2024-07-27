@@ -21,7 +21,8 @@ header {
     margin: 0 auto;
     background-color: #F9F8FF;
     width: 720px;
-    height: 900px;
+    min-height: calc(100vh - 100px);
+    height: auto;
 }
 
 footer {

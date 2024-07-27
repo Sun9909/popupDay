@@ -54,3 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('#tag');
     inputs.forEach(input => adjustWidth(input));
 });
+
+//textarea 글 크기만큼 높이주기
+function adjustTextareaHeight(textarea) {
+    textarea.style.height = 'auto'; // 높이 초기화
+    textarea.style.height = textarea.scrollHeight + 'px'; // 내용에 맞게 높이 설정
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const textarea = document.getElementById('myTextarea');
+    adjustTextareaHeight(textarea);
+});

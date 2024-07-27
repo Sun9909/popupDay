@@ -114,9 +114,26 @@ section{
 #calendar {
     height: 550px;
 }
-
-
-
 .carousel-item img {
     height: 100%;
+}
+
+.popup-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.popup-item {
+    margin: 10px;
+    text-align: center;
+}
+
+.popup-item >img {
+    width: 150px;
+    height: 200px;
+}
+
+.popup-item > p {
+    font-size: 14px;
+    font-weight: 600;
 }
