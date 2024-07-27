@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface QnaController {
 
@@ -19,7 +20,10 @@ public interface QnaController {
 
     public ModelAndView addQna(HttpServletRequest request)throws Exception;
 
-    public ModelAndView qnaView(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView qnaView(@RequestParam("qna_id") long qna_id,
+                                RedirectAttributes rAttr,
+                                HttpServletRequest request,
+                                HttpServletResponse response) throws Exception;
 
     public ModelAndView modQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 

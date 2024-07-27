@@ -127,7 +127,7 @@
                 <!-- 팝업스토어 소개글 -->
                 <div class="popupdetail-info-inner">
                     <h3 class="infor-tit">팝업 상세 정보</h3>
-                    <input type="text" th:name="content"  th:value="${popupMap.popupList.content}" disabled>
+                    <textarea id="myTextarea" th:name="content"  th:text="${popupMap.popupList.content}" disabled></textarea>
                 </div>
                 <!--안내및주의사항-->
                 <div class="popupdetail-caution">
@@ -177,7 +177,7 @@
                 </div>
                 <!-- 브랜드 홈페이지 바로가기 -->
                 <div>
-                    <a href="#" class="infor-tit">브랜드 홈페이지 바로가기</a>
+                    <a th:href="${popupMap.popupList.brand_page}" class="infor-tit">브랜드 홈페이지 바로가기</a>
                 </div>
 
                 <span th:if="${popupMap != null && popupMap.popupList != null && loginCheck && popupMap.popupList.user_id == id}">

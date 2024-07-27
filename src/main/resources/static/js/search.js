@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
                 <p>${popup.title}</p>
                 <p>${popup.start_date} ~ ${popup.end_date}</p>
-                <p>${popup.address}</p>
                 <p hidden="hidden">${popup.popup_id}</p>
             `;
             container.appendChild(popupElement);

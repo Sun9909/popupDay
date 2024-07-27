@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface AdminService {
-    public List memberShip() throws DataAccessException;
+   // public List memberShip() throws DataAccessException;
+    public Map memberShip(Map<String, Integer> pagingMap) throws DataAccessException;
 
     public AdminDTO findMember(Long id) throws  DataAccessException;
 

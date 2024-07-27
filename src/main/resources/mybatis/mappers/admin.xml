@@ -17,8 +17,15 @@
     </resultMap>
 
     <!-- 모든 회원 정보 가져오기 -->
-    <select id="selectAllMembersList" resultMap="memResult">
-        select * from user_tbl
+    <select id="selectAllMembersList" resultMap="memResult" parameterType="int">
+        select * from user_tbl order by reg_date desc limit #{count}, 10
+    </select>
+
+    <!-- 전체 글 목록 수 조회 -->
+    <select id="selectTotmember" resultType="int">
+        <![CDATA[
+        select count(*) from user_tbl where user_id=#{id}
+        ]]>
     </select>
 
     <!-- 회원 수정을 위해 id로 회원 정보 가져오기 -->

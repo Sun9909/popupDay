@@ -67,7 +67,7 @@ public class MyControllerImpl implements MyController {
             mav.setViewName("redirect:/mypage/businessPage.do");
         }
         else if (loginDTO.getRole() == LoginDTO.Role.관리자) {
-            mav.setViewName("redirect:admin/admin.do");
+            mav.setViewName("redirect:/admin/admin.do");
         }
         else {
             mav.setViewName("redirect:login/loginForm"); // 로그인 폼으로 유도
