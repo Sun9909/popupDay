@@ -89,7 +89,7 @@ public class AdminControllerImpl implements AdminController {
     @GetMapping("/admin/memberModify.do")
     public ModelAndView memberModify(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         adminDTO = adminService.findMember(id);
-        ModelAndView mav = new ModelAndView("/admin/memberModify");
+        ModelAndView mav = new ModelAndView("admin/memberModify");
         mav.addObject("member", adminDTO);
         return mav;
     }
