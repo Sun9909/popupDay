@@ -38,10 +38,9 @@ public class AdminServiceImpl implements AdminService {
 
         memberMap.put("memberShip", memberShip); // noticeList를 noticeMap에 추가
         // noticeMap.put("totmember", totmember);   // totNotice를 noticeMap에 추가
-        memberMap.put("totmember", 324);
+        memberMap.put("totmember", totmember);
 
         // Debugging 로그 추가
-        System.out.println("totmember: " + totmember);
         System.out.println("totmember: " + totmember);
 
         return memberMap;  // 공지사항 목록과 전체 공지사항 수를 포함한 noticeMap으로 반환

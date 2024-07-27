@@ -187,7 +187,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSubmitButtonState();
 });
 
-function delete_check() {
+function drop_check(event, url) {
+    event.preventDefault(); // 이벤트 기본 동작을 막음
     Swal.fire({
         title: '회원을 삭제하시겠습니까?',
         icon: 'warning',
@@ -200,10 +201,10 @@ function delete_check() {
                 title: '삭제되었습니다',
                 icon: 'success',
                 showConfirmButton: true
+            }).then(() => {
+                // 실제 탈퇴 처리를 진행
+                location.href = url;
             });
-            return true;
-        } else {
-            return false;
         }
     });
 }

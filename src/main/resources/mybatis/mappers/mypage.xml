@@ -139,12 +139,8 @@
         update user_tbl set pwd=#{pwd} where id=#{id}
     </update>
 
+    <!-- 회원 탈퇴 soft delete -->
     <update id="dropMember" parameterType="loginDTO">
-        update user_tbl set status='deleted' where id=#{id}
-    </update>
-
-    <!-- soft delete? -->
-    <update id="delMember" parameterType="Long">
         update user_tbl set status='deleted' where id=#{id}
     </update>
 
