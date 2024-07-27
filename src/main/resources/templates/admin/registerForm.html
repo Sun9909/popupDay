@@ -64,7 +64,7 @@
                     <ul>
                         <li>팝업 운영 기간 <p th:text="${popupMap.popupList.start_date} + ' ~ ' + ${popupMap.popupList.end_date}"></p></li>
                         <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
-                        <li>팝업 한 줄 설명 <p th:text="${popupMap.popupList.info}"></p></li>
+                        <li>팝업 안내 및 주의사항 <p th:text="${popupMap.popupList.info}"></p></li>
                         <h4>팝업 해시태그</h4>
                         <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
 
@@ -117,7 +117,6 @@
                     </div>
                     <div class="check">
                         <button type="submit" value="submit">저장</button>
-                        <button type="reset" value="reset">취소</button>
                     </div>
                 </form>
             </div>

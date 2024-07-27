@@ -60,7 +60,7 @@ public class MyControllerImpl implements MyController {
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
             //System.out.println(loginDTO.getRole());
-            mav.setViewName("redirect:mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
+            mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
         }
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
             //System.out.println(loginDTO.getRole());
