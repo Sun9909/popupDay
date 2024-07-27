@@ -124,13 +124,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const popupElement = document.createElement('div');
             popupElement.classList.add('popup-item');
             const imageUrl = `/popupDownload.do?popup_id=${popup.popup_id}&image_file_name=${popup.image_file_name}`;
+            const viewUrl = `/popup/popupView.do?popup_id=${popup.popup_id}`;
             console.log('Generated Image URL:', imageUrl); // URL 확인
 
             popupElement.innerHTML = `
-                <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
-                <p>${popup.title}</p>
-                <p>${popup.start_date} ~ ${popup.end_date}</p>
-                <p hidden="hidden">${popup.popup_id}</p>
+                <a href="${viewUrl}" id="popup-item-img">
+                    <img src="${imageUrl}" alt="팝업 이미지" class="popup-image">
+                    <p>${popup.title}</p>
+                    <p>${popup.start_date} ~ ${popup.end_date}</p>
+                    <p hidden="hidden">${popup.popup_id}</p>
+                </a>
             `;
             container.appendChild(popupElement);
         });

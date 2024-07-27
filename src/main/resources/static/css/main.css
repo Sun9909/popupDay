@@ -123,7 +123,7 @@ section{
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.popup-item {
+#popup-item-img {
     margin: 10px;
     text-align: center;
     display: flex;
@@ -131,14 +131,14 @@ section{
     align-items: center;
 }
 
-.popup-item >img {
+#popup-item-img >img {
     flex-shrink: 1;
     width: 150px;
     height: 165px;
     margin-bottom: 10px;
 }
 
-.popup-item > p {
+#popup-item-img > p {
     flex-grow: 1;
     font-size: 13px;
     font-weight: 600;
