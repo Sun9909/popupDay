@@ -11,21 +11,29 @@
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <script>
-        function fn_popupForm(isLogOn, articleForm, loginForm) {
-            if (isLogOn === true) {
-                location.href = articleForm;
-            } else {
-                alert("isLogOn : " + isLogOn);
-                alert("로그인 후 글쓰기가 가능합니다.");
-                location.href = loginForm + '?action=/popup/popup.do';
-            }
-        }
+
     </script>
+
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-        <h2 class="pop-title">전체 팝업 리스트</h2>
+
+        <div class="custom-select">
+            <div class="select-selected">전체보기</div>
+            <div class="select-items select-hide">
+                <div data-value="all">전체보기</div>
+                <div data-value="ongoing">진행 중</div>
+                <div data-value="ended">오픈 예정</div>
+                <div data-value="upcoming">종료</div>
+            </div>
+            <select id="filterSelect" aria-hidden="true">
+                <option value="all">전체보기</option>
+                <option value="ongoing">진행 중</option>
+                <option value="ended">오픈 예정</option>
+                <option value="upcoming">종료</option>
+            </select>
+        </div>
         <table>
             <tbody class="poplist-tb">
             <tr th:each="popupInfo : ${popupInfoList}" class="popup-lists">
@@ -47,8 +55,8 @@
             </tbody>
         </table>
         <div align="center" th:if="${totPopup > 9}">
-            <div th:if="${totPopup > 100}">
-        <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 9) + 1 : 9))}">
+            <div th:if="${totPopup > 90}">
+        <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 90) ? ((totPopup % 90) / 9) + 1 : 9))}">
             <span th:if="${section > 1 and num == 1}">
                 <a th:href="@{/popup/popupAllList.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
             </span>
@@ -63,7 +71,7 @@
             </span>
         </span>
             </div>
-            <div th:if="${totPopup <= 100}">
+            <div th:if="${totPopup <= 90}">
         <span th:each="num : ${#numbers.sequence(1, (totPopup / 9) + 1)}">
             <span th:if="${num == pageNum}">
                 <a class="target" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>

@@ -21,18 +21,25 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
 searchPlaces();
 
-// 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
+    // 사용자가 입력한 키워드 가져오기
+    var keyword = document.getElementById('keyword').value.trim();
 
-    var keyword = document.getElementById('keyword').value;
+    // 입력이 없을 경우 숨겨진 입력 필드의 값을 사용
+    if (!keyword) {
+        keyword = document.getElementById('hiddenKeyword').value;
+        // 검색창에 기본값을 숨기기 위해 JavaScript로 설정
+        document.getElementById('keyword').value = ""; // 검색창을 빈 상태로 유지
+    }
 
+    // 키워드가 빈 문자열인지 확인
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
     }
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB);
+    ps.keywordSearch(keyword, placesSearchCB);
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다

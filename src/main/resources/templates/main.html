@@ -26,7 +26,9 @@
                 </div>
                 <div class="carousel-inner">
                     <div th:each="popup, iterStat : ${mainMap.bestPopupList}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active' : ''">
-                        <img th:src="@{popupDownload.do(popup_id=${popup.popup_id}, image_file_name=${popup.thumbnail})}" class="d-block w-100 slidimg" alt="Popup Image">
+                        <a th:href="@{/popup/popupView.do(popup_id=${popup.popup_id})}">
+                            <img th:src="@{popupDownload.do(popup_id=${popup.popup_id}, image_file_name=${popup.thumbnail})}" class="d-block w-100 slidimg" alt="Popup Image">
+                        </a>
                     </div>
                 </div>
             </div>
