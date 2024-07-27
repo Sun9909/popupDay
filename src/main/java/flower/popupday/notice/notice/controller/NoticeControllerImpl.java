@@ -66,7 +66,7 @@ public class NoticeControllerImpl implements NoticeController {
     public ModelAndView noticeView(@RequestParam("notice_id") long notice_id, HttpServletRequest request, HttpServletResponse response) throws Exception { // notice_id를 매개변수로 받아 공지사항 글을 조회
         Map noticeView = noticeService.noticeView(notice_id); // noticService에서 notice_id에 해당하는 공지사항 글을 조회하며 noticeMap에 조정
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
-        mav.setViewName("/notice/noticeView"); // 뷰 이름 설정
+        mav.setViewName("notice/noticeView"); // 뷰 이름 설정
         mav.addObject("noticeView", noticeView); // "noticeMap"이라는 이름으로 ModelAndView 객체에 추가
 
         return mav; // ModelAndView 객체를 반환
@@ -136,7 +136,7 @@ public class NoticeControllerImpl implements NoticeController {
         } catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
             e.printStackTrace();
         }
-        ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.do");
+        ModelAndView mav = new ModelAndView("redirect:notice/noticeList.do");
         return mav;
     }
 
@@ -145,7 +145,7 @@ public class NoticeControllerImpl implements NoticeController {
     @RequestMapping("/notice/noticeForm.do") // 공지사항 글쓰기 폼으로 이동
     public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/notice/noticeForm"); //여러개 이미지 추가
+        mav.setViewName("notice/noticeForm"); //여러개 이미지 추가
         return mav;
     }
 
@@ -214,7 +214,7 @@ public class NoticeControllerImpl implements NoticeController {
         } //catch end
 
         // 글 목록 페이지로 리다이렉트
-        ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.do");
+        ModelAndView mav = new ModelAndView("redirect:notice/noticeList.do");
         return mav;
     }
 
@@ -255,7 +255,7 @@ public class NoticeControllerImpl implements NoticeController {
         if(imgDir.exists()) { // 이미지가 있는 글일때 수행
             FileUtils.deleteDirectory(imgDir); // 이 디렉토리(폴더)를 삭제
         }
-        ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
+        ModelAndView mav=new ModelAndView("redirect:notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
         return mav;
     }
 
