@@ -99,6 +99,7 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
+    //관리자 - 팝업 신청 리스트
     @Override
     @RequestMapping("/admin/register.do")
     public ModelAndView registerList(@RequestParam(value = "section", required = false) String _section,
@@ -122,6 +123,7 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
+    //관리자 - 팝업 신청 상세보기
     @Override
     @RequestMapping("/admin/registerForm.do")
     public ModelAndView register(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -134,6 +136,7 @@ public class PopupControllerImpl implements PopupController {
         return mav;
     }
 
+    //관리자 - 팝업 승인 결정
     @Override
     @RequestMapping("/admin/roleUpdate.do")
     public ModelAndView roleUpdate(@RequestParam("popup_id") Long popup_id,@RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -427,24 +430,31 @@ public class PopupControllerImpl implements PopupController {
 
     @Override
     @RequestMapping("/mypage/myPopup.do")
-    public ModelAndView popupList(@RequestParam(value = "section", required = false) String _section,
+    public ModelAndView popupList(@RequestParam("id") Long id, @RequestParam("popup_id") Long popup_id,
+                                  @RequestParam(value = "section", required = false) String _section,
                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        int id = Integer.parseInt(request.getParameter("id"));
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        int popup_id = Integer.parseInt(request.getParameter("popup_id"));
+        System.out.println("id: " + id);
+        System.out.println("popup_id: " + popup_id);
 
         Map<String, Integer> pagingMap = new HashMap<>();
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
-        pagingMap.put("id", id);
-        Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
+//        pagingMap.put("id", id);
+//        pagingMap.put("popup_id", popup_id);
+        Map<String, Object> popupMap = popupService.myPopupList(id, popup_id, pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/myPopup"); // View 이름 설정
-        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
-        mav.addObject("totPopup", popupMap.get("totPopup"));
+        mav.setViewName("/mypage/myPopup"); // View 이름 설정
+        mav.addObject("popupMap", popupMap);
+//        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
+//        mav.addObject("totPopup", popupMap.get("totPopup"));
+//        mav.addObject("hashTagList", popupMap.get("hashTagList"));
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 

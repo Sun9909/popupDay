@@ -214,27 +214,35 @@ public class PopupServiceImpl implements PopupService {
     }
 
     @Override
-    public Map<String, Object> myPopupList(Map<String, Integer> pagingMap) throws DataAccessException {
+    public Map<String, Object> myPopupList(Long id, Long popup_id, Map<String, Integer> pagingMap) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
         int section = pagingMap.get("section");
         int pageNum = pagingMap.get("pageNum");
-        int id = pagingMap.get("id");
+//        int id = pagingMap.get("id");
+//        int popup_id = pagingMap.get("popup_id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
-        List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);
-        int totPopup = popupDAO.selectTotPopup();
 
-        List<Map<String, Object>> popupInfoList = new ArrayList<>();
+        System.out.println("id: " + id);
+        System.out.println("popup_id: " + popup_id);
+
+        List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);   //팝업 리스트
+        int totPopup = popupDAO.selectTotPopup();   //팝업 개수
+
+        List<Map<String, Object>> popupInfoList = new ArrayList<>();    //팝업 리스트 + 썸네일 이미지
         for (PopupDTO popup : popupList) {
-            Long popup_id = popup.getPopup_id();
-            ImageDTO thumbnailImage = popupDAO.selectFirstImg(popup_id);
+            Long popupId = popup.getPopup_id(); //팝업 리스트에서 팝업 id
+            ImageDTO thumbnailImage = popupDAO.selectFirstImg(popupId); //썸네일 이미지
             Map<String, Object> popupInfo = new HashMap<>();
             popupInfo.put("popup", popup);
             popupInfo.put("thumbnailImage", thumbnailImage);
             popupInfoList.add(popupInfo);
         }
 
+        List<HashTagDTO> hashTagList = popupDAO.selectHashTagList2(popup_id);
+
         popupMap.put("popupInfoList", popupInfoList);
         popupMap.put("totPopup", totPopup);
+        popupMap.put("hashTagList", hashTagList);
 
         return popupMap;
     }

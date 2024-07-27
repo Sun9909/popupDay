@@ -67,7 +67,7 @@ public interface PopupDAO {
     //사업자 신청 팝업 개수
     public int selectToBsPopup() throws DataAccessException;
 
-    public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+    public List selectMyPopup(@Param("count") int count, @Param("id") Long id) throws DataAccessException;
 
     public int selectTotPopup() throws DataAccessException;
 
@@ -80,4 +80,6 @@ public interface PopupDAO {
     public List<HashTagDTO> bestHashTagList() throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashtag) throws DataAccessException;
+
+    public List<HashTagDTO> selectHashTagList2(Long popup_id) throws DataAccessException;
 }
