@@ -15,4 +15,6 @@ public interface SearchController {
 
     String searchPopupsByDate(@RequestParam("selectedDateAdded") String selectedDateAdded, Model model);
 
+
+
 }

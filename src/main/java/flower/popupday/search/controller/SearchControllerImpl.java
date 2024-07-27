@@ -20,11 +20,12 @@ public class SearchControllerImpl implements SearchController {
     @Autowired
     private SearchService searchService;
 
+    @Override
     @GetMapping
     public ModelAndView search(@RequestParam("query") String query, @RequestParam("searchType") String searchType, Model model) {
         List<PopupDTO> results;
         if ("hashtag".equals(searchType)) {
-            results = searchService.searchPopupsByHashTag(query);
+            results = searchService.searchPopupHasTag(query);
         } else {
             results = searchService.searchPopupsByWord(query);
         }
@@ -32,6 +33,7 @@ public class SearchControllerImpl implements SearchController {
         return new ModelAndView("popup/searchList");
     }
 
+    @Override
     @RequestMapping("/searchPopups")
     public String searchPopupsByDate(@RequestParam("selectedDateAdded") String selectedDateAdded, Model model) {
         // 입력 받은 날짜 형식이 '2024-07-24'과 같은지 확인
@@ -44,4 +46,6 @@ public class SearchControllerImpl implements SearchController {
         model.addAttribute("searchResults", searchResults);
         return "popup/searchList";
     }
+
+
 }

@@ -22,7 +22,7 @@
                 <a th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
                     <div class="popup-item">
                         <div class="popup-image">
-                            <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                            <img th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
                         </div>
                         <p hidden="hidden" th:text="${result.popup_id}"></p>
                         <p th:text="${result.title}"></p>
