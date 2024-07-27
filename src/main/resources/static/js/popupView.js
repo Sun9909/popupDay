@@ -63,5 +63,7 @@ function adjustTextareaHeight(textarea) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const textarea = document.getElementById('myTextarea');
+    const textarea2 = document.getElementById('cation-content');
     adjustTextareaHeight(textarea);
+    adjustTextareaHeight(textarea2);
 });

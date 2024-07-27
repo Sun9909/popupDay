@@ -212,7 +212,11 @@ function fn_articleForm(isLogOn, articleForm, loginForm) {
         Swal.fire({
             icon: 'info',
             title: '로그인 후 이용 가능합니다.',
-            showConfirmButton: true
+            showConfirmButton: true,
+            willOpen: () => {
+                Swal.getContainer().style.paddingRight = '0px';
+
+            }
         }).then(() => {
             location.href = loginForm + '?action=' + encodeURIComponent(articleForm);
         });
