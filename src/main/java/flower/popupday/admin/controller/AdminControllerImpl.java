@@ -64,6 +64,7 @@ public class AdminControllerImpl implements AdminController {
     public ModelAndView memberShip(@RequestParam(value = "section", required = false) String _section,
                                    @RequestParam(value = "pageNum", required = false) String _pageNum, //매개변수 Section,pageNum을 받으며 값이 없으면 기본적으로 null이 됨.
                                    HttpServletRequest request, HttpServletResponse response) throws DataAccessException {
+        response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section); // '_section'이 null 이면 'section'을 1로 설정하고 그렇지 않으면 '_section'의 값을 정수로 변화하여 'section'에 저장
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum); // 위와 동일한 내용
 
@@ -72,14 +73,17 @@ public class AdminControllerImpl implements AdminController {
         pagingMap.put("section", section); // 1 맵에 seciton 값을 추가 함
         pagingMap.put("pageNum", pageNum); // 1 맵에 pageNum 값을 추가 함
 
-        Map memberMap = adminService.memberShip(pagingMap);
+        Map<String, Object> memberMap = adminService.memberShip(pagingMap);
 
-        memberMap.put("section", section); // memberMap section 값을 추가 함
-        memberMap.put("pageNum", pageNum); // memberMap pageNum 값을 추가 함
+//        memberMap.put("section", section); // memberMap section 값을 추가 함
+//        memberMap.put("pageNum", pageNum); // memberMap pageNum 값을 추가 함
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
         mav.setViewName("admin/memberShip"); // 이 뷰로 이동
-        mav.addObject("memberMap", memberMap); // memberMap mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
+        mav.addObject("memberList", memberMap.get("memberList")); // memberMap mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
+        mav.addObject("totmember", memberMap.get("totmember"));
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
 
         return mav;
     }
@@ -105,9 +109,9 @@ public class AdminControllerImpl implements AdminController {
 
     @Override
     @GetMapping("/admin/delMember.do")
-    public ModelAndView delMember(Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView delMember(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         adminService.delMember(id);
-        ModelAndView mav = new ModelAndView("redirect:/admin/memberShip.do");
+        ModelAndView mav = new ModelAndView("/admin/memberShip");
         return mav;
     }
 }

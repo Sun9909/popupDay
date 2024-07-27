@@ -4,12 +4,15 @@ h2 {
     font-size: 1.8em;
     margin: 20px 0;
 }
+.popCount {
+    margin: 20px 0 20px 20px;
+}
 /* 회원 관리 */
 table {
     border: 1px #4B4B65 solid;
     text-align: center;
     width: 920px;
-    margin: 50px 10px 30px;
+    margin: 15px 10px 30px;
     border-spacing: 0;
     border-top: none;
 }
@@ -36,7 +39,16 @@ tr h4 {
     text-align: center;
     margin: 15px;
 }
-
+.target {
+    color: #005cbf;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.noLine {
+    /*color: black;*/
+    font-weight: normal;
+    font-size: 1em;
+}
 /* 추가해야하는 css */
 
 .containers {

@@ -54,7 +54,15 @@ h4 {
     font-size: 16px;
     font-weight: 400;
 }
-
+.containers #tag {
+    background-color: #FEFEDF;
+    border: 2px solid #8B8BDA;
+    padding: 7px 3px;
+    border-radius: 30px;
+    font-size: 15px;
+    text-align: center;
+    width: 110px;
+}
 
 .radio-form {
     margin: 20px;
@@ -115,7 +123,10 @@ header {
     width: 100%;
     margin: 0;
 }
-
+.brandUrl .brand {
+    margin-left: 15px;
+    font-size: 16px;
+}
 
 
 .popImg {

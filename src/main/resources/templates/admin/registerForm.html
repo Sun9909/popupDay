@@ -67,8 +67,7 @@
                         <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
                         <li>팝업 안내 및 주의사항 <p th:text="${popupMap.popupList.info}"></p></li>
                         <h4>팝업 해시태그</h4>
-                        <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
-
+                        <li class="hash_tag" th:each="hash, status : ${popupMap.hashTagList}">
                             <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
                         </li>
                         <h4>팝업 운영 시간</h4>
@@ -107,13 +106,13 @@
                 </div>
                 <div class="brandUrl">
                     <h4>브랜드 홈페이지</h4>
-                    <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p th:text="${popupMap.popupList.brand_page}"></p></a>
+                    <a th:href="${popupMap.popupList.brand_page}" target="_blank"><p class="brand" th:text="${popupMap.popupList.brand_page}"></p></a>
                 </div>
                 <form action="/admin/roleUpdate.do" class="radio-form">
                     <div>
                         <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
                         <label><input type="radio" name="role" value="승인"> 승인</label>
-                        <label><input type="radio" name="role" value="검토"> 미승인</label>
+<!--                        <label><input type="radio" name="role" value="검토"> 미승인</label>-->
                         <label><input type="radio" name="role" value="취소">취소</label>
                     </div>
                     <div class="check">
