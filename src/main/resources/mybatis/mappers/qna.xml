@@ -31,7 +31,7 @@
 
     <!-- 등록된 qna 리스트 화면출력  -->
     <select id="selectAllQnaList" resultMap="qnaResult" parameterType="java.util.Map">
-        select * from qna_tbl order by created_date LIMIT #{count}, 10
+        select * from qna_tbl order by created_date DESC LIMIT #{count}, 10
 
     </select>
 

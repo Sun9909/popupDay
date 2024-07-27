@@ -8,11 +8,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/qnaForm.css}">
-    <link rel="stylesheet" th:href="@{css/jquery-ui.min.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>질문하기</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+        // 상세 보기로 전환(취소)
+        function validateForm(event) {
+            var category = document.getElementById("category_name").value;
+            if (category === "선택하세요") {
+                alert("카테고리를 선택해야 합니다.");
+                event.preventDefault(); // 폼 제출을 방지합니다.
+                return false;
+            }
+            return true;
+        }
 
     </script>
 </head>
@@ -47,7 +56,7 @@
                 </div>
                 <div class="question-button">
                     <input type="submit" value="등록">
-                    <input type="button" value="취소" onclick="backToList(this.form)">
+                    <input type="button" value="취소" onclick="backToList_qna(this.form)">
                 </div>
             </form>
         </div>
@@ -59,3 +68,4 @@
 </th:block>
 </body>
 </html>
+

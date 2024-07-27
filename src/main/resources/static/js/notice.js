@@ -225,22 +225,26 @@ function Imageread_notice(input, num) {
 
 
 /*********************** Q&AQ&AQ&A *****************************/
-// 다른 페이지(글 목록)로 이동
-function backToList(obj) {
-    obj.action="/notice/qnaList.do";
-    obj.method="get";
+function toggleAnswerQna() {
+    var answerQnaDiv = document.getElementById('answer_qna_div');
+    if (answerQnaDiv.style.display === 'none') {
+        answerQnaDiv.style.display = 'block'; // 보이기
+    } else {
+        answerQnaDiv.style.display = 'none';  // 숨기기
+    }
+}
+
+// // 다른 페이지(글 목록)로 이동
+function backToList_qna(obj) {
+    obj.action="/notice/qnaList.do"
+    obj.method="post";
     obj.submit();
 }
 
-// 폼 제출 시 카테고리 선택 여부 검사
-function validateForm(event) {
-    var category = document.getElementById("category_name").value;
-    if (category === "선택하세요") {
-        alert("카테고리를 선택해야 합니다.");
-        event.preventDefault(); // 폼 제출을 방지합니다.
-        return false;
-    }
-    return true;
+
+// 취소 버튼 클릭 시 리스트로 돌아가기
+function backToList_qna() {
+    window.location.href = "/notice/qnaList.do";
 }
 //qba 수정하기
 function qna_enable(obj) {
@@ -307,4 +311,3 @@ function fn_remove_answer(url, qna_id) {
         deleteForm.submit();
     }
 }
-
