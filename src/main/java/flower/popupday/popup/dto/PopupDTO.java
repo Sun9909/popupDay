@@ -219,4 +219,5 @@ public class PopupDTO {
     public void setImage_file_name(String image_file_name) {
         this.image_file_name = image_file_name;
     }
+
 }
