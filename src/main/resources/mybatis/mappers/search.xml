@@ -10,6 +10,7 @@
         <result property="end_date" column="end_date"/>
         <result property="address" column="address"/>
         <result property="image_file_name" column="image_file_name"/>
+        <result property="status" column="status"/> <!-- status 필드 매핑 추가 -->
     </resultMap>
 
     <!-- 해시태그로 팝업 검색 -->
@@ -48,5 +49,40 @@
         ]]>
     </select>
 
+    <!-- 날짜 조건으로 팝업 상태를 구분 -->
+    <!--종료된 팝업 검색-->
+    <select id="searchFinishedPopups" resultMap="PopupResult" parameterType="java.sql.Date">
+        <![CDATA[
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.end_date < #{today}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+        LIMIT 1;
+        ]]>
+    </select>
 
+    <!--진행 중 팝업 검색-->
+    <select id="searchOngoingPopups" resultMap="PopupResult" parameterType="java.sql.Date">
+     <![CDATA[
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.start_date <= #{today} AND p.end_date >= #{today}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+        LIMIT 1;
+        ]]>
+    </select>
+
+    <!--진행 예정 팝업 검색-->
+    <select id="searchUpcomingPopups" resultMap="PopupResult" parameterType="java.sql.Date">
+     <![CDATA[
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.start_date > #{today}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+            LIMIT 1;
+        ]]>
+    </select>
 </mapper>

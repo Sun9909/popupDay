@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -29,5 +31,20 @@ public class SearchServiceImpl implements SearchService {
         return searchDAO.searchPopupsByDate(selectedDate);
     }
 
+
+    @Override
+    public List<PopupDTO> searchFinishedPopups(Date today) {
+        return searchDAO.searchFinishedPopups(today);
+    }
+
+    @Override
+    public List<PopupDTO> searchOngoingPopups(Date today) {
+        return searchDAO.searchOngoingPopups(today);
+    }
+
+    @Override
+    public List<PopupDTO> searchUpcomingPopups(Date today) {
+        return searchDAO.searchUpcomingPopups(today);
+    }
 
 }
