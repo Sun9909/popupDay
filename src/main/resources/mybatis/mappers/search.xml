@@ -1,57 +1,88 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="flower.popupday.search.dao.SearchDAO">
     <!-- 팝업 정보 결과 매핑 -->
     <resultMap type="flower.popupday.popup.dto.PopupDTO" id="PopupResult">
         <result property="popup_id" column="popup_id"/>
         <result property="title" column="title"/>
-        <result property="info" column="info"/>
         <result property="start_date" column="start_date"/>
         <result property="end_date" column="end_date"/>
-        <result property="content" column="content"/>
         <result property="address" column="address"/>
-        <result property="brand_page" column="brand_page"/>
-        <result property="role" column="role"/>
-        <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
-        <result property="hits" column="hits"/>
-        <result property="monday_time" column="monday_time"/>
-        <result property="tuesday_time" column="tuesday_time"/>
-        <result property="wednesday_time" column="wednesday_time"/>
-        <result property="thursday_time" column="thursday_time"/>
-        <result property="friday_time" column="friday_time"/>
-        <result property="saturday_time" column="saturday_time"/>
-        <result property="sunday_time" column="sunday_time"/>
+        <result property="image_file_name" column="image_file_name"/>
+        <result property="status" column="status"/> <!-- status 필드 매핑 추가 -->
     </resultMap>
 
     <!-- 해시태그로 팝업 검색 -->
-    <select id="searchPopupsByHashTag" resultMap="PopupResult" parameterType="string">
-        SELECT p.*
+    <select id="searchPopupHasTag" parameterType="String" resultMap="PopupResult">
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
         FROM popup_tbl p
-                 JOIN popup_hash_tag_tbl pht ON p.popup_id = pht.popup_id
-                 JOIN hash_tag_tbl ht ON pht.hash_tag_id = ht.hash_tag_id
-        WHERE ht.hash_tag LIKE CONCAT('%', #{query}, '%')
+                 JOIN popup_hash_tag_tbl ph ON p.popup_id = ph.popup_id
+                 JOIN hash_tag_tbl h ON ph.hash_tag_id = h.hash_tag_id
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE h.hash_tag = #{hash_tag}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+            LIMIT 1;
     </select>
 
     <!-- 단어 검색시 조회 -->
     <select id="searchPopupsByWord" resultMap="PopupResult" parameterType="string">
-        SELECT * FROM popup_tbl
-        WHERE title LIKE CONCAT('%', #{keyword}, '%')
-           OR info LIKE CONCAT('%', #{keyword}, '%')
-           OR content LIKE CONCAT('%', #{keyword}, '%')
-           OR address LIKE CONCAT('%', #{keyword}, '%')
-           OR brand_page LIKE CONCAT('%', #{keyword}, '%')
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.title LIKE CONCAT('%', #{keyword}, '%')
+           OR p.info LIKE CONCAT('%', #{keyword}, '%')
+           OR p.content LIKE CONCAT('%', #{keyword}, '%')
+           OR p.address LIKE CONCAT('%', #{keyword}, '%')
+           OR p.brand_page LIKE CONCAT('%', #{keyword}, '%')
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address;
     </select>
 
     <!-- 날짜로 팝업 검색 -->
     <select id="searchPopupsByDate" resultMap="PopupResult" parameterType="java.sql.Date">
         <![CDATA[
-        SELECT * FROM popup_tbl
-        WHERE start_date <= #{selectedDate} AND end_date >= #{selectedDate}
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.start_date <= #{selectedDate} AND p.end_date >= #{selectedDate}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address;
+        ]]>
+    </select>
+
+    <!-- 날짜 조건으로 팝업 상태를 구분 -->
+    <!--종료된 팝업 검색-->
+    <select id="searchFinishedPopups" resultMap="PopupResult" parameterType="java.sql.Date">
+        <![CDATA[
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.end_date < #{today}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+        LIMIT 1;
+        ]]>
+    </select>
+
+    <!--진행 중 팝업 검색-->
+    <select id="searchOngoingPopups" resultMap="PopupResult" parameterType="java.sql.Date">
+     <![CDATA[
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.start_date <= #{today} AND p.end_date >= #{today}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+        LIMIT 1;
+        ]]>
+    </select>
+
+    <!--진행 예정 팝업 검색-->
+    <select id="searchUpcomingPopups" resultMap="PopupResult" parameterType="java.sql.Date">
+     <![CDATA[
+        SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address, MAX(i.image_file_name) AS image_file_name
+        FROM popup_tbl p
+                 LEFT JOIN popup_image_tbl i ON p.popup_id = i.popup_id
+        WHERE p.start_date > #{today}
+        GROUP BY p.popup_id, p.title, p.start_date, p.end_date, p.address
+            LIMIT 1;
         ]]>
     </select>
 </mapper>

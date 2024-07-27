@@ -22,7 +22,7 @@
                 <a th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
                     <div class="popup-item">
                         <div class="popup-image">
-                            <img th:src="@{${result.brand_page}}" alt="Popup Image">
+                            <img th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
                         </div>
                         <p hidden="hidden" th:text="${result.popup_id}"></p>
                         <p th:text="${result.title}"></p>
@@ -32,40 +32,58 @@
                 </a>
             </div>
         </section>
+        <!-- 종료된 팝업 -->
         <section class="popup-section">
-            <h2>예정 중 / 전체보기(2)</h2>
-            <div class="popup-list">
+            <h2>종료된 팝업</h2>
+            <div class="popup-list" th:if="${#lists.isEmpty(finishedPopups)}">
+                <p class="pop-table-none">종료된 팝업이 없습니다.</p>
+            </div>
+            <div class="popup-list" th:each="result : ${finishedPopups}" th:unless="${#lists.isEmpty(finishedPopups)}">
                 <div class="popup-item">
-                    <div class="popup-image"></div>
-                    <p>동방신기 팝업</p>
-                    <p>24.09.08 ~ 24.10.01</p>
-                    <p>서울특별시 강남구 루루쌤빌딩</p>
-                    <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
-                </div>
-                <div class="popup-item">
-                    <div class="popup-image"></div>
-                    <p>동방신기 팝업</p>
-                    <p>24.09.08 ~ 24.10.01</p>
-                    <p>서울특별시 강남구 루루쌤빌딩</p>
+                    <div class="popup-image">
+                        <img th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
+                    </div>
+                    <p th:text="${result.title}"></p>
+                    <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                    <p th:text="${result.address}"></p>
                     <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
                 </div>
             </div>
         </section>
+
+        <!-- 진행 중인 팝업 -->
         <section class="popup-section">
-            <h2>종료 / 전체보기(1)</h2>
-            <div class="popup-list">
+            <h2>진행 중인 팝업</h2>
+            <div class="popup-list" th:if="${#lists.isEmpty(ongoingPopups)}">
+                <p class="pop-table-none">진행 중인 팝업이 없습니다.</p>
+            </div>
+            <div class="popup-list" th:each="result : ${ongoingPopups}" th:unless="${#lists.isEmpty(ongoingPopups)}">
                 <div class="popup-item">
-                    <div class="popup-image"></div>
-                    <p>동방신기 팝업</p>
-                    <p>24.09.08 ~ 24.10.01</p>
-                    <p>서울특별시 강남구 루루쌤빌딩</p>
+                    <div class="popup-image">
+                        <img th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
+                    </div>
+                    <p th:text="${result.title}"></p>
+                    <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                    <p th:text="${result.address}"></p>
                     <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
                 </div>
+            </div>
+        </section>
+
+        <!-- 예정된 팝업 -->
+        <section class="popup-section">
+            <h2>예정된 팝업</h2>
+            <div class="popup-list" th:if="${#lists.isEmpty(upcomingPopups)}">
+                <p class="pop-table-none">예정된 팝업이 없습니다.</p>
+            </div>
+            <div class="popup-list" th:each="result : ${upcomingPopups}" th:unless="${#lists.isEmpty(upcomingPopups)}">
                 <div class="popup-item">
-                    <div class="popup-image"></div>
-                    <p>동방신기 팝업</p>
-                    <p>24.09.08 ~ 24.10.01</p>
-                    <p>서울특별시 강남구 루루쌤빌딩</p>
+                    <div class="popup-image">
+                        <img th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
+                    </div>
+                    <p th:text="${result.title}"></p>
+                    <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                    <p th:text="${result.address}"></p>
                     <span class="favorite"><img th:src="@{/images/heart_empty.svg}"></span>
                 </div>
             </div>
