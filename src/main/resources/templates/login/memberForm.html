@@ -18,7 +18,7 @@
         <div>
             <div class="individual_join_form">
                 <form name="frmMemberLogin" th:action="@{/login/addLogin.do}" method="post" th:object="${loginDTO}">
-                    <table>
+                    <table class="join-tbl">
                         <tr>
                             <td><label for="email">이메일을 입력해주세요.</label></td>
                             <td><input type="email" class="user_email" name="email" id="email" check_result="fail" required></td>
