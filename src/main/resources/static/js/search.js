@@ -41,13 +41,24 @@ function searchHashTags() {
         });
 }
 
-// search 타입이 hashtag인지 word인지 구분하는 js
 function submitForm() {
     var searchInput = document.getElementById('searchInput1').value;
     var searchType = searchInput.startsWith('#') ? 'hashtag' : 'word';
     document.getElementById('searchType').value = searchType;
     document.getElementById('searchForm').submit();
     return false;  // 폼이 계속 제출되지 않도록 false를 반환
+}
+
+function checkAndNavigate(event, url) {
+    var searchInput = document.getElementById('searchInput1').value;
+    if (searchInput.trim() === '#') {
+        // 검색 입력이 비어 있을 경우, 기본 링크로 이동
+        window.location.href = url;
+        return false;  // 기본 동작을 막기 위해 false 반환
+    }
+    // 검색 입력이 있는 경우, 폼 제출
+    submitForm();
+    return false;
 }
 
 document.addEventListener('DOMContentLoaded', function() {

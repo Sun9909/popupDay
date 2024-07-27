@@ -284,11 +284,6 @@
     border-bottom: 1px solid #ccc;
 }
 
-.custom-button:hover {
-    color: #000; /* 호버 시 글자색 변경 */
-    border-bottom: 2px solid #000; /* 호버 시 밑줄 추가 */
-}
-
 /*후기작성공간, 후기가이드*/
 
 .myreview {
