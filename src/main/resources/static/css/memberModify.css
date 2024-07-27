@@ -8,7 +8,8 @@ h2 {
 .main_title {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    align-items: center;
+    margin-left: 20px;
 }
 .main_title img {
     margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
