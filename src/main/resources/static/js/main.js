@@ -233,7 +233,7 @@ function dropMember() {
         success: function (data) {
             console.log("AJAX success data:", data); // 디버깅용 로그
             if (data) {
-                alert("이미 탈퇴한 회원 입니다.");
+                //alert("이미 탈퇴한 회원 입니다.");
             }
         }
     })

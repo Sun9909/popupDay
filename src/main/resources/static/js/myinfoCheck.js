@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSubmitButtonState();
 });
 
-function delete_check() {
+function delete_check(event, url) {
     event.preventDefault(); // 이벤트 기본 동작을 막음
     Swal.fire({
         title: '정말 탈퇴하시겠습니까?',
@@ -204,7 +204,7 @@ function delete_check() {
                 showConfirmButton: true
             }).then(() => {
                 // 실제 탈퇴 처리를 진행
-                // e.g., location.href = '/path/to/delete';
+                location.href = url;
             });
         }
     });

@@ -63,7 +63,7 @@
                     <td th:text="${member.role}"></td>
                     <td th:text="${member.status}"></td>
                     <td><a th:href="@{/admin/memberModify.do(id=${member.id})}">수정</a></td>
-                    <td><a href="#" onclick="return delete_check()" th:href="@{/admin/delMember.do(id=${member.id})}">삭제</a></td>
+                    <td><a href="#" onclick="drop_check(event, '/admin/delMember.do?id=${member.id}')">삭제</a></td>
                 </tr>
             </table>
 
