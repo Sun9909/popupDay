@@ -37,6 +37,7 @@ public interface MyDAO {
 
     public void updatePwd(LoginDTO loginDTO) throws DataAccessException;
 
+    //회원 삭제
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
     public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;

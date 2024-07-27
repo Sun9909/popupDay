@@ -32,7 +32,12 @@
         <div class="containers">
             <!-- 팝업 신청 관리 페이지 -->
             <h2>팝업 신청 관리</h2>
-            <p class="popCount" th:text="'전체 ' + ${totPopup} + '개'"></p>
+            <div th:if="${totPopup == null}">
+                <p class="popCount" th:text="'0개'"></p>
+            </div>
+            <div th:unless="${totPopup == null}">
+                <p class="popCount" th:text="'전체 ' + ${totPopup} + '개'"></p>
+            </div>
 
             <!-- 팝업 게시판 가져오기 -->
             <table>

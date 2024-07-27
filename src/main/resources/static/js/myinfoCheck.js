@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function delete_check() {
+    event.preventDefault(); // 이벤트 기본 동작을 막음
     Swal.fire({
         title: '정말 탈퇴하시겠습니까?',
         icon: 'warning',
