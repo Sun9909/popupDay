@@ -177,7 +177,7 @@
                 </div>
                 <!-- 브랜드 홈페이지 바로가기 -->
                 <div>
-                    <a href="#" class="infor-tit">브랜드 홈페이지 바로가기</a>
+                    <a th:href="${popupMap.popupList.brand_page}" class="infor-tit">브랜드 홈페이지 바로가기</a>
                 </div>
 
                 <span th:if="${popupMap != null && popupMap.popupList != null && loginCheck && popupMap.popupList.user_id == id}">
