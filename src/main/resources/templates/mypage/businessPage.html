@@ -41,9 +41,14 @@
                     </a>
                 </article>
                 <article class="review">
-                    <a href="#">
+                    <a th:href="@{/mypage/registration.do(id=${my.id})}">
                         <h5>신청 팝업 현황</h5>
-                        <p>??중</p>
+                        <div th:if="${allPopupCount == null}">
+                            <p th:text="'0개'"></p>
+                        </div>
+                        <div th:unless="${allPopupCount == null}">
+                            <p th:text="${allPopupCount}+'개'"></p>
+                        </div>
                     </a>
                 </article>
             </div>
@@ -74,7 +79,7 @@
             <div class="service">
                 <h3>고객센터</h3>
                 <ul>
-                    <li><a href="#">문의사항</a></li>
+<!--                    <li><a href="#">문의사항</a></li>-->
                     <li><a th:href="@{/notice/faqList.do}">FAQ</a></li>
                     <li><a th:href="@{/notice/qnaList.do}">Q&A</a></li>
 <!--                    <li><a th:href="@{/act/setting.do}">설정</a></li>-->

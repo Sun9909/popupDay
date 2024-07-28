@@ -36,7 +36,7 @@ public interface PopupService {
     public Map<String, Object> bsPopupList(Map<String, Integer> pagingMap) throws DataAccessException;
 
     //사업자 등록 팝업 리스트
-    public Map<String, Object> myPopupList(Long id, Long popup_id, Map<String, Integer> pagingMap) throws DataAccessException;
+    public Map<String, Object> myPopupList(Map<String, Integer> pagingMap) throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashTag);
 
