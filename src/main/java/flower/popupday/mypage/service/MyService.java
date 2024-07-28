@@ -52,5 +52,5 @@ public interface MyService {
     public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException;
 
     //찜 삭제
-    public void likeClick(Long popup_id) throws DataAccessException;
+    public void likeClick(Long popup_id, Long id) throws DataAccessException;
 }

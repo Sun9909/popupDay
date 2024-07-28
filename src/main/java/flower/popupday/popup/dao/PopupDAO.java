@@ -67,7 +67,7 @@ public interface PopupDAO {
     public List selectBsPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 
     //사업자 신청 팝업 개수
-    public int selectToBsPopup() throws DataAccessException;
+    public int selectToBsPopup(int id) throws DataAccessException;
 
     public List<PopupDTO> selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 

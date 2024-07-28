@@ -276,7 +276,7 @@ public class PopupServiceImpl implements PopupService {
         int id = pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
         List<PopupDTO> popupList = popupDAO.selectBsPopup(count, id);
-        int totPopup = popupDAO.selectToBsPopup();
+        int totPopup = popupDAO.selectToBsPopup(id);
 
         bsPopupList.put("popupList", popupList);
         bsPopupList.put("totPopup", totPopup);

@@ -203,6 +203,9 @@ public class MyControllerImpl implements MyController {
         Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
         Long allPopupCount = myService.getAllPopupCount(popupDTO.getUser_id());
 
+        System.out.println("컨트롤임1" + PopupCount);
+        System.out.println("컨트롤임2" + allPopupCount);
+
         ModelAndView mav = new ModelAndView("mypage/businessPage");
         mav.addObject("my", loginDTO);
 
@@ -300,8 +303,15 @@ public class MyControllerImpl implements MyController {
     @Override
     @RequestMapping("/mypage/likeClick.do")
     public ModelAndView likeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        myService.likeClick(popup_id);
-        ModelAndView mav = new ModelAndView("redirect:/mypage/memberLike.do");
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
+        Long id = loginDTO.getId();
+
+        System.out.println("아이디는 " + id);
+
+        myService.likeClick(popup_id, id);
+        ModelAndView mav = new ModelAndView("/mypage/memberLike");
         return mav;
     }
 

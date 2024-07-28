@@ -122,6 +122,7 @@ public class MyServiceImpl implements MyService {
     @Override
     public Long getAllPopupCount(Long user_id) throws DataAccessException {
         Long allPopupCount = myDAO.getAllPopupCount(user_id);
+        System.out.println("service임" + allPopupCount);
         return allPopupCount;
     }
 
@@ -161,8 +162,8 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public void likeClick(Long popup_id) throws DataAccessException {
-        myDAO.likeClick(popup_id);
+    public void likeClick(Long popup_id, Long id) throws DataAccessException {
+        myDAO.likeClick(popup_id, id);
     }
 
     @Override
