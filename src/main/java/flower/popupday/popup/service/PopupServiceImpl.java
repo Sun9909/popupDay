@@ -38,15 +38,33 @@ public class PopupServiceImpl implements PopupService {
         return popupDAO.searchPopupHasTag(hashtag);
     }
 
-    // 팝업 전체 리스트
     @Override
-    public Map<String, Object> popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
-        Map<String, Object> popupMap = new HashMap<>();
-        int section = pagingMap.get("section");
-        int pageNum = pagingMap.get("pageNum");
-        int count = (section - 1) * 100 + (pageNum - 1) * 10;
-        List<PopupDTO> popupList = popupDAO.selectAllPopup(count);
-        int totPopup = popupDAO.selectToPopup();
+    public Map<String, Object> selectPopupList(Map<String, Object> filterParams) {
+        String filter = (String) filterParams.get("filter");
+        int pageNum = (int) filterParams.get("pageNum");
+        int section = (int) filterParams.get("section");
+        int itemsPerPage = 9;
+        int count = (section - 1) * 90 + (pageNum - 1) * 9;
+        int totalPopups;
+
+        List<PopupDTO> popupList;
+
+        switch (filter) {
+            case "ongoing":
+                popupList = popupDAO.selectOngoingPopup(count);
+                break;
+            case "upcoming":
+                popupList = popupDAO.selectUpcomingPopup(count);
+                break;
+            case "ended":
+                popupList = popupDAO.selectEndPopup(count);
+                break;
+            case "all":
+            default:
+                popupList = popupDAO.selectAllPopup(count);
+                break;
+        }
+        totalPopups = popupList.size(); // 한 번의 쿼리에서 가져온 결과의 총 개수를 사용
 
         List<Map<String, Object>> popupInfoList = new ArrayList<>();
         for (PopupDTO popup : popupList) {
@@ -58,9 +76,11 @@ public class PopupServiceImpl implements PopupService {
             popupInfoList.add(popupInfo);
         }
 
-        popupMap.put("popupInfoList", popupInfoList); // 팝업 정보 리스트 추가
-        popupMap.put("totPopup", totPopup);
-        return popupMap;
+        Map<String, Object> response = new HashMap<>();
+        response.put("popupInfoList", popupInfoList);
+        response.put("totPopup", totalPopups);
+
+        return response;
     }
 
     @Transactional
@@ -223,25 +243,30 @@ public class PopupServiceImpl implements PopupService {
         int id = pagingMap.get("id");
 //        int popup_id = pagingMap.get("popup_id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
+        // 팝업 리스트를 DAO를 통해 가져옵니다.
+        List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);
+        int totPopup = popupDAO.selectTotPopup();
 
-        System.out.println("service_id: " + id);
-        //System.out.println("service_popup_id: " + popup_id);
-
-        List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);   //팝업 리스트
-        int totPopup = popupDAO.selectTotPopup();   //팝업 개수
-
-        List<Map<String, Object>> popupInfoList = new ArrayList<>();    //팝업 리스트 + 썸네일 이미지
+        // 각 팝업에 대한 정보를 담을 리스트를 생성합니다.
+        List<Map<String, Object>> popupInfoList = new ArrayList<>();
         for (PopupDTO popup : popupList) {
-            Long popup_id = popup.getPopup_id(); //팝업 리스트에서 팝업 id
-            ImageDTO thumbnailImage = popupDAO.selectFirstImage(popup_id); //썸네일 이미지
-            HashTagDTO hashTagList = popupDAO.selectHashTagList2(popup_id);
+            Long popup_id = popup.getPopup_id();
+
+            // 썸네일 이미지를 가져옵니다.
+            ImageDTO thumbnailImage = popupDAO.selectFirstImg(popup_id);
+
+            // 해시태그를 가져옵니다.
+            List<String> tags = popupDAO.selectPopupTags(popup_id); // 해시태그 가져오기
+
+            // 팝업 정보를 담을 맵을 생성합니다.
             Map<String, Object> popupInfo = new HashMap<>();
             popupInfo.put("popup", popup);
             popupInfo.put("thumbnailImage", thumbnailImage);
-            popupInfo.put("hashTagList", hashTagList);
+            popupInfo.put("tags", tags); // 해시태그 추가
             popupInfoList.add(popupInfo);
         }
 
+        // 팝업 정보를 맵에 추가합니다.
         popupMap.put("popupInfoList", popupInfoList);
         popupMap.put("totPopup", totPopup);
 

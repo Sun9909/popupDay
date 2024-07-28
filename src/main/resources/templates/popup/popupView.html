@@ -132,7 +132,7 @@
                 <!--안내및주의사항-->
                 <div class="popupdetail-caution">
                     <h3 class="infor-tit">안내 및 주의사항</h3>
-                    <input type="text" th:name="info"  th:value="${popupMap.popupList.info}" disabled>
+                    <textarea id="cation-content" type="text" th:name="info"  th:text="${popupMap.popupList.info}" disabled></textarea>
                 </div>
 
                 <!--오시는길-->
@@ -157,7 +157,9 @@
                             <div class="option" >
                                 <div>
                                     <form onsubmit="searchPlaces(); return false;">
-                                        키워드 : <input type="text" th:value="${popupMap.popupList.address}" id="keyword" size="15">
+                                        <input type="hidden" id="hiddenKeyword" th:value="${popupMap.popupList.address} + '맛집'">
+                                        <!-- 사용자가 입력할 수 있는 텍스트 입력 필드 (빈 상태로 표시) -->
+                                        키워드 : <input type="text" id="keyword" size="15" placeholder="검색어를 입력하세요">
                                         <button type="submit">검색하기</button>
                                     </form>
                                 </div>
