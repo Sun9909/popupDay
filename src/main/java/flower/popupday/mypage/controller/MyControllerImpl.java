@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.System.out;
+
 @Controller("myController")
 public class MyControllerImpl implements MyController {
 
@@ -243,6 +245,64 @@ public class MyControllerImpl implements MyController {
         System.out.println("totPopup: " + popupMap.get("totPopup"));
 
         return mav; // ModelAndView 반환
+    }
+
+    @Override
+    @RequestMapping("/mypage/myReviewList.do")
+    public ModelAndView reviewList(@RequestParam(value = "section", required = false) String _section,
+                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int section=Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Map<String, Integer> pagingMap=new HashMap<>();
+        pagingMap.put("section", section); // 1
+        pagingMap.put("pageNum", pageNum); // 1
+        pagingMap.put("id", id);
+
+        Map reviewMap = myService.reviewList(pagingMap);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("notice/review"); // 여기로감
+        mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        return mav; // 포워딩
+    }
+
+    @Override
+    @RequestMapping("/mypage/myQnaList.do")
+    public ModelAndView qnaList(@RequestParam(value = "section", required = false) String _section,
+                                @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int section =  Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum =  Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Map<String, Integer> pagingMap=new HashMap<>();
+        pagingMap.put("section", section); // 1
+        pagingMap.put("pageNum", pageNum); // 1
+        pagingMap.put("id", id);
+
+        Map qnaMap = myService.listQna(pagingMap); // 서비스에서 공지사항 글 목록 받아옴
+
+        ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
+        mav.setViewName("notice/qna"); // 이 뷰로 이동
+        mav.addObject("qnaMap", qnaMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/mypage/likeClick.do")
+    public ModelAndView likeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        myService.likeClick(popup_id);
+        ModelAndView mav = new ModelAndView("redirect:/mypage/memberLike.do");
+        return mav;
     }
 
 }

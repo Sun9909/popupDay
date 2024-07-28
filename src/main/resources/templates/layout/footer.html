@@ -95,7 +95,7 @@
             <!-- 일반 사용자인 경우 -->
             <a href="#" th:unless="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/login.do\')'" class="mypages">
                 <img th:src="@{/images/person.svg}">
-                <span>마이페이지</span>
+                <span id="mypage-text" >마이페이지</span>
             </a>
         </div>
         <a class="up" href="#"><img class="arrow_up" th:src="@{/images/arror_up.svg}"></a>
