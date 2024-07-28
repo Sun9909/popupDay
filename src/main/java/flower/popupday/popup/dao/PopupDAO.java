@@ -71,7 +71,7 @@ public interface PopupDAO {
 
     public List<PopupDTO> selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 
-    public int selectTotPopup() throws DataAccessException;
+    public int selectTotPopup(int id) throws DataAccessException;
 
     public ImageDTO selectFirstImg(Long popup_id) throws DataAccessException;
 
