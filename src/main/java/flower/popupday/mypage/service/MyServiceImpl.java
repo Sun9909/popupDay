@@ -4,6 +4,9 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dao.MyDAO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
+import flower.popupday.notice.qna.dto.QnaDTO;
+import flower.popupday.notice.review.dao.ReviewDAO;
+import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +25,14 @@ public class MyServiceImpl implements MyService {
     private MyDAO myDAO;
     @Autowired
     private MyPopupDTO mypopupDTO;
+    @Autowired
+    private ReviewDAO reviewDAO;
 
     //마이페이지
     @Override // 한사람 정보 = 리스트 , 세션 이미지 + 유저정보 map
     public MyDTO getName(MyDTO myDTO) throws DataAccessException {
         MyDTO getName= myDAO.getName(myDTO);
         return getName;
-    }
-
-    @Override
-    public int getReview() throws DataAccessException {
-        int reviewCount = myDAO.selectAllReview();
-        return reviewCount;
     }
 
     @Override   //리뷰 개수
@@ -124,6 +123,41 @@ public class MyServiceImpl implements MyService {
     public Long getAllPopupCount(Long user_id) throws DataAccessException {
         Long allPopupCount = myDAO.getAllPopupCount(user_id);
         return allPopupCount;
+    }
+
+    @Override
+    public Map reviewList(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map listMap=new HashMap<>();
+        int section=pagingMap.get("section");
+        int pageNum=pagingMap.get("pageNum");
+        int id=pagingMap.get("id");
+        int count=(section-1)*100+(pageNum-1)*10;
+
+        List<ReviewDTO> reviewList=myDAO.selectAllReview(count, id);
+        int totReview=myDAO.selectToReview(id);
+
+        listMap.put("reviewList",reviewList);
+        listMap.put("totReview",totReview);
+
+        return listMap;
+    }
+
+    @Override
+    public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException {
+        Map<String, Object> qnaMap = new HashMap<>(); // 공지사항 목록과 관련 데이터를 저장할 맵을 생성
+
+        int section = pagingMap.get("section"); // pagingMap에서 section 값을 가져와 section 변수에 저장
+        int pageNum = pagingMap.get("pageNum"); // pagingMap에서 pageNum 값을 가져와 pageNum 변수에 저장
+        int id=pagingMap.get("id");
+        int count = (section -1) * 100 + (pageNum - 1) * 10; // section,pageNum을 사용해 DB쿼리의 시작 위치를 계산 -> section은 100개의 공지사항을 pageNum은 10개의 공지사항을 나타냄.
+
+        List<QnaDTO> listQna = myDAO.selectAllQnaList(count, id); //noticeDAO를 사용해 count 위치부터 공지사항 목록을 가져옴 -> NoticeDTO 객체의 리스트로 반환 됨 (전체 글 조회)
+        int totQna = myDAO.selectToQna(id); // noticeDAO를 사용해 전체 공지사항 수를 가져옴.
+
+        qnaMap.put("listQna", listQna); // noticeList를 noticeMap에 추가
+        qnaMap.put("totQna", totQna);   // totNotice를 noticeMap에 추가
+
+        return qnaMap;
     }
 
     @Override

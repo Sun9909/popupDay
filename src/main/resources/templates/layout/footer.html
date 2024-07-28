@@ -89,17 +89,15 @@
             </a>
             <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/login.do\')'" class="mypages">
                 <img th:src="@{/images/person.svg}">
-                <span>마이페이지</span>
+                <span id="mypage-text" >마이페이지</span>
             </a>
 <!--            <div>-->
-<!--                <div class="css-footer-buttons" th:if="${session.loginDTO.user_id == 'admin'}">-->
-<!--                    <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/admin/admin.do\', \'/login/join.do\')'">-->
+<!--                <div class="css-footer-buttons" id="footer-links">-->
+<!--                    <a href="#" th:if="${session.loginDTO.user_id == 'admin'}" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/admin/admin.do\', \'/login/join.do\')'">-->
 <!--                        <img th:src="@{/images/person.svg}">-->
 <!--                        <span>관리자 페이지</span>-->
 <!--                    </a>-->
-<!--                </div>-->
-<!--                <div class="css-footer-buttons" th:unless="${session.loginDTO.user_id == 'admin'}">-->
-<!--                    <a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/join.do\')'">-->
+<!--                    <a href="#" th:unless="${session.loginDTO.user_id == 'admin'}" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/join.do\')'">-->
 <!--                        <img th:src="@{/images/person.svg}">-->
 <!--                        <span>마이페이지</span>-->
 <!--                    </a>-->

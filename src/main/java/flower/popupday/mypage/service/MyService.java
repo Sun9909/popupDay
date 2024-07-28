@@ -16,8 +16,6 @@ public interface MyService {
     //마이페이지
     public MyDTO getName(MyDTO myDTO) throws DataAccessException;
 
-    public int getReview() throws DataAccessException;
-
     public Long getReviewCount(Long id) throws DataAccessException;
 
     //public String getreCommentCount(String user_nickname) throws DataAccessException;
@@ -46,4 +44,10 @@ public interface MyService {
     public Long getPopupCount(Long user_id) throws DataAccessException;
 
     public Long getAllPopupCount(Long user_id) throws DataAccessException;
+
+    //내가 쓴 리뷰 보기
+    public Map reviewList(Map<String, Integer> pagingMap) throws DataAccessException;
+
+    //내가 쓴 문의 사항
+    public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException;
 }
