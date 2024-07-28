@@ -190,12 +190,12 @@ function toggleAnswerQna() {
     }
 }
 
-// // 다른 페이지(글 목록)로 이동
-function backToList_qna(obj) {
-    obj.action="/notice/qnaList.do"
-    obj.method="post";
-    obj.submit();
-}
+// // // 다른 페이지(글 목록)로 이동
+// function backToList_qna(obj) {
+//     obj.action="/notice/qnaList.do"
+//     obj.method="post";
+//     obj.submit();
+// }
 
 
 // 취소 버튼 클릭 시 리스트로 돌아가기

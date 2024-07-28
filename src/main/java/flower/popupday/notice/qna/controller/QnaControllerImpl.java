@@ -38,7 +38,7 @@ public class QnaControllerImpl implements QnaController {
 
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
         if (loginDTO == null) {
-            mav.setViewName("redirect:login/loginForm.do");
+            mav.setViewName("redirect:/login/loginForm.do");
             return mav;
         }
 
@@ -101,7 +101,7 @@ public class QnaControllerImpl implements QnaController {
             qnaDTO.setCategory_name(category_name);
 
             qnaService.addQna(qnaDTO);
-            return new ModelAndView("redirect:notice/qnaList.do");
+            return new ModelAndView("redirect:/notice/qnaList.do");
         } catch (Exception e) {
             // 예외 처리 (로그 기록, 에러 페이지 반환 등)
             throw new RuntimeException("Qna 추가 중 오류 발생");
@@ -145,7 +145,7 @@ public class QnaControllerImpl implements QnaController {
             e.printStackTrace();
             rAttr.addFlashAttribute("flashMessage", "문제 발생: " + e.getMessage());
             rAttr.addFlashAttribute("flashType", "error");
-            return new ModelAndView("redirect:notice/qnaList.do");
+            return new ModelAndView("redirect:/notice/qnaList.do");
         }
 
         HttpSession session = request.getSession();
@@ -153,7 +153,7 @@ public class QnaControllerImpl implements QnaController {
         if (loginDTO == null) {
             rAttr.addFlashAttribute("flashMessage", "작성자와 관리자만<br>글을 볼 수 있습니다");
             rAttr.addFlashAttribute("flashType", "error");
-            return new ModelAndView("redirect:notice/qnaList.do");
+            return new ModelAndView("redirect:/notice/qnaList.do");
         }
 
         Long loggedInUserId = loginDTO.getId();
@@ -163,7 +163,7 @@ public class QnaControllerImpl implements QnaController {
         if (qnaDTO == null) {
             rAttr.addFlashAttribute("flashMessage", "Q&A 정보를 찾을 수 없습니다.");
             rAttr.addFlashAttribute("flashType", "error");
-            return new ModelAndView("redirect:notice/qnaList.do");
+            return new ModelAndView("redirect:/notice/qnaList.do");
         }
 
         Long usdr_id = qnaDTO.getUser_id();
@@ -172,7 +172,7 @@ public class QnaControllerImpl implements QnaController {
         if (!loggedInUserId.equals(usdr_id) && !userRole.equals("관리자")) {
             rAttr.addFlashAttribute("flashMessage", "작성자와 관리자만<br>글을 볼 수 있습니다");
             rAttr.addFlashAttribute("flashType", "error");
-            return new ModelAndView("redirect:notice/qnaList.do");
+            return new ModelAndView("redirect:/notice/qnaList.do");
         }
 
         ModelAndView mav = new ModelAndView();
@@ -201,7 +201,7 @@ public class QnaControllerImpl implements QnaController {
         // 서비스 호출
         qnaService.modQna(qnaDTO); // modQna메서들 호출 (qnaDTO :title,contetn, qna_id)를 가져옴
 
-        ModelAndView mav = new ModelAndView("redirect:notice/qnaList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
       return mav;
    }
 
@@ -212,7 +212,7 @@ public class QnaControllerImpl implements QnaController {
     @RequestMapping("/notice/removeQna.do")
     public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         qnaService.removeQna(qna_id);
-        ModelAndView mav = new ModelAndView("redirect:notice/qnaList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
@@ -257,7 +257,7 @@ public class QnaControllerImpl implements QnaController {
         //qnaMap.put("qnaDTO",qnaDTO);
         qnaService.addAnswer(qnaDTO);  //서비스 호출
 
-        ModelAndView mav = new ModelAndView("redirect:notice/qnaList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
@@ -275,7 +275,7 @@ public class QnaControllerImpl implements QnaController {
         // 서비스 호출
         qnaService.modAnswer(qnaDTO); // modAnswer 메서드 호출
 
-        ModelAndView mav = new ModelAndView("redirect:notice/qnaList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
@@ -284,7 +284,7 @@ public class QnaControllerImpl implements QnaController {
     @RequestMapping(value = "/notice/removeAnswer.do", method = RequestMethod.POST)
     public ModelAndView removedAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         qnaService.removeAnswer(qna_id);
-        ModelAndView mav = new ModelAndView("redirect:notice/qnaList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
