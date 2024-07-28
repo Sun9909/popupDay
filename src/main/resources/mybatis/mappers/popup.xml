@@ -227,7 +227,7 @@
    </select>
 
     <select id="selectMyPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where user_id=#{id} and role="승인" order by created_date desc LIMIT #{count}, 9
+        select * from popup_tbl where user_id=#{id} and role="승인" order by created_date desc LIMIT #{count}, 10
     </select>
 
     <select id="selectTotPopup" resultType="int">
@@ -276,5 +276,4 @@
                  join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
         where pht.popup_id = #{popup_id}
     </select>
-
 </mapper>

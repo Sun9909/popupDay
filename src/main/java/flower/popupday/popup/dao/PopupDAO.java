@@ -47,6 +47,8 @@ public interface PopupDAO {
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
+    public HashTagDTO selectHashTagList2(Long popup_id) throws DataAccessException;
+
     public void roleUpdate(Long popup_id, String role) throws DataAccessException;
 
     public void updateHits(Long popup_id) throws DataAccessException;
@@ -67,7 +69,7 @@ public interface PopupDAO {
     //사업자 신청 팝업 개수
     public int selectToBsPopup() throws DataAccessException;
 
-    public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+    public List<PopupDTO> selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 
     public int selectTotPopup() throws DataAccessException;
 

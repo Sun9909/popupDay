@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface AdminDAO {
-    public List selectAllMembersList(@Param("count") int count) throws DataAccessException;
+    public List selectAllMemberList(@Param("count") int count) throws DataAccessException;
 
     public int selectTotmember() throws DataAccessException;
 

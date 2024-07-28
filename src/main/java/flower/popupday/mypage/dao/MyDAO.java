@@ -42,9 +42,11 @@ public interface MyDAO {
 
     public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 
-    public int selectToPopup() throws DataAccessException;
+    public int selectToPopup(@Param("id") int id) throws DataAccessException;
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
     public Long getPopupCount(Long user_id) throws DataAccessException;
+
+    public Long getAllPopupCount(Long user_id) throws DataAccessException;
 }

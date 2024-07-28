@@ -1,24 +1,29 @@
 @charset "utf-8";
 h2 {
     font-size: 1.8em;
-    margin: 20px 0 20px 30px;
+    margin: 20px 0 20px;
 }
-h3 {
-    font-size: 1.3em;
-    margin: 20px 0 20px 30px;
+.main_title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    align-items: center;
+}
+. main_title a {
+    margin: 8px 0 0 10px;
+}
+.main_title img {
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    width: 30px;
+    height: 30px;
 }
 .all {
     display: flex;
-    margin: 20px 0 20px 30px;
+    margin: 10px 0 20px 30px;
 }
 .all p {
-    color: #d9d9d9;
+    color: #4B4B65;
     margin-right: 520px;
-}
-.all button {
-    color: #d9d9d9;
-    border: 1px #d9d9d9 solid;
-    padding: 3px;
 }
 
 /* 찜한 팝업이 없을 때 */
@@ -32,34 +37,38 @@ h4 {
 form {
     margin: 20px;
     background-color: #FDFEFF;
+    position: relative;
 }
 fieldset {
-    display: flex;
+    /*display: flex;*/
     padding: 15px;
 }
+form .pop {
+    display: flex;
+}
 form .popImg {
-    width: 150px;
+    width: 180px;
     height: 180px;
-    margin-right: 25px;
+    margin-right: 10px;
 }
 form .popImg img {
-    width: 150px;
     height: 180px;
 }
-form .Acc {
-    margin-right: 138px;
-}
+/*form .Acc {*/
+/*    margin-right: 138px;*/
+/*}*/
 form .popAcc {
     display: flow;
-    margin-left: 30px;
+    margin-top: 20px;
+    margin-left: 10px;
 }
 form .popAcc h5 {
-    font-size: 1.6em;
+    font-size: 1.5em;
     padding: 10px 0;
 }
 form .popAcc p {
     font-size: 1.2em;
-    margin: 0 20px 10px 5px;
+    margin: 10px 20px 10px 5px;
 }
 form .tags {
     display: flex;
@@ -75,5 +84,8 @@ form .popIcon {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
 }
 

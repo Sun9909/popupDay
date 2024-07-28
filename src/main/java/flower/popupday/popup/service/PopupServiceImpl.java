@@ -228,8 +228,10 @@ public class PopupServiceImpl implements PopupService {
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
         List<PopupDTO> popupList = popupDAO.selectBsPopup(count, id);
         int totPopup = popupDAO.selectToBsPopup();
+
         bsPopupList.put("popupList", popupList);
         bsPopupList.put("totPopup", totPopup);
+
         return bsPopupList;
     }
 
@@ -239,8 +241,8 @@ public class PopupServiceImpl implements PopupService {
         int section = pagingMap.get("section");
         int pageNum = pagingMap.get("pageNum");
         int id = pagingMap.get("id");
+//        int popup_id = pagingMap.get("popup_id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
-
         // 팝업 리스트를 DAO를 통해 가져옵니다.
         List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);
         int totPopup = popupDAO.selectTotPopup();

@@ -104,8 +104,7 @@ public class PopupControllerImpl implements PopupController {
         return mav;
     }
 
-
-
+    //관리자 - 팝업 신청 리스트
     @Override
     @RequestMapping("/admin/register.do")
     public ModelAndView registerList(@RequestParam(value = "section", required = false) String _section,
@@ -129,6 +128,7 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
+    //관리자 - 팝업 신청 상세보기
     @Override
     @RequestMapping("/admin/registerForm.do")
     public ModelAndView register(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -141,6 +141,7 @@ public class PopupControllerImpl implements PopupController {
         return mav;
     }
 
+    //관리자 - 팝업 승인 결정
     @Override
     @RequestMapping("/admin/roleUpdate.do")
     public ModelAndView roleUpdate(@RequestParam("popup_id") Long popup_id,@RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -433,8 +434,9 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
-    @RequestMapping("/mypage/myPopup.do")
-    public ModelAndView popupList(@RequestParam(value = "section", required = false) String _section,
+    @RequestMapping("/popup/myPopup.do")
+    public ModelAndView popupList(
+                                  @RequestParam(value = "section", required = false) String _section,
                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
@@ -450,10 +452,14 @@ public class PopupControllerImpl implements PopupController {
         pagingMap.put("id", userId.intValue());
         Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
+        //System.out.println();
+
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/myPopup"); // View 이름 설정
-        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
+        mav.setViewName("/mypage/myPopup"); // View 이름 설정
+        mav.addObject("popupMap", popupMap);
+//        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
         mav.addObject("totPopup", popupMap.get("totPopup"));
+//        mav.addObject("hashTagList", popupMap.get("hashTagList"));
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 
