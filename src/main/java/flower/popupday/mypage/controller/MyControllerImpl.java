@@ -203,6 +203,9 @@ public class MyControllerImpl implements MyController {
         Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
         Long allPopupCount = myService.getAllPopupCount(popupDTO.getUser_id());
 
+        System.out.println("컨트롤임1" + PopupCount);
+        System.out.println("컨트롤임2" + allPopupCount);
+
         ModelAndView mav = new ModelAndView("mypage/businessPage");
         mav.addObject("my", loginDTO);
 

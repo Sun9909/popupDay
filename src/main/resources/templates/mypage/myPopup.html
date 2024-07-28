@@ -49,7 +49,7 @@
                                 <p th:text="${popup.popup.address}"></p>
                             </div>
                             <div class="tags">
-                                <a th:each="tag : ${popup.tags}" href="#" class="tag" th:text=" ${tag}" title="해시태그"></a>
+                                <a th:each="tag : ${popup.tags}" href="#"> <p  class="tag" th:text="${tag}" title="해시태그"></p></a>
                             </div>
                         </div>
                     </a>

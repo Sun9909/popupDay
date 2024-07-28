@@ -29,20 +29,26 @@
             </div>
             <!-- 내가 작성한 것들 보는 영역 -->
             <div class="wrote">
-                <article class="comment">
+                <article class="mypopup">
                     <a th:href="@{/popup/myPopup.do(id=${my.id})}">
                         <h5>등록된 팝업</h5>
-                        <div th:if="${popupCount == 0}">
+                        <div th:if="${popupCount == null}">
                             <p th:text="'0개'"></p>
                         </div>
-                        <div th:unless="${popupCount == 0}">
+                        <div th:unless="${popupCount == null}">
                             <p th:text="${popupCount} + '개'"></p>
                         </div>
                     </a>
                 </article>
-                <article class="review">
+                <article class="regPopup">
                     <a th:href="@{/mypage/registration.do(id=${my.id})}">
                         <h5>신청 팝업 현황</h5>
+                        <div th:if="${allPopupCount == null}">
+                            <p th:text="'0개'"></p>
+                        </div>
+                        <div th:unless="${allPopupCount == null}">
+                            <p th:text="${allPopupCount} + '개'"></p>
+                        </div>
                     </a>
                 </article>
             </div>

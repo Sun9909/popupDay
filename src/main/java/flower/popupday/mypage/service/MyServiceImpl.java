@@ -122,6 +122,7 @@ public class MyServiceImpl implements MyService {
     @Override
     public Long getAllPopupCount(Long user_id) throws DataAccessException {
         Long allPopupCount = myDAO.getAllPopupCount(user_id);
+        System.out.println("service임" + allPopupCount);
         return allPopupCount;
     }
 

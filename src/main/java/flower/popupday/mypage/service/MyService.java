@@ -53,4 +53,5 @@ public interface MyService {
 
     //찜 삭제
     public void unlikeClick(Long popup_id, Long id) throws DataAccessException;
+
 }
