@@ -136,7 +136,7 @@ public class NoticeControllerImpl implements NoticeController {
         } catch (Exception e) { // 글쓰기 하다 오류나면 여기로 옴
             e.printStackTrace();
         }
-        ModelAndView mav = new ModelAndView("redirect:notice/noticeList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.do");
         return mav;
     }
 
@@ -214,7 +214,7 @@ public class NoticeControllerImpl implements NoticeController {
         } //catch end
 
         // 글 목록 페이지로 리다이렉트
-        ModelAndView mav = new ModelAndView("redirect:notice/noticeList.do");
+        ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.do");
         return mav;
     }
 
@@ -255,7 +255,7 @@ public class NoticeControllerImpl implements NoticeController {
         if(imgDir.exists()) { // 이미지가 있는 글일때 수행
             FileUtils.deleteDirectory(imgDir); // 이 디렉토리(폴더)를 삭제
         }
-        ModelAndView mav=new ModelAndView("redirect:notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
+        ModelAndView mav=new ModelAndView("redirect:/notice/noticeList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
         return mav;
     }
 
