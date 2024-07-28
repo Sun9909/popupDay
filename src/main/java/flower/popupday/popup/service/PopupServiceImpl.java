@@ -272,4 +272,10 @@ public class PopupServiceImpl implements PopupService {
 
         return popupMap;
     }
+
+    //승인된 팝업 개수
+    @Override
+    public int getApprovedPopupCount(int userId) throws DataAccessException {
+        return popupDAO.selectTotPopup(userId);
+    }
 }

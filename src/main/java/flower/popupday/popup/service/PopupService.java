@@ -40,4 +40,6 @@ public interface PopupService {
 
     public List<PopupDTO> searchPopupHasTag(String hashTag) throws DataAccessException;
 
+    //승인된 팝업 개수
+    int getApprovedPopupCount(int userId) throws DataAccessException;
 }

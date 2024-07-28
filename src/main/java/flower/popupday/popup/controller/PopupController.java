@@ -3,6 +3,7 @@ package flower.popupday.popup.controller;
 import flower.popupday.popup.dto.PopupDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,4 +53,6 @@ public interface PopupController {
     //사업자의 본인이 등록한 승인된 팝업 리스트
     public ModelAndView popupList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
     String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView businessPage(HttpSession session);
 }

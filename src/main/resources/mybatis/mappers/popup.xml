@@ -59,10 +59,10 @@
         SELECT * FROM popup_tbl WHERE NOW() BETWEEN start_date AND end_date and role="승인" order by created_date desc
     </select>
 
-     <!-- 종료 -->
+    <!-- 종료 -->
     <select id="selectEndPopup" resultType="PopupDTO">
         <![CDATA[
-            SELECT * FROM popup_tbl WHERE end_date < NOW() and role="승인" order by created_date desc
+        SELECT * FROM popup_tbl WHERE end_date < NOW() and role="승인" order by created_date desc
         ]]>
     </select>
 
@@ -159,7 +159,7 @@
     <!-- 특정 팝업의 해시태그 리스트 조회 -->
     <select id="selectHashTagList" resultMap="hashTagDTO" parameterType="Long">
         select ht.hash_tag_id, ht.hash_tag from popup_hash_tag_tbl pht
-        join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
+                                                    join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
         where pht.popup_id = #{popup_id}
     </select>
 
@@ -200,10 +200,10 @@
     <!-- 글수정 -->
     <update id="updatePopup" parameterType="java.util.Map">
         update popup_tbl set
-        title = #{title}, info = #{info}, start_date = #{start_date}, end_date = #{end_date}, content = #{content},
-        address = #{address}, brand_page = #{brand_page}, monday_time = #{monday_time},
-        tuesday_time = #{tuesday_time}, wednesday_time = #{wednesday_time}, thursday_time = #{thursday_time}, friday_time = #{friday_time},
-        saturday_time = #{saturday_time}, sunday_time = #{sunday_time}, parking = #{parking}, fee = #{fee} WHERE popup_id = #{popup_id}
+                             title = #{title}, info = #{info}, start_date = #{start_date}, end_date = #{end_date}, content = #{content},
+                             address = #{address}, brand_page = #{brand_page}, monday_time = #{monday_time},
+                             tuesday_time = #{tuesday_time}, wednesday_time = #{wednesday_time}, thursday_time = #{thursday_time}, friday_time = #{friday_time},
+                             saturday_time = #{saturday_time}, sunday_time = #{sunday_time}, parking = #{parking}, fee = #{fee} WHERE popup_id = #{popup_id}
     </update>
 
 
@@ -224,23 +224,24 @@
     <!-- 사업자 신청 팝업 개수 -->
     <select id="selectToBsPopup" resultType="int">
         select count(*) from popup_tbl where user_id=#{id}
-   </select>
+    </select>
 
     <select id="selectMyPopup" resultMap="popResult" parameterType="int">
         select * from popup_tbl where user_id=#{id} and role="승인" order by created_date desc LIMIT #{count}, 10
     </select>
 
     <!-- 특정 사용자의 승인된 팝업 개수 조회 -->
-    <select id="selectTotPopup" resultType="int">
+    <select id="selectTotPopup" resultType="int" parameterType="int">
         <![CDATA[
-            select count(*) from popup_tbl where user_id=#{id} and role="승인"
+        select count(*) from popup_tbl where user_id=#{id} and role="승인"
         ]]>
     </select>
+
 
     <select id="bestPopup" resultType="PopupDTO">
         SELECT p.popup_id ,p.title ,p.start_date ,p.end_date, p.address,p.role, img.image_file_name AS thumbnail
         FROM popup_tbl p LEFT JOIN (SELECT popup_id, image_file_name FROM popup_image_tbl
-        WHERE (popup_id, popup_image_id) IN (SELECT popup_id, MIN(popup_image_id) FROM popup_image_tbl GROUP BY popup_id)) img ON p.popup_id = img.popup_id
+                                    WHERE (popup_id, popup_image_id) IN (SELECT popup_id, MIN(popup_image_id) FROM popup_image_tbl GROUP BY popup_id)) img ON p.popup_id = img.popup_id
         WHERE p.role ="승인" and p.end_date > NOW() ORDER BY p.hits DESC LIMIT 5;
     </select>
 

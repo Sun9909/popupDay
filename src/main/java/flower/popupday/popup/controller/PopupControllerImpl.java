@@ -463,4 +463,19 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
+    //승인된 팝업 개수 사업자 페이지에 보이게
+    @Override
+    @GetMapping("/mypage/businessPage.do")
+    public ModelAndView businessPage(HttpSession session) {
+        ModelAndView mav = new ModelAndView("mypage/businessPage");
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        if (loginDTO != null) {
+            int userId = loginDTO.getId().intValue();
+            int popupCount = popupService.getApprovedPopupCount(userId);
+            mav.addObject("popupCount", popupCount);
+            mav.addObject("my", loginDTO);  // 추가된 부분
+        }
+        return mav;
+    }
+
 }
