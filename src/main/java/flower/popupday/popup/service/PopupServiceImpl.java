@@ -8,13 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("popupService")
 public class PopupServiceImpl implements PopupService {
@@ -211,11 +210,61 @@ public class PopupServiceImpl implements PopupService {
         }
     }
 
-    // 여러개의 이미지글 수정하기
-    @Override
-    public void updatePopup(Map popupMap) throws DataAccessException {
-        popupDAO.updatePopup(popupMap); // 글수정
-        popupDAO.updateImage(popupMap); // 이미지 수정
+    public void updatePopup(Map<String, Object> popupMap) {
+        // 글 수정
+        popupDAO.updatePopup(popupMap);
+
+        // popup_id를 String으로 가져와 Long으로 변환
+        Long popup_id;
+        Object popupIdObj = popupMap.get("popup_id");
+        if (popupIdObj instanceof String) {
+            popup_id = Long.parseLong((String) popupIdObj);
+        } else if (popupIdObj instanceof Long) {
+            popup_id = (Long) popupIdObj;
+        } else {
+            throw new IllegalArgumentException("Invalid popup_id type");
+        }
+
+        // 만약 popupMap에 popup_id가 없으면 새로 가져옴
+        if (popup_id == null) {
+            popup_id = popupDAO.getNewPopupId();
+            popupMap.put("popup_id", popup_id);
+        }
+
+        // 이미지 수정
+        popupDAO.updateImage(popupMap);
+
+        // 기존 해시태그 삭제
+        popupDAO.deletePopupHashTag(popup_id);
+
+        // 해시태그 등록 처리
+        List<String> hashTags = (List<String>) popupMap.get("hash_tag");
+        if (hashTags != null && !hashTags.isEmpty()) {
+            List<String> nonExistingHashTags = new ArrayList<>();
+            for (String tag : hashTags) {
+                if (!popupDAO.checkHashTag(tag)) {
+                    nonExistingHashTags.add(tag);
+                }
+            }
+            if (!nonExistingHashTags.isEmpty()) {
+                // Map 형태로 변환하여 DAO에 전달
+                List<Map<String, Object>> tagMapList = new ArrayList<>();
+                for (String tag : nonExistingHashTags) {
+                    Map<String, Object> tagMap = new HashMap<>();
+                    tagMap.put("tag", tag);
+                    tagMapList.add(tagMap);
+                }
+                popupDAO.insertHashTag(tagMapList);  // DAO에서는 List<Map<String, Object>>을 처리할 수 있도록 구현되어야 함
+            }
+            // 팝업과 해시태그 연결 정보 삽입
+            for (String tag : hashTags) {
+                Long hash_tag_id = popupDAO.getHashTagIdByTag(tag);
+                Map<String, Object> paramMap = new HashMap<>();
+                paramMap.put("popup_id", popup_id);
+                paramMap.put("hash_tag_id", hash_tag_id);
+                popupDAO.insertPopupHashTag(paramMap);
+            }
+        }
     }
 
 
@@ -245,7 +294,7 @@ public class PopupServiceImpl implements PopupService {
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
         // 팝업 리스트를 DAO를 통해 가져옵니다.
         List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);
-        int totPopup = popupDAO.selectTotPopup();
+        int totPopup = popupDAO.selectTotPopup(id); // 승인된 팝업 개수를 가져옴
 
         // 각 팝업에 대한 정보를 담을 리스트를 생성합니다.
         List<Map<String, Object>> popupInfoList = new ArrayList<>();
@@ -271,5 +320,11 @@ public class PopupServiceImpl implements PopupService {
         popupMap.put("totPopup", totPopup);
 
         return popupMap;
+    }
+
+    //승인된 팝업 개수
+    @Override
+    public int getApprovedPopupCount(int userId) throws DataAccessException {
+        return popupDAO.selectTotPopup(userId);
     }
 }

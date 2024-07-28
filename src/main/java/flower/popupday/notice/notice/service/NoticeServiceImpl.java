@@ -48,8 +48,8 @@ public class NoticeServiceImpl implements NoticeService {
         int totNotice = noticeDAO.selectTotNotice(); // noticeDAO를 사용해 전체 공지사항 수를 가져옴.
 
         noticeMap.put("noticeList", noticeList); // noticeList를 noticeMap에 추가
-        // noticeMap.put("totNotice", totNotice);   // totNotice를 noticeMap에 추가
-        noticeMap.put("totNotice", 324);
+        noticeMap.put("totNotice", totNotice);   // totNotice를 noticeMap에 추가
+        //noticeMap.put("totNotice", 324);
 
         // Debugging 로그 추가
         System.out.println("noticeList: " + noticeList);

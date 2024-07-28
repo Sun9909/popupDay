@@ -339,11 +339,9 @@ public class PopupControllerImpl implements PopupController {
     @Override
     @RequestMapping("/popup/updatePopup.do")
     public ModelAndView updatePopup(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-        // 멀티파트 요청의 문자 인코딩 설정
         multipartRequest.setCharacterEncoding("utf-8");
         Map<String, Object> popupMap = new HashMap<>();
 
-        // 요청 파라미터 로깅
         Enumeration<?> enu = multipartRequest.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
@@ -351,7 +349,11 @@ public class PopupControllerImpl implements PopupController {
             popupMap.put(name, value);
         }
 
-        // 파일 업로드 처리
+        String[] hashTags = multipartRequest.getParameterValues("hash_tag");
+        if (hashTags != null && hashTags.length > 0) {
+            popupMap.put("hash_tag", Arrays.asList(hashTags));
+        }
+
         List<String> fileList = multiFileUpload(multipartRequest);
         String popup_id = (String) popupMap.get("popup_id");
 
@@ -362,8 +364,8 @@ public class PopupControllerImpl implements PopupController {
                 modityNumber++;
                 ImageDTO imageDTO = new ImageDTO();
                 imageDTO.setImage_file_name(fileName);
-                String popupImageIdStr = (String) popupMap.get("popup_image_id_" + (modityNumber - 1)); // index 조정
-                Long popupImageId = (popupImageIdStr != null && !popupImageIdStr.isEmpty()) ? Long.parseLong(popupImageIdStr) : null; //팝업이미지아이디
+                String popupImageIdStr = (String) popupMap.get("popup_image_id_" + (modityNumber - 1));
+                Long popupImageId = (popupImageIdStr != null && !popupImageIdStr.isEmpty()) ? Long.parseLong(popupImageIdStr) : null;
                 imageDTO.setPopup_image_id(popupImageId);
                 imageFileList.add(imageDTO);
             }
@@ -371,10 +373,8 @@ public class PopupControllerImpl implements PopupController {
         }
 
         try {
-            // 팝업 정보 업데이트
             popupService.updatePopup(popupMap);
 
-            // 이미지 파일 처리
             if (imageFileList != null && !imageFileList.isEmpty()) {
                 int cnt = 0;
                 for (ImageDTO imageDTO : imageFileList) {
@@ -386,13 +386,13 @@ public class PopupControllerImpl implements PopupController {
                         File destDir = new File(ARTICLE_IMG_REPO + "\\" + popup_id);
                         File destFile = new File(destDir, imageFileName);
                         File oldFile = (popupImageId != null) ? new File(ARTICLE_IMG_REPO + "\\" + popup_id + "\\" + (String) popupMap.get("image_file_name" + cnt)) : null;
-                        // 기존 파일 삭제
+
                         if (oldFile != null && oldFile.exists()) {
                             if (oldFile.delete()) {
                             }
                         }
                         cnt++;
-                        // 새 파일 이동
+
                         if (srcFile.exists()) {
                             if (!destDir.exists()) {
                                 destDir.mkdirs();
@@ -433,12 +433,13 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
+
     @Override
     @RequestMapping("/popup/myPopup.do")
     public ModelAndView popupList(
-                                  @RequestParam(value = "section", required = false) String _section,
-                                  @RequestParam(value = "pageNum", required = false) String _pageNum,
-                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+            @RequestParam(value = "section", required = false) String _section,
+            @RequestParam(value = "pageNum", required = false) String _pageNum,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
@@ -452,18 +453,29 @@ public class PopupControllerImpl implements PopupController {
         pagingMap.put("id", userId.intValue());
         Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
-        //System.out.println();
-
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/mypage/myPopup"); // View 이름 설정
         mav.addObject("popupMap", popupMap);
-//        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
-        mav.addObject("totPopup", popupMap.get("totPopup"));
-//        mav.addObject("hashTagList", popupMap.get("hashTagList"));
+        mav.addObject("totPopup", popupMap.get("totPopup")); // 승인된 팝업 개수 추가
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 
         return mav; // ModelAndView 반환
+    }
+
+    //승인된 팝업 개수 사업자 페이지에 보이게
+    @Override
+    @GetMapping("/mypage/businessPage.do")
+    public ModelAndView businessPage(HttpSession session) {
+        ModelAndView mav = new ModelAndView("mypage/businessPage");
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        if (loginDTO != null) {
+            int userId = loginDTO.getId().intValue();
+            int popupCount = popupService.getApprovedPopupCount(userId);
+            mav.addObject("popupCount", popupCount);
+            mav.addObject("my", loginDTO);  // 추가된 부분
+        }
+        return mav;
     }
 
 }

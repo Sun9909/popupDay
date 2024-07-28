@@ -28,7 +28,7 @@ public interface PopupService {
 
     public boolean toggleLike(Long popup_id, Long id) throws DataAccessException;
 
-    public void updatePopup(Map popupMap) throws DataAccessException;
+    public void updatePopup(Map<String, Object> popupMap) throws DataAccessException;
 
     public Map<String, Object> mainView() throws DataAccessException;
 
@@ -40,4 +40,6 @@ public interface PopupService {
 
     public List<PopupDTO> searchPopupHasTag(String hashTag) throws DataAccessException;
 
+    //승인된 팝업 개수
+    int getApprovedPopupCount(int userId) throws DataAccessException;
 }
