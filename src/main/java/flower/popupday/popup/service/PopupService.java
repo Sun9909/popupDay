@@ -28,7 +28,7 @@ public interface PopupService {
 
     public boolean toggleLike(Long popup_id, Long id) throws DataAccessException;
 
-    public void updatePopup(Map popupMap) throws DataAccessException;
+    public void updatePopup(Map<String, Object> popupMap) throws DataAccessException;
 
     public Map<String, Object> mainView() throws DataAccessException;
 
