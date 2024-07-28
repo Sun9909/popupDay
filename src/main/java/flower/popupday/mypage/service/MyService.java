@@ -44,4 +44,6 @@ public interface MyService {
     public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap) throws DataAccessException;
 
     public Long getPopupCount(Long user_id) throws DataAccessException;
+
+    public Long getAllPopupCount(Long user_id) throws DataAccessException;
 }

@@ -21,7 +21,13 @@
             <h2>팝업 신청 확인 관리</h2>
         </div>
 
-        <p class="popCount" th:text="'전체 ' + ${bsPopupList.totPopup} + '개'"></p>
+<!--        <p class="popCount" th:text="'전체 ' + ${bsPopupList.totPopup} + '개'"></p>-->
+        <div th:if="${bsPopupList.totPopup == null}">
+            <p class="popCount" th:text="'전체 0개'"></p>
+        </div>
+        <div th:unless="${bsPopupList.totPopup == null}">
+            <p class="popCount" th:text="'전체 '+${bsPopupList.totPopup}+'개'"></p>
+        </div>
 
       <!-- 팝업이 있을 때 -->
       <table>
