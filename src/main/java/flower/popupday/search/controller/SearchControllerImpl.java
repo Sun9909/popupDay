@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller // 이 클래스가 Spring MVC의 컨트롤러임을 나타냅니다.
@@ -27,13 +28,16 @@ public class SearchControllerImpl implements SearchController {
     @Override
     @GetMapping // HTTP GET 요청을 처리합니다.
     public ModelAndView search(@RequestParam("query") String query, @RequestParam("searchType") String searchType, Model model) {
-        List<PopupDTO> results; // 검색 결과를 담을 리스트입니다.
+        List<PopupDTO> results = new ArrayList<>(); // 검색 결과를 담을 리스트입니다.
         if ("hashtag".equals(searchType)) { // 검색 유형이 해시태그인 경우
             logger.info("Searching by hashtag: {}", query); // 해시태그로 검색하는 로그를 기록합니다.
             results = searchService.searchPopupHasTag(query); // 해시태그로 팝업을 검색합니다.
         } else { // 검색 유형이 단어인 경우
             logger.info("Searching by word: {}", query); // 단어로 검색하는 로그를 기록합니다.
             results = searchService.searchPopupsByWord(query); // 단어로 팝업을 검색합니다.
+        }
+        if (results == null) {
+            results = new ArrayList<>();
         }
         model.addAttribute("searchResults", results); // 검색 결과를 모델에 추가합니다.
         logger.info("Search Results: {}", results); // 검색 결과를 로그에 기록합니다.
