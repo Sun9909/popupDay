@@ -13,8 +13,9 @@ body {
     background-color: #8B8BDA;
     width: 712px;
     min-height: 910px;
-    max-height: 1600px;
+    max-height: 5000px;
     position: fixed;
+    height: calc(100vh - 100px);
     top: 0;
 }
 

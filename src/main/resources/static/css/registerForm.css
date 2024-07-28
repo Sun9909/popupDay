@@ -100,7 +100,7 @@ header {
 
 .admin_container {
     width: 670px;
-    min-height: 1340px;
+    min-height: 1792px;
     position: relative;
 }
 
@@ -155,5 +155,9 @@ header {
 }
 
 .search-box-inner input {
-    font-size: 14px;
+    background-color: #FEFEDF;
+    border: 2px solid #8B8BDA;
+    padding: 5px 8px 5px 11px;
+    border-radius: 30px;
+    font-size: 15px;
 }
