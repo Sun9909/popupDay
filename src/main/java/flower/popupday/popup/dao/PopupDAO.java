@@ -90,6 +90,10 @@ public interface PopupDAO {
     //해시태그를 가져오는 메서드 추가
     List<String> selectPopupTags(Long popup_id) throws DataAccessException;
 
-    public int selectTotPopup(@Param("id") int id) throws DataAccessException;
+    public void updateHashTags(Map popupMap) throws DataAccessException;
+
+    Integer findHashTagId(String hashTag);
+
+    void deletePopupHashTag(Long popupId);
 
 }
