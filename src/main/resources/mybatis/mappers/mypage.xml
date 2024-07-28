@@ -193,7 +193,8 @@
     </select>
     
     <!-- 찜 삭제 -->
-    <delete id="likeClick" parameterType="Long">
+    <delete id="unlikeClick" parameterType="Long">
         delete from popup_like_tbl where popup_id=#{popup_id} and user_id=#{id}
     </delete>
+
 </mapper>

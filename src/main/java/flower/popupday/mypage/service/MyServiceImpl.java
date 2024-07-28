@@ -161,8 +161,8 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public void likeClick(Long popup_id) throws DataAccessException {
-        myDAO.likeClick(popup_id);
+    public void unlikeClick(Long popup_id, Long id) throws DataAccessException {
+        myDAO.unlikeClick(popup_id,id);
     }
 
     @Override

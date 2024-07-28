@@ -1,0 +1,21 @@
+.swal2-popup.custom-swal-popup {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+
+/* 페이지 밀림 방지 */
+.swal2-shown {
+    padding-right: 0 !important;
+}
+
+/* Custom Style for Body when SweetAlert2 is active */
+body.swal2-shown {
+    overflow: auto !important;
+}
+
+.swal2-backdrop-show {
+    background: rgba(0, 0, 0, 0) !important; /* 투명도 조정 */
+}
+.swal2-container.swal2-backdrop-show {
+    background: rgba(0, 0, 0, 0) !important; /* 투명도 조정 */
+}
