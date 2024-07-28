@@ -440,12 +440,14 @@ public class PopupControllerImpl implements PopupController {
         response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long userId = loginDTO.getId();
 
         Map<String, Integer> pagingMap = new HashMap<>();
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
-        pagingMap.put("id", id);
+        pagingMap.put("id", userId.intValue());
         Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
         ModelAndView mav = new ModelAndView();

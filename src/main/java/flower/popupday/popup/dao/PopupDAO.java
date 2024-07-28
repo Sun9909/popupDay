@@ -79,9 +79,13 @@ public interface PopupDAO {
 
     public List<PopupDTO> searchPopupHasTag(String hashtag) throws DataAccessException;
 
-    List<PopupDTO> selectOngoingPopup(int count);
+    public List<PopupDTO> selectOngoingPopup(int count) throws DataAccessException;
 
-    List<PopupDTO> selectUpcomingPopup(int count);
+    public List<PopupDTO> selectUpcomingPopup(int count) throws DataAccessException;
 
-    List<PopupDTO> selectEndPopup(int count);
+    public List<PopupDTO> selectEndPopup(int count) throws DataAccessException;
+
+    //해시태그를 가져오는 메서드 추가
+    List<String> selectPopupTags(Long popup_id) throws DataAccessException;
+
 }

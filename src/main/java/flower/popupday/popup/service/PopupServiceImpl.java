@@ -240,19 +240,31 @@ public class PopupServiceImpl implements PopupService {
         int pageNum = pagingMap.get("pageNum");
         int id = pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
+
+        // 팝업 리스트를 DAO를 통해 가져옵니다.
         List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);
         int totPopup = popupDAO.selectTotPopup();
 
+        // 각 팝업에 대한 정보를 담을 리스트를 생성합니다.
         List<Map<String, Object>> popupInfoList = new ArrayList<>();
         for (PopupDTO popup : popupList) {
             Long popup_id = popup.getPopup_id();
+
+            // 썸네일 이미지를 가져옵니다.
             ImageDTO thumbnailImage = popupDAO.selectFirstImg(popup_id);
+
+            // 해시태그를 가져옵니다.
+            List<String> tags = popupDAO.selectPopupTags(popup_id); // 해시태그 가져오기
+
+            // 팝업 정보를 담을 맵을 생성합니다.
             Map<String, Object> popupInfo = new HashMap<>();
             popupInfo.put("popup", popup);
             popupInfo.put("thumbnailImage", thumbnailImage);
+            popupInfo.put("tags", tags); // 해시태그 추가
             popupInfoList.add(popupInfo);
         }
 
+        // 팝업 정보를 맵에 추가합니다.
         popupMap.put("popupInfoList", popupInfoList);
         popupMap.put("totPopup", totPopup);
 
