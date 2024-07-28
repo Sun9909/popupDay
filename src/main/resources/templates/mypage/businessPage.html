@@ -30,7 +30,7 @@
             <!-- 내가 작성한 것들 보는 영역 -->
             <div class="wrote">
                 <article class="comment">
-                    <a th:href="@{/mypage/myPopup.do(id=${my.id})}">
+                    <a th:href="@{/popup/myPopup.do(id=${my.id})}">
                         <h5>등록된 팝업</h5>
                         <div th:if="${popupCount == null}">
                             <p th:text="'0개'"></p>
@@ -43,12 +43,12 @@
                 <article class="review">
                     <a th:href="@{/mypage/registration.do(id=${my.id})}">
                         <h5>신청 팝업 현황</h5>
-                        <div th:if="${allPopupCount == null}">
-                            <p th:text="'0개'"></p>
-                        </div>
-                        <div th:unless="${allPopupCount == null}">
-                            <p th:text="${allPopupCount}+'개'"></p>
-                        </div>
+<!--                        <div th:if="${allPopupCount == null}">-->
+<!--                            <p th:text="'0개'"></p>-->
+<!--                        </div>-->
+<!--                        <div th:unless="${allPopupCount == null}">-->
+<!--                            <p th:text="${allPopupCount}+'개'"></p>-->
+<!--                        </div>-->
                     </a>
                 </article>
             </div>
@@ -60,7 +60,7 @@
                 <ul>
                     <li><a th:href="@{/popup/popupForm.do}">팝업 등록하기</a></li>
                     <li><a th:href="@{/mypage/registration.do(id=${my.id})}">팝업 신청 결과 확인</a></li>
-                    <li><a th:href="@{/mypage/myPopup.do(id=${my.id})}">팝업 리스트</a></li>
+                    <li><a th:href="@{/popup/myPopup.do(id=${my.id})}">팝업 리스트</a></li>
                 </ul>
             </div>
             <!-- 내 활동 영역 끝 -->
@@ -70,7 +70,7 @@
                 <h3>게시판</h3>
                 <ul>
                     <li><a th:href="@{/notice/noticeList.do}">공지사항</a></li>
-                    <li><a href="#">진행 중인 이벤트</a></li>
+<!--                    <li><a href="#">진행 중인 이벤트</a></li>-->
                 </ul>
             </div>
             <!-- 게시판 영역 끝 -->

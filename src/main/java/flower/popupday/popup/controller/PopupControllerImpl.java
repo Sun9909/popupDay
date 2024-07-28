@@ -429,7 +429,7 @@ public class PopupControllerImpl implements PopupController {
     }
 
     @Override
-    @RequestMapping("/mypage/myPopup.do")
+    @RequestMapping("/popup/myPopup.do")
     public ModelAndView popupList(
                                   @RequestParam(value = "section", required = false) String _section,
                                   @RequestParam(value = "pageNum", required = false) String _pageNum,

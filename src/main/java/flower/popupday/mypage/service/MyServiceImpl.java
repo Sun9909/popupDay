@@ -104,7 +104,6 @@ public class MyServiceImpl implements MyService {
             popupLike.add(popupInfo);
         }
 
-
         popupMap.put("popupLike", popupLike); // 팝업 정보 리스트 추가
         popupMap.put("totPopup", totPopup);
 
