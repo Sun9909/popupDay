@@ -230,9 +230,10 @@
         select * from popup_tbl where user_id=#{id} and role="승인" order by created_date desc LIMIT #{count}, 10
     </select>
 
+    <!-- 특정 사용자의 승인된 팝업 개수 조회 -->
     <select id="selectTotPopup" resultType="int">
-      <![CDATA[
-        select count(*) from popup_tbl where user_id=#{id} and role="승인"
+        <![CDATA[
+            select count(*) from popup_tbl where user_id=#{id} and role="승인"
         ]]>
     </select>
 
