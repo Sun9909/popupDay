@@ -94,6 +94,7 @@ public class MyServiceImpl implements MyService {
         int totPopup = myDAO.selectToPopup(id); // 전체 팝업 수 조회
 
         List<Map<String, Object>> popupLike = new ArrayList<>();
+
         for (PopupDTO popup : popupList) {
             Long popup_id = popup.getPopup_id();
             ImageDTO thumbnailImage = myDAO.selectFirstImage(popup_id); // 각 팝업의 첫 번째 이미지 조회

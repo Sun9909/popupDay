@@ -47,6 +47,8 @@ public interface PopupDAO {
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
+    public HashTagDTO selectHashTagList2(Long popup_id) throws DataAccessException;
+
     public void roleUpdate(Long popup_id, String role) throws DataAccessException;
 
     public void updateHits(Long popup_id) throws DataAccessException;
@@ -67,7 +69,7 @@ public interface PopupDAO {
     //사업자 신청 팝업 개수
     public int selectToBsPopup() throws DataAccessException;
 
-    public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+    public List<PopupDTO> selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 
     public int selectTotPopup() throws DataAccessException;
 
@@ -75,9 +77,17 @@ public interface PopupDAO {
 
     public List<PopupDTO> bestPopup() throws DataAccessException;
 
-    public List<ImageDTO> bestImageFileList() throws DataAccessException;
-
     public List<HashTagDTO> bestHashTagList() throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashtag) throws DataAccessException;
+
+    public List<PopupDTO> selectOngoingPopup(int count) throws DataAccessException;
+
+    public List<PopupDTO> selectUpcomingPopup(int count) throws DataAccessException;
+
+    public List<PopupDTO> selectEndPopup(int count) throws DataAccessException;
+
+    //해시태그를 가져오는 메서드 추가
+    List<String> selectPopupTags(Long popup_id) throws DataAccessException;
+
 }

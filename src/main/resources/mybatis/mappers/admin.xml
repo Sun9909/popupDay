@@ -17,14 +17,14 @@
     </resultMap>
 
     <!-- 모든 회원 정보 가져오기 -->
-    <select id="selectAllMembersList" resultMap="memResult" parameterType="int">
-        select * from user_tbl order by reg_date desc limit #{count}, 10
+    <select id="selectAllMemberList" resultMap="memResult" parameterType="int">
+        select * from user_tbl order by role desc limit #{count}, 10
     </select>
 
     <!-- 전체 글 목록 수 조회 -->
     <select id="selectTotmember" resultType="int">
         <![CDATA[
-        select count(*) from user_tbl where id=#{id}
+        select count(*) from user_tbl
         ]]>
     </select>
 

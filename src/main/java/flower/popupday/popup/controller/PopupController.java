@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,8 +19,9 @@ public interface PopupController {
 
     public ModelAndView mainView(HttpServletRequest request, HttpServletResponse response) throws  Exception;
 
-    public ModelAndView popupAllList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ResponseEntity<Map<String, Object>> selectPopupList(@RequestBody Map<String, String> params);
+
+    ModelAndView popupAllList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //admin이 보는 신청된 팝업 리스트
     public ModelAndView registerList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)

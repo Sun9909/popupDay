@@ -144,8 +144,13 @@
         update user_tbl set status='deleted' where id=#{id}
     </update>
 
-    <select id="selectMyPopup" parameterType="int">
+    <select id="selectMyPopup" resultMap="popResult" parameterType="map">
         select * from popup_tbl where popup_id in (select popup_id from popup_like_tbl where user_id=#{id}) LIMIT #{count}, 10
+<!--        SELECT p.*-->
+<!--        FROM popup_tbl p-->
+<!--        JOIN popup_like_tbl pl ON p.popup_id = pl.popup_id-->
+<!--        JOIN user_tbl u ON pl.user_id = u.id-->
+<!--        WHERE u.id = #{id} LIMIT #{count}, 10;-->
     </select>
 
     <select id="selectToPopup" resultType="int">
@@ -157,6 +162,10 @@
     </select>
 
     <select id="getPopupCount" parameterType="Long">
+        select * from popup_tbl where user_id=#{id} and role="승인"
+    </select>
+
+    <select id="getAllPopupCount" parameterType="Long">
         select * from popup_tbl where user_id=#{id}
     </select>
 </mapper>

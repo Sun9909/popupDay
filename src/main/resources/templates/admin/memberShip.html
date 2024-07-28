@@ -46,13 +46,13 @@
                 </tr>
 
                 <!-- 회원 없을 때 -->
-                <tr th:if="${membersList == null or membersList.isEmpty()}">
+                <tr th:if="${memberList == null or memberList.isEmpty()}">
                     <td colspan="11" rowspan="3">
                         <h4>회원이 없습니다</h4>
                     </td>
                 </tr>
 
-                <tr th:each="member : ${membersList}">
+                <tr th:each="member : ${memberList}">
                     <td th:text="${member.id}"></td>
                     <td th:text="${member.user_id}"></td>
                     <td th:text="${member.user_nickname}"></td>
@@ -68,31 +68,31 @@
             </table>
 
             <!-- 페이징 -->
-            <div class="number" th:if="${memberMap.totmember > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
-                <div align="center" th:if="${memberMap.totmember > 100}">
-                <span th:each="num : ${#numbers.sequence(1, (memberMap.section > memberMap.totmember / 100 ? (memberMap.totmember % 100) / 10 + 1 : 10))}">
-                    <span th:if="${memberMap.section > 1 and num == 1}">
-                        <a th:href="@{/admin/memberShip.do(section=${memberMap.section - 1}, pageNum=${(memberMap.section - 2) * 10 + 1})}">prev</a>
+            <div align="center" th:if="${totmember > 10}"> <!-- 총 글 개수가 10보다 커야 페이징을 함 -->
+                <div th:if="${totmember > 100}">    <!-- 총 글 개수가 100보다 크면 -->
+                    <span th:each="num : ${#numbers.sequence(1, (section > (totmember / 100) ? (totmember % 100) / 10 + 1 : 10))}">
+                        <span th:if="${section > 1 and num == 1}">
+                            <a th:href="@{/admin/memberShip.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>
+                        </span>
+                        <span th:if="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
+                            <a class="target" th:href="@{/admin/memberShip.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
+                        </span>
+                        <span th:unless="${num == (pageNum % 10 == 0 ? 10 : pageNum % 10)}">
+                            <a class="noLine" th:href="@{/admin/memberShip.do(section=${section}, pageNum=${(section - 1) * 10 + num})}" th:text="${(section - 1) * 10 + num}"></a>
+                        </span>
+                        <span th:if="${num == 10}">
+                            <a th:href="@{/admin/memberShip.do(section=${section + 1}, pageNum=${section * 10 + 1})}">next</a>
+                        </span>
                     </span>
-                    <span th:if="${num == (memberMap.pageNum % 10 == 0 ? 10 : memberMap.pageNum % 10)}">
-                        <a class="target" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${(memberMap.section - 1) * 10 + num})}" th:text="${(memberMap.section - 1) * 10 + num}"></a>
-                    </span>
-                    <span th:unless="${num == (memberMap.pageNum % 10 == 0 ? 10 : memberMap.pageNum % 10)}">
-                        <a class="noLine" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${(memberMap.section - 1) * 10 + num})}" th:text="${(memberMap.section - 1) * 10 + num}"></a>
-                    </span>
-                    <span th:if="${num == 10}">
-                        <a th:href="@{/admin/memberShip.do(section=${memberMap.section + 1}, pageNum=1)}">next</a>
-                    </span>
-                </span>
                 </div>
 
-                <div class="number" th:if="${memberMap.totmember <= 100}">
-                <span th:each="num : ${#numbers.sequence(1, (memberMap.totmember > 10 ? memberMap.totmember / 10 + 1 : 1))}">
-                    <span th:if="${num == memberMap.pageNum}">
-                        <a class="page-target" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                <div class="number" th:if="${totmember <= 100}">    <!-- 총 개수가 100이하면 -->
+                <span th:each="num : ${#numbers.sequence(1, (totmember > 10 ? totmember / 10 + 1 : 1))}">   <!--${#numbers.sequence(1, (totmember > 10 ? totmember / 10 + 1 : 1))}-->
+                    <span th:if="${num == pageNum}">
+                        <a class="target" th:href="@{/admin/memberShip.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
                     </span>
-                    <span th:unless="${num == memberMap.pageNum}">
-                        <a class="page-noLine" th:href="@{/admin/memberShip.do(section=${memberMap.section}, pageNum=${num})}" th:text="${num}"></a>
+                    <span th:unless="${num == pageNum}">
+                        <a class="noLine" th:href="@{/admin/memberShip.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>
                     </span>
                 </span>
                 </div>
