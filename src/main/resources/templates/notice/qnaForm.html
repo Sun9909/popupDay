@@ -22,6 +22,10 @@
             }
             return true;
         }
+        // 취소 버튼 클릭 시 리스트로 돌아가기
+        function backToList_qna() {
+            window.location.href = "/notice/qnaList.do";
+        }
 
     </script>
 </head>
@@ -56,7 +60,7 @@
                 </div>
                 <div class="question-button">
                     <input type="submit" value="등록">
-                    <input type="button" value="취소" onclick="backToList_qna(this.form)">
+                    <input type="button" value="취소" onclick="backToList_qna()">
                 </div>
             </form>
         </div>
