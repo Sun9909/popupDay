@@ -67,9 +67,9 @@
                         <li>팝업 주소 <p th:text="${popupMap.popupList.address}"></p></li>
                         <li>팝업 안내 및 주의사항 <p th:text="${popupMap.popupList.info}"></p></li>
                         <h4>팝업 해시태그</h4>
-                        <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}">
+                        <li class="search-box-inner" th:each="hash, status : ${popupMap.hashTagList}" >
 
-                            <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled>
+                            <input id="tag" type="text" th:name="hash_tag" th:value="${hash.hash_tag}" disabled oninput="adjustWidth2(this)">
                         </li>
                         <h4>팝업 운영 시간</h4>
                         <li class="answer">

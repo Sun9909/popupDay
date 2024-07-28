@@ -72,6 +72,7 @@ tr h4 {
 .containers {
     float: right;
     width: 860px;
+    height: 940px;
 }
 header {
     width: 1440px;
