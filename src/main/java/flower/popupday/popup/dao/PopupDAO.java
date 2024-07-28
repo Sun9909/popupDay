@@ -95,4 +95,5 @@ public interface PopupDAO {
     Integer findHashTagId(String hashTag);
 
     void deletePopupHashTag(Long popupId);
+
 }

@@ -433,12 +433,13 @@ public class PopupControllerImpl implements PopupController {
         return mav; // ModelAndView 반환
     }
 
+
     @Override
     @RequestMapping("/popup/myPopup.do")
     public ModelAndView popupList(
-                                  @RequestParam(value = "section", required = false) String _section,
-                                  @RequestParam(value = "pageNum", required = false) String _pageNum,
-                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+            @RequestParam(value = "section", required = false) String _section,
+            @RequestParam(value = "pageNum", required = false) String _pageNum,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
@@ -452,18 +453,29 @@ public class PopupControllerImpl implements PopupController {
         pagingMap.put("id", userId.intValue());
         Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
-        //System.out.println();
-
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/mypage/myPopup"); // View 이름 설정
         mav.addObject("popupMap", popupMap);
-//        mav.addObject("popupInfoList", popupMap.get("popupInfoList"));
-        mav.addObject("totPopup", popupMap.get("totPopup"));
-//        mav.addObject("hashTagList", popupMap.get("hashTagList"));
+        mav.addObject("totPopup", popupMap.get("totPopup")); // 승인된 팝업 개수 추가
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 
         return mav; // ModelAndView 반환
+    }
+
+    //승인된 팝업 개수 사업자 페이지에 보이게
+    @Override
+    @GetMapping("/mypage/businessPage.do")
+    public ModelAndView businessPage(HttpSession session) {
+        ModelAndView mav = new ModelAndView("mypage/businessPage");
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        if (loginDTO != null) {
+            int userId = loginDTO.getId().intValue();
+            int popupCount = popupService.getApprovedPopupCount(userId);
+            mav.addObject("popupCount", popupCount);
+            mav.addObject("my", loginDTO);  // 추가된 부분
+        }
+        return mav;
     }
 
 }

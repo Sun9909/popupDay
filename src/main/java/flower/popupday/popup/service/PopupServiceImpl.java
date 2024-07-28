@@ -294,7 +294,7 @@ public class PopupServiceImpl implements PopupService {
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
         // 팝업 리스트를 DAO를 통해 가져옵니다.
         List<PopupDTO> popupList = popupDAO.selectMyPopup(count, id);
-        int totPopup = popupDAO.selectTotPopup();
+        int totPopup = popupDAO.selectTotPopup(id); // 승인된 팝업 개수를 가져옴
 
         // 각 팝업에 대한 정보를 담을 리스트를 생성합니다.
         List<Map<String, Object>> popupInfoList = new ArrayList<>();
@@ -320,5 +320,11 @@ public class PopupServiceImpl implements PopupService {
         popupMap.put("totPopup", totPopup);
 
         return popupMap;
+    }
+
+    //승인된 팝업 개수
+    @Override
+    public int getApprovedPopupCount(int userId) throws DataAccessException {
+        return popupDAO.selectTotPopup(userId);
     }
 }

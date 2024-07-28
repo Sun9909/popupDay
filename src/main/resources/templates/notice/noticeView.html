@@ -12,7 +12,15 @@
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>공지사항 상세보기 페이지</title>
     <script>
+        function adjustTextAreaHeight(textarea) {
+            textarea.style.height = 'auto'; // 높이를 자동으로 조정하기 위해 초기화
+            textarea.style.height = (textarea.scrollHeight) + 'px'; // 내용에 맞게 높이 조정
+        }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var textarea = document.getElementById('content');
+            adjustTextAreaHeight(textarea);
+        });
     </script>
 </head>
 <body>
@@ -27,7 +35,7 @@
                 <div>
                     <input class="view-title" id="title" name="title" th:value="${noticeView.notice.title}" disabled>
                 </div>
-                 <!--이미지가 존재할때만 보임-->
+                <!--이미지가 존재할때만 보임-->
                 <div th:if="${not #strings.isEmpty(noticeView.imageFileList)}" class="notice_img">
                     <div th:each="iamge, status: ${noticeView.imageFileList}">
                         <div>
@@ -43,8 +51,9 @@
                     </div>
                 </div>
                 <div>
-                    <p>내용</p>
-                    <input class="view-content" id="content" name="content" th:value="${noticeView.notice.content}" disabled>
+                    <!--<p>내용</p>
+                    <input class="view-content" id="content" name="content" th:value="${noticeView.notice.content}" disabled>-->
+                    <textarea class="view-content" id="content" name="content">[[${noticeView.notice.content}]]</textarea>
                 </div>
             </form>
             <!-- admin만 보이는 구간-->
@@ -59,9 +68,8 @@
                     <input type="button" value="수정반영하기" onclick="notice_modify(noticeView)">
                     <input type="button" value="수정취소하기" onclick="notice_toList(noticeView)">
                 </div>
-
-                <button><a th:href="@{/notice/noticeList.do}">리스트로 돌아가기</a></button>
             </div>
+            <button><a th:href="@{/notice/noticeList.do}">리스트로 돌아가기</a></button>
         </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>

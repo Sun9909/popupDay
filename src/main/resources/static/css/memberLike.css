@@ -45,14 +45,21 @@ fieldset {
 }
 form .pop {
     display: flex;
+    align-items: center;
+}
+
+.Acc {
+    flex-grow: 1;
 }
 form .popImg {
-    width: 180px;
+    width: 160px;
     height: 180px;
     margin-right: 10px;
+    flex-shrink: 1;
 }
 form .popImg img {
     height: 180px;
+    width: 160px;
 }
 /*form .Acc {*/
 /*    margin-right: 138px;*/
@@ -81,9 +88,6 @@ form .tags .tag{
     margin-right: 15px;
 }
 form .popIcon {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     position: absolute;
     right: 20px;
     bottom: 20px;

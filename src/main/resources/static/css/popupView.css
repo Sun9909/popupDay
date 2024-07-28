@@ -181,6 +181,7 @@ cursor: pointer; 포인터 커서로 변경
 .popupdetail-play {
     border-bottom: 1px #ccc solid;
     padding: 15px;
+    height: 450px;
 }
 
 .popupdetail-review {
@@ -307,4 +308,9 @@ cursor: pointer; 포인터 커서로 변경
 }
 .option button {
     border: 1px solid #ccc;
+}
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
