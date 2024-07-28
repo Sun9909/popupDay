@@ -13,7 +13,7 @@ public interface PopupService {
 
     public Map<String, Object> popupView(Long popup_id, Long id) throws  DataAccessException;
 
-    public Map popupAllList(Map<String, Integer> pagingMap) throws  DataAccessException;
+    public Map selectPopupList(Map<String, Object> pagingMap) throws  DataAccessException;
 
     //admin 신청 팝업 리스트
     public Map<String, Object> registerList(Map<String, Integer> pagingMap) throws  DataAccessException;
@@ -38,6 +38,6 @@ public interface PopupService {
     //사업자 등록 팝업 리스트
     public Map<String, Object> myPopupList(Map<String, Integer> pagingMap) throws DataAccessException;
 
-    public List<PopupDTO> searchPopupHasTag(String hashTag);
+    public List<PopupDTO> searchPopupHasTag(String hashTag) throws DataAccessException;
 
 }
