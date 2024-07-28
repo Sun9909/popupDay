@@ -41,7 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
         var totalFiles = currentFiles.length + selectedFiles.length;
 
         if (totalFiles > 6) {
-            alert('파일은 최대 6개까지 선택할 수 있습니다.');
+            Swal.fire({
+                icon: 'warning',
+                text: '파일은 최대 6개까지 선택할 수 있습니다.',
+                confirmButtonText: '확인'
+            });
             return;
         }
 
@@ -121,7 +125,11 @@ function fn_addHash_tag() { //이미지 여러개 올리기 위한 함수
         $('#dock_hash_tag').append('<input type="text" name="hash_tag" class="hash_tag" oninput="adjustWidth(this)" maxlength="10" value="#">');
         hash_count++;
     }else {
-        alert("해시태그는 5개까지만 추가할 수 있습니다.");
+        Swal.fire({
+            icon: 'warning',
+            text: '해시태그는 5개까지만 추가할 수 있습니다.',
+            confirmButtonText: '확인'
+        });
     }
 }
 

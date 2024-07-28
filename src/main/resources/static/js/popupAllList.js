@@ -124,6 +124,11 @@ function loadPopups(filter) {
             renderPopups(data);
         })
         .catch(error => {
-            alert('팝업 조회에 실패했습니다.');
+            // 팝업 조회 실패 시, 오류 메시지를 표시
+            Swal.fire({
+                icon: 'error',
+                text: '팝업 조회에 실패했습니다.',
+                confirmButtonText: '확인'
+            });
         });
 }

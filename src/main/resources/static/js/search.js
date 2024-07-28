@@ -86,7 +86,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data.success) {
                         displayPopups(data.popups);
                     } else {
-                        alert('팝업을 조회하는 데 실패했습니다.');
+                        Swal.fire({
+                            icon: 'error',
+                            text: '팝업을 조회하는 데 실패했습니다.',
+                            confirmButtonText: '확인'
+                        });
                     }
                 })
                 .catch(error => {
