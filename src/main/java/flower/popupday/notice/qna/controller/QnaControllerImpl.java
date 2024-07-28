@@ -209,11 +209,23 @@ public class QnaControllerImpl implements QnaController {
 
     //삭제하기
     @Override
-    @RequestMapping("/notice/removeQna.do")
-    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        qnaService.removeQna(qna_id);
-        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
-        return mav;
+//    @RequestMapping("/notice/removeQna.do")
+//    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        qnaService.removeQna(qna_id);
+//        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
+//        return mav;
+//    }
+    @RequestMapping(value = "/notice/removeQna.do", method = RequestMethod.POST)
+    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            qnaService.removeQna(qna_id);
+            rAttr.addFlashAttribute("flashMessage", "Q&A 질문이 삭제되었습니다.");
+            rAttr.addFlashAttribute("flashType", "success");
+        } catch (Exception e) {
+            rAttr.addFlashAttribute("flashMessage", "Q&A 질문 삭제 중 오류가 발생했습니다.");
+            rAttr.addFlashAttribute("flashType", "error");
+        }
+        return new ModelAndView("redirect:/notice/qnaList.do");
     }
 
     // 답글 쓰기 화면 요청

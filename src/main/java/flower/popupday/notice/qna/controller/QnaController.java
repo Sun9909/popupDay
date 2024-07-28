@@ -27,8 +27,8 @@ public interface QnaController {
 
     public ModelAndView modQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
+    //public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
     // 답글 쓰기 화면 요청
     public ModelAndView answer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
