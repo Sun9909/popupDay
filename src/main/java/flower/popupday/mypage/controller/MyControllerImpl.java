@@ -199,11 +199,13 @@ public class MyControllerImpl implements MyController {
 //        System.out.println(loginDTO.getUser_nickname());
 
         Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
+        Long allPopupCount = myService.getAllPopupCount(popupDTO.getUser_id());
 
         ModelAndView mav = new ModelAndView("mypage/businessPage");
         mav.addObject("my", loginDTO);
 
         mav.addObject("popupCount", PopupCount);
+        mav.addObject("allPopupCount", allPopupCount);
 
         //
         // mav.addObject("PopupCount", PopupCount);
@@ -230,8 +232,9 @@ public class MyControllerImpl implements MyController {
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("mypage/memberLike"); // View 이름 설정
-        mav.addObject("popupLike", popupMap.get("popupLike")); // 팝업 정보 리스트를 View로 전달
-        mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("popupMap", popupMap);
+//        mav.addObject("popupLike", popupMap.get("popupLike")); // 팝업 정보 리스트를 View로 전달
+//        mav.addObject("totPopup", popupMap.get("totPopup")); // 전체 팝업 수를 View로 전달
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 

@@ -144,8 +144,8 @@
         update user_tbl set status='deleted' where id=#{id}
     </update>
 
-    <select id="selectMyPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where user_id = (select user_id from popup_like_tbl where user_id=#{id}) LIMIT #{count}, 9
+    <select id="selectMyPopup" parameterType="int">
+        select * from popup_tbl where popup_id in (select popup_id from popup_like_tbl where user_id=#{id}) LIMIT #{count}, 10
     </select>
 
     <select id="selectToPopup" resultType="int">

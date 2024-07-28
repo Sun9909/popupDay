@@ -19,20 +19,20 @@
             <!-- 찜 목록 페이지 -->
             <h2>찜</h2>
             <h3>찜 목록 보기</h3>
-            <div class="all" th:if="${totPopup == null}">
+            <div class="all" th:if="${popupMap.totPopup == null}">
                 <p class="num" th:text="'전체 0개'"></p>
             </div>
-            <div class="all" th:unless="${totPopup == null}">
-                <p class="num " th:text="'전체 '+${totPopup}+'개'"></p>
+            <div class="all" th:unless="${popupMap.totPopup == null}">
+                <p class="num " th:text="'전체 '+${popupMap.totPopup}+'개'"></p>
             </div>
 
             <!-- 찜한 팝업이 없을 때 -->
-            <form th:if="${popupLike == null or popupLike.isEmpty()}">
+            <form th:if="${popupMap.popupLike == null or popupMap.popupLike.isEmpty()}">
                 <h4>현재 등록된 팝업이 없습니다</h4>
             </form>
 
             <!-- 찜한 팝업이 있을 때 -->
-            <form th:each="popup : ${popupLike}">
+            <form th:each="popup : ${popupMap.popupLike}">
                 <fieldset>
                     <a href="#" class="pop" title="팝업">
                         <div th:if="${popup.thumbnailImage != null}" class="popImg">

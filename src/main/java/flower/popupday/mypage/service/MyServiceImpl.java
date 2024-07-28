@@ -91,7 +91,7 @@ public class MyServiceImpl implements MyService {
         int id = pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
         List<PopupDTO> popupList = myDAO.selectMyPopup(count, id); // 팝업 목록 조회
-        int totPopup = myDAO.selectToPopup(); // 전체 팝업 수 조회
+        int totPopup = myDAO.selectToPopup(id); // 전체 팝업 수 조회
 
         List<Map<String, Object>> popupLike = new ArrayList<>();
         for (PopupDTO popup : popupList) {
@@ -117,6 +117,12 @@ public class MyServiceImpl implements MyService {
     public Long getPopupCount(Long user_id) throws DataAccessException {
         Long popupCount = myDAO.getPopupCount(user_id);
         return popupCount;
+    }
+
+    @Override
+    public Long getAllPopupCount(Long user_id) throws DataAccessException {
+        Long allPopupCount = myDAO.getAllPopupCount(user_id);
+        return allPopupCount;
     }
 
     @Override
