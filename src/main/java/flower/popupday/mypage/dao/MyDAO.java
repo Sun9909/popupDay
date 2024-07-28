@@ -59,4 +59,7 @@ public interface MyDAO {
     public List selectAllQnaList(@Param("count") int count, @Param("id") int id) throws DataAccessException;
 
     public int selectToQna(@Param("id") int id) throws DataAccessException;
+
+    //찜 삭제
+    public void likeClick(Long popup_id) throws DataAccessException;
 }

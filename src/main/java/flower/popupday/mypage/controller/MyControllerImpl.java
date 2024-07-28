@@ -297,4 +297,12 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
+    @Override
+    @RequestMapping("/mypage/likeClick.do")
+    public ModelAndView likeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        myService.likeClick(popup_id);
+        ModelAndView mav = new ModelAndView("redirect:/mypage/memberLike.do");
+        return mav;
+    }
+
 }

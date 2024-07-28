@@ -161,6 +161,11 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
+    public void likeClick(Long popup_id) throws DataAccessException {
+        myDAO.likeClick(popup_id);
+    }
+
+    @Override
     public boolean checkEmail(String email) {
         return myDAO.checkEmail(email);
     }

@@ -58,7 +58,7 @@
                         </div>
                         <div class="popIcon">
 <!--                            <a href="#"><img class="delete" th:src="@{/images/x.svg}" alt="찜 삭제"></a>-->
-                            <a href="#"><img class="heart" th:src="@{/images/heart_fill.svg}" onclick="" alt="찜"></a>
+                            <a th:href="@{/mypage/likeClick.do(popup_id=${popup.popup.popup_id})}"><img class="heart" th:src="@{/images/heart_fill.svg}" alt="찜"></a>
 <!--                            <button id="heart-icon" th:data-login-check="${loginCheck}">-->
 <!--                                <img id="heart-image" class="heart"-->
 <!--                                     th:src="${loginCheck ? (popupMap.isLiked ? '/images/heart_fill.svg' : '/images/heart_empty.svg') : '/images/heart_empty.svg'}"-->

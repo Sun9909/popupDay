@@ -50,4 +50,7 @@ public interface MyService {
 
     //내가 쓴 문의 사항
     public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException;
+
+    //찜 삭제
+    public void likeClick(Long popup_id) throws DataAccessException;
 }
