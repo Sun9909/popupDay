@@ -80,4 +80,7 @@ public interface PopupDAO {
     public List<HashTagDTO> bestHashTagList() throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashtag) throws DataAccessException;
+
+    //해시태그를 가져오는 메서드 추가
+    List<String> selectPopupTags(Long popup_id) throws DataAccessException;
 }

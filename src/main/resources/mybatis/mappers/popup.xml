@@ -250,4 +250,12 @@
         select * from popup_image_tbl where popup_id = #{popup_id} LIMIT 1
     </select>
 
+    <!--사업자 회원 팝업 리스트에 해시태그 값 받아오는거-->
+    <select id="selectPopupTags" resultType="String" parameterType="Long">
+        select ht.hash_tag
+        from popup_hash_tag_tbl pht
+                 join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
+        where pht.popup_id = #{popup_id}
+    </select>
+
 </mapper>

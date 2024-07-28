@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팝업 리스트</title>
+    <title>내 팝업 리스트</title>
     <link rel="stylesheet" th:href="@{/css/popupList.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
@@ -16,10 +16,10 @@
 <th:block layout:fragment="content">
     <div class="body">
         <div class="containers">
-            <!-- 팝업 리스트 페이지 -->
+            <!-- 내 팝업 리스트 페이지 -->
             <div class="main_title">
                 <a th:href="@{/mypage/businessPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
-                <h2>팝업 리스트</h2>
+                <h2>내 팝업 리스트</h2>
             </div>
 
             <div th:if="${totPopup == null}">
@@ -50,51 +50,14 @@
                                 <p th:text="${popup.popup.start_date} + ' ~ ' + ${popup.popup.end_date}"></p>
                                 <p th:text="${popup.popup.address}"></p>
                             </div>
-                            <!--                            <ul>-->
-                            <!--                                <li class="tag" title="해시태그"># 아이돌</li>-->
-                            <!--                                <li class="tag" title="해시태그"># 굿즈</li>-->
-                            <!--                                <li class="tag" title="해시태그"># 컴백</li>-->
-                            <!--                            </ul>-->
+                            <div class="tags">
+                                <a th:each="tag : ${popup.tags}" href="#" class="tag" th:text=" ${tag}" title="해시태그"></a>
+                            </div>
                         </div>
                     </a>
                 </fieldset>
             </form>
 
-<!--            &lt;!&ndash; 팝업이 있을 때 &ndash;&gt;-->
-<!--            <table>-->
-<!--                <tbody>-->
-<!--                &lt;!&ndash; 팝업이 없을 때 &ndash;&gt;-->
-<!--                <tr>-->
-<!--                    <td th:if="${popupInfoList == null or popupInfoList.isEmpty()}">-->
-<!--                        <h4>현재 등록된 팝업이 없습니다</h4>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr th:each="popup : ${popupInfoList}">-->
-<!--                    <td>-->
-<!--                        <div th:if="${popup.thumbnailImage != null}" class="popImg">-->
-<!--                            <img th:src="@{/popupDownload.do(popup_id=${popup.popup.popup_id}, image_file_name=${popup.thumbnailImage.image_file_name})}" alt="popupImage1">-->
-<!--                        </div>-->
-<!--                        <div th:if="${popup.thumbnailImage == null}" class="popImg">-->
-<!--                            <span>No Image</span> &lt;!&ndash; 이미지가 없는 경우 대체 텍스트 출력 &ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <a href="#" th:text="${popup.popup.title}"></a>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <a href="#" th:text="${popup.popup.start_date} + ' ~ ' + ${popup.popup.end_date}"></a>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <a href="#" th:text="${popup.popup.address}"></a>-->
-<!--                    </td>-->
-<!--&lt;!&ndash;                    <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="tag" title="해시태그"># 아이돌</li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="tag" title="해시태그"># 굿즈</li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="tag" title="해시태그"># 컴백</li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
             <div align="center" th:if="${totPopup > 9}">
                 <div th:if="${totPopup > 100}">
                     <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 100) ? ((totPopup % 100) / 9) + 1 : 9))}">
