@@ -38,15 +38,33 @@ public class PopupServiceImpl implements PopupService {
         return popupDAO.searchPopupHasTag(hashtag);
     }
 
-    // 팝업 전체 리스트
     @Override
-    public Map<String, Object> popupAllList(Map<String, Integer> pagingMap) throws DataAccessException {
-        Map<String, Object> popupMap = new HashMap<>();
-        int section = pagingMap.get("section");
-        int pageNum = pagingMap.get("pageNum");
-        int count = (section - 1) * 100 + (pageNum - 1) * 10;
-        List<PopupDTO> popupList = popupDAO.selectAllPopup(count);
-        int totPopup = popupDAO.selectToPopup();
+    public Map<String, Object> selectPopupList(Map<String, Object> filterParams) {
+        String filter = (String) filterParams.get("filter");
+        int pageNum = (int) filterParams.get("pageNum");
+        int section = (int) filterParams.get("section");
+        int itemsPerPage = 9;
+        int count = (section - 1) * 90 + (pageNum - 1) * 9;
+        int totalPopups;
+
+        List<PopupDTO> popupList;
+
+        switch (filter) {
+            case "ongoing":
+                popupList = popupDAO.selectOngoingPopup(count);
+                break;
+            case "upcoming":
+                popupList = popupDAO.selectUpcomingPopup(count);
+                break;
+            case "ended":
+                popupList = popupDAO.selectEndPopup(count);
+                break;
+            case "all":
+            default:
+                popupList = popupDAO.selectAllPopup(count);
+                break;
+        }
+        totalPopups = popupList.size(); // 한 번의 쿼리에서 가져온 결과의 총 개수를 사용
 
         List<Map<String, Object>> popupInfoList = new ArrayList<>();
         for (PopupDTO popup : popupList) {
@@ -58,9 +76,11 @@ public class PopupServiceImpl implements PopupService {
             popupInfoList.add(popupInfo);
         }
 
-        popupMap.put("popupInfoList", popupInfoList); // 팝업 정보 리스트 추가
-        popupMap.put("totPopup", totPopup);
-        return popupMap;
+        Map<String, Object> response = new HashMap<>();
+        response.put("popupInfoList", popupInfoList);
+        response.put("totPopup", totalPopups);
+
+        return response;
     }
 
     @Transactional

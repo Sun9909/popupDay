@@ -348,40 +348,4 @@ document.addEventListener('DOMContentLoaded', function () {
     init_calendar(year, month);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    var customSelect = document.querySelector('.custom-select');
-    var selected = customSelect.querySelector('.select-selected');
-    var items = customSelect.querySelector('.select-items');
 
-    selected.addEventListener('click', function() {
-        items.classList.toggle('select-show');
-    });
-
-    items.addEventListener('click', function(e) {
-        if (e.target.tagName === 'DIV') {
-            var value = e.target.getAttribute('data-value');
-            var text = e.target.textContent;
-
-            // 선택된 값을 기본 드롭다운에 설정
-            customSelect.querySelector('#filterSelect').value = value;
-            selected.textContent = text;
-
-            // 커스텀 드롭다운 업데이트
-            var selectedItems = items.querySelectorAll('div');
-            selectedItems.forEach(function(item) {
-                item.classList.remove('selected');
-            });
-            e.target.classList.add('selected');
-
-            // 드롭다운 닫기
-            items.classList.remove('select-show');
-        }
-    });
-
-    // 클릭 외부 시 드롭다운 닫기
-    document.addEventListener('click', function(e) {
-        if (!customSelect.contains(e.target)) {
-            items.classList.remove('select-show');
-        }
-    });
-});

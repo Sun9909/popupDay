@@ -49,13 +49,32 @@
         <result property="popup_id" column="popup_id" />
     </resultMap>
 
+    <!-- 전체 팝업 -->
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where role="승인" and end_date > now() order by created_date desc LIMIT #{count}, 9
+        select * from popup_tbl where role="승인"  order by created_date desc
     </select>
+
+    <!-- 진행 중 -->
+    <select id="selectOngoingPopup" resultType="PopupDTO">
+        SELECT * FROM popup_tbl WHERE NOW() BETWEEN start_date AND end_date and role="승인" order by created_date desc
+    </select>
+
+     <!-- 종료 -->
+    <select id="selectEndPopup" resultType="PopupDTO">
+        <![CDATA[
+            SELECT * FROM popup_tbl WHERE end_date < NOW() and role="승인" order by created_date desc
+        ]]>
+    </select>
+
+    <!-- 진행 예정 -->
+    <select id="selectUpcomingPopup" resultType="PopupDTO">
+        SELECT * FROM popup_tbl WHERE start_date > now() and role="승인" order by created_date desc
+    </select>
+
 
     <select id="selectToPopup" resultType="int">
       <![CDATA[
-        select count(*) from popup_tbl
+        select count(*) from popup_tbl where role="승인"
         ]]>
    </select>
 

@@ -75,9 +75,13 @@ public interface PopupDAO {
 
     public List<PopupDTO> bestPopup() throws DataAccessException;
 
-    public List<ImageDTO> bestImageFileList() throws DataAccessException;
-
     public List<HashTagDTO> bestHashTagList() throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashtag) throws DataAccessException;
+
+    List<PopupDTO> selectOngoingPopup(int count);
+
+    List<PopupDTO> selectUpcomingPopup(int count);
+
+    List<PopupDTO> selectEndPopup(int count);
 }
