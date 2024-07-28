@@ -301,18 +301,21 @@ public class MyControllerImpl implements MyController {
     }
 
     @Override
-    @RequestMapping("/mypage/likeClick.do")
-    public ModelAndView likeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping("/mypage/unlikeClick.do")
+    public ModelAndView unlikeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        if (loginDTO != null) {
+            Long id = loginDTO.getId();  // 세션에서 로그인한 사용자의 ID를 가져옴
+            myService.unlikeClick(popup_id, id);  // ID를 서비스 메서드에 전달
 
-        Long id = loginDTO.getId();
-
-        System.out.println("아이디는 " + id);
-
-        myService.likeClick(popup_id, id);
-        ModelAndView mav = new ModelAndView("/mypage/memberLike");
-        return mav;
+            ModelAndView mav = new ModelAndView("redirect:/mypage/memberLike.do?id=" + id);
+            return mav;
+        } else {
+            // 로그인 정보가 없을 경우 처리 (예: 로그인 페이지로 리다이렉트)
+            ModelAndView mav = new ModelAndView("redirect:/login/login.do");
+            return mav;
+        }
     }
 
 }

@@ -5,6 +5,7 @@
     <title>Popup List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/popList.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -27,26 +28,8 @@
                 </a>
             </div>
         </section>
-
-        <section class="popup-section" th:if="${!#lists.isEmpty(finishedPopups)}">
-            <h2>종료된 팝업</h2>
-            <div class="popup-list" th:each="result : ${finishedPopups}">
-                <a th:if="${result != null}" th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
-                    <div class="popup-item">
-                        <div class="popup-image">
-                            <img th:if="${result.image_file_name != null}" th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
-                        </div>
-                        <p th:text="${result.title}"></p>
-                        <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
-                        <p th:text="${result.address}"></p>
-                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}" alt="favorite icon"></span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
+        <h2>진행 중인 팝업</h2>
         <section class="popup-section" th:if="${!#lists.isEmpty(ongoingPopups)}">
-            <h2>진행 중인 팝업</h2>
             <div class="popup-list" th:each="result : ${ongoingPopups}">
                 <a th:if="${result != null}" th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
                     <div class="popup-item">
@@ -61,10 +44,25 @@
                 </a>
             </div>
         </section>
-
+        <h2>예정된 팝업</h2>
         <section class="popup-section" th:if="${!#lists.isEmpty(upcomingPopups)}">
-            <h2>예정된 팝업</h2>
             <div class="popup-list" th:each="result : ${upcomingPopups}">
+                <a th:if="${result != null}" th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
+                    <div class="popup-item">
+                        <div class="popup-image">
+                            <img th:if="${result.image_file_name != null}" th:src="@{/popupDownload.do(popup_id=${result.popup_id}, image_file_name=${result.image_file_name})}" alt="Popup Image">
+                        </div>
+                        <p th:text="${result.title}"></p>
+                        <p th:text="${result.start_date} + ' ~ ' + ${result.end_date}"></p>
+                        <p th:text="${result.address}"></p>
+                        <span class="favorite"><img th:src="@{/images/heart_empty.svg}" alt="favorite icon"></span>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <h2>종료된 팝업</h2>
+        <section class="popup-section" th:if="${!#lists.isEmpty(finishedPopups)}">
+            <div class="popup-list" th:each="result : ${finishedPopups}">
                 <a th:if="${result != null}" th:href="@{/popup/popupView.do(popup_id=${result.popup_id})}">
                     <div class="popup-item">
                         <div class="popup-image">

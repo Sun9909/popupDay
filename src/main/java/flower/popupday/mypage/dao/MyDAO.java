@@ -61,5 +61,6 @@ public interface MyDAO {
     public int selectToQna(@Param("id") int id) throws DataAccessException;
 
     //찜 삭제
-    public void likeClick(Long popup_id, Long id) throws DataAccessException;
+    public void unlikeClick(Long popup_id,Long id) throws DataAccessException;
+
 }

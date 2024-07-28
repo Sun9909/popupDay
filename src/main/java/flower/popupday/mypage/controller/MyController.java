@@ -53,5 +53,5 @@ public interface MyController {
     String _pageNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //찜
-    public ModelAndView likeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView unlikeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/qnaForm.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>질문하기</title>
     <script type="text/javascript">
@@ -21,6 +22,10 @@
                 return false;
             }
             return true;
+        }
+        // 취소 버튼 클릭 시 리스트로 돌아가기
+        function backToList_qna() {
+            window.location.href = "/notice/qnaList.do";
         }
 
     </script>
@@ -56,7 +61,7 @@
                 </div>
                 <div class="question-button">
                     <input type="submit" value="등록">
-                    <input type="button" value="취소" onclick="backToList_qna(this.form)">
+                    <input type="button" value="취소" onclick="backToList_qna()">
                 </div>
             </form>
         </div>
