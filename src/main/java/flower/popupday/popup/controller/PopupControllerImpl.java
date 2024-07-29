@@ -472,7 +472,9 @@ public class PopupControllerImpl implements PopupController {
         if (loginDTO != null) {
             int userId = loginDTO.getId().intValue();
             int popupCount = popupService.getApprovedPopupCount(userId);
+            int allPopupCount = popupService.getRegisterPopupCount(userId);
             mav.addObject("popupCount", popupCount);
+            mav.addObject("allPopupCount", allPopupCount);
             mav.addObject("my", loginDTO);  // 추가된 부분
         }
         return mav;

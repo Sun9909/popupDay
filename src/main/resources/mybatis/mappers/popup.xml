@@ -296,4 +296,11 @@
             VALUES ((SELECT hash_tag_id FROM hash_tag_tbl WHERE hash_tag = #{tag}), #{popup_id});
         </foreach>
     </update>
+
+    <!-- 특정 사용자의 신청한 팝업 개수 조회 -->
+    <select id="selectTooPopup" resultType="int" parameterType="int">
+        <![CDATA[
+        select count(*) from popup_tbl where user_id=#{id}
+        ]]>
+    </select>
 </mapper>
