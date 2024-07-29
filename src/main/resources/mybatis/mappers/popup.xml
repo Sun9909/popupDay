@@ -237,6 +237,13 @@
         ]]>
     </select>
 
+    <!-- 특정 사용자의 신청한 팝업 개수 조회 -->
+    <select id="selectTooPopup" resultType="int" parameterType="int">
+        <![CDATA[
+        select count(*) from popup_tbl where user_id=#{id}
+        ]]>
+    </select>
+
 
     <select id="bestPopup" resultType="PopupDTO">
         SELECT p.popup_id ,p.title ,p.start_date ,p.end_date, p.address,p.role, img.image_file_name AS thumbnail

@@ -42,4 +42,6 @@ public interface PopupService {
 
     //승인된 팝업 개수
     int getApprovedPopupCount(int userId) throws DataAccessException;
+
+    int getRegisterPopupCount(int userid) throws DataAccessException;
 }

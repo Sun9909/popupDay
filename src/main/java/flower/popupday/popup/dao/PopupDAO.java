@@ -73,6 +73,8 @@ public interface PopupDAO {
 
     public int selectTotPopup(int id) throws DataAccessException;
 
+    public int selectTooPopup(int id) throws DataAccessException;
+
     public ImageDTO selectFirstImg(Long popup_id) throws DataAccessException;
 
     public List<PopupDTO> bestPopup() throws DataAccessException;

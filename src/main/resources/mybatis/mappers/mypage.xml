@@ -163,11 +163,11 @@
     </select>
 
     <select id="getPopupCount" parameterType="Long">
-        select * from popup_tbl where user_id=#{id} and role="승인"
+        select count(*) from popup_tbl where user_id=#{id} and role="승인"
     </select>
 
     <select id="getAllPopupCount" parameterType="Long">
-        select * from popup_tbl where user_id=#{id}
+        select count(*) from popup_tbl where user_id=#{id}
     </select>
 
     <!-- 내가 쓴 리뷰 -->

@@ -191,31 +191,31 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
-    @Override
-    @RequestMapping("/mypage/businessPage.do")
-    public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-
-//        System.out.println(loginDTO.getUser_id());
-//        System.out.println(loginDTO.getUser_nickname());
-
-        Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
-        Long allPopupCount = myService.getAllPopupCount(popupDTO.getUser_id());
-
-        System.out.println("컨트롤임1" + PopupCount);
-        System.out.println("컨트롤임2" + allPopupCount);
-
-        ModelAndView mav = new ModelAndView("mypage/businessPage");
-        mav.addObject("my", loginDTO);
-
-        mav.addObject("popupCount", PopupCount);
-        mav.addObject("allPopupCount", allPopupCount);
-
-        //
-        // mav.addObject("PopupCount", PopupCount);
-        return mav;
-    }
+//    @Override
+//    @RequestMapping("/mypage/businessPage.do")
+//    public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        HttpSession session = request.getSession();
+//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+//
+////        System.out.println(loginDTO.getUser_id());
+////        System.out.println(loginDTO.getUser_nickname());
+//        //int userId = loginDTO.getId().intValue();
+//        Long PopupCount2 = myService.getPopupCount(popupDTO.getUser_id());
+//        Long allPopupCount = myService.getAllPopupCount(popupDTO.getUser_id());
+//
+//        System.out.println("컨트롤임1" + PopupCount2);
+//        System.out.println("컨트롤임2" + allPopupCount);
+//
+//        ModelAndView mav = new ModelAndView("mypage/businessPage");
+//        mav.addObject("my", loginDTO);
+//
+//        mav.addObject("popupCount2", PopupCount2);
+//        mav.addObject("allPopupCount", allPopupCount);
+//
+//        //
+//        // mav.addObject("PopupCount", PopupCount);
+//        return mav;
+//    }
 
     @Override
     @RequestMapping("/mypage/memberLike.do")

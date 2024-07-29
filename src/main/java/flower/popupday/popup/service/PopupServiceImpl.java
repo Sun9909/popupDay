@@ -327,4 +327,9 @@ public class PopupServiceImpl implements PopupService {
     public int getApprovedPopupCount(int userId) throws DataAccessException {
         return popupDAO.selectTotPopup(userId);
     }
+
+    @Override
+    public int getRegisterPopupCount(int userId) throws DataAccessException {
+        return popupDAO.selectTooPopup(userId);
+    }
 }

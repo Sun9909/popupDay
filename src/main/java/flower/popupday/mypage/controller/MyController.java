@@ -37,7 +37,7 @@ public interface MyController {
 
     public ModelAndView dropMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    //public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //회원 찜목록 페이지로
     public ModelAndView memberLike(@RequestParam(value = "section", required = false) String _section,
