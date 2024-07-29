@@ -83,14 +83,15 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap) throws DataAccessException {
+    public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
         Map<String, Object> popupMap = new HashMap<>();
         int section = pagingMap.get("section");
         int pageNum = pagingMap.get("pageNum");
-        int id = pagingMap.get("id");
+        //int id = pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
+
         List<PopupDTO> popupList = myDAO.selectMyPopup(count, id); // 팝업 목록 조회
-        int totPopup = myDAO.selectToPopup(id); // 전체 팝업 수 조회
+        Long totPopup = myDAO.selectToPopup(id); // 전체 팝업 수 조회
 
         List<Map<String, Object>> popupLike = new ArrayList<>();
 

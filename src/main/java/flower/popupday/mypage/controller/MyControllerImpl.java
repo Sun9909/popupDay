@@ -35,6 +35,8 @@ public class MyControllerImpl implements MyController {
     private MyPopupDTO myPopupDTO;
     @Autowired
     private PopupDTO popupDTO;
+    @Autowired
+    private LoginDTO loginDTO;
 //    @Autowired
 //    private LoginDTO loginDTO;
 //    @Autowired
@@ -223,17 +225,21 @@ public class MyControllerImpl implements MyController {
                                    @RequestParam(value = "pageNum", required = false) String _pageNum,
                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        //int id = Integer.parseInt(request.getParameter("id"));
 
         Map<String, Integer> pagingMap = new HashMap<>();
 
         pagingMap.put("section", section); // 섹션
         pagingMap.put("pageNum", pageNum); // 페이지 번호
-        pagingMap.put("id", id);
-        Map<String, Object> popupMap = myService.myPopupLike(pagingMap); // 서비스에서 팝업 목록 받아오기
+        //pagingMap.put("id", id);
+        Map<String, Object> popupMap = myService.myPopupLike(pagingMap, id); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("mypage/memberLike"); // View 이름 설정

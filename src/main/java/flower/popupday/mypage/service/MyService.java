@@ -39,7 +39,7 @@ public interface MyService {
 
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
-    public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap) throws DataAccessException;
+    public Map<String, Object> myPopupLike(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
 
     public Long getPopupCount(Long user_id) throws DataAccessException;
 
