@@ -454,7 +454,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/mypage/myPopup"); // View 이름 설정
+        mav.setViewName("mypage/myPopup"); // View 이름 설정
         mav.addObject("popupMap", popupMap);
         mav.addObject("totPopup", popupMap.get("totPopup")); // 승인된 팝업 개수 추가
         mav.addObject("section", section);
@@ -472,7 +472,9 @@ public class PopupControllerImpl implements PopupController {
         if (loginDTO != null) {
             int userId = loginDTO.getId().intValue();
             int popupCount = popupService.getApprovedPopupCount(userId);
+            int allPopupCount = popupService.getRegisterPopupCount(userId);
             mav.addObject("popupCount", popupCount);
+            mav.addObject("allPopupCount", allPopupCount);
             mav.addObject("my", loginDTO);  // 추가된 부분
         }
         return mav;

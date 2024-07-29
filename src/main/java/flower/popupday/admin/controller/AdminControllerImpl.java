@@ -111,7 +111,7 @@ public class AdminControllerImpl implements AdminController {
     @GetMapping("/admin/delMember.do")
     public ModelAndView delMember(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         adminService.delMember(id);
-        ModelAndView mav = new ModelAndView("/admin/memberShip");
+        ModelAndView mav = new ModelAndView("admin/memberShip");
         return mav;
     }
 }
