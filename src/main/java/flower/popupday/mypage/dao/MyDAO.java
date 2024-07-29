@@ -40,9 +40,9 @@ public interface MyDAO {
     //회원 삭제
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
-    public List selectMyPopup(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+    public List selectMyPopup(@Param("count") int count, @Param("id") Long id) throws DataAccessException;
 
-    public int selectToPopup(@Param("id") int id) throws DataAccessException;
+    public Long selectToPopup(@Param("id") Long id) throws DataAccessException;
 
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 

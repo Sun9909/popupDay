@@ -154,7 +154,7 @@
 <!--        WHERE u.id = #{id} LIMIT #{count}, 10;-->
     </select>
 
-    <select id="selectToPopup" resultType="int">
+    <select id="selectToPopup" resultType="Long">
         select count(*) from popup_like_tbl where user_id=#{id}
     </select>
 
