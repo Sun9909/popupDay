@@ -22,16 +22,13 @@
                 <a th:href="@{/mypage/businessPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
                 <h2>내 팝업 리스트</h2>
             </div>
-
             <div>
                 <p class="popCount" th:text="'전체 ' + ${totPopup != null ? totPopup : 0} + '개'"></p>
             </div>
-
             <!-- 팝업이 없을 때 -->
             <div th:if="${popupMap.popupInfoList == null or popupMap.popupInfoList.isEmpty()}">
                 <h4>현재 등록된 팝업이 없습니다</h4>
             </div>
-
             <!-- 팝업이 있을 때 -->
             <form th:each="popup : ${popupMap.popupInfoList}">
                 <fieldset>
