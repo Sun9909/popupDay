@@ -6,23 +6,16 @@ import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
 import flower.popupday.popup.dto.PopupDTO;
-import groovy.util.logging.Log;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static java.lang.System.out;
 
 @Controller("myController")
 public class MyControllerImpl implements MyController {
@@ -30,16 +23,11 @@ public class MyControllerImpl implements MyController {
     @Autowired
     private MyService myService;
 
-    //    @Autowired
-//    private MyDTO myDTO;
     @Autowired
     private MyPopupDTO myPopupDTO;
+
     @Autowired
     private PopupDTO popupDTO;
-//    @Autowired
-//    private LoginDTO loginDTO;
-//    @Autowired
-//    private MyDTO myDTO;
 
     //마이페이지
     @Override
@@ -55,10 +43,6 @@ public class MyControllerImpl implements MyController {
         // 세션에 myDTO 설정
         session.setAttribute("my", loginDTO);
         session.setAttribute("isLogOn", true);
-
-        //값 잘 받아오는지 확인
-//        System.out.println(loginDTO.getUser_nickname());
-//        System.out.println(loginDTO.getRole());
 
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
@@ -198,9 +182,6 @@ public class MyControllerImpl implements MyController {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
-//        System.out.println(loginDTO.getUser_id());
-//        System.out.println(loginDTO.getUser_nickname());
-
         Long PopupCount = myService.getPopupCount(popupDTO.getUser_id());
         Long allPopupCount = myService.getAllPopupCount(popupDTO.getUser_id());
 
@@ -213,8 +194,6 @@ public class MyControllerImpl implements MyController {
         mav.addObject("popupCount", PopupCount);
         mav.addObject("allPopupCount", allPopupCount);
 
-        //
-        // mav.addObject("PopupCount", PopupCount);
         return mav;
     }
 
@@ -231,13 +210,10 @@ public class MyControllerImpl implements MyController {
         int section = Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
 
-        //int id = Integer.parseInt(request.getParameter("id"));
-
         Map<String, Integer> pagingMap = new HashMap<>();
 
         pagingMap.put("section", section); // 섹션
         pagingMap.put("pageNum", pageNum); // 페이지 번호
-        //pagingMap.put("id", id);
         Map<String, Object> popupMap = myService.myPopupLike(pagingMap, id); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
@@ -272,7 +248,7 @@ public class MyControllerImpl implements MyController {
         Map reviewMap = myService.reviewList(pagingMap);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/review"); // 여기로감
+        mav.setViewName("reviewList"); // 여기로감
         mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
@@ -297,7 +273,7 @@ public class MyControllerImpl implements MyController {
         Map qnaMap = myService.listQna(pagingMap); // 서비스에서 공지사항 글 목록 받아옴
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("notice/qna"); // 이 뷰로 이동
+        mav.setViewName("qnaList"); // 이 뷰로 이동
         mav.addObject("qnaMap", qnaMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
@@ -321,6 +297,79 @@ public class MyControllerImpl implements MyController {
             ModelAndView mav = new ModelAndView("redirect:/login/login.do");
             return mav;
         }
+    }
+
+    @Override
+    @RequestMapping("/mypage/registration.do")
+    public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
+                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
+        int section = Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
+        Map bsPopupList = myService.bsPopupList(pagingMap, id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/registration");
+        mav.addObject("bsPopupList", bsPopupList);
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        return mav; // ModelAndView 반환
+    }
+
+
+    @Override
+    @RequestMapping("/popup/myPopup.do")
+    public ModelAndView popupList(
+            @RequestParam(value = "section", required = false) String _section,
+            @RequestParam(value = "pageNum", required = false) String _pageNum,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
+        int section = Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
+        Map<String, Object> popupMap = myService.myPopupList(pagingMap, id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/myPopup"); // View 이름 설정
+        mav.addObject("popupMap", popupMap);
+        mav.addObject("totPopup", popupMap.get("totPopup")); // 승인된 팝업 개수 추가
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        return mav; // ModelAndView 반환
+    }
+
+    //승인된 팝업 개수 사업자 페이지에 보이게
+    @Override
+    @GetMapping("/mypage/businessPage.do")
+    public ModelAndView businessPage(HttpSession session) {
+        ModelAndView mav = new ModelAndView("mypage/businessPage");
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        if (loginDTO != null) {
+            int userId = loginDTO.getId().intValue();
+            int popupCount = myService.getApprovedPopupCount(userId);
+            int allPopupCount = myService.getRegisterPopupCount(userId);
+            mav.addObject("popupCount", popupCount);
+            mav.addObject("allPopupCount", allPopupCount);
+            mav.addObject("my", loginDTO);  // 추가된 부분
+        }
+        return mav;
     }
 
 }

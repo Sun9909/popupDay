@@ -15,9 +15,6 @@ public interface PopupDAO {
 
     public List selectAllPopup(@Param("count") int count) throws DataAccessException;
 
-    //admin
-    public List pickAllPopup(@Param("count") int count) throws DataAccessException;
-
     public Long getNewPopupId() throws DataAccessException;
 
     public void insertNewPopup(Map popupMap) throws DataAccessException;
@@ -34,22 +31,15 @@ public interface PopupDAO {
 
     public PopupDTO selectPopup(Long popup_id) throws DataAccessException;
 
-    public PopupDTO selectRegisterPopup(Long popup_id) throws DataAccessException;
-
     public List<ImageDTO> selectImageFileList(Long popup_id) throws DataAccessException;
 
     public List<HashTagDTO> selectHashTagList(Long popup_id) throws DataAccessException;
 
     public int selectToPopup() throws DataAccessException;
 
-    //admin
-    public int pickToPopup() throws DataAccessException;
-
     public ImageDTO selectFirstImage(Long popup_id) throws DataAccessException;
 
     public HashTagDTO selectHashTagList2(Long popup_id) throws DataAccessException;
-
-    public void roleUpdate(Long popup_id, String role) throws DataAccessException;
 
     public void updateHits(Long popup_id) throws DataAccessException;
 
