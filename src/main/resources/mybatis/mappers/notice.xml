@@ -56,13 +56,6 @@
         ]]>
    </insert>
 
-
-    <!-- 여러개의 이미지
-    <insert id="insertNewImages" parameterType="noticeimageDTO">  map에 있는 articleNo를 가져와 글번호를(글쓴거의 글번호) 가져옴
-        <![CDATA[
-        insert into notice_image_tble('notice_image_id', 'notice_id', 'image_file_namge') values(#{notice_image_id}, #{notice_id}, #{image_file_name})
-        ]]>
-    </insert>-->
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into notice_image_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
@@ -75,15 +68,6 @@
     <update id="updateNotice" parameterType="java.util.Map">
         update notice_tbl set title = #{title}, content = #{content} where notice_id = #{notice_id}
     </update>
-
-    <!-- 이미지 여러개 글 수정  같은 글번호를 찾아서 update
-    <update id="updateImage" parameterType="java.util.Map">
-        <foreach item="item" collection="imageFileList" separator=";"> 이미지 담겨있는 곳
-            <if test="#{item.image_file_name} != null and #{item.image_file_name} != ''" >  이미지를 선택한것만 업데이트
-                update notice_image_tbl set imageFileName=#{item.image_file_name} where notice_id=#{item.notice_id} and #{item.image_file_name} != ''
-            </if>
-        </foreach>
-    </update>-->
 
     <update id="updateImage" parameterType="java.util.Map">
         <foreach item="item" collection="imageFileList" separator=";">

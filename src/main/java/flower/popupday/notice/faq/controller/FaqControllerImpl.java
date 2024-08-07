@@ -43,7 +43,7 @@ public class FaqControllerImpl implements FaqController {
 
         // ModelAndView 객체 생성 및 설정
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/faq");
+        mav.setViewName("faqList");
         mav.addObject("faqList", faqList);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
