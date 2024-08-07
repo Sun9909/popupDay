@@ -16,6 +16,46 @@
         <result property="status" column="status"/>
     </resultMap>
 
+    <resultMap type="popupDTO" id="popResult">
+        <id property="popup_id" column="popup_id"/>
+        <result property="title" column="title"/>
+        <result property="info" column="info"/>
+        <result property="start_date" column="start_date"/>
+        <result property="end_date" column="end_date"/>
+        <result property="content" column="content"/>
+        <result property="address" column="address"/>
+        <result property="brand_page" column="brand_page"/>
+        <result property="role" column="role"/>
+        <result property="user_id" column="user_id"/>
+        <result property="created_date" column="created_date"/>
+        <result property="hits" column="hits"/>
+        <result property="monday_time" column="monday_time"/>
+        <result property="tuesday_time" column="tuesday_time"/>
+        <result property="wednesday_time" column="wednesday_time"/>
+        <result property="thursday_time" column="thursday_time"/>
+        <result property="friday_time" column="friday_time"/>
+        <result property="saturday_time" column="saturday_time"/>
+        <result property="sunday_time" column="sunday_time"/>
+        <result property="parking" column="parking"/>
+        <result property="fee" column="fee"/>
+    </resultMap>
+
+    <resultMap type="imageDTO" id="imgResult">
+        <id property="popup_image_id" column="popup_image_id"/>
+        <result property="popup_id" column="popup_id"/>
+        <result property="image_file_name" column="image_file_name"/>
+    </resultMap>
+
+    <resultMap id="hashTagDTO" type="hashTagDTO">
+        <result property="hash_tag_id" column="hash_tag_id" />
+        <result property="hash_tag" column="hash_tag" />
+    </resultMap>
+
+    <resultMap id="popupHashTagDTO" type="popupHashTagDTO">
+        <result property="hash_tag_id" column="hash_tag_id" />
+        <result property="popup_id" column="popup_id" />
+    </resultMap>
+
     <!-- 모든 회원 정보 가져오기 -->
     <select id="selectAllMemberList" resultMap="memResult" parameterType="int">
         select * from user_tbl order by role desc limit #{count}, 10
@@ -53,4 +93,40 @@
     <select id="checknickname" parameterType="String" resultType="boolean">
         select count(*) > 0 from user_tbl where user_nickname=#{user_nickname}
     </select>
+
+    <select id="pickAllPopup" resultMap="popResult" parameterType="int">
+        select * from popup_tbl where role="미승인" order by created_date desc LIMIT #{count}, 10
+    </select>
+
+    <select id="pickToPopup" resultType="int">
+        <![CDATA[
+        select count(*) from popup_tbl where role="미승인"
+        ]]>
+    </select>
+
+    <!-- 썸네일 조회 -->
+    <select id="selectFirstImage" resultMap="imgResult" parameterType="Long">
+        select * from popup_image_tbl where popup_id = #{popup_id} LIMIT 1
+    </select>
+
+    <select id="selectRegisterPopup" resultMap="popResult" parameterType="Long">
+        select * from popup_tbl where popup_id = #{popup_id}
+    </select>
+
+    <!-- 특정 팝업의 해시태그 리스트 조회 -->
+    <select id="selectHashTagList" resultMap="hashTagDTO" parameterType="Long">
+        select ht.hash_tag_id, ht.hash_tag from popup_hash_tag_tbl pht
+        join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
+        where pht.popup_id = #{popup_id}
+    </select>
+
+    <!-- 이미지 파일 리스트 조회 -->
+    <select id="selectImageFileList" resultMap="imgResult" parameterType="Long">
+        select * from popup_image_tbl where popup_id = #{popup_id}
+    </select>
+
+    <!-- 신청된 팝업 승인 -->
+    <update id="roleUpdate" parameterType="java.util.Map">
+        update popup_tbl set role = #{role} where popup_id = #{popup_id}
+    </update>
 </mapper>

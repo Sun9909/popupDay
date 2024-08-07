@@ -3,7 +3,6 @@ package flower.popupday.admin.controller;
 import flower.popupday.admin.dto.AdminDTO;
 import flower.popupday.admin.service.AdminService;
 import flower.popupday.login.dto.LoginDTO;
-import flower.popupday.popup.service.PopupServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller("adminController")
@@ -27,8 +25,6 @@ public class AdminControllerImpl implements AdminController {
     private AdminDTO adminDTO;
     @Autowired
     private LoginDTO loginDTO;
-    @Autowired
-    private PopupServiceImpl popupService;
 
     @Override
     @RequestMapping("/admin/admin.do")
@@ -112,6 +108,53 @@ public class AdminControllerImpl implements AdminController {
     public ModelAndView delMember(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         adminService.delMember(id);
         ModelAndView mav = new ModelAndView("admin/memberShip");
+        return mav;
+    }
+
+    //관리자 - 팝업 신청 리스트
+    @Override
+    @RequestMapping("/admin/register.do")
+    public ModelAndView registerList(@RequestParam(value = "section", required = false) String _section,
+                                     @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
+        int section = Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section); // 섹션
+        pagingMap.put("pageNum", pageNum); // 페이지 번호
+        Map<String, Object> popupListMap = adminService.registerList(pagingMap); // 서비스에서 팝업 목록 받아오기
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("popupRegister"); // View 이름 설정
+        mav.addObject("popupInfoList", popupListMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
+        mav.addObject("totPopup", popupListMap.get("totPopup")); // 전체 팝업 수를 View로 전달
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+
+        return mav; // ModelAndView 반환
+    }
+
+    //관리자 - 팝업 신청 상세보기
+    @Override
+    @RequestMapping("/admin/registerForm.do")
+    public ModelAndView register(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> popupMap = adminService.register(popup_id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("popupRegisterForm");
+        mav.addObject("popupMap", popupMap);
+        // 팝업 상세 조회
+        return mav;
+    }
+
+    //관리자 - 팝업 승인 결정
+    @Override
+    @RequestMapping("/admin/roleUpdate.do")
+    public ModelAndView roleUpdate(@RequestParam("popup_id") Long popup_id, @RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        adminService.roleUpdate(popup_id, role);
+
+        ModelAndView mav = new ModelAndView("redirect:/admin/register.do");
         return mav;
     }
 }

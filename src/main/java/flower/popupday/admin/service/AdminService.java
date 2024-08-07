@@ -16,4 +16,9 @@ public interface AdminService {
 
     public void delMember(Long id) throws DataAccessException;
 
+    public Map<String, Object> registerList(Map<String, Integer> pagingMap) throws DataAccessException;
+
+    public Map<String, Object> register(Long popup_id) throws DataAccessException;
+
+    public void roleUpdate(Long popup_id, String role) throws DataAccessException;
 }

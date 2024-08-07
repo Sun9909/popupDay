@@ -100,56 +100,10 @@ public class PopupControllerImpl implements PopupController {
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("popup/popupAllList"); // View 이름 설정
+        mav.setViewName("popupList"); // View 이름 설정
         return mav;
     }
 
-    //관리자 - 팝업 신청 리스트
-    @Override
-    @RequestMapping("/admin/register.do")
-    public ModelAndView registerList(@RequestParam(value = "section", required = false) String _section,
-                                     @RequestParam(value = "pageNum", required = false) String _pageNum,
-                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setCharacterEncoding("UTF-8");
-        int section = Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        Map<String, Integer> pagingMap = new HashMap<>();
-        pagingMap.put("section", section); // 섹션
-        pagingMap.put("pageNum", pageNum); // 페이지 번호
-        Map<String, Object> popupListMap = popupService.registerList(pagingMap); // 서비스에서 팝업 목록 받아오기
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("admin/register"); // View 이름 설정
-        mav.addObject("popupInfoList", popupListMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
-        mav.addObject("totPopup", popupListMap.get("totPopup")); // 전체 팝업 수를 View로 전달
-        mav.addObject("section", section);
-        mav.addObject("pageNum", pageNum);
-
-        return mav; // ModelAndView 반환
-    }
-
-    //관리자 - 팝업 신청 상세보기
-    @Override
-    @RequestMapping("/admin/registerForm.do")
-    public ModelAndView register(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map<String, Object> popupMap = popupService.register(popup_id);
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("admin/registerForm");
-        mav.addObject("popupMap", popupMap);
-        // 팝업 상세 조회
-        return mav;
-    }
-
-    //관리자 - 팝업 승인 결정
-    @Override
-    @RequestMapping("/admin/roleUpdate.do")
-    public ModelAndView roleUpdate(@RequestParam("popup_id") Long popup_id,@RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        popupService.roleUpdate(popup_id, role);
-
-        ModelAndView mav = new ModelAndView("redirect:/admin/register.do");
-        return mav;
-    }
 
     @Override
     @GetMapping("/popup/popupForm.do")
@@ -332,7 +286,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.popupView(popup_id, user_id);
         ModelAndView mav = new ModelAndView();
         mav.addObject("popupMap", popupMap);
-        mav.setViewName("popup/modPopupForm");
+        mav.setViewName("modifyPopup");
         return mav;
     }
 
@@ -406,78 +360,6 @@ public class PopupControllerImpl implements PopupController {
             e.printStackTrace();
         }
         return new ModelAndView("redirect:/popup/popupAllList.do");
-    }
-
-    @Override
-    @RequestMapping("/mypage/registration.do")
-    public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
-                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
-                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setCharacterEncoding("UTF-8");
-        int section = Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        int id = Integer.parseInt(request.getParameter("id"));
-
-        Map<String, Integer> pagingMap = new HashMap<>();
-        pagingMap.put("section", section);
-        pagingMap.put("pageNum", pageNum);
-        pagingMap.put("id", id);
-        Map bsPopupList = popupService.bsPopupList(pagingMap);
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/registration");
-        mav.addObject("bsPopupList", bsPopupList);
-        mav.addObject("section", section);
-        mav.addObject("pageNum", pageNum);
-
-        return mav; // ModelAndView 반환
-    }
-
-
-    @Override
-    @RequestMapping("/popup/myPopup.do")
-    public ModelAndView popupList(
-            @RequestParam(value = "section", required = false) String _section,
-            @RequestParam(value = "pageNum", required = false) String _pageNum,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setCharacterEncoding("UTF-8");
-        int section = Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        HttpSession session = request.getSession();
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-        Long userId = loginDTO.getId();
-
-        Map<String, Integer> pagingMap = new HashMap<>();
-        pagingMap.put("section", section);
-        pagingMap.put("pageNum", pageNum);
-        pagingMap.put("id", userId.intValue());
-        Map<String, Object> popupMap = popupService.myPopupList(pagingMap);
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/myPopup"); // View 이름 설정
-        mav.addObject("popupMap", popupMap);
-        mav.addObject("totPopup", popupMap.get("totPopup")); // 승인된 팝업 개수 추가
-        mav.addObject("section", section);
-        mav.addObject("pageNum", pageNum);
-
-        return mav; // ModelAndView 반환
-    }
-
-    //승인된 팝업 개수 사업자 페이지에 보이게
-    @Override
-    @GetMapping("/mypage/businessPage.do")
-    public ModelAndView businessPage(HttpSession session) {
-        ModelAndView mav = new ModelAndView("mypage/businessPage");
-        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-        if (loginDTO != null) {
-            int userId = loginDTO.getId().intValue();
-            int popupCount = popupService.getApprovedPopupCount(userId);
-            int allPopupCount = popupService.getRegisterPopupCount(userId);
-            mav.addObject("popupCount", popupCount);
-            mav.addObject("allPopupCount", allPopupCount);
-            mav.addObject("my", loginDTO);  // 추가된 부분
-        }
-        return mav;
     }
 
 }

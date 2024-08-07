@@ -41,7 +41,7 @@ public class ReviewControllerImpl implements ReviewController {
         reviewMap.put("pageNum", pageNum);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/review"); // 여기로감
+        mav.setViewName("reviewList"); // 여기로감
         mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
         return mav; // 포워딩
     }
@@ -52,7 +52,7 @@ public class ReviewControllerImpl implements ReviewController {
     public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map reviewArticle = reviewService.showReview(review_id);
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/reviewShow");
+        mav.setViewName("reviewView");
         mav.addObject("reviewArticle", reviewArticle);
         return mav;
     }
