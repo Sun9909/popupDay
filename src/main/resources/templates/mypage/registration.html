@@ -21,8 +21,6 @@
             <a th:href="@{/mypage/businessPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
             <h2>팝업 신청 확인 관리</h2>
         </div>
-
-<!--        <p class="popCount" th:text="'전체 ' + ${bsPopupList.totPopup} + '개'"></p>-->
         <div th:if="${bsPopupList.totPopup == null}">
             <p class="popCount" th:text="'전체 0개'"></p>
         </div>

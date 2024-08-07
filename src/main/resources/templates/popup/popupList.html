@@ -5,8 +5,8 @@
       layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
-    <title>전체 팝업</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/popupAllList.css}">
+    <title>전체팝업</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/popupList.css}">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <link rel="stylesheet" th:href="@{/css/alert.css}">
@@ -35,50 +35,6 @@
 
                 </tbody>
             </table>
-<!--        <tr th:each="popupInfo : ${popupInfoList}" class="popup-lists">-->
-<!--            <td>-->
-<!--                <div th:if="${popupInfo.thumbnailImage != null}" class="popimg-bg">-->
-<!--                    <img th:src="@{/popupDownload.do(popup_id=${popupInfo.popup.popup_id}, image_file_name=${popupInfo.thumbnailImage.image_file_name})}"-->
-<!--                         width="100" alt="Thumbnail Image">-->
-<!--                </div>-->
-<!--                <div th:if="${popupInfo.thumbnailImage == null}" class="popimg-bg">-->
-<!--                    <span>No Image</span> &lt;!&ndash; 이미지가 없는 경우 대체 텍스트 출력 &ndash;&gt;-->
-<!--                </div>-->
-<!--            </td>-->
-
-<!--            <td>-->
-<!--                <a th:href="@{/popup/popupView.do(popup_id=${popupInfo.popup.popup_id})}" th:text="${popupInfo.popup.title}"></a>-->
-<!--            </td>-->
-<!--            <td th:text="${popupInfo.popup.start_date} + ' ~ ' + ${popupInfo.popup.end_date}"></td>-->
-<!--        </tr>-->
-<!--            <div align="center" th:if="${totPopup > 9}">-->
-<!--                <div th:if="${totPopup > 90}">-->
-<!--                    <span th:each="num : ${#numbers.sequence(1, (section > (totPopup / 90) ? ((totPopup % 90) / 9) + 1 : 9))}">-->
-<!--                        <span th:if="${section > 1 and num == 1}">-->
-<!--                            <a th:href="@{/popup/popupAllList.do(section=${section - 1}, pageNum=${(section - 1) * 10})}">prev</a>-->
-<!--                        </span>-->
-<!--                        <span th:if="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">-->
-<!--                            <a class="target" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>-->
-<!--                        </span>-->
-<!--                        <span th:unless="${num == (pageNum % 9 == 0 ? 9 : pageNum % 9)}">-->
-<!--                            <a class="noLine" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${(section - 1) * 9 + num})}" th:text="${(section - 1) * 9 + num}"></a>-->
-<!--                        </span>-->
-<!--                        <span th:if="${num == 9}">-->
-<!--                            <a th:href="@{/popup/popupAllList.do(section=${section + 1}, pageNum=${section * 9 + 1})}">next</a>-->
-<!--                        </span>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--                <div th:if="${totPopup <= 90}">-->
-<!--                    <span th:each="num : ${#numbers.sequence(1, (totPopup / 9) + (totPopup % 9 == 0 ? 0 : 1))}">-->
-<!--                        <span th:if="${num == pageNum}">-->
-<!--                            <a class="target" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>-->
-<!--                        </span>-->
-<!--                        <span th:unless="${num == pageNum}">-->
-<!--                            <a class="noLine" th:href="@{/popup/popupAllList.do(section=${section}, pageNum=${num})}" th:text="${num}"></a>-->
-<!--                        </span>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
@@ -88,7 +44,7 @@
     <script th:src="@{/js/notice.js}"></script>
     <script th:src="@{/js/searchDataFail.js}"></script>
     <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/popupAllList.js}"></script>
+    <script th:src="@{/js/popupList.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
