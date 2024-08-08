@@ -10,19 +10,19 @@ public class ReviewDTO {
     private long user_id;
     private String review_title;
     private String review_content;
-    private Date date;
-    private Date created_date;
+    private Date created_at;
+    private Date updated_at;
 
 
     public ReviewDTO() {}
 
-    public ReviewDTO(long review_id, long user_id, String review_title, String review_content,Date date, Date created_date) {
+    public ReviewDTO(long review_id, long user_id, String review_title, String review_content,Date created_at, Date updated_at) {
         this.review_id = review_id;
         this.user_id = user_id;
         this.review_title = review_title;
         this.review_content = review_content;
-        this.date = date;
-        this.created_date = created_date;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
 
@@ -58,20 +58,19 @@ public class ReviewDTO {
         this.review_content = review_content;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
-
 }

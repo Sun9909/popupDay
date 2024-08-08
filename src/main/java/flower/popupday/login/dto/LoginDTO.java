@@ -16,6 +16,9 @@ public class LoginDTO {
     private String business_num;
     private Role role;
     private Status status;
+    private Date birth_date;
+    private String gender;
+    private Long tot_point;
 
     public LoginDTO() {
     }
@@ -28,7 +31,8 @@ public class LoginDTO {
         active, deleted
     }
 
-    public LoginDTO(Long id, String user_id, String name, String pwd, String email, Date reg_date, String business_num, String role, String status) {
+    public LoginDTO(Long id, String user_id, String name, String pwd, String email, Date reg_date, String business_num, String role, String status,Date birth_date,
+                    String gender,Long tot_point) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
@@ -38,6 +42,9 @@ public class LoginDTO {
         this.business_num = business_num;  // 수정된 부분
         this.role = Role.valueOf(role);
         this.status = Status.valueOf(status);
+        this.birth_date = birth_date;
+        this.gender = gender;
+        this.tot_point = tot_point;
     }
 
     public Long getId() {
@@ -122,5 +129,29 @@ public class LoginDTO {
 
     // isAdmin() 메서드 추가
     public boolean isAdmin() {return this.role == Role.관리자;
+    }
+
+    public Date getBirth_date() {
+        return birth_date;
+    }
+
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Long getTot_point() {
+        return tot_point;
+    }
+
+    public void setTot_point(Long tot_point) {
+        this.tot_point = tot_point;
     }
 }
