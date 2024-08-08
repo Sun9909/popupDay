@@ -100,7 +100,7 @@ public class PopupControllerImpl implements PopupController {
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("popupList"); // View 이름 설정
+        mav.setViewName("popup/popupList"); // View 이름 설정
         return mav;
     }
 
@@ -286,7 +286,7 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.popupView(popup_id, user_id);
         ModelAndView mav = new ModelAndView();
         mav.addObject("popupMap", popupMap);
-        mav.setViewName("modifyPopup");
+        mav.setViewName("popup/modifyPopup");
         return mav;
     }
 
