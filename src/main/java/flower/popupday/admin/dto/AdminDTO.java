@@ -15,6 +15,9 @@ public class AdminDTO {
     private Date reg_date; //가입일
     private Role role;  //일반, 사업자, 관리자 구분
     private Status status;    //가입, 탈퇴
+    private Date birth_date;
+    private String gender;
+    private Long tot_point;
 
     //생성자
     public AdminDTO() {
@@ -101,4 +104,27 @@ public class AdminDTO {
         this.role = role;
     }
 
+    public Long getTot_point() {
+        return tot_point;
+    }
+
+    public void setTot_point(Long tot_point) {
+        this.tot_point = tot_point;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirth_date() {
+        return birth_date;
+    }
+
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
+    }
 }

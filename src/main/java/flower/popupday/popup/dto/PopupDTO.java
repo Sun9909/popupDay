@@ -16,7 +16,8 @@ public class PopupDTO {
     private String brand_page;
     private Role role;
     private Long user_id;
-    private Date created_date;
+    private Date created_at;
+    private Date updated_at;
     private Long hits;
     private String monday_time;
     private String tuesday_time;
@@ -116,12 +117,20 @@ public class PopupDTO {
         this.user_id = user_id;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 
     public Long getHits() {

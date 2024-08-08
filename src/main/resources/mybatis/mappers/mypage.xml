@@ -15,6 +15,9 @@
         <result property="business_num" column="business_num"/>
         <result property="role" column="role"/>
         <result property="status" column="status"/>
+        <result property="birth_date" column="birth_date"/>
+        <result property="gender" column="gender"/>
+        <result property="tot_point" column="tot_point"/>
     </resultMap>
 
     <resultMap type="qnaDTO" id="qnaResult">
@@ -40,7 +43,8 @@
         <result property="brand_page" column="brand_page"/>
         <result property="role" column="role"/>
         <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
         <result property="hits" column="hits"/>
         <result property="monday_time" column="monday_time"/>
         <result property="tuesday_time" column="tuesday_time"/>

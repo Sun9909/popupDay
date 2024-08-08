@@ -88,6 +88,4 @@ public interface PopupDAO {
 
     void deletePopupHashTag(Long popupId);
 
-    public int selectTooPopup(int id) throws DataAccessException;
-
 }
