@@ -39,8 +39,7 @@ public class LoginControllerImpl implements LoginController {
         return mav; // ModelAndView 반환
     }
 
-    // 로그인 폼 이동
-    // 로그인 폼 이동 및 로그인 실패 시 오류 메시지를 처리하는 메서드
+    // 로그인 폼 이동 및 로그인 실패 시 오류 메시지를 처리
     @Override
     @GetMapping("/login.do")
     public String loginForm(HttpServletRequest request, Model model) {
