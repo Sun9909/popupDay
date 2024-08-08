@@ -126,7 +126,7 @@ public class AdminControllerImpl implements AdminController {
         Map<String, Object> popupListMap = adminService.registerList(pagingMap); // 서비스에서 팝업 목록 받아오기
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("popupRegister"); // View 이름 설정
+        mav.setViewName("admin/popupRegister"); // View 이름 설정
         mav.addObject("popupInfoList", popupListMap.get("popupInfoList")); // 팝업 정보 리스트를 View로 전달
         mav.addObject("totPopup", popupListMap.get("totPopup")); // 전체 팝업 수를 View로 전달
         mav.addObject("section", section);
@@ -142,7 +142,7 @@ public class AdminControllerImpl implements AdminController {
         Map<String, Object> popupMap = adminService.register(popup_id);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("popupRegisterForm");
+        mav.setViewName("admin/popupRegisterForm");
         mav.addObject("popupMap", popupMap);
         // 팝업 상세 조회
         return mav;

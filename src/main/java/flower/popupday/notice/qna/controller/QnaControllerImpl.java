@@ -68,7 +68,7 @@ public class QnaControllerImpl implements QnaController {
         out.println("qnaMap: " + qnaMap);
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("qnaList"); // 이 뷰로 이동
+        mav.setViewName("notice/qnaList"); // 이 뷰로 이동
         mav.addObject("qnaMap", qnaMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
 
         return mav;
@@ -205,7 +205,7 @@ public class QnaControllerImpl implements QnaController {
     public ModelAndView answer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         QnaDTO qna = qnaService.getQnaById(qna_id);
-        mav.setViewName("qnaView");
+        mav.setViewName("notice/qnaView");
         mav.addObject("qna", qna);
         return mav;
     }

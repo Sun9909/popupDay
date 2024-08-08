@@ -182,7 +182,7 @@ public class LoginControllerImpl implements LoginController {
     @Override
     @GetMapping("/choiceForm.do")
     public ModelAndView showChoiceForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("joinChoice"); // 선택 폼 페이지로 이동
+        return new ModelAndView("login/joinChoice"); // 선택 폼 페이지로 이동
     }
 
     // choiceForm에서 businessForm으로 이동
