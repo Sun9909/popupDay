@@ -23,7 +23,7 @@ public interface ReviewController {
     public ModelAndView reviewForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //후기 상세페이지로 이동
-    public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView viewReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
     
     //후기 삭제하기
     ModelAndView removeReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception;

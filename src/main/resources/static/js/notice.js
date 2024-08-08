@@ -93,7 +93,7 @@ function backToFaq(obj) {
 
 // 상세 보기로 전환(취소)
 function toList(obj) {
-    obj.action="/notice/showReview.do"
+    obj.action="/notice/viewReview.do"
     obj.method="post";
     obj.submit();
 }
