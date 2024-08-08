@@ -67,3 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
     adjustTextareaHeight(textarea);
     adjustTextareaHeight(textarea2);
 });
+
+function confirmUnlike(popup_id) {
+    Swal.fire({
+        icon: 'warning',
+        title: '찜을 취소하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 확인 버튼을 클릭하면 리다이렉트
+            window.location.href = '/mypage/unlikeClick.do?popup_id=' + popup_id;
+        }
+    });
+}

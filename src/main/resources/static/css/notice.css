@@ -259,6 +259,13 @@
     width: 170px; /* 선택 요소의 너비 조절 */
 }
 
+#qna-btn input {
+    background-color: #8B8BDA;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+}
 /**후기후기후기후기ㅣ기************************/
 .reviewlist {
     display: flex;
@@ -515,11 +522,11 @@
 /*글쓰기 버튼*/
 a.write {
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
     margin: 20px;
+    font-size: 20px;
     cursor: pointer;
 }
 .answer-section {
@@ -584,7 +591,7 @@ a.write {
     padding: 5px 10px;
     border-radius: 5px;
     border: none;
-    margin-left: 60px;
+    margin: 10px;
 }
 
 .notice-view button a {
@@ -592,7 +599,14 @@ a.write {
     font-size: 15px;
     font-weight: 600;
 }
-
+#qna-mbtn input {
+    background-color: #8B8BDA;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+    font-size: 15px
+}
 /*.notice-view {*/
 /*    height: calc(100vh - 100px);*/
 /*}*/

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -69,7 +68,7 @@ public class QnaControllerImpl implements QnaController {
         out.println("qnaMap: " + qnaMap);
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("notice/qna"); // 이 뷰로 이동
+        mav.setViewName("notice/qnaList"); // 이 뷰로 이동
         mav.addObject("qnaMap", qnaMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
 
         return mav;
@@ -117,28 +116,6 @@ public class QnaControllerImpl implements QnaController {
                                 HttpServletResponse response) throws Exception { // qna_id 매개변수로 받아 공지사항 글을 조회
         Map qnaView = qnaService.qnaView(qna_id); // qnaService qna_id 해당하는 공지사항 글을 조회하며 noticeMap에 조정
 
-//        HttpSession session = request.getSession();
-//        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
-//        Long loggedInUserId = loginDTO.getId();
-//        String userRole = loginDTO.getRole().name();
-//
-//        QnaDTO qnaDTO = (QnaDTO) qnaView.get("qna");
-//        Long usdr_id = qnaDTO.getUser_id();
-//
-//        // 작성자 또는 관리자인 경우에만 접근 허용
-//        if (!loggedInUserId.equals(usdr_id) && !userRole.equals("관리자")) {
-//            rAttr.addFlashAttribute("flashMessage", "작성자와 관리자만 글을 볼 수 있습니다");
-//            rAttr.addFlashAttribute("flashType", "error");
-//            return new ModelAndView("redirect:/notice/qnaList.do");
-//        }
-//
-//        ModelAndView mav = new ModelAndView(); // ModelAndView 객체 생성
-//        mav.setViewName("/notice/qnaView"); // 뷰 이름 설정
-//        mav.addObject("qnaView", qnaView); // "noticeMap"이라는 이름으로 ModelAndView 객체에 추가
-//
-//        return mav; // ModelAndView 객체를 반환
-//
-//    }
         try {
             qnaView = qnaService.qnaView(qna_id);
         } catch (Exception e) {
@@ -209,11 +186,17 @@ public class QnaControllerImpl implements QnaController {
 
     //삭제하기
     @Override
-    @RequestMapping("/notice/removeQna.do")
-    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        qnaService.removeQna(qna_id);
-        ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
-        return mav;
+    @RequestMapping(value = "/notice/removeQna.do", method = RequestMethod.POST)
+    public ModelAndView removeQna(@RequestParam("qna_id") long qna_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            qnaService.removeQna(qna_id);
+            rAttr.addFlashAttribute("flashMessage", "Q&A 질문이 삭제되었습니다.");
+            rAttr.addFlashAttribute("flashType", "success");
+        } catch (Exception e) {
+            rAttr.addFlashAttribute("flashMessage", "Q&A 질문 삭제 중 오류가 발생했습니다.");
+            rAttr.addFlashAttribute("flashType", "error");
+        }
+        return new ModelAndView("redirect:/notice/qnaList.do");
     }
 
     // 답글 쓰기 화면 요청
@@ -222,7 +205,7 @@ public class QnaControllerImpl implements QnaController {
     public ModelAndView answer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         QnaDTO qna = qnaService.getQnaById(qna_id);
-        mav.setViewName("qnaView");
+        mav.setViewName("notice/qnaView");
         mav.addObject("qna", qna);
         return mav;
     }
@@ -234,9 +217,6 @@ public class QnaControllerImpl implements QnaController {
         request.setCharacterEncoding("UTF-8");
         String answer = request.getParameter("answer");
         Long qna_id = Long.valueOf(request.getParameter("qna_id"));
-
-        out.println("qna_id : " + qna_id );
-        out.println("answer : " + answer);
 
         // 제목이 비어있는지 검사
         if (answer == null || answer.trim().isEmpty()) {
@@ -287,6 +267,5 @@ public class QnaControllerImpl implements QnaController {
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
-
 
 }

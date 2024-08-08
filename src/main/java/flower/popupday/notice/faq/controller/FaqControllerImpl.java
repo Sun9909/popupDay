@@ -1,8 +1,10 @@
 package flower.popupday.notice.faq.controller;
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.notice.faq.dto.FaqDTO;
 import flower.popupday.notice.faq.service.FaqServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +43,7 @@ public class FaqControllerImpl implements FaqController {
 
         // ModelAndView 객체 생성 및 설정
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/faq");
+        mav.setViewName("notice/faqList");
         mav.addObject("faqList", faqList);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
@@ -55,8 +57,12 @@ public class FaqControllerImpl implements FaqController {
         request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        HttpSession session=request.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id=loginDTO.getId();
         faqDTO.setTitle(title);
         faqDTO.setContent(content);
+        faqDTO.setUser_id(id);
         faqService.addFaq(faqDTO);
         ModelAndView mav = new ModelAndView("redirect:/notice/faqList.do");
         return mav;

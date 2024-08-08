@@ -1,37 +1,33 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout">
+      layout:decorate="/layout/layout"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/joinForm.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
-    <title>설정페이지</title>
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div class="body">
-        <div class="containers">
-            <div class="setting_title">
-                <a href="#"><img th:src="@{/images/ltr.svg}" alt="뒤로가기"></a>
-                <h1>설정</h1>
-                <img th:src="@{/images/setting.svg}" alt="설정아이콘">
+    <div class="containers">
+        <div class="login_banner">
+            <div class="loginFormMain">
+                <a class="login_header">
+                    <h2>POP UP DAY</h2>
+                </a>
             </div>
-            <div class="setting_info">
-                <h2>내 정보</h2>
-                <ul>
-                    <li>회원 정보 수정</li>
-                    <li>비밀 번호 수정</li>
-                </ul>
+            <div class="login">
+                <p>이미 가입 하셨다면,</p>
+                <button href="login.html">로그인</button>
             </div>
-            <div class="under_bar"></div>
-            <div class="setting_info">
-                <ul>
-                    <li>로그 아웃</li>
-                    <li>회원 탈퇴</li>
-                </ul>
+            <div class="choice">
+                <p>회원가입을 하시고 다양한 서비스를 이용해보세요.</p>
+                <button href="choiceForm.html">회원가입</button>
             </div>
         </div>
     </div>

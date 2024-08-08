@@ -38,12 +38,6 @@ public class QnaServiceImpl implements QnaService {
 
         qnaMap.put("listQna", listQna); // noticeList를 noticeMap에 추가
         qnaMap.put("totQna", totQna);   // totNotice를 noticeMap에 추가
-        //qnaMap.put("totQna", 324);
-
-        // Debugging 로그 추가
-        System.out.println("listQna: " + listQna);
-        System.out.println("totQna: " + totQna);
-
         return qnaMap;  // 공지사항 목록과 전체 공지사항 수를 포함한 noticeMap으로 반환
     }
 
@@ -54,7 +48,6 @@ public class QnaServiceImpl implements QnaService {
         QnaDTO qnaDTO = qnaDAO.selectQna(qna_id); // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
         qnaMap.put("qna", qnaDTO);
         return qnaMap;
-
     }
 
     @Override

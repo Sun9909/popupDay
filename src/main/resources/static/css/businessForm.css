@@ -30,6 +30,7 @@ table {
     width: 400px;
     height: 100px;
     margin-bottom: 30px;
+    background-color: white;
 }
 .div2{
     text-align: center;
@@ -39,4 +40,10 @@ table {
     width: 400px;
     height: 100px;
     margin-bottom: 30px;
+    background-color: white;
+}
+
+dl, dt, dd {
+    margin: 0;
+    padding: 0;
 }

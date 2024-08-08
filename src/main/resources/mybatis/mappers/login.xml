@@ -81,7 +81,7 @@
     <!-- 카카오 REST API -->
     <insert id="kakaoInsert" parameterType="LoginDTO">
         insert into user_tbl (id, user_id, user_nickname, name, pwd, email, reg_date, business_num, role, status)
-        values (#{id}, #{email}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '카카오', 'active')
+        values (#{id}, #{email}, #{user_nickname}, #{user_nickname}, null, #{email}, now(), null, '카카오', 'active')
     </insert>
 
     <select id="isExistKakao" parameterType="LoginDTO" resultType="boolean">

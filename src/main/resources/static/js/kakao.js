@@ -1,9 +1,10 @@
 //카카오 로그인 호출
 //REST API
+//카카오 로그인 호출
+//REST API
 function fn_kakao() {
-    location.href="https://kauth.kakao.com/oauth/authorize?client_id=c9237e3260b74eea6991180ceca971ca&redirect_uri=http://127.0.0.1:8090/login/popupday/kakao&response_type=code";
+    location.href="https://kauth.kakao.com/oauth/authorize?client_id=c9237e3260b74eea6991180ceca971ca&redirect_uri=http://172.16.104.16:8090/login/popupday/kakao&response_type=code";
 }
-
 //
 /*function kakaoLogout() {
     Kakao.init('c9237e3260b74eea6991180ceca971ca');

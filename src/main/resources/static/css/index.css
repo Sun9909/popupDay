@@ -278,3 +278,23 @@ li::marker { color: #8F8CBB; }
     width: 28px;
     height: 28px;
 }
+
+.b-agent-demo .b-agent-demo_header {
+    background-color: #8B8BDA;
+    padding-left: 30px;
+
+}
+
+.b-agent-demo .b-agent-demo_header-icon {
+    display: none;
+}
+
+.b-agent-demo .server-response {
+    background-color: lavender;
+    font-weight: 400;
+}
+
+/* 화면을 진짜 모바일 가능하게 반응형으로 할지 고민 */
+
+
+

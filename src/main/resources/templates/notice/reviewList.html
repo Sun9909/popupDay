@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
     <title>후기</title>
 </head>
@@ -51,7 +52,7 @@
                 <!-- 후기가 존재할때 -->
                 <div class="myreview-history" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
                     <div th:each="review : ${reviewMap.reviewList}">
-                        <a class="review-list" th:href="@{/notice/showReview.do(review_id = ${review.review_id})}">
+                        <a class="review-list" th:href="@{/notice/viewReview.do(review_id = ${review.review_id})}">
                             <p th:text="${review.review_title}"></p><span th:text="${review.created_date}"></span>
                         </a>
                     </div>

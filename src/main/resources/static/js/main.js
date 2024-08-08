@@ -216,7 +216,7 @@ function fn_articleForm(isLogOn, articleForm, loginForm) {
             willOpen: () => {
                 Swal.getContainer().style.paddingRight = '0px';
 
-            }
+            },
         }).then(() => {
             location.href = loginForm + '?action=' + encodeURIComponent(articleForm);
         });

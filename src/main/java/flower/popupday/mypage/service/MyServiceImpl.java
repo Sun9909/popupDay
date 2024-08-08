@@ -23,10 +23,6 @@ public class MyServiceImpl implements MyService {
 
     @Autowired
     private MyDAO myDAO;
-    @Autowired
-    private MyPopupDTO mypopupDTO;
-    @Autowired
-    private ReviewDAO reviewDAO;
 
     //마이페이지
     @Override // 한사람 정보 = 리스트 , 세션 이미지 + 유저정보 map
@@ -90,11 +86,10 @@ public class MyServiceImpl implements MyService {
         //int id = pagingMap.get("id");
         int count = (section - 1) * 100 + (pageNum - 1) * 10; // 현재 섹션에는 1
 
-        List<PopupDTO> popupList = myDAO.selectMyPopup(count, id); // 팝업 목록 조회
+        List<PopupDTO> popupList = myDAO.selectMyLikePopup(count, id); // 팝업 목록 조회
         Long totPopup = myDAO.selectToPopup(id); // 전체 팝업 수 조회
 
         List<Map<String, Object>> popupLike = new ArrayList<>();
-
         for (PopupDTO popup : popupList) {
             Long popup_id = popup.getPopup_id();
             ImageDTO thumbnailImage = myDAO.selectFirstImage(popup_id); // 각 팝업의 첫 번째 이미지 조회
@@ -163,8 +158,8 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public void likeClick(Long popup_id, Long id) throws DataAccessException {
-        myDAO.likeClick(popup_id, id);
+    public void unlikeClick(Long popup_id, Long id) throws DataAccessException {
+        myDAO.unlikeClick(popup_id,id);
     }
 
     @Override
@@ -175,6 +170,69 @@ public class MyServiceImpl implements MyService {
     @Override
     public boolean checknickname(String user_nickname) {
         return myDAO.checknickname(user_nickname);
+    }
+
+    @Override
+    public Map bsPopupList(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
+        Map bsPopupList = new HashMap<>();
+        int section = pagingMap.get("section");
+        int pageNum = pagingMap.get("pageNum");
+        int count = (section - 1) * 100 + (pageNum - 1) * 10;
+        List<PopupDTO> popupList = myDAO.selectBsPopup(count, id);
+        int totPopup = myDAO.selectToBsPopup(id);
+
+        bsPopupList.put("popupList", popupList);
+        bsPopupList.put("totPopup", totPopup);
+
+        return bsPopupList;
+    }
+
+    @Override
+    public Map<String, Object> myPopupList(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
+        Map<String, Object> popupMap = new HashMap<>();
+        int section = pagingMap.get("section");
+        int pageNum = pagingMap.get("pageNum");
+//        int popup_id = pagingMap.get("popup_id");
+        int count = (section - 1) * 100 + (pageNum - 1) * 10;
+        // 팝업 리스트를 DAO를 통해 가져옵니다.
+        List<PopupDTO> popupList = myDAO.selectMyPopup(count, id);
+        int totPopup = myDAO.selectToMyPopup(id); // 승인된 팝업 개수를 가져옴
+
+        // 각 팝업에 대한 정보를 담을 리스트를 생성합니다.
+        List<Map<String, Object>> popupInfoList = new ArrayList<>();
+        for (PopupDTO popup : popupList) {
+            Long popup_id = popup.getPopup_id();
+
+            // 썸네일 이미지를 가져옵니다.
+            ImageDTO thumbnailImage = myDAO.selectFirstImg(popup_id);
+
+            // 해시태그를 가져옵니다.
+            List<String> tags = myDAO.selectPopupTags(popup_id); // 해시태그 가져오기
+
+            // 팝업 정보를 담을 맵을 생성합니다.
+            Map<String, Object> popupInfo = new HashMap<>();
+            popupInfo.put("popup", popup);
+            popupInfo.put("thumbnailImage", thumbnailImage);
+            popupInfo.put("tags", tags); // 해시태그 추가
+            popupInfoList.add(popupInfo);
+        }
+
+        // 팝업 정보를 맵에 추가합니다.
+        popupMap.put("popupInfoList", popupInfoList);
+        popupMap.put("totPopup", totPopup);
+
+        return popupMap;
+    }
+
+    //승인된 팝업 개수
+    @Override
+    public int getApprovedPopupCount(int userId) throws DataAccessException {
+        return myDAO.selectTotPopup(userId);
+    }
+
+    @Override
+    public int getRegisterPopupCount(int userId) throws DataAccessException {
+        return myDAO.selectTooPopup(userId);
     }
 
 

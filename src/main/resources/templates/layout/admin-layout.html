@@ -4,7 +4,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head> <!-- 타임리프 적용 , 타임리프 레아이웃적용 -->
     <meta charset="UTF-8">
-    <title>레이아웃 페이지</title>
+    <title>레이아웃</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" /> <!-- 레이아웃 css -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/category.css}">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <body>
 <div id="container-admin">
-    <header th:replace="layout/header2 :: header"></header> <!-- 헤더 추가 -->
+    <header th:replace="layout/admin-header :: header"></header> <!-- 헤더 추가 -->
     <div id="admin-content" layout:fragment="admin-content"></div> <!-- 컨텐츠 .html  -->
 
 </div>

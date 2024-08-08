@@ -6,10 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팝업 신청 관리</title>
+    <title>팝업 신청 상세</title>
     <link rel="stylesheet" th:href="@{/css/admin.css}">
-    <link rel="stylesheet" th:href="@{/css/registerForm.css}">
+    <link rel="stylesheet" th:href="@{/css/popupRegisterForm.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
 </head>
 <body>
@@ -47,15 +48,12 @@
                 </div>
                 <div class="popImg" th:if="${not #strings.isEmpty(popupMap.imageFileList)}">
                     <h4>팝업 이미지</h4>
-                    <!--                    imageFileList가 비어있지 않은 경우에만 이 div 표시-->
                     <article class="main-article">
                         <div class="popupdetail-banner" th:each="imgList, status : ${popupMap.imageFileList}">
-                            <!--                            imageFileList의 각 항목에 대해 반복문을 돌림-->
                             <div>
-                                <input type="hidden" th:name="'originalFileName' + ${status.count}" th:value="${imgList.image_file_name}"> <!-- 이름이 하나로 고정 -->
-                                <input type="hidden" th:name="'image_file_name' + ${status.count}" th:value="${imgList.popup_image_id}"> <!-- 파일 번호가져감 -->
+                                <input type="hidden" th:name="'originalFileName' + ${status.count}" th:value="${imgList.image_file_name}">
+                                <input type="hidden" th:name="'image_file_name' + ${status.count}" th:value="${imgList.popup_image_id}">
                                 <img th:id="'preview' + ${status.count}" th:src="@{/popupDownload.do(popup_id=${imgList.popup_id},image_file_name=${imgList.image_file_name})}">
-                                <!--                                이미지 표시, 각 이미지에 대해 고유한 id를 부여하고 src에 이미지 파일 경로를 할당-->
                             </div>
                         </div>
                     </article>
@@ -112,7 +110,6 @@
                     <div>
                         <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
                         <label><input type="radio" name="role" value="승인"> 승인</label>
-<!--                        <label><input type="radio" name="role" value="검토"> 미승인</label>-->
                         <label><input type="radio" name="role" value="취소"> 취소</label>
                     </div>
                     <div class="check">

@@ -17,13 +17,7 @@ import java.util.List;
 public interface MyDAO {
     public MyDTO getName(MyDTO myDTO) throws DataAccessException;
 
-    public int selectAllReview() throws DataAccessException;
-
     public Long getReviewCount(Long id) throws DataAccessException;
-
-    //public String getreCommentCount(String user_nickname) throws DataAccessException;
-  
-    //public String getpopCommentCount(String user_nickname) throws DataAccessException;
 
     public Long getQnaCount(Long id) throws DataAccessException;
 
@@ -41,6 +35,8 @@ public interface MyDAO {
     public void dropMember(LoginDTO loginDTO) throws DataAccessException;
 
     public List selectMyPopup(@Param("count") int count, @Param("id") Long id) throws DataAccessException;
+
+    public List selectMyLikePopup(@Param("count") int count, @Param("id") Long id) throws DataAccessException;
 
     public Long selectToPopup(@Param("id") Long id) throws DataAccessException;
 
@@ -61,5 +57,19 @@ public interface MyDAO {
     public int selectToQna(@Param("id") int id) throws DataAccessException;
 
     //찜 삭제
-    public void likeClick(Long popup_id, Long id) throws DataAccessException;
+    public void unlikeClick(Long popup_id,Long id) throws DataAccessException;
+
+    public int selectTooPopup(int userId);
+
+    public int selectTotPopup(int userId);
+
+    public List<String> selectPopupTags(Long popupId);
+
+    public ImageDTO selectFirstImg(Long popupId);
+
+    public List<PopupDTO> selectBsPopup(int count, Long id);
+
+    public int selectToBsPopup(Long id);
+
+    public int selectToMyPopup(Long id);
 }

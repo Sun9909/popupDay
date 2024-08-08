@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,4 +25,14 @@ public interface AdminController {
 
     public ModelAndView delMember(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //관리자 - 팝업 신청 리스트
+    ModelAndView registerList(@RequestParam(value = "section", required = false) String _section,
+                              @RequestParam(value = "pageNum", required = false) String _pageNum,
+                              HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    //관리자 - 팝업 신청 상세보기
+    ModelAndView register(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    //관리자 - 팝업 승인 결정
+    ModelAndView roleUpdate(@RequestParam("popup_id") Long popup_id, @RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

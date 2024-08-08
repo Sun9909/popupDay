@@ -67,14 +67,20 @@
         <result property="created_date" column="created_date"/>
     </resultMap>
 
+    <resultMap id="hashTagDTO" type="hashTagDTO">
+        <result property="hash_tag_id" column="hash_tag_id" />
+        <result property="hash_tag" column="hash_tag" />
+    </resultMap>
+
+    <resultMap id="popupHashTagDTO" type="popupHashTagDTO">
+        <result property="hash_tag_id" column="hash_tag_id" />
+        <result property="popup_id" column="popup_id" />
+    </resultMap>
+
     <!-- 로그인한 회원 정보 가져오기 -->
     <select id="getName" parameterType="myDTO">
         select * from user_tbl where id=#{id}
     </select>
-
-    <!--    <select id="selectAllReview" resultMap="revResult">-->
-    <!--        select count(*) from review_tbl where user_id='123'-->
-    <!--    </select>-->
 
     <!-- 리뷰 개수 -->
     <select id="getReviewCount" resultType="Long" parameterType="Long">
@@ -83,31 +89,6 @@
         join user_tbl on review_tbl.user_id = user_tbl.id
         where review_tbl.user_id=#{id} group by review_tbl.user_id
     </select>
-
-    <!-- 댓글 개수 -->
-<!--    <select id="getreCommentCount" parameterType="String" resultType="String">-->
-<!--        &lt;!&ndash;        select count(*) from review_comment join review_tbl on review_comment.review_id = review_tbl.review_id&ndash;&gt;-->
-<!--        &lt;!&ndash;        where review_comment.review_id=#{review_id} and review_comment.writed=#{writed} group by review_tbl.user_id&ndash;&gt;-->
-<!--        select count(*) from review_comment_tbl where user_id=#{id}-->
-
-<!--        &lt;!&ndash;        SELECT&ndash;&gt;-->
-<!--        &lt;!&ndash;        COALESCE(SUM(a.comment_count), 0) AS total_comments_a,&ndash;&gt;-->
-<!--        &lt;!&ndash;        COALESCE(SUM(b.comment_count), 0) AS total_comments_b,&ndash;&gt;-->
-<!--        &lt;!&ndash;        COALESCE(SUM(a.comment_count), 0) + COALESCE(SUM(b.comment_count), 0) AS total_comments_combined&ndash;&gt;-->
-<!--        &lt;!&ndash;        FROM&ndash;&gt;-->
-<!--        &lt;!&ndash;        (SELECT member_id, COUNT(*) AS comment_count FROM a_comments GROUP BY member_id) AS a&ndash;&gt;-->
-<!--        &lt;!&ndash;        FULL JOIN&ndash;&gt;-->
-<!--        &lt;!&ndash;        (SELECT member_id, COUNT(*) AS comment_count FROM b_comments GROUP BY member_id) AS b&ndash;&gt;-->
-<!--        &lt;!&ndash;        ON&ndash;&gt;-->
-<!--        &lt;!&ndash;        a.member_id = b.member_id&ndash;&gt;-->
-<!--        &lt;!&ndash;        WHERE&ndash;&gt;-->
-<!--        &lt;!&ndash;        a.member_id = 'your_member_id';&ndash;&gt;-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 팝업 댓글 개수 &ndash;&gt;-->
-<!--    <select id="getpopCommentCount" parameterType="String" resultType="String">-->
-<!--        select count(*) from popup_comment_tbl where user_id=#{id}-->
-<!--    </select>-->
 
     <!-- 문의 개수 -->
     <select id="getQnaCount" parameterType="Long" resultType="Long">
@@ -145,13 +126,12 @@
         update user_tbl set status='deleted' where id=#{id}
     </update>
 
-    <select id="selectMyPopup" resultMap="popResult" parameterType="map">
+    <select id="selectMyLikePopup" resultMap="popResult" parameterType="map">
         select * from popup_tbl where popup_id in (select popup_id from popup_like_tbl where user_id=#{id}) LIMIT #{count}, 10
-<!--        SELECT p.*-->
-<!--        FROM popup_tbl p-->
-<!--        JOIN popup_like_tbl pl ON p.popup_id = pl.popup_id-->
-<!--        JOIN user_tbl u ON pl.user_id = u.id-->
-<!--        WHERE u.id = #{id} LIMIT #{count}, 10;-->
+    </select>
+
+    <select id="selectMyPopup" resultMap="popResult" parameterType="Map">
+        select * from popup_tbl where user_id=#{id} and role="승인" order by created_date desc LIMIT #{count}, 10
     </select>
 
     <select id="selectToPopup" resultType="Long">
@@ -163,11 +143,11 @@
     </select>
 
     <select id="getPopupCount" parameterType="Long">
-        select count(*) from popup_tbl where user_id=#{id} and role="승인"
+        select * from popup_tbl where user_id=#{id} and role="승인"
     </select>
 
     <select id="getAllPopupCount" parameterType="Long">
-        select count(*) from popup_tbl where user_id=#{id}
+        select * from popup_tbl where user_id=#{id}
     </select>
 
     <!-- 내가 쓴 리뷰 -->
@@ -193,7 +173,47 @@
     </select>
     
     <!-- 찜 삭제 -->
-    <delete id="likeClick" parameterType="Long">
+    <delete id="unlikeClick" parameterType="Long">
         delete from popup_like_tbl where popup_id=#{popup_id} and user_id=#{id}
     </delete>
+
+    <!-- 특정 사용자의 승인된 팝업 개수 조회 -->
+    <select id="selectTotPopup" resultType="int" parameterType="int">
+        <![CDATA[
+        select count(*) from popup_tbl where user_id=#{id} and role="승인"
+        ]]>
+    </select>
+
+    <!-- 특정 사용자의 신청한 팝업 개수 조회 -->
+    <select id="selectTooPopup" resultType="int" parameterType="int">
+        <![CDATA[
+        select count(*) from popup_tbl where user_id=#{id}
+        ]]>
+    </select>
+
+    <!--사업자 회원 팝업 리스트에 해시태그 값 받아오는거-->
+    <select id="selectPopupTags" resultType="String" parameterType="Long">
+        select ht.hash_tag
+        from popup_hash_tag_tbl pht
+        join hash_tag_tbl ht on pht.hash_tag_id = ht.hash_tag_id
+        where pht.popup_id = #{popup_id} limit 3
+    </select>
+
+    <select id="selectFirstImg" resultMap="imgResult" parameterType="Long">
+        select * from popup_image_tbl where popup_id = #{popup_id} LIMIT 1
+    </select>
+
+    <!-- 사업자 팝업 신청 현황 리스트 -->
+    <select id="selectBsPopup" resultMap="popResult" parameterType="Map">
+        select * from popup_tbl where user_id=#{id} order by created_date desc LIMIT #{count}, 10
+    </select>
+
+    <!-- 사업자 신청 팝업 개수 -->
+    <select id="selectToBsPopup" resultType="int">
+        select count(*) from popup_tbl where user_id=#{id}
+    </select>
+
+    <select id="selectToMyPopup" resultType="int">
+        select count(*) from popup_tbl where user_id=#{id} and role="승인"
+    </select>
 </mapper>

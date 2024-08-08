@@ -7,25 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
-    <title>공지사항페이지</title>
-
-    <!--    <script> // true false , 로그인중이면 articleForm 정보 받음 , 로그인 안했으면 loginForm으로 보냄-->
-    <!--    function fn_noticeForm(isLogOn, noticeForm, loginForm) {-->
-    <!--        if(isLogOn===true) {-->
-    <!--            location.href=noticeForm;-->
-    <!--        }else {-->
-    <!--            alert("isLogOn : " + isLogOn);-->
-    <!--            alert("로그인 후 글쓰기가 가능합니다.");-->
-    <!--            location.href=loginForm + '?action=/notice/noticeForm.do';-->
-    <!--        }-->
-    <!--    }-->
-    <!--    // isLogOn != '' && isLogOn != 'false'-->
-    <!--    </script>-->
-
+    <title>공지사항</title>
 </head>
-
 <body>
 <th:block layout:fragment="content">
     <!--검색, 서브메뉴-->

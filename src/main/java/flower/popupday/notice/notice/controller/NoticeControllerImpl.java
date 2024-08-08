@@ -12,7 +12,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -51,11 +50,8 @@ public class NoticeControllerImpl implements NoticeController {
         noticeMap.put("section", section); // noticeMap에 section 값을 추가 함
         noticeMap.put("pageNum", pageNum); // noticeMap에 pageNum 값을 추가 함
 
-        // Debuggin 로그 추가(noticeMap(section,pageNum)이 잘 넘어오는지 확인)
-        System.out.println("noticeMap: " + noticeMap);
-
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("notice/notice"); // 이 뷰로 이동
+        mav.setViewName("notice/noticeList"); // 이 뷰로 이동
         mav.addObject("noticeMap", noticeMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
 
         return mav;
@@ -174,7 +170,6 @@ public class NoticeControllerImpl implements NoticeController {
 
         //업로드 된 파일이 있을 경우
         if(fileList != null && fileList.size() != 0) {
-            System.out.println("이미지있다");
             for(String fileName : fileList) { //업로드 된 파일 리스트를 반본
                 NoticeimageDTO noticeimageDTO = new NoticeimageDTO(); // 각 파일마다 noticeimageDTO 객체를 생성
                 noticeimageDTO.setImage_file_name(fileName);
