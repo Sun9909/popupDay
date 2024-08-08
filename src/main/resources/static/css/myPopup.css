@@ -1,0 +1,87 @@
+@charset "utf-8";
+h2 {
+    font-size: 1.8em;
+    margin: 10px 0;
+}
+.main_title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    align-items: center;
+}
+.main_title img {
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    width: 30px;
+    height: 30px;
+}
+.popCount {
+    color: #4B4B65;
+    margin: 10px 0 20px 30px;
+}
+
+/* 찜한 팝업이 없을 때 */
+h4 {
+    color: #8F8CB8;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 30px;
+}
+/* 찜한 팝업이 있을 때 */
+form {
+    margin: 20px;
+}
+fieldset {
+    display: flex;
+    padding: 15px;
+}
+form .pop {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+form .popImg {
+    width: 160px;
+    height: 180px;
+    margin-right: 10px;
+}
+form .popImg img {
+    width: 160px;
+    height: 180px;
+}
+form .Acc {
+    display: flow;
+}
+form .popAcc {
+    display: flow;
+    margin-left: 15px;
+}
+form .popAcc h5 {
+    font-size: 1.6em;
+    padding: 10px 0;
+}
+form .popAcc p {
+    font-size: 1.2em;
+    margin: 0 20px 10px 5px;
+}
+form ul {
+    display: flex;
+    list-style: none;
+    margin: 20px 20px 0 5px;
+    padding: 0;
+}
+form .tags {
+    display: flex;
+}
+form .tag{
+    border-radius: 30px;
+    border: 2px #8B8BDA solid;
+    background-color: #FEFEDF;
+    padding: 5px 3px;
+    margin: 10px 15px;
+    text-align: center;
+    width: 110px;
+}
+
+.searchHashtag {
+    height: 48px;
+}

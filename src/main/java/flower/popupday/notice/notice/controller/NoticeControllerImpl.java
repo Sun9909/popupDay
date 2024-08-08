@@ -51,7 +51,7 @@ public class NoticeControllerImpl implements NoticeController {
         noticeMap.put("pageNum", pageNum); // noticeMap에 pageNum 값을 추가 함
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("noticeList"); // 이 뷰로 이동
+        mav.setViewName("notice/noticeList"); // 이 뷰로 이동
         mav.addObject("noticeMap", noticeMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
 
         return mav;
