@@ -39,6 +39,8 @@ public interface MyController {
 
     public ModelAndView dropMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
     public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //회원 찜목록 페이지로
@@ -57,18 +59,15 @@ public interface MyController {
     //찜
     public ModelAndView unlikeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    @RequestMapping("/mypage/registration.do")
-    ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
+    public ModelAndView popupState(@RequestParam(value = "section", required = false) String _section,
                             @RequestParam(value = "pageNum", required = false) String _pageNum,
                             HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    @RequestMapping("/popup/myPopup.do")
-    ModelAndView popupList(
+    public ModelAndView popupList(
             @RequestParam(value = "section", required = false) String _section,
             @RequestParam(value = "pageNum", required = false) String _pageNum,
             HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     //승인된 팝업 개수 사업자 페이지에 보이게
-    @GetMapping("/mypage/businessPage.do")
-    ModelAndView businessPage(HttpSession session);
+    public ModelAndView businessPage(HttpSession session);
 }

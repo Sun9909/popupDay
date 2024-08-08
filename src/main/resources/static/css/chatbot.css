@@ -2,8 +2,8 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
-    width: 400px;
-    height: 480px;
+    width: 500px;
+    height: 536px;
     z-index: 1000;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -13,6 +13,10 @@
 }
 #chatbot-container iframe {
     border: none;
+}
+
+#chatbot-container iframe .b-agent-demo .b-agent-demo_header-wrapper{
+    background-color: #8B8BDA;
 }
 #chatbot-close {
     position: absolute;
