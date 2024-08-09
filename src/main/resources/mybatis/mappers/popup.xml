@@ -15,7 +15,7 @@
         <result property="brand_page" column="brand_page"/>
         <result property="role" column="role"/>
         <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
+        <result property="created_date" column="created_at"/>
         <result property="hits" column="hits"/>
         <result property="monday_time" column="monday_time"/>
         <result property="tuesday_time" column="tuesday_time"/>
@@ -51,24 +51,24 @@
 
     <!-- 전체 팝업 -->
     <select id="selectAllPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where role="승인"  order by created_date desc
+        select * from popup_tbl where role="승인"  order by created_at desc
     </select>
 
     <!-- 진행 중 -->
     <select id="selectOngoingPopup" resultType="PopupDTO">
-        SELECT * FROM popup_tbl WHERE NOW() BETWEEN start_date AND end_date and role="승인" order by created_date desc
+        SELECT * FROM popup_tbl WHERE NOW() BETWEEN start_date AND end_date and role="승인" order by created_at desc
     </select>
 
     <!-- 종료 -->
     <select id="selectEndPopup" resultType="PopupDTO">
         <![CDATA[
-        SELECT * FROM popup_tbl WHERE end_date < NOW() and role="승인" order by created_date desc
+        SELECT * FROM popup_tbl WHERE end_date < NOW() and role="승인" order by created_at desc
         ]]>
     </select>
 
     <!-- 진행 예정 -->
     <select id="selectUpcomingPopup" resultType="PopupDTO">
-        SELECT * FROM popup_tbl WHERE start_date > now() and role="승인" order by created_date desc
+        SELECT * FROM popup_tbl WHERE start_date > now() and role="승인" order by created_at desc
     </select>
 
 
@@ -88,7 +88,7 @@
     <!-- 팝업 등록 -->
     <insert id="insertNewPopup" parameterType="java.util.Map">
     <![CDATA[
-        insert into popup_tbl (popup_id, title, info, start_date, end_date, content, address, brand_page, user_id, created_date, monday_time, tuesday_time,
+        insert into popup_tbl (popup_id, title, info, start_date, end_date, content, address, brand_page, user_id, created_at, monday_time, tuesday_time,
                                wednesday_time, thursday_time, friday_time, saturday_time, sunday_time, parking, fee)
         values (#{popup_id}, #{title}, #{info}, #{start_date},#{end_date}, #{content}, #{address}, #{brand_page}, #{user_id} , now() ,#{monday_time},
                 #{tuesday_time}, #{wednesday_time}, #{thursday_time}, #{friday_time}, #{saturday_time}, #{sunday_time}, #{parking}, #{fee})
@@ -198,7 +198,7 @@
     </update>
 
     <select id="selectMyPopup" resultMap="popResult" parameterType="int">
-        select * from popup_tbl where user_id=#{id} and role="승인" order by created_date desc LIMIT #{count}, 10
+        select * from popup_tbl where user_id=#{id} and role="승인" order by created_at desc LIMIT #{count}, 10
     </select>
 
     <select id="bestPopup" resultType="PopupDTO">
