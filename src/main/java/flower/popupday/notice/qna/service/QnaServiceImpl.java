@@ -1,8 +1,7 @@
 package flower.popupday.notice.qna.service;
 
-import flower.popupday.notice.faq.dto.FaqDTO;
-import flower.popupday.notice.notice.dto.NoticeDTO;
 import flower.popupday.notice.qna.dao.QnaDAO;
+import flower.popupday.notice.qna.dto.QnaAnswerDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -18,6 +17,9 @@ public class QnaServiceImpl implements QnaService {
 
     @Autowired
     private QnaDAO qnaDAO;
+
+    @Autowired
+    private QnaAnswerDTO qnaAnswerDTO;
 
     @Override
     public void addQna(QnaDTO qnaDTO) throws DataFormatException {
@@ -44,36 +46,50 @@ public class QnaServiceImpl implements QnaService {
     // 공지사항 상세보기
     @Override
     public Map qnaView(long qna_id) throws DataAccessException {
-        Map qnaMap = new HashMap();
-        QnaDTO qnaDTO = qnaDAO.selectQna(qna_id); // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
+//        Map qnaMap = new HashMap();
+//        QnaDTO qnaDTO = qnaDAO.selectQna(qna_id); // noticeDAO를 사용해 notice_id에 해당하는 공지사항 정보를 가져옴
+//        qnaMap.put("qna", qnaDTO);
+//        return qnaMap;
+//    }
+        Map<String, Object> qnaMap = new HashMap<>();
+
+        // QnaDTO 조회
+        QnaDTO qnaDTO = qnaDAO.selectQna(qna_id);
         qnaMap.put("qna", qnaDTO);
+
+        // QnaAnswerDTO 조회 (있을 경우)
+        QnaAnswerDTO qnaAnswerDTO = qnaDAO.selectAnswerByQnaId(qna_id);
+        qnaMap.put("answer", qnaAnswerDTO);
+
         return qnaMap;
     }
 
+    //Qna 글 수정
     @Override
     public void modQna(QnaDTO qnaDTO) throws DataFormatException {
         qnaDAO.changeQna(qnaDTO);
     }
-
+    //Qna 글 삭제
     @Override
     public void removeQna(long qna_id) throws DataAccessException {
         qnaDAO.deleteQna(qna_id);
     }
-    @Override
-    public void addAnswer(QnaDTO qnaDTO) throws DataAccessException {
-        qnaDAO.updateAnswer(qnaDTO);
-    }
 
     @Override
     public QnaDTO getQnaById(long qna_id) throws DataAccessException {
-        qnaDAO.selectQnaById(qna_id);
-        return null;
+        return qnaDAO.selectQnaById(qna_id); // 이 메서드가 실제 DTO를 반환해야 합니다.
+    }
+
+    //QNA 답변하기
+    @Override
+    public void addAnswer(QnaAnswerDTO qnaAnswerDTO) throws DataAccessException {
+        qnaDAO.insertAnswer(qnaAnswerDTO);
     }
 
     //답변 수정
     @Override
-    public void modAnswer(QnaDTO qnaDTO) throws DataAccessException {
-        qnaDAO.updateAnswer(qnaDTO);
+    public void modAnswer(QnaAnswerDTO qnaAnswerDTO) throws DataAccessException {
+        qnaDAO.updateAnswer(qnaAnswerDTO);
     }
 
     // 답변 삭제 메서드 추가

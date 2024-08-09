@@ -14,21 +14,29 @@ public class QnaDTO {
     private long user_id;
     private String title;
     private String content;
-    private Date created_date;
-    private String answer;
-    private Date answer_date;
-    private String status;
     private String category_name;
-
-    private int totQna;
+    private Date created_at;
+    private Date updated_at;
+    private String status;
+    private QnaAnswerDTO qnaAnswerDTO;
 
     //생성자
     public QnaDTO() {
     }
 
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
     public enum Status {
         답변중, 답변완료, 답변대기
     }
+
+    private int totQna;
 
     public long getQna_id() {
         return qna_id;
@@ -62,28 +70,28 @@ public class QnaDTO {
         this.content = content;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public String getCategory_name() {
+        return category_name;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
-    public String getAnswer() {
-        return answer;
+    public Date getcreated_at() {
+        return created_at;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setcreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
-    public Date getAnswer_date() {
-        return answer_date;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setAnswer_date(Date answer_date) {
-        this.answer_date = answer_date;
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 
     public String getStatus() {
@@ -101,23 +109,20 @@ public class QnaDTO {
     public void setTotQna(int totQna) {
         this.totQna = totQna;
     }
-
-    public String getCategory_name() {
-        return category_name;
+    public QnaAnswerDTO getQnaAnswerDTO() {
+        return qnaAnswerDTO;
+    }
+    public void setQnaAnswerDTO(QnaAnswerDTO qnaAnswerDTO) {
+        this.qnaAnswerDTO = qnaAnswerDTO;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
-    }
-
-    public QnaDTO(long qna_id, long user_id, String title, String content, Date created_date, String answer, Date answer_date, String status, String category_name, int totQna) {
+    public QnaDTO(long qna_id, long user_id, String title, String content, Date created_at, Date updated_at, String status, String category_name, int totQna) {
         this.qna_id= qna_id;
         this.user_id = user_id;
         this.title = title;
         this.content = content;
-        this.created_date = created_date;
-        this.answer = answer;
-        this.answer_date = answer_date;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
         this.status = status.valueOf(status);
         this.category_name = category_name;
     }
