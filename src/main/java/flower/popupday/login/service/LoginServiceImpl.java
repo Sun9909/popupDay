@@ -28,6 +28,7 @@ public class LoginServiceImpl implements LoginService {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
         //loginDAO.insertLogin(loginDTO); : DAO 객체를 사용하여 회원가입 정보를 데이터베이스에 삽입.
         loginDAO.insertLogin(loginDTO); // 회원가입 DAO 메서드 호출
+        loginDAO.createPoint(loginDTO);//포인트값 생성
     }
 
     // 일반 회원 로그인
@@ -42,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
     public void addBusinessLogin(LoginDTO loginDTO) throws DataAccessException {
         System.out.println(loginDTO.toString()); // 사업자 회원가입 정보를 콘솔에 출력
         //DAO 객체를 사용하여 사업자 회원가입 정보를 데이터베이스에 삽입.
-        loginDAO.insertLogin2(loginDTO); // 사업자 회원가입 DAO 메서드 호출
+        loginDAO.busniessLogin(loginDTO); // 사업자 회원가입 DAO 메서드 호출
     }
 
     // 사업자 회원 로그인

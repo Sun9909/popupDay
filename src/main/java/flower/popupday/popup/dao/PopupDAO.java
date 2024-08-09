@@ -63,6 +63,8 @@ public interface PopupDAO {
 
     public int selectTotPopup(int id) throws DataAccessException;
 
+    public int selectTooPopup(int id) throws DataAccessException;
+
     public ImageDTO selectFirstImg(Long popup_id) throws DataAccessException;
 
     public List<PopupDTO> bestPopup() throws DataAccessException;
@@ -85,7 +87,5 @@ public interface PopupDAO {
     Integer findHashTagId(String hashTag);
 
     void deletePopupHashTag(Long popupId);
-
-    public int selectTooPopup(int id) throws DataAccessException;
 
 }

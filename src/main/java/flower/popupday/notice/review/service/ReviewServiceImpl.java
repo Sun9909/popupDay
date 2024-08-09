@@ -23,6 +23,7 @@ public class ReviewServiceImpl implements ReviewService {
         int review_id=reviewDAO.getNewReviewId(); // 글번호 받아오는 메서드
         reviewMap.put("review_id",review_id); // 얻어온 번호 주입
         reviewDAO.insertNewReview(reviewMap);
+        reviewDAO.updatePoint(reviewMap);
         // imagefile_tbl 이용
         if(reviewMap.get("imageFileList") != null) { // 이미지가 들어있을때
             reviewDAO.insertNewImages(reviewMap); // Map 데이터 가지고 수행
@@ -47,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     //후기 상세보기
     @Override
-    public Map showReview(int review_id) throws DataAccessException {
+    public Map viewReview(int review_id) throws DataAccessException {
         Map listMap=new HashMap<>();
         ReviewDTO reviewDTO = reviewDAO.selectReview(review_id); // 선택한 글번호의 정보 가져오기
         List<ReviewImageDTO> imageFiles = reviewDAO.selectImageList(review_id); //선택한 글번호의 이미지

@@ -33,24 +33,24 @@ public class ReviewControllerImpl implements ReviewController {
         int section=Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
         Map<String, Integer> pagingMap=new HashMap<String, Integer>();
-        pagingMap.put("section", section); // 1
-        pagingMap.put("pageNum", pageNum); // 1
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
 
         Map reviewMap = reviewService.reviewList(pagingMap);
         reviewMap.put("section", section);
         reviewMap.put("pageNum", pageNum);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/reviewList"); // 여기로감
-        mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
-        return mav; // 포워딩
+        mav.setViewName("notice/reviewList");
+        mav.addObject("reviewMap", reviewMap);
+        return mav;
     }
 
     //후기 상세보기
     @Override
-    @RequestMapping("/notice/showReview.do")
-    public ModelAndView showReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map reviewArticle = reviewService.showReview(review_id);
+    @RequestMapping("/notice/viewReview.do")
+    public ModelAndView viewReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map reviewArticle = reviewService.viewReview(review_id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/reviewView");
         mav.addObject("reviewArticle", reviewArticle);
@@ -68,45 +68,42 @@ public class ReviewControllerImpl implements ReviewController {
         while (enu.hasMoreElements()) {
             String name=(String) enu.nextElement();
             String value=multipartRequest.getParameter(name);
-            reviewMap.put(name, value); // 이미지 파일 name 까지 집어넣음
+            reviewMap.put(name, value);
         } // while end
-        List<String> fileList=multiFileUpload(multipartRequest); // 멀티파일로 가져옴 (여러개 일때는 list)
-        String articleNo=(String)reviewMap.get("review_id"); // 글번호를 받아옴 (객체라 string 캐스팅)
-        List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>(); // 여러개의 이미지를 담음
-        int modityNumber=0; // 수정 번호 , 이미지 파일 name 이 status 번호를 가져옴
-        // 두개의 테이블을 동시에 이용
+        List<String> fileList=multiFileUpload(multipartRequest);
+        String articleNo=(String)reviewMap.get("review_id");
+        List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>();
+        int modityNumber=0;
         if(fileList != null && fileList.size() != 0 ) {
-            for(String fileName:fileList) { // 향상된 for fileList에 있는걸 하나씩 filename 에 넘겨줌
+            for(String fileName:fileList) {
                 modityNumber++;
-                ReviewImageDTO imageDTO=new ReviewImageDTO(); // 이미지를 넣을때마다 생성 여러개 이미지지만 각각의 정보를 가지고 있어야함
+                ReviewImageDTO imageDTO=new ReviewImageDTO();
                 imageDTO.setImage_file_name(fileName);
-                // 수정 번호로 이미지 파일 번호 가져옴 , 글번호로 접근 => 이미지 파일 번호
                 imageDTO.setReview_image_id(Integer.parseInt((String) reviewMap.get("review_image_id" + modityNumber)));
                 imageFileList.add(imageDTO);
             }
-            reviewMap.put("imageFileList", imageFileList); // 변경된 이미지 담아서감
+            reviewMap.put("imageFileList", imageFileList);
         }
         HttpSession session=multipartRequest.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
         Long id=loginDTO.getId();
-        reviewMap.put("id", id);//세션아이디 집어넣기
+        reviewMap.put("id", id);
         try {
-            reviewService.modReview(reviewMap); // 글 수정은 해당 글에 들어가서 수정하기 때문에 리턴값없음 , (새 글은 몇번째인지 몰라서 글번호를 받아와야 함)
-            // 뭐라도 들었을때(파일선택으로 이미지 선택시) 두조건 만족시(기본값 header 가 들어가있어서 랭스도 물어봐야함) , 이미지가 있을때
+            reviewService.modReview(reviewMap);
             if(imageFileList != null && imageFileList.size() != 0) {
-                //String uploadFileName=multipartRequest // 이미지 한개 기준 (이미지 여러개 업로드는 tbl 만들어야함)
-                int cnt=0; // -1인 이유 : 모름
-                for(ReviewImageDTO imageDTO : imageFileList) { // 이미지 전부
+
+                int cnt=0;
+                for(ReviewImageDTO imageDTO : imageFileList) {
                     cnt++;
                     imageFileName=imageDTO.getImage_file_name();
-                    if(imageFileName != null && imageFileName != "") { // 여러개의 이미지 중에 1개만 바꾸면 오류남 (실행은 됨) , 뭐라도 들어있을때 3개중
+                    if(imageFileName != null && imageFileName != "") {
                         File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
                         File destDir=new File(ARTICLE_IMG_REPO + "\\" + articleNo);
                         FileUtils.moveFileToDirectory(srcFile, destDir, true);
-                        String originalFileName=(String)reviewMap.get("originalFileName" + cnt); // 전의 이미지 , status 에 번호를 붙혀놓음
+                        String originalFileName=(String)reviewMap.get("originalFileName" + cnt);
                         System.out.println("이전 이미지 " + originalFileName);
-                        File oldFile=new File(ARTICLE_IMG_REPO + "\\" + articleNo + "\\" + originalFileName); // 파일 저장 위치(기존 이미지)
-                        oldFile.delete(); // 기존 이미지 삭제
+                        File oldFile=new File(ARTICLE_IMG_REPO + "\\" + articleNo + "\\" + originalFileName);
+                        oldFile.delete();
                     }
                 } // for end
             } // if end
@@ -133,29 +130,28 @@ public class ReviewControllerImpl implements ReviewController {
         String imageFileName=null;
         multipartRequest.setCharacterEncoding("utf-8");
         Map<String, Object> reviewMap=new HashMap<String, Object>();
-        Enumeration enu=multipartRequest.getParameterNames(); // <td> 의 name 을 가져옴 (객체취급)
+        Enumeration enu=multipartRequest.getParameterNames();
         while (enu.hasMoreElements()) {
             String name=(String) enu.nextElement();
             String value=multipartRequest.getParameter(name);
-            reviewMap.put(name, value); // 이미지 파일 name 까지 집어넣음
+            reviewMap.put(name, value);
         } // while end
-        List<String> fileList=multiFileUpload(multipartRequest); // 멀티파일로 가져옴
-        List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>(); // 여러개의 이미지를 담음
+        List<String> fileList=multiFileUpload(multipartRequest);
+        List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>();
 
         // 두개의 테이블을 동시에 이용
         if(fileList != null && fileList.size() != 0 ) {
-            for(String fileName:fileList) { // 향상된 for fileList에 있는걸 하나씩 filename 에 넘겨줌
-                ReviewImageDTO reviewImageDTO=new ReviewImageDTO(); // 이미지를 넣을때마다 생성 여러개 이미지지만 각각의 정보를 가지고 있어야함
+            for(String fileName:fileList) {
+                ReviewImageDTO reviewImageDTO=new ReviewImageDTO();
                 reviewImageDTO.setImage_file_name(fileName);
                 imageFileList.add(reviewImageDTO);
             }
-            reviewMap.put("imageFileList", imageFileList); // 이미지가 있을때만 put
+            reviewMap.put("imageFileList", imageFileList);
         }
         HttpSession session=multipartRequest.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
         Long id=loginDTO.getId();
         reviewMap.put("id", id);
-        // 임시 writer 넣기
         String name = loginDTO.getName();
         reviewMap.put("name", name);
         try {
@@ -174,7 +170,6 @@ public class ReviewControllerImpl implements ReviewController {
                 for(ReviewImageDTO reviewImageDTO : imageFileList) {
                     imageFileName=reviewImageDTO.getImage_file_name();
                     File srcFile=new File(ARTICLE_IMG_REPO + "\\temp\\" + imageFileName);
-                    //오류 발생 시 temp폴더의 이미지를 모두 삭제
                     srcFile.delete();
                 }
             }
@@ -188,20 +183,20 @@ public class ReviewControllerImpl implements ReviewController {
     // 여러개의 이미지파일 업로드
     private List<String> multiFileUpload(MultipartHttpServletRequest multipartrequest) throws Exception{
         List<String> fileList=new ArrayList<String>();
-        Iterator<String> fileNames=multipartrequest.getFileNames(); // 열거형 객체(여러개)
-        while(fileNames.hasNext()) { // has.Next 파일 이름이 없을때 까지 돔
-            String fileName=fileNames.next(); // 첨부한 이미지 파일 이름
-            MultipartFile mFile=multipartrequest.getFile(fileName); // 파일 크기
-            String originalFileName=mFile.getOriginalFilename(); //  파일 name 얻어오기
-            fileList.add(originalFileName); // 파일 이름 얻어온걸 하나씩 저장
-            File file=new File(ARTICLE_IMG_REPO + "\\" + fileName); // 경로 저장
-            if(mFile.getSize() != 0) { // 크기가 0인 이미지 거르기
-                if(! file.exists()) { // exists 존재하는지(not이라 존재 안할때) , ex ) 기존에 있던 이미지를 또 추가하면 안됨
-                    if(file.getParentFile().mkdir()) { // mkdir 폴더 생성
+        Iterator<String> fileNames=multipartrequest.getFileNames();
+        while(fileNames.hasNext()) {
+            String fileName=fileNames.next();
+            MultipartFile mFile=multipartrequest.getFile(fileName);
+            String originalFileName=mFile.getOriginalFilename();
+            fileList.add(originalFileName);
+            File file=new File(ARTICLE_IMG_REPO + "\\" + fileName);
+            if(mFile.getSize() != 0) {
+                if(! file.exists()) {
+                    if(file.getParentFile().mkdir()) {
                         file.createNewFile();
-                    } // inner if end
-                } // inner if end
-                mFile.transferTo(new File(ARTICLE_IMG_REPO + "\\temp\\" + originalFileName)); // 파일 전달 (임시저장소에)
+                    }
+                }
+                mFile.transferTo(new File(ARTICLE_IMG_REPO + "\\temp\\" + originalFileName));
             } // if end
         } // while end
         return fileList;
@@ -213,8 +208,8 @@ public class ReviewControllerImpl implements ReviewController {
     throws Exception{
         reviewService.removeReviews(review_id);
         File imgDir=new File(ARTICLE_IMG_REPO + "\\" + review_id); // 파일 객체로 만듬
-        if(imgDir.exists()) { // 이미지가 있는 글일때 수행
-            FileUtils.deleteDirectory(imgDir); // 이 디렉토리(폴더)를 삭제
+        if(imgDir.exists()) {
+            FileUtils.deleteDirectory(imgDir);
         }
         ModelAndView mav=new ModelAndView("redirect:/notice/reviewList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
         return mav;

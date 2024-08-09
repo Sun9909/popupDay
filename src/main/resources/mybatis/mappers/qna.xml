@@ -9,11 +9,20 @@
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
-        <result property="created_date" column="created_date"/>
-        <result property="answer" column="answer"/>
-        <result property="answer_date" column="answer_date"/>
-        <result property="status" column="status"/>
         <result property="category_name" column="category_name"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="status" column="status"/>
+
+    </resultMap>
+
+    <resultMap  type="qnaAnswerDTO" id="qnaAnswerResult">
+        <result property="answer_id" column="answer_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="qna_id" column="qna_id"/>
+        <result property="answer" column="answer"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
     </resultMap>
 
     <!--qna 등록 -->
@@ -22,16 +31,10 @@
         VALUES (#{user_id}, #{title}, #{content}, #{category_name})
     </insert>
 
-    <!--qna 답변 -->
-    <update id="updateAnswer" parameterType="flower.popupday.notice.qna.dto.QnaDTO">
-        UPDATE qna_tbl
-        SET answer = #{answer}, status = '답변완료'
-        WHERE qna_id = #{qna_id}
-    </update>
 
     <!-- 등록된 qna 리스트 화면출력  -->
     <select id="selectAllQnaList" resultMap="qnaResult" parameterType="java.util.Map">
-        select * from qna_tbl order by created_date DESC LIMIT #{count}, 10
+        select * from qna_tbl order by created_at DESC LIMIT #{count}, 10
 
     </select>
 
@@ -50,34 +53,65 @@
     </select>
 
     <!-- 상세 글보기 -->
-    <select id="selectQna"  resultType="qnaDTO">
-        select * from qna_tbl where qna_id = #{qna_id}
+    <select id="selectQna" parameterType="long" resultType="qnaDTO">
+        SELECT * FROM qna_tbl WHERE qna_id = #{qna_id}
     </select>
 
-    <!-- faq 글 수정하기 -->
+    <!-- qna 글 수정하기 -->
     <update id="changeQna" parameterType="qnaDTO">
         update qna_tbl set title=#{title}, content=#{content} where qna_id = #{qna_id}
     </update>
 
-    <!-- faq 글 삭제하기 -->
+    <!-- qna 글 삭제하기 -->
     <delete id="deleteQna" parameterType="long">
         delete from qna_tbl where qna_id = #{qna_id}
     </delete>
 
+    <!--qna 답변 -->
+    <insert id="insertAnswer" parameterType="flower.popupday.notice.qna.dto.QnaAnswerDTO">
+        INSERT INTO qna_answer_tbl (user_id, qna_id, answer, created_at)
+        VALUES (#{user_id}, #{qna_id}, #{answer}, NOW())
+    </insert>
+
+
     <!-- 답변글 수정하기 -->
-    <update id="changeAnswer" parameterType="qnaDTO">
-        update qna_tbl set answer=#{answer}, answer_date=now() where qna_id = #{qna_id}
+    <update id="updateAnswer" parameterType="qnaAnswerDTO">
+        UPDATE qna_answer_tbl SET answer=#{answer}, created_at=NOW() WHERE qna_id = #{qna_id}
     </update>
 
     <!-- 답변글 삭제 -->
-    <update id="deleteAnswer" parameterType="long">
-        update qna_tbl set answer=NULL where qna_id = #{qna_id}
-    </update>
+    <delete id="deleteAnswer" parameterType="long">
+        DELETE FROM qna_answer_tbl WHERE qna_id = #{qna_id}
+    </delete>
 
-
-    <select id="selectQnaById" parameterType="long" resultType="flower.popupday.notice.qna.dto.QnaDTO">
-        SELECT * FROM qna_tbl WHERE qna_id = #{qna_id}
+    <!-- 답변 조회 -->
+    <select id="selectQnaById" parameterType="long" resultMap="qnaAnswerResult">
+        SELECT * FROM qna_answer_tbl WHERE qna_id = #{qna_id}
     </select>
 
+    <!-- QnaDTO와 QnaAnswerDTO를 조회하여 Map으로 반환하는 쿼리 -->
+    <select id="qnaView" parameterType="long" resultType="java.util.HashMap">
+        SELECT
+            q.qna_id AS qna_id,
+            q.user_id AS qna_user_id,
+            q.title AS qna_title,
+            q.content AS qna_content,
+            q.category_name AS qna_category_name,
+            q.created_at AS qna_created_at,
+            q.updated_at AS qna_updated_at,
+            q.status AS qna_status,
+            a.answer_id AS answer_id,
+            a.user_id AS answer_user_id,
+            a.answer AS answer_answer,
+            a.created_at AS answer_created_at,
+            a.updated_at AS answer_updated_at
+        FROM qna_tbl q
+                 LEFT JOIN qna_answer_tbl a ON q.qna_id = a.qna_id
+        WHERE q.qna_id = #{qna_id}
+    </select>
+
+    <select id="selectAnswerByQnaId" parameterType="long" resultType="flower.popupday.notice.qna.dto.QnaAnswerDTO">
+        SELECT answer FROM qna_answer_tbl WHERE qna_id = #{qna_id}
+    </select>
 
 </mapper>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트 교환소</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+  <div class="containers">
+    <div>
+        <form> <!-- th:each="@{}" -->
+            <img th:src="@{/images/Rectangle4.png}">
+            <input type="text" th:value="product_name" name="product_name">
+            <input type="hidden" name="shop_id" th:value="shop_id">
+            <input type="text" th:value="product_price" name="product_price">
+            <input type="number" min="1" max="10" step="1" value="1" name="pointValue" onclick="">
+            <input type="submit" th:value="교환하기">
+        </form>
+    </div>
+  </div>
+</th:block>
+</body>
+</html>

@@ -16,6 +16,9 @@
         <result property="business_num" column="business_num"/>
         <result property="role" column="role"/>
         <result property="status" column="status"/>
+        <result property="birth_date" column="birth_date"/>
+        <result property="gender" column="gender"/>
+        <result property="tot_point" column="tot_point"/>
     </resultMap>
 
     <!-- sql문 중복 제거 -->
@@ -26,14 +29,24 @@
     </sql>
 
     <insert id="insertLogin" parameterType="loginDTO">
+        <!-- 값 다 추가한뒤에 넣을것 [회원가입 포인트 추가] -->
+
+        insert into point_history_tbl(user_id,change_amount,point_type,new_point,earned_at)
+        values(#{user_id},+100,'회원가입',100,now())
+
         <![CDATA[
-        insert into user_tbl values(#{id}, #{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '일반', 'active')
+        insert into user_tbl(id,user_id,user_nickname,name,pwd,email,reg_date,role,birth_date,gender)
+        values(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), '일반', 'active',#{birth_date},#{gender})
         ]]>
     </insert>
+    <update id="createPoint" parameterType="loginDTO">
+        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{user_id}' ORDER BY earned_at DESC LIMIT 1) where id = #{user_id};
+    </update>
 
-    <insert id="insertLogin2" parameterType="loginDTO">
+    <insert id="busniessLogin" parameterType="loginDTO">
         <![CDATA[
-        insert into user_tbl values(#{id}, #{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
+        insert into user_tbl
+        values(#{id}, #{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), #{business_num}, '사업자', 'active')
         ]]>
     </insert>
 

@@ -9,7 +9,8 @@
         <result property="user_id" column="user_id"/>
         <result property="review_title" column="review_title"/>
         <result property="review_content" column="review_content"/>
-        <result property="created_date" column="created_date"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
     </resultMap>
 
     <resultMap id="imageResult" type="reviewImageDTO">
@@ -19,7 +20,7 @@
     </resultMap>
 
     <select id="selectAllReview" resultMap="reviewResult">
-        select * from review_tbl order by created_date LIMIT #{count}, 10
+        select * from review_tbl order by updated_at LIMIT #{count}, 10
     </select>
 
     <select id="getNewReviewId" parameterType="int">
@@ -27,15 +28,24 @@
     </select>
 
     <insert id="insertNewReview" parameterType="java.util.Map">
-        insert into review_tbl (user_id, review_title, review_content)
-        values (#{id}, #{review_title}, #{review_content})
+        insert into review_tbl (user_id, review_title, review_content, updated_at)
+        values (#{id}, #{review_title}, #{review_content},now())
+        <!-- 리뷰 작성 시 포인트 추가 -->
+        insert into point_history_tbl(user_id,change_amount,point_type,previous_point,new_point,earned_at)
+        values(#{id},'+30','리뷰',#{tot_point},(#{tot_point}+30),now())
     </insert>
+    <update id="updatePoint" parameterType="java.util.Map">
+        update user_tbl set tot_point = (select new_point from point_history_tbl
+        where user_id = #{user_id} ORDER BY earned_at DESC LIMIT 1) where id = #{user_id}
+    </update>
+
 
     <insert id="insertNewImages" parameterType="java.util.Map">
         insert into review_image_tbl values
         <foreach collection="imageFileList" item="item" separator=","> <!-- 구분자 , 로 -->
             (#{item.review_image_id},#{review_id}, #{item.image_file_name})
         </foreach> <!-- values에 있는 값 업데이트 -->
+        <!-- 이미지 추가 등록 시 포인트 20 더 제공 (이미지가 존재할 경우에만)-->
     </insert>
 
     <select id="selectToReview" resultType="int">
@@ -53,7 +63,7 @@
     </select>
 
     <update id="updateReview" parameterType="java.util.Map">
-        update review_tbl set review_title = #{review_title}, review_content = #{review_content} where review_id = #{review_id}
+        update review_tbl set review_title = #{review_title}, review_content = #{review_content}, updated_at = now() where review_id = #{review_id}
     </update>
 
     <update id="updateImage" parameterType="java.util.Map">

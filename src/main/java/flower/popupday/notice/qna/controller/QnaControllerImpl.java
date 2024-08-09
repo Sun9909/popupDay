@@ -2,6 +2,7 @@
 package flower.popupday.notice.qna.controller;
 
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.notice.qna.dto.QnaAnswerDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import flower.popupday.notice.qna.service.QnaServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -114,7 +115,8 @@ public class QnaControllerImpl implements QnaController {
                                 RedirectAttributes rAttr,
                                 HttpServletRequest request,
                                 HttpServletResponse response) throws Exception { // qna_id 매개변수로 받아 공지사항 글을 조회
-        Map qnaView = qnaService.qnaView(qna_id); // qnaService qna_id 해당하는 공지사항 글을 조회하며 noticeMap에 조정
+        Map qnaView = qnaService.qnaView(qna_id); // qnaService qna_id 해당하는 공지사항 글을 조회하며 noticeMap에 조
+        QnaAnswerDTO qnaAnswerDTO = null;
 
         try {
             qnaView = qnaService.qnaView(qna_id);
@@ -158,7 +160,6 @@ public class QnaControllerImpl implements QnaController {
 
         return mav;
     }
-
 
 
     //수정반영하기
@@ -206,7 +207,7 @@ public class QnaControllerImpl implements QnaController {
         ModelAndView mav = new ModelAndView();
         QnaDTO qna = qnaService.getQnaById(qna_id);
         mav.setViewName("notice/qnaView");
-        mav.addObject("qna", qna);
+        mav.addObject("qnaView", qna);
         return mav;
     }
 
@@ -230,16 +231,20 @@ public class QnaControllerImpl implements QnaController {
         //qnaMap.put("id", id);
 
         // qnaDTO개체 생성 및설정
-        QnaDTO qnaDTO = new QnaDTO();
-        qnaDTO.setUser_id(user_id);
-        qnaDTO.setQna_id(qna_id);
-        qnaDTO.setAnswer(answer);
+        QnaAnswerDTO qnaAnswerDTO = new QnaAnswerDTO();
+        qnaAnswerDTO.setUser_id(user_id);
+        qnaAnswerDTO.setQna_id(qna_id);
+        qnaAnswerDTO.setAnswer(answer);
         //qnaMap.put("qnaDTO",qnaDTO);
-        qnaService.addAnswer(qnaDTO);  //서비스 호출
+        qnaService.addAnswer(qnaAnswerDTO);  //서비스 호출
 
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
+
+
+
+
 
     //답변 수정반영하기
     @Override
@@ -248,18 +253,18 @@ public class QnaControllerImpl implements QnaController {
         String answer = request.getParameter("answer");
 
         // QnaDTO 객체 생성 및 필드 설정
-        QnaDTO qnaDTO = new QnaDTO();
-        qnaDTO.setQna_id(qna_id);
-        qnaDTO.setAnswer(answer);
+        QnaAnswerDTO qnaAnswerDTO = new QnaAnswerDTO();
+        qnaAnswerDTO.setQna_id(qna_id);
+        qnaAnswerDTO.setAnswer(answer);
 
         // 서비스 호출
-        qnaService.modAnswer(qnaDTO); // modAnswer 메서드 호출
+        qnaService.modAnswer(qnaAnswerDTO); // modAnswer 메서드 호출
 
         ModelAndView mav = new ModelAndView("redirect:/notice/qnaList.do");
         return mav;
     }
 
-    //답변 수정
+    //답변삭제
     @Override
     @RequestMapping(value = "/notice/removeAnswer.do", method = RequestMethod.POST)
     public ModelAndView removedAnswer(@RequestParam("qna_id") long qna_id, HttpServletRequest request, HttpServletResponse response) throws Exception {

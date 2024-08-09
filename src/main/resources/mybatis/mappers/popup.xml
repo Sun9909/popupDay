@@ -15,7 +15,8 @@
         <result property="brand_page" column="brand_page"/>
         <result property="role" column="role"/>
         <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_at"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
         <result property="hits" column="hits"/>
         <result property="monday_time" column="monday_time"/>
         <result property="tuesday_time" column="tuesday_time"/>
@@ -182,7 +183,7 @@
     <update id="updatePopup" parameterType="java.util.Map">
         update popup_tbl set
                              title = #{title}, info = #{info}, start_date = #{start_date}, end_date = #{end_date}, content = #{content},
-                             address = #{address}, brand_page = #{brand_page}, monday_time = #{monday_time},
+                             address = #{address}, brand_page = #{brand_page}, updated_at = now(), monday_time = #{monday_time},
                              tuesday_time = #{tuesday_time}, wednesday_time = #{wednesday_time}, thursday_time = #{thursday_time}, friday_time = #{friday_time},
                              saturday_time = #{saturday_time}, sunday_time = #{sunday_time}, parking = #{parking}, fee = #{fee} WHERE popup_id = #{popup_id}
     </update>

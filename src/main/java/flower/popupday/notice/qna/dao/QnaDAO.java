@@ -1,6 +1,7 @@
 
 package flower.popupday.notice.qna.dao;
 
+import flower.popupday.notice.qna.dto.QnaAnswerDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,11 +25,13 @@ public interface QnaDAO {
 
     public void deleteQna(long qna_id) throws DataAccessException;
 
-    public void updateAnswer(QnaDTO qnaDTO) throws DataAccessException;
+    public void insertAnswer(QnaAnswerDTO qnaAnswerDTO) throws DataAccessException;
 
-    public void selectQnaById(long qna_id) throws DataAccessException;
+    public void updateAnswer(QnaAnswerDTO qnaAnswerDTO) throws DataAccessException;
+
+    public QnaDTO selectQnaById(long qna_id) throws DataAccessException;
 
     public void deleteAnswer(long qna_id) throws DataAccessException;
 
-
+    public QnaAnswerDTO selectAnswerByQnaId(long qna_id) throws DataAccessException;
 }

@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout">
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,19 +42,19 @@
                 <div class="viewForm">
                     <input type="hidden" th:value="${qnaView.qna.qna_id}" name="qna_id">
                     <p>제목</p>
-                    <input class="view-title" id="title"  name="title" th:value="${qnaView.qna.title}" disabled>
+                    <input class="view-title" id="title" name="title" th:value="${qnaView.qna.title}" disabled>
                 </div>
                 <div class="viewForm">
                     <p>내용</p>
                     <input class="view-content" id="content" name="content" th:value="${qnaView.qna.content}" disabled>
                 </div>
-                <!--작성자가 글 수정 및 삭제-->
+                <!-- 작성자가 글 수정 및 삭제 -->
                 <div class="usermodify" th:if="${session.loginDTO.id == qnaView.qna.user_id and session.loginDTO.role != '관리자'}">
-                    <div id="qna-btn" >
+                    <div id="qna-btn">
                         <input type="button" value="수정하기" onclick="qna_enable(this.form)">
                         <input type="button" value="삭제하기" th:onclick="|fn_remove_qna('/notice/removeQna.do', ${qnaView.qna.qna_id})|">
                     </div>
-                    <div id="qna-mbtn" style="display: none;" >
+                    <div id="qna-mbtn" style="display: none;">
                         <input type="button" value="수정반영하기" onclick="qna_modify(qnaView)">
                         <button><a th:href="@{/notice/qnaList.do}">수정취소하기</a></button>
                     </div>
@@ -75,24 +75,44 @@
             </div>
         </div>
 
-        <div class="answer-section" th:if="${qnaView.qna.answer != null}" name="answer">
-            <p>답변</p>
+<!--        <div class="answer-section" th:if="${qnaView.answer != null}">-->
+<!--            <p>답변</p>-->
 
-            <form class="answer-content"  th:action="@{/notice/modAnswer.do}" method="post">
+<!--            <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">-->
+<!--                <input type="hidden" name="qna_id" th:value="${qnaView['qna']['qna_id']}">-->
+<!--                <textarea class="view-content" name="answer" disabled th:text="${qnaView['qna']['answer']}"></textarea>-->
+<!--                <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>-->
+<!--                <div id="answer-btn">-->
+<!--                    <input type="button" value="답변수정" onclick="answer_enable(this.form)">-->
+<!--                    <input type="button" value="답변삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView['qna']['qna_id']})|">-->
+<!--                </div>-->
+<!--                <div id="answer-mbtn" style="display: none;">-->
+<!--                    <input type="button" value="답변수정반영" onclick="submitForm(this.form)">-->
+<!--                    <button><a th:href="@{/notice/qnaList.do}">수정취소</a></button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+        <div class="answer-section" th:if="${qnaView.qna != null}">
+            <p>답변</p>
+            <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">
                 <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
-                <textarea class="view-content" name="answer" disabled th:text="${qnaView.qna.answer}"></textarea>
+                <textarea class="view-content" name="answer" disabled th:text="${qnaView.qna.qnaAnswerDTO != null ? qnaView.qna.qnaAnswerDTO.answer : ''}"></textarea>
                 <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>
-                <div id="answer-btn" >
+                <div id="answer-btn">
                     <input type="button" value="답변수정" onclick="answer_enable(this.form)">
                     <input type="button" value="답변삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView.qna.qna_id})|">
                 </div>
                 <div id="answer-mbtn" style="display: none;">
-                    <input type="button" value="답변수정반영" onclick="submitForm(this.form)">
+                    <input type="button" value="답변수정반영" onclick="submitanswer(this.form)">
                     <button><a th:href="@{/notice/qnaList.do}">수정취소</a></button>
                 </div>
             </form>
         </div>
+
+
     </div>
+
+    <!-- 중복된 스크립트 로드 제거 -->
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -100,7 +120,6 @@
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{/js/notice.js}"></script>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
 </html>
