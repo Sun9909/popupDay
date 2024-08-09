@@ -33,13 +33,11 @@
         <!-- 리뷰 작성 시 포인트 추가 -->
         insert into point_history_tbl(user_id,change_amount,point_type,previous_point,new_point,earned_at)
         values(#{id},'+30','리뷰',#{tot_point},(#{tot_point}+30),now())
-
-        <!-- 포인트 내역 회원테이블에 넣기 (포인트 업데이트)
-        update user_tbl set tot_point = (select new_point from point_history_tbl
-        where user_id = '#{user_id}' ORDER BY earned_at DESC LIMIT 1) where id = #{user_id}
-        -->
-
     </insert>
+    <update id="updatePoint" parameterType="java.util.Map">
+        update user_tbl set tot_point = (select new_point from point_history_tbl
+        where user_id = #{user_id} ORDER BY earned_at DESC LIMIT 1) where id = #{user_id}
+    </update>
 
 
     <insert id="insertNewImages" parameterType="java.util.Map">

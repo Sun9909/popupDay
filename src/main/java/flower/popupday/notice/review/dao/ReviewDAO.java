@@ -17,6 +17,8 @@ public interface ReviewDAO {
 
     public void insertNewReview(Map reviewMap) throws DataAccessException;
 
+    public void updatePoint(Map reviewMap) throws DataAccessException;
+
     public void insertNewImages(Map reviewMap) throws DataAccessException;
 
     public int selectToReview() throws DataAccessException;
