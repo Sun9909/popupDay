@@ -18,6 +18,7 @@
         <result property="birth_date" column="birth_date"/>
         <result property="gender" column="gender"/>
         <result property="tot_point" column="tot_point"/>
+        <result property="profile" column="profile"/>
     </resultMap>
 
     <resultMap type="popupDTO" id="popResult">

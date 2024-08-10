@@ -16,12 +16,5 @@ public class PopupDayController {
         return mav;
     }
 
-    @GetMapping("/point")
-    public ModelAndView point(HttpServletRequest request,
-                             HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("point/pointShop");
-        return mav;
-    }
 
 }
