@@ -17,4 +17,12 @@
     <select id="getpointList" resultMap="pointResult">
         select * from point_shop_tbl order by updated_at
     </select>
+
+    <select id="getNewGoodsNo" resultType="int">
+        SELECT COALESCE(MAX(shop_id), 0) + 1 FROM point_shop_tbl;
+    </select>
+
+    <insert id="addGoods" parameterType="pointDTO">
+        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},999,#{image_file_name},sysdate(),sysdate())
+    </insert>
 </mapper>
