@@ -4,15 +4,16 @@
 		"https://mybatis.org/dtd/mybatis-3-config.dtd">
 	<configuration>
 		<mappers>
-		<mapper resource="mybatis/mappers/admin.xml"/> <!-- 회원관리 -->
-		<mapper resource="mybatis/mappers/faq.xml"/> <!-- 게시판관리 -->
-		<mapper resource="mybatis/mappers/login.xml"/>
-		<mapper resource="mybatis/mappers/mypage.xml"/>
-		<mapper resource="mybatis/mappers/notice.xml"/>
-		<mapper resource="mybatis/mappers/popup.xml"/>
-		<mapper resource="mybatis/mappers/QnA.xml"/>
-		<mapper resource="mybatis/mappers/review.xml"/>
-		<mapper resource="mybatis/mappers/search.xml"/>
-		<mapper resource="mybatis/mappers/mapaddress.xml"/>
+			<mapper resource="mybatis/mappers/admin.xml"/> <!-- 회원관리 -->
+			<mapper resource="mybatis/mappers/faq.xml"/> <!-- 게시판관리 -->
+			<mapper resource="mybatis/mappers/login.xml"/>
+			<mapper resource="mybatis/mappers/mypage.xml"/>
+			<mapper resource="mybatis/mappers/notice.xml"/>
+			<mapper resource="mybatis/mappers/popup.xml"/>
+			<mapper resource="mybatis/mappers/QnA.xml"/>
+			<mapper resource="mybatis/mappers/review.xml"/>
+			<mapper resource="mybatis/mappers/search.xml"/>
+			<mapper resource="mybatis/mappers/mapaddress.xml"/>
+			<mapper resource="mybatis/mappers/point.xml"/>
 		</mappers>
 	</configuration>

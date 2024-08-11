@@ -18,6 +18,7 @@ public class AdminDTO {
     private Date birth_date;
     private String gender;
     private Long tot_point;
+    private String profile;
 
     //생성자
     public AdminDTO() {
@@ -126,5 +127,13 @@ public class AdminDTO {
 
     public void setBirth_date(Date birth_date) {
         this.birth_date = birth_date;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }
