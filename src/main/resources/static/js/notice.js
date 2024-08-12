@@ -84,6 +84,20 @@ function review_modify(obj) {
     obj.submit();
 }
 
+//후기삭제 반영하기
+function fn_remove_review(url, review_id){
+    let del_form = document.createElement("form");
+    del_form.setAttribute("action", url);
+    del_form.setAttribute("method","post");
+    let reviewNoInput = document.createElement("input");
+    reviewNoInput.setAttribute("type","hidden");
+    reviewNoInput.setAttribute("name","review_id");
+    reviewNoInput.setAttribute("value", review_id);
+    del_form.appendChild(reviewNoInput);
+    document.body.appendChild(del_form);
+    del_form.submit();
+}
+
 // 후기리스트로 돌아가기
 function backToFaq(obj) {
     obj.action="/notice/reviewList.do";

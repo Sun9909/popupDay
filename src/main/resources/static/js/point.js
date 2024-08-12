@@ -65,3 +65,17 @@ function showImage() {
     document.querySelector('#imageURL').value = imageURL;
 }
 
+//상품삭제
+function fn_remove_goods(url, shop_id){
+    let del_goods_form = document.createElement("form");
+    del_goods_form.setAttribute("action", url);
+    del_goods_form.setAttribute("method","post");
+    let goodsNoInput = document.createElement("input");
+    goodsNoInput.setAttribute("type","hidden");
+    goodsNoInput.setAttribute("name","shop_id");
+    goodsNoInput.setAttribute("value", shop_id);
+    del_goods_form.appendChild(goodsNoInput);
+    document.body.appendChild(del_goods_form);
+    del_goods_form.submit();
+}
+

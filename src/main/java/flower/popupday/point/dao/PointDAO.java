@@ -15,4 +15,8 @@ public interface PointDAO {
 
     public void addGoods(PointDTO pointDTO) throws DataAccessException;
 
+    public void removeGoods(int shop_id) throws DataAccessException;
+
+    public List getGoodsList(int shop_id) throws DataAccessException;
+
 }
