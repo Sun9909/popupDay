@@ -23,11 +23,12 @@ public class ReviewServiceImpl implements ReviewService {
         int review_id=reviewDAO.getNewReviewId(); // 글번호 받아오는 메서드
         reviewMap.put("review_id",review_id); // 얻어온 번호 주입
         reviewDAO.insertNewReview(reviewMap);
-        reviewDAO.updatePoint(reviewMap);
         // imagefile_tbl 이용
         if(reviewMap.get("imageFileList") != null) { // 이미지가 들어있을때
             reviewDAO.insertNewImages(reviewMap); // Map 데이터 가지고 수행
         }
+        reviewDAO.insertReviewPoint(reviewMap);
+        reviewDAO.updateReviewPoint(reviewMap);
         return review_id;
     }
 

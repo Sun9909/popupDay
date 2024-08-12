@@ -13,16 +13,59 @@
     <div class="containers">
         <div class="goods-form">
             <form method="post" action="/point/addGoods.do" class="goods" enctype="multipart/form-data">
+                <div>
+                    <p>상품 선택</p>
+                    <div class="goods-select">
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441616/s3blm9zk3btsfrwok8i4.jpg">
+                            <div>
+                                <label>바나나맛 우유</label>
+                                <input type="radio" name="image_name" value="바나나맛 우유" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441614/pmb2hv8wdivrfkvwodnv.jpg">
+                            <div>
+                                <label>베스킨라빈스 싱글콘</label>
+                                <input type="radio" name="image_name" value="베스킨라빈스 싱글콘" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441617/blgfyg1rvrqsylttu1c4.jpg">
+                            <div>
+                                <label>올리브영 1만원 교환권</label>
+                                <input type="radio" name="image_name" value="올리브영 1만원 교환권" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441613/alq6a7mh9skwbpnw9tpp.jpg">
+                            <div>
+                                <label>투썸플레이스 아메리카노 + 아이스박스 세트</label>
+                                <input type="radio" name="image_name" value="투썸플레이스 아메리카노 + 아이스박스 세트" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441615/vlxchwd0glnknrmzs5h3.jpg">
+                            <div>
+                                <label>스타벅스 아메리카노2 + 부드러운 생크림 카스테라</label>
+                                <input type="radio" name="image_name" value="스타벅스 아메리카노2 + 부드러운 생크림 카스테라" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441614/e4w5htzkj0lejdfphl7o.jpg">
+                            <div>
+                                <label>투썸플레이스 스트로베리 초코 생크림 케이크</label>
+                                <input type="radio" name="image_name" value="투썸플레이스 스트로베리 초코 생크림 케이크" onclick="showImage()">
+                            </div>
+                        </span>
+                        <input type="hidden" id="imageURL" name="image_file_name" value="">
+                    </div>
+                </div>
                 <div class="goods-input">
                     <label>상품명 :</label><input name="product_name" placeholder="상품명">
                 </div>
                 <div class="goods-input">
                     <label>교환가격 :</label><input name="product_price" placeholder="상품교환 가격">
-                </div>
-                <div>
-                    <label>이미지 파일 첨부 :</label>
-                    <input type="file" name="image_file_name" th:onchange="goodsImage(this)">
-                    <img id="preview" src="#" width="200" alt="">
                 </div>
                 <div class="goods-btn">
                     <button type="reset">취소</button>

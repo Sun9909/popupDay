@@ -53,7 +53,7 @@
                 <div class="myreview-history" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
                     <div th:each="review : ${reviewMap.reviewList}">
                         <a class="review-list" th:href="@{/notice/viewReview.do(review_id = ${review.review_id})}">
-                            <p th:text="${review.review_title}"></p><span th:text="${review.created_date}"></span>
+                            <p th:text="${review.review_title}"></p><span th:text="${review.created_at}"></span>
                         </a>
                     </div>
                     <button><a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
