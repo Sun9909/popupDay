@@ -48,7 +48,7 @@
 .goods label {
     width: 100px;
     flex-shrink: 1;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .goods-input {
@@ -63,7 +63,28 @@
 
 .goods-btn button {
     cursor: pointer;
-    font-size: 20px;
+    font-size: 16px;
     padding: 5px 15px;
     border-radius: 10px;
+}
+
+.goods-select {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    margin-bottom: 30px;
+}
+
+.goods-select span {
+    display: flex;
+    flex-direction: column;
+}
+
+.goods-select label {
+    font-size: 18px;
+}
+
+.goods-select span >img {
+    width: 200px;
+    height: 150px;
 }

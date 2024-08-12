@@ -30,17 +30,17 @@
 
     <insert id="insertLogin" parameterType="loginDTO">
         <!-- 값 다 추가한뒤에 넣을것 [회원가입 포인트 추가] -->
-
-        insert into point_history_tbl(user_id,change_amount,point_type,new_point,earned_at)
-        values(#{user_id},+100,'회원가입',100,now())
-
         <![CDATA[
         insert into user_tbl(id,user_id,user_nickname,name,pwd,email,reg_date,role,birth_date,gender)
         values(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), '일반', 'active',#{birth_date},#{gender})
         ]]>
     </insert>
-    <update id="createPoint" parameterType="loginDTO">
-        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{user_id}' ORDER BY earned_at DESC LIMIT 1) where id = #{user_id};
+    <insert id="insertJoinPoint" parameterType="loginDTO">
+        insert into point_history_tbl(user_id,change_amount,point_type,new_point,earned_at)
+        values(#{id},+100,'회원가입',100,now())
+    </insert>
+    <update id="createReviewPoint" parameterType="loginDTO">
+        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{id}' ORDER BY point_date DESC LIMIT 1) where id = #{id};
     </update>
 
     <insert id="busniessLogin" parameterType="loginDTO">

@@ -19,7 +19,7 @@
         <div class="review-show">
             <form class="review-form" name="reviewArticle" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="review_id" th:value="${reviewArticle.review.review_id}">
-                <p class="review-date" th:text="${reviewArticle.review.created_date}"></p>
+                <p class="review-date" th:text="${reviewArticle.review.created_at}"></p>
                 <div class="review-view">
                     <input class="view-title" id="review_title" name="review_title" th:value="${reviewArticle.review.review_title}" disabled>
                 </div>

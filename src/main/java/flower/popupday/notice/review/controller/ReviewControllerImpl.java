@@ -36,7 +36,7 @@ public class ReviewControllerImpl implements ReviewController {
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
 
-        Map reviewMap = reviewService.reviewList(pagingMap);
+        Map<String, Integer> reviewMap = reviewService.reviewList(pagingMap);
         reviewMap.put("section", section);
         reviewMap.put("pageNum", pageNum);
 
@@ -151,9 +151,11 @@ public class ReviewControllerImpl implements ReviewController {
         HttpSession session=multipartRequest.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
         Long id=loginDTO.getId();
+        Long tot_point = loginDTO.getTot_point();
         reviewMap.put("id", id);
         String name = loginDTO.getName();
         reviewMap.put("name", name);
+        reviewMap.put("tot_point", tot_point);
         try {
             int imageId=reviewService.addReview(reviewMap);
             if(imageFileList != null && imageFileList.size() != 0) {

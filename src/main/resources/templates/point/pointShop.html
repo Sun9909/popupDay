@@ -18,13 +18,14 @@
                     <button><a th:href="@{/point/goodsForm.do}">교환품목 등록하기</a></button>
                 </div>
             </div>
+
             <div th:unless="${pointList == null or #lists.size(pointList) == 0}">
                 <div class="point-shop-adder" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                     <button><a th:href="@{/point/goodsForm.do}">교환품목 등록하기</a></button>
                 </div>
                 <div>
                     <form th:each="point: ${pointList}" name="pointExchange" method="post">
-                        <img th:src="@{/images/Rectangle4.png}">
+                        <img th:src="${point.image_file_name}" name="image_file_name">
                         <input type="text" th:value="${point.product_name}" name="product_name">
                         <input type="hidden" th:value="${point.shop_id}" name="shop_id">
                         <input type="text" th:value="${point.product_price}" name="product_price">
