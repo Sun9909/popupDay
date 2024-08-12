@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 
 import javax.xml.crypto.Data;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 //@Repository("myDAO")
@@ -72,4 +73,5 @@ public interface MyDAO {
     public int selectToBsPopup(Long id);
 
     public int selectToMyPopup(Long id);
+
 }

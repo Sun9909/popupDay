@@ -220,4 +220,5 @@
     <select id="selectToMyPopup" resultType="int">
         select count(*) from popup_tbl where user_id=#{id} and role="승인"
     </select>
+
 </mapper>

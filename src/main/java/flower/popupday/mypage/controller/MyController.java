@@ -7,6 +7,7 @@ import flower.popupday.popup.dto.PopupDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,4 +71,5 @@ public interface MyController {
 
     //승인된 팝업 개수 사업자 페이지에 보이게
     public ModelAndView businessPage(HttpSession session);
+
 }
