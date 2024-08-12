@@ -15,5 +15,6 @@
 			<mapper resource="mybatis/mappers/search.xml"/>
 			<mapper resource="mybatis/mappers/mapaddress.xml"/>
 			<mapper resource="mybatis/mappers/point.xml"/>
+			<mapper resource="mybatis/mappers/popupreview.xml"/>
 		</mappers>
 	</configuration>
