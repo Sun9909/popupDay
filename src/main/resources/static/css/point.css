@@ -88,3 +88,25 @@
     width: 200px;
     height: 150px;
 }
+
+.exchange-goods {
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+}
+
+.exchange-goods > img {
+    height: 180px;
+}
+
+.product-count {
+    width: 50px;
+}
+
+.goods-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 10px;
+    margin: 10px 20px;
+}
