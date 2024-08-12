@@ -6,6 +6,7 @@ import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
 import flower.popupday.popup.dto.PopupDTO;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -14,8 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller("myController")
 public class MyControllerImpl implements MyController {
@@ -47,7 +47,7 @@ public class MyControllerImpl implements MyController {
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
             //System.out.println(loginDTO.getRole());
-            mav.setViewName("redirect:/mypage/reviewCount.do"); // 리뷰 카운트 페이지로 리다이렉트
+            mav.setViewName("redirect:/mypage/mypage.do"); // 리뷰 카운트 페이지로 리다이렉트
         }
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
             //System.out.println(loginDTO.getRole());
@@ -63,10 +63,11 @@ public class MyControllerImpl implements MyController {
     }
 
     @Override
-    @RequestMapping("/mypage/reviewCount.do")
+    @RequestMapping("/mypage/mypage.do")
     public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
         //myDTO=myService.getName(myDTO);
         Long reviewCount = myService.getReviewCount(loginDTO.getId()); // 리뷰 개수 조회
 
@@ -76,12 +77,53 @@ public class MyControllerImpl implements MyController {
         Long qnaCount = myService.getQnaCount(loginDTO.getId());
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
+
+        //최근 본 팝업 목록 조회
+//        String recentPopupsCookieName = "recentPopups";
+//        String recentPopups = "";
+//        Cookie[] cookies = request.getCookies();
+//
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals(recentPopupsCookieName)) {
+//                    recentPopups = cookie.getValue();
+//                    break; // 쿠키를 찾았으므로 루프 종료
+//                }
+//            }
+//        }
+//
+//        // Base64로 인코딩된 쿠키를 디코딩하여 ID 목록으로 변환
+//        List<Long> recentPopupIds = new ArrayList<>();
+//        if (!recentPopups.isEmpty()) {
+//            try {
+//                byte[] decodedBytes = Base64.getDecoder().decode(recentPopups);
+//                String decodedString = new String(decodedBytes);
+//                String[] popupIds = decodedString.split(",");
+//                for (String popups_id : popupIds) {
+//                    if (!popups_id.isEmpty()) {
+//                        recentPopupIds.add(Long.parseLong(popups_id));
+//                    }
+//                }
+//            } catch (IllegalArgumentException e) {
+//                // 무시하거나 로그를 남기고 계속 진행
+//                System.out.println("Invalid recentPopups format.");
+//            }
+//        }
+//
+//        // 최근 본 팝업 목록 3개만 가져오기
+//        List<Long> topRecentPopupIds = recentPopupIds.size() > 3 ? recentPopupIds.subList(0, 3) : recentPopupIds;
+//
+//        // 최근 본 팝업 목록 데이터 조회
+//        List<Map<String, Object>> recentPopupsData = myService.getPopupsByIds(topRecentPopupIds);
+
+
         ModelAndView mav = new ModelAndView("mypage/memberPage");
         mav.addObject("my", loginDTO);
         mav.addObject("reviewCount", reviewCount);
         //mav.addObject("recommentCount", recommentCount);
         //mav.addObject("popcommentCount", popcommentCount);
         mav.addObject("qnaCount", qnaCount);
+//        mav.addObject("recentPopups", recentPopupsData);
         return mav;
     }
 

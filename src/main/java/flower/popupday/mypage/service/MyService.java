@@ -57,4 +57,5 @@ public interface MyService {
     public int getApprovedPopupCount(int userId) throws DataAccessException;
 
     public int getRegisterPopupCount(int userId) throws DataAccessException;
+
 }

@@ -28,7 +28,8 @@ public class PopupControllerImpl implements PopupController {
     private static String ARTICLE_IMG_REPO = "D:\\Sun\\fileupload";
     private static final long COOKIE_EXPIRY_DAYS = 1; // 쿠키 만료 시간
     private static final Logger logger = LoggerFactory.getLogger(PopupService.class);
-
+    //private static final int COOKIE_EXPIRY_DAYS = 7;
+    private static final String RECENTLY_VIEWED_POPUPS_COOKIE_PREFIX = "recentlyViewedPopups_";
 
     @Autowired
     PopupService popupService;
@@ -247,15 +248,79 @@ public class PopupControllerImpl implements PopupController {
         boolean loginCheck = loginDTO != null;
         Long id = loginCheck ? loginDTO.getId() : null;
 
+        //로그인된 경우에만 최근 본 팝업 목록 처리
+        if (loginCheck) {
+            // 최근 본 팝업 목록을 쿠키에 저장
+            String recentPopupsCookieName = "recentPopups";
+            String recentPopups = "";
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals(recentPopupsCookieName)) {
+                        recentPopups = cookie.getValue();
+                        break; //최근 본 팝업 목록 쿠키를 찾았으므로 루프 종료
+                    }
+                }
+            }
+
+            // Base64로 인코딩된 최근 본 팝업 목록을 List로 변환
+            List<Long> recentPopupIds = new ArrayList<>();
+            if (!recentPopups.isEmpty()) {
+                try {
+                    //base64로 인코딩된 문자열을 디코딩하여 원래 문자열로 변환
+                    byte[] decodedBytes = Base64.getDecoder().decode(recentPopups);
+                    String decodedString = new String(decodedBytes);
+                    //쉼표로 구분된 팝업 id 목록 추출
+                    String[] popupIds = decodedString.split(",");
+                    for (String popups_id : popupIds) {
+                        if (!popups_id.isEmpty()) {
+                            //각 팝업 id를 long 타입으로 변환하여 리스트에 추가
+                            recentPopupIds.add(Long.parseLong(popups_id));
+                        }
+                    }
+                } catch (IllegalArgumentException e) {
+                    // 무시하거나 로그를 남기고 계속 진행
+                    System.out.println("Invalid recentPopups format.");
+                }
+            }
+
+            // 현재 팝업 ID를 목록의 맨 앞에 추가
+            if (!recentPopupIds.contains(popup_id)) {
+                recentPopupIds.add(0, popup_id);    //현재 팝업 id를 리스트의 첫 번째에 추가
+                if (recentPopupIds.size() > 10) {
+                    recentPopupIds = recentPopupIds.subList(0, 10); // 최신 10개 유지
+                }
+
+                // 최근 본 팝업 목록을 Base64로 인코딩하여 쿠키에 저장
+                StringBuilder sb = new StringBuilder();
+                for (Long recent_id : recentPopupIds) {
+                    if (sb.length() > 0) sb.append(",");
+                    sb.append(recent_id);
+                }
+                //변환된 문자열을 base64로 인코딩하여 쿠키에 저장할 수 있는 형태로 만듦
+                String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
+
+                //최근 본 팝업 목록을 담은 쿠키 생성
+                Cookie recentPopupsCookie = new Cookie(recentPopupsCookieName, encodedString);
+                recentPopupsCookie.setMaxAge(60 * 60 * 24 * 7); // 1주일 동안 유효
+                response.addCookie(recentPopupsCookie);
+                System.out.println("최근 본 팝업 글번호 : " + recentPopupIds);
+            }
+        }
+
         // 팝업 상세 조회
         Map<String, Object> popupMap = popupService.popupView(popup_id, id);
+
+        // 팝업 상세 페이지로 이동
         ModelAndView mav = new ModelAndView();
         mav.setViewName("popup/popupView");
         mav.addObject("popupMap", popupMap);
         mav.addObject("loginCheck", loginCheck);
         mav.addObject("id", id);
+
         return mav;
     }
+
 
     @Override
     @PostMapping("/popup/popupLike.do")

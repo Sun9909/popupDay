@@ -3,9 +3,7 @@ package flower.popupday.mypage.service;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dao.MyDAO;
 import flower.popupday.mypage.dto.MyDTO;
-import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
-import flower.popupday.notice.review.dao.ReviewDAO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
@@ -235,5 +233,26 @@ public class MyServiceImpl implements MyService {
         return myDAO.selectTooPopup(userId);
     }
 
+//    @Override
+//    public Map recentViewPopup(Long id) throws DataAccessException {
+//        Map<String, Object> popupMap = new HashMap<>();
+//
+//        // 팝업 리스트를 DAO를 통해 가져옵니다.
+//        List<PopupDTO> popupList = myDAO.selectRecentPopup(id);
+//
+//        List<Map<String, Object>> recentPopup = new ArrayList<>();
+//        for (PopupDTO popup : popupList) {
+//            Long popup_id = popup.getPopup_id();
+//            ImageDTO thumbnailImage = myDAO.selectFirstImage(popup_id); // 각 팝업의 첫 번째 이미지 조회
+//            Map<String, Object> popupInfo = new HashMap<>();
+//            popupInfo.put("popup", popup); // 팝업 정보 추가
+//            popupInfo.put("thumbnailImage", thumbnailImage); // 이미지 정보 추가
+//            recentPopup.add(popupInfo);
+//        }
+//
+//        popupMap.put("recentPopup", recentPopup);
+//
+//        return popupMap;
+//    }
 
 }
