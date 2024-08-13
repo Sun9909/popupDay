@@ -198,6 +198,15 @@
 
                     <!-- 리뷰가 없을 경우 메시지 표시 -->
                     <p th:if="${#lists.isEmpty(reviews)}">아직 작성된 리뷰가 없습니다.</p>
+
+                    <!-- 후기 작성 섹션 (로그인 상태) -->
+                    <form action="/popupReview/add" method="post">
+                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
+                        <input type="hidden" name="user_id" th:value="${id}">
+                        <textarea name="content" rows="4" cols="50" placeholder="후기를 작성하세요"></textarea>
+                        <button type="submit">후기 등록</button>
+                    </form>
+
                 </div>
 
 
