@@ -258,7 +258,7 @@ public class PopupControllerImpl implements PopupController {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(recentPopupsCookieName)) {
                         recentPopups = cookie.getValue();
-                        break; //최근 본 팝업 목록 쿠키를 찾았으므로 루프 종료
+//                        break; //최근 본 팝업 목록 쿠키를 찾았으므로 루프 종료
                     }
                 }
             }
@@ -284,28 +284,34 @@ public class PopupControllerImpl implements PopupController {
                 }
             }
 
+            // 현재 팝업 ID가 리스트에 있으면 제거
+            recentPopupIds.remove(popup_id);
+
             // 현재 팝업 ID를 목록의 맨 앞에 추가
-            if (!recentPopupIds.contains(popup_id)) {
-                recentPopupIds.add(0, popup_id);    //현재 팝업 id를 리스트의 첫 번째에 추가
-                if (recentPopupIds.size() > 10) {
-                    recentPopupIds = recentPopupIds.subList(0, 10); // 최신 10개 유지
-                }
+            recentPopupIds.add(0, popup_id);
 
-                // 최근 본 팝업 목록을 Base64로 인코딩하여 쿠키에 저장
-                StringBuilder sb = new StringBuilder();
-                for (Long recent_id : recentPopupIds) {
-                    if (sb.length() > 0) sb.append(",");
-                    sb.append(recent_id);
-                }
-                //변환된 문자열을 base64로 인코딩하여 쿠키에 저장할 수 있는 형태로 만듦
-                String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
-
-                //최근 본 팝업 목록을 담은 쿠키 생성
-                Cookie recentPopupsCookie = new Cookie(recentPopupsCookieName, encodedString);
-                recentPopupsCookie.setMaxAge(60 * 60 * 24 * 7); // 1주일 동안 유효
-                response.addCookie(recentPopupsCookie);
-                System.out.println("최근 본 팝업 글번호 : " + recentPopupIds);
+            // 리스트의 최대 크기 유지
+            if (recentPopupIds.size() > 15) {
+//                recentPopupIds = recentPopupIds.subList(0, 10);
+//                recentPopupIds = new ArrayList<>(recentPopupIds.subList(0, 10)); // 최신 10개 유지
+                recentPopupIds.subList(15, recentPopupIds.size()).clear(); // 최신 10개를 유지하도록 나머지 항목 삭제
             }
+
+            // 최근 본 팝업 목록을 Base64로 인코딩하여 쿠키에 저장
+            StringBuilder sb = new StringBuilder();
+            for (Long recent_id : recentPopupIds) {
+                if (sb.length() > 0) sb.append(",");
+                sb.append(recent_id);
+            }
+            //변환된 문자열을 base64로 인코딩하여 쿠키에 저장할 수 있는 형태로 만듦
+            String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
+
+            //최근 본 팝업 목록을 담은 쿠키 생성
+            Cookie recentPopupsCookie = new Cookie(recentPopupsCookieName, encodedString);
+            recentPopupsCookie.setMaxAge(60 * 60 * 24 * 7); // 1주일 동안 유효
+            recentPopupsCookie.setPath("/");  // 모든 경로에서 접근 가능
+            response.addCookie(recentPopupsCookie);
+            System.out.println("최근 본 팝업 글번호 : " + recentPopupIds);
         }
 
         // 팝업 상세 조회

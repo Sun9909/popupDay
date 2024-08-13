@@ -73,21 +73,23 @@ h2 {
     /*border-bottom: 3px #d9d9d9 solid;*/
     position: relative;
 }
+#recentArea h3 {
+     font-size: 1.3em;
+ }
 #recentArea .recent {
     padding: 30px 35px 10px;
-}
-#recentArea .recent h3 {
-    font-size: 1.3em;
+    display: flex;
 }
 #recentArea .recentImage {
     margin: 15px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
 }
 #recentArea .recent img {
-    width: 200px;
-    height: 230px;
+    width: 190px;
+    height: 180px;
     margin: 2px 5px;
 }
 #recentArea .recent a {
