@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/recentPopup.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+</head>
+<body>
+<!-- 콘텐츠 영역 -->
+<th:block layout:fragment="content">
+    <div class="body">
+        <div class="containers">
+            <div class="main_title">
+                <a th:href="@{/mypage/memberPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+                <h2>최근 본 팝업</h2>
+            </div>
+
+            <!-- 최근 본 팝업 영역 -->
+            <div id="recentArea">
+                <div class="recent">
+                    <div class="recentImage" th:each="popup : ${recentPopups.popupDetail}">
+                        <a th:href="@{/popup/popupView.do(popup_id=${popup.popup.popup_id})}" class="pop" title="팝업">
+                            <img th:if="${popup.thumbnailImage != null}" th:src="@{/popupDownload.do(popup_id=${popup.popup.popup_id}, image_file_name=${popup.thumbnailImage.image_file_name})}" alt="popupImage" />
+                            <p th:text="${popup.popup.title}"></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- 최근 본 팝업 영역 끝 -->
+
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/myinfoCheck.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+</th:block>
+</body>
+</html>

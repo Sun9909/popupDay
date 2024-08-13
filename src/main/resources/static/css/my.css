@@ -74,14 +74,15 @@ h2 {
     position: relative;
 }
 #recentArea h3 {
-     font-size: 1.3em;
+    font-size: 1.3em;
+    margin: 30px 35px 20px;
  }
 #recentArea .recent {
-    padding: 30px 35px 10px;
+    padding: 0 35px 20px;
     display: flex;
+    justify-content: center;
 }
 #recentArea .recentImage {
-    margin: 15px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -93,14 +94,21 @@ h2 {
     margin: 2px 5px;
 }
 #recentArea .recent a {
-    display: inline-block;
+    display: flex;
     margin: 2px 5px;
+    flex-direction: column;
+    align-items: center;
+}
+#recentArea .recent p {
+    height: 50px;
+    width: 180px;
+    margin: 5px;
 }
 #recentArea .more {
     position: absolute;
-    top: 35px;
-    right: 35px;
-    color: #d9d9d9;
+    top: 40px;
+    right: 45px;
+    color: #4B4B65;
 }
 /* 최근 본 팝업 영역 끝 */
 

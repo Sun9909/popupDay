@@ -83,15 +83,9 @@
                             <img th:if="${popup.thumbnailImage != null}" th:src="@{/popupDownload.do(popup_id=${popup.popup.popup_id}, image_file_name=${popup.thumbnailImage.image_file_name})}" alt="popupImage" />
                             <p th:text="${popup.popup.title}"></p>
                         </a>
-<!--                        <a href="#">-->
-<!--                            <img src="" alt="팝업 이미지2">-->
-<!--                        </a>-->
-<!--                        <a href="#">-->
-<!--                            <img src="" alt="팝업 이미지3">-->
-<!--                        </a>-->
                     </div>
-<!--                    <a href="#" class="more" title="최근 본 팝업 더보기">더보기 &gt;</a>-->
                 </section>
+                <a th:href="@{/mypage/recentPopup.do(id=${my.id})}" class="more" title="최근 본 팝업 더보기">더보기 &gt;</a>
             </div>
             <!-- 최근 본 팝업 영역 끝 -->
 
