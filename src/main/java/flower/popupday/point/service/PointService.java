@@ -14,4 +14,6 @@ public interface PointService {
     public void removeGoods(int shop_id) throws DataAccessException;
 
     public List getGoodsContent(int shop_id) throws DataAccessException;
+
+    public void modGoods(PointDTO pointDTO) throws DataAccessException;
 }

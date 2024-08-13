@@ -23,7 +23,7 @@
     </select>
 
     <insert id="addGoods" parameterType="pointDTO">
-        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},999,#{image_file_name},sysdate(),sysdate())
+        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},#{product_count},#{image_file_name},sysdate(),sysdate())
     </insert>
 
     <delete id="removeGoods" parameterType="int">
@@ -33,4 +33,8 @@
     <select id="getGoodsList" parameterType="int" resultMap="pointResult">
         select * from point_shop_tbl where shop_id = #{shop_id}
     </select>
+
+    <update id="modGoods" parameterType="pointDTO">
+        update point_shop_tbl set product_price = #{product_price}, product_name=#{product_name}, image_file_name = #{image_file_name}, updated_at = sysdate() where shop_id = #{shop_id}
+    </update>
 </mapper>

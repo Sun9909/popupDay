@@ -79,3 +79,21 @@ function fn_remove_goods(url, shop_id){
     del_goods_form.submit();
 }
 
+//교환개수 누를때마다 필요한 포인트 알려주는 함수
+document.getElementById("product-count").addEventListener("input", point_mover)
+
+function point_mover(event){
+    change_count = parseInt(event.target.value, 10) //10진수로 나오게
+    const privious_siblings = event.target.previousElementSibling
+    const some = parseInt(privious_siblings.previousElementSibling.value, 10)
+
+    if (event.type === "input") {
+        if (change_count == 1){
+            event.target.previousElementSibling.value = some
+        }
+        event.target.previousElementSibling.value = some * change_count
+        console.log(change_count)
+        console.log(event.target.previousElementSibling.value)
+    }
+}
+
