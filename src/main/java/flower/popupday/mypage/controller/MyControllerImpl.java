@@ -82,17 +82,15 @@ public class MyControllerImpl implements MyController {
         String recentPopupsCookieName = "recentPopups";
         String recentPopups = "";
         Cookie[] cookies = request.getCookies();
-        System.out.println("쿠키 : " + cookies);
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(recentPopupsCookieName)) {
                     recentPopups = cookie.getValue();
-                    System.out.println("최근 본 팝업1 : " + recentPopups);
+//                    break;
                 }
             }
         }
-        System.out.println("최근 본 팝업 : " + recentPopups);
 
         // Base64로 인코딩된 쿠키를 디코딩하여 ID 목록으로 변환
         List<Long> recentPopupIds = new ArrayList<>();
@@ -104,7 +102,6 @@ public class MyControllerImpl implements MyController {
                 for (String popups_id : popupIds) {
                     if (!popups_id.isEmpty()) {
                         recentPopupIds.add(Long.parseLong(popups_id));
-                        System.out.println("최근 본 팝업 아이디 : " + recentPopupIds);
                     }
                 }
             } catch (IllegalArgumentException e) {
@@ -114,7 +111,7 @@ public class MyControllerImpl implements MyController {
         }
 
         // 최근 본 팝업 목록 3개만 가져오기
-        List<Long> topRecentPopupIds = recentPopupIds.size() > 10 ? recentPopupIds.subList(0, 10) : recentPopupIds;
+        List<Long> topRecentPopupIds = recentPopupIds.size() > 3 ? recentPopupIds.subList(0, 3) : recentPopupIds;
         System.out.println("최근 본 팝업 글번호 : " + topRecentPopupIds);
 
         // 최근 본 팝업 목록 데이터 조회

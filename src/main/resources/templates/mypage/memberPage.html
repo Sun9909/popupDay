@@ -76,8 +76,8 @@
 
             <!-- 최근 본 팝업 영역 -->
             <div id="recentArea">
+                <h3>최근 본 팝업</h3>
                 <section class="recent">
-                    <h3>최근 본 팝업</h3>
                     <div class="recentImage" th:each="popup : ${recentPopups.popupDetail}">
                         <a th:href="@{/popup/popupView.do(popup_id=${popup.popup.popup_id})}" class="pop" title="팝업">
                             <img th:if="${popup.thumbnailImage != null}" th:src="@{/popupDownload.do(popup_id=${popup.popup.popup_id}, image_file_name=${popup.thumbnailImage.image_file_name})}" alt="popupImage" />
