@@ -221,4 +221,9 @@
         select count(*) from popup_tbl where user_id=#{id} and role="승인"
     </select>
 
+    <!-- 최근 본 팝업 정보 가져오기 -->
+    <select id="findPopupById" parameterType="Long" resultType="map">
+        select * from popup_tbl where popup_id = #{popup_id}
+    </select>
+
 </mapper>

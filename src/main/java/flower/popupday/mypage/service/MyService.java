@@ -58,4 +58,6 @@ public interface MyService {
 
     public int getRegisterPopupCount(int userId) throws DataAccessException;
 
+    //최근 본 팝업 조회
+    public Map<String, Object> getPopupsByIds(List<Long> popupId) throws DataAccessException;
 }

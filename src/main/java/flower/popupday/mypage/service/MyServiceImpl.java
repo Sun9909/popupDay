@@ -233,6 +233,28 @@ public class MyServiceImpl implements MyService {
         return myDAO.selectTooPopup(userId);
     }
 
+    @Override
+    public Map<String, Object> getPopupsByIds(List<Long> popupId) throws DataAccessException {
+        Map<String, Object> recentPopup = new HashMap<>();
+
+        List<Map<String, Object>> popupDetail = new ArrayList<>();
+
+        for(Long popup_id : popupId) {
+            Map<String, Object> popupInfo = myDAO.findPopupById(popup_id);
+            if (popupInfo != null) {
+                ImageDTO thumbnailImage = myDAO.selectFirstImage(popup_id);
+                Map<String, Object> popupMap = new HashMap<>();
+                popupMap.put("popup", popupInfo);
+                popupMap.put("thumbnailImage", thumbnailImage);
+                popupDetail.add(popupMap);
+            }
+        }
+
+        recentPopup.put("popupDetail", popupDetail);
+
+        return recentPopup;
+    }
+
 //    @Override
 //    public Map recentViewPopup(Long id) throws DataAccessException {
 //        Map<String, Object> popupMap = new HashMap<>();
