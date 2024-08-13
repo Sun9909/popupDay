@@ -20,7 +20,9 @@ public class PopupReviewServiceImpl implements PopupReviewService {
     }
 
     @Override
-    public List<PopupReviewDTO> selectReviewsByPopupId(long popupId) {
-        return popupReviewDAO.selectReviewsByPopupId(popupId);
+    public List<PopupReviewDTO> selectReviewsByPopupId(long popup_id) {
+        List<PopupReviewDTO> reviews = popupReviewDAO.selectReviewsByPopupId(popup_id);
+        System.out.println("Reviews from DAO: " + reviews);
+        return reviews;
     }
 }

@@ -12,5 +12,5 @@ public interface PopupReviewDAO {
     void addReview(PopupReviewDTO popupReviewDTO);
 
     // 특정 팝업 id에 해당하는 리뷰 목록 조회
-    List<PopupReviewDTO> selectReviewsByPopupId(long popupId);
+    List<PopupReviewDTO> selectReviewsByPopupId(long popup_id);
 }

@@ -10,6 +10,7 @@ public class PopupReviewDTO {
     private int rating;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
+    private String user_nickname;
 
     // Getters and Setters
     public long getPopup_comment_id() {
@@ -67,4 +68,13 @@ public class PopupReviewDTO {
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
+
+    public String user_nickname() {
+        return user_nickname;
+    }
+
+    public void user_nickname(String user_nickname) {
+        this.user_nickname = user_nickname;
+    }
+
 }
