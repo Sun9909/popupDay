@@ -69,12 +69,11 @@ public class PopupReviewDTO {
         this.updated_at = updated_at;
     }
 
-    public String user_nickname() {
+    public String getUser_nickname() {
         return user_nickname;
     }
 
-    public void user_nickname(String user_nickname) {
+    public void setUser_nickname(String user_nickname) {
         this.user_nickname = user_nickname;
     }
-
 }

@@ -16,6 +16,6 @@ public interface PopupReviewController {
                             RedirectAttributes redirectAttributes);
 
     //특정 팝업의 리뷰 조회
-    String viewPopupReviews(@RequestParam("popup_id") long popup_id, Model model);
+    // String viewPopupReviews(@RequestParam("popupId") long popupId, Model model);
 
 }

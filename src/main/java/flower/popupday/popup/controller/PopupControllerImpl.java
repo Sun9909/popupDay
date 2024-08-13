@@ -4,6 +4,8 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
 import flower.popupday.popup.service.PopupService;
+import flower.popupday.popup_review.dto.PopupReviewDTO;
+import flower.popupday.popup_review.service.PopupReviewService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +36,10 @@ public class PopupControllerImpl implements PopupController {
 
     @Autowired
     PopupService popupService;
+
+    // 팝업 후기 리스트 불러오기 용도
+    @Autowired
+    PopupReviewService popupReviewService;
 
     @Override
     @GetMapping("/main.do")
@@ -248,7 +255,7 @@ public class PopupControllerImpl implements PopupController {
         boolean loginCheck = loginDTO != null;
         Long id = loginCheck ? loginDTO.getId() : null;
 
-        //로그인된 경우에만 최근 본 팝업 목록 처리
+        // 로그인된 경우에만 최근 본 팝업 목록 처리
         if (loginCheck) {
             // 최근 본 팝업 목록을 쿠키에 저장
             String recentPopupsCookieName = "recentPopups";
@@ -258,7 +265,6 @@ public class PopupControllerImpl implements PopupController {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(recentPopupsCookieName)) {
                         recentPopups = cookie.getValue();
-//                        break; //최근 본 팝업 목록 쿠키를 찾았으므로 루프 종료
                     }
                 }
             }
@@ -267,46 +273,33 @@ public class PopupControllerImpl implements PopupController {
             List<Long> recentPopupIds = new ArrayList<>();
             if (!recentPopups.isEmpty()) {
                 try {
-                    //base64로 인코딩된 문자열을 디코딩하여 원래 문자열로 변환
                     byte[] decodedBytes = Base64.getDecoder().decode(recentPopups);
                     String decodedString = new String(decodedBytes);
-                    //쉼표로 구분된 팝업 id 목록 추출
                     String[] popupIds = decodedString.split(",");
                     for (String popups_id : popupIds) {
                         if (!popups_id.isEmpty()) {
-                            //각 팝업 id를 long 타입으로 변환하여 리스트에 추가
                             recentPopupIds.add(Long.parseLong(popups_id));
                         }
                     }
                 } catch (IllegalArgumentException e) {
-                    // 무시하거나 로그를 남기고 계속 진행
                     System.out.println("Invalid recentPopups format.");
                 }
             }
 
-            // 현재 팝업 ID가 리스트에 있으면 제거
             recentPopupIds.remove(popup_id);
-
-            // 현재 팝업 ID를 목록의 맨 앞에 추가
             recentPopupIds.add(0, popup_id);
 
-            // 리스트의 최대 크기 유지
             if (recentPopupIds.size() > 15) {
-//                recentPopupIds = recentPopupIds.subList(0, 10);
-//                recentPopupIds = new ArrayList<>(recentPopupIds.subList(0, 10)); // 최신 10개 유지
-                recentPopupIds.subList(15, recentPopupIds.size()).clear(); // 최신 10개를 유지하도록 나머지 항목 삭제
+                recentPopupIds.subList(15, recentPopupIds.size()).clear();
             }
 
-            // 최근 본 팝업 목록을 Base64로 인코딩하여 쿠키에 저장
             StringBuilder sb = new StringBuilder();
             for (Long recent_id : recentPopupIds) {
                 if (sb.length() > 0) sb.append(",");
                 sb.append(recent_id);
             }
-            //변환된 문자열을 base64로 인코딩하여 쿠키에 저장할 수 있는 형태로 만듦
             String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
 
-            //최근 본 팝업 목록을 담은 쿠키 생성
             Cookie recentPopupsCookie = new Cookie(recentPopupsCookieName, encodedString);
             recentPopupsCookie.setMaxAge(60 * 60 * 24 * 7); // 1주일 동안 유효
             recentPopupsCookie.setPath("/");  // 모든 경로에서 접근 가능
@@ -317,15 +310,30 @@ public class PopupControllerImpl implements PopupController {
         // 팝업 상세 조회
         Map<String, Object> popupMap = popupService.popupView(popup_id, id);
 
+
+        // 리뷰 목록 조회 (후기 작성)
+        List<PopupReviewDTO> reviews = new ArrayList<>();
+        try {
+            reviews = popupReviewService.selectReviewsByPopupId(popup_id);
+        } catch (DataAccessException e) {
+            // 데이터베이스 관련 예외 처리
+            System.out.println("리뷰 조회 중 데이터베이스 오류가 발생했습니다.");
+        } catch (Exception e) {
+            // 일반적인 예외 처리
+            System.out.println("리뷰 조회 중 오류가 발생했습니다: " + e.getMessage());
+        }
+
         // 팝업 상세 페이지로 이동
         ModelAndView mav = new ModelAndView();
         mav.setViewName("popup/popupView");
         mav.addObject("popupMap", popupMap);
         mav.addObject("loginCheck", loginCheck);
         mav.addObject("id", id);
+        mav.addObject("reviews", reviews);  // 리뷰 목록 추가
 
         return mav;
     }
+
 
 
     @Override
