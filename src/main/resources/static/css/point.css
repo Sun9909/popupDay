@@ -99,8 +99,9 @@
     text-align: center;
 }
 
-.exchange-goods > img {
-    height: 180px;
+.exchange-goods .image_file > img {
+    height: 230px;
+    width: 100%;
 }
 
 .product-count {
@@ -113,4 +114,9 @@
     grid-auto-rows: 1fr;
     gap: 10px;
     margin: 10px 20px;
+}
+
+.image_file {
+    height:180px;
+    overflow: hidden;
 }
