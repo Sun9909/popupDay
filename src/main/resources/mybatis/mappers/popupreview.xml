@@ -5,13 +5,14 @@
 
 <mapper namespace="flower.popupday.popup_review.dao.PopupReviewDAO">
 
-    <resultMap type="flower.popupday.popup_review.dto.PopupReviewDTO" id="popupResult">
+    <resultMap type="flower.popupday.popup_review.dto.PopupReviewDTO" id="popupReviewResultMap">
         <result property="popup_comment_id" column="popup_comment_id" />
         <result property="user_id" column="user_id"/>
         <result property="popup_id" column="popup_id"/>
         <result property="content" column="content"/>
         <result property="created_at" column="created_at"/>
         <result property="updated_at" column="updated_at"/>
+        <result property="user_nickname" column="user_nickname"/>
     </resultMap>
 
     <!-- 리뷰 삽입 -->
@@ -21,12 +22,16 @@
     </insert>
 
     <!-- 특정 팝업 ID에 해당하는 리뷰 목록 조회 -->
-    <select id="selectReviewsByPopupId" resultMap="popupResult">
-        SELECT pc.popup_comment_id, pc.user_id, u.user_nickname, pc.popup_id, pc.content, pc.created_at, pc.updated_at
+    <select id="selectReviewsByPopupId" resultMap="popupReviewResultMap">
+        SELECT pc.popup_comment_id,
+               u.user_nickname,
+               pc.popup_id,
+               pc.content,
+               pc.created_at,
+               pc.updated_at
         FROM popup_comment_tbl pc
-                 JOIN user_tbl u ON pc.user_id = u.user_id
-        WHERE pc.popup_id = #{popup_id}
-        ORDER BY pc.created_at DESC
+                 LEFT JOIN user_tbl u ON pc.user_id = u.user_id
+        WHERE pc.popup_id = #{popup_id};
     </select>
 
 </mapper>

@@ -172,31 +172,30 @@
                     </div>
                 </div>
 
-                <!-- 리뷰 섹션 -->
                 <div class="review-section">
-                    <h2>후기 <span class="average-rating" th:text="'★' + ${averageRating}"></span></h2> <!-- 평균 별점 표시 -->
+                    <h2>후기</h2>
 
                     <!-- 후기 목록 -->
                     <div class="review-list">
                         <ul>
-                            <li th:each="review : ${reviews}">
+                            <li th:each="comment : ${comments}">
                                 <div class="review-item">
-                                    <p><strong th:text="${review.user_nickname}"></strong> ★ <span th:text="${review.rating}"></span></p>
-                                    <p th:text="${review.content}"></p>
-                                    <p th:text="${#dates.format(review.created_at, 'yyyy-MM-dd HH:mm')}"></p>
+                                    <p><strong th:text="${comment.user_id}"></strong></p> <!-- 사용자 아이디 -->
+                                    <p th:text="${comment.content}"></p> <!-- 리뷰 내용 -->
+                                    <p th:if="${comment.updated_at != null}" th:text="${#dates.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></p>
+                                    <p th:if="${comment.updated_at == null}" th:text="${#dates.format(comment.created_at, 'yyyy-MM-dd HH:mm')}"></p> <!-- 작성일 또는 수정일 -->
                                 </div>
                             </li>
                         </ul>
                     </div>
 
                     <!-- 후기 작성 섹션 (로그인 상태) -->
-                    <form action="/popupReview/add" method="post">
-                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
-                        <input type="hidden" name="user_id" th:value="${id}">
+                    <form action="/popupComment/add" method="post">
+                        <input type="hidden" name="popup_id" th:value="${popup_id}">
+                        <input type="hidden" name="user_id" th:value="${user_id}">
                         <textarea name="content" rows="4" cols="50" placeholder="후기를 작성하세요"></textarea>
                         <button type="submit">후기 등록</button>
                     </form>
-
 
                     <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
                     <div class="review-form" th:if="${session.loginDTO == null}">
@@ -204,9 +203,6 @@
                     </div>
                 </div>
 
-                <div th:if="${errorMessage}" class="alert alert-danger">
-                    <p th:text="${errorMessage}"></p>
-                </div>
 
                 <!-- 브랜드 홈페이지 바로가기 -->
                 <div>

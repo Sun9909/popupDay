@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class PopupReviewControllerImpl implements PopupReviewController {
@@ -18,9 +20,11 @@ public class PopupReviewControllerImpl implements PopupReviewController {
     @Autowired
     private PopupReviewService popupReviewService;
 
+    private static final Logger logger = LoggerFactory.getLogger(PopupReviewControllerImpl.class);
+
     // 리뷰 작성
     @Override
-    @PostMapping("/popupReview/add")
+    @PostMapping("/popupComment/add")
     public String addReview(@RequestParam(value = "popup_id", required = true) Long popup_id,
                             @RequestParam(value = "user_id", required = true) Long user_id,
                             @RequestParam("content") String content,
@@ -60,27 +64,15 @@ public class PopupReviewControllerImpl implements PopupReviewController {
         // 리다이렉트할 페이지로 다시 돌아가기
         return "redirect:/popup/popupView.do?popup_id=" + popup_id;
     }
+
     // 특정 팝업의 리뷰 조회 메서드
     @Override
-    @GetMapping("/popupReview/view")
-    public String viewPopupReviews(@RequestParam("popupId") long popupId, Model model) {
-        try {
-            // 특정 팝업에 대한 리뷰를 서비스 계층에서 조회
-            List<PopupReviewDTO> reviews = popupReviewService.selectReviewsByPopupId(popupId);
-
-            // 모델에 조회한 리뷰 목록을 추가
-            model.addAttribute("reviews", reviews);
-
-            // 평균 별점 계산 (선택사항)
-            double averageRating = reviews.stream()
-                    .mapToInt(PopupReviewDTO::getRating)
-                    .average()
-                    .orElse(0.0);
-            model.addAttribute("averageRating", averageRating);
-
-        } catch (Exception e) {
-            model.addAttribute("errorMessage", "리뷰 조회 중 오류가 발생했습니다.");
-        }
-        return "popup/popupView"; // 리뷰를 보여줄 템플릿 경로 (예: reviews.html)
+    @GetMapping("/popupView")
+    public String viewPopupReviews(@RequestParam("popup_id") long popup_id, Model model) {
+        List<PopupReviewDTO> comments = popupReviewService.selectReviewsByPopupId(popup_id);
+        model.addAttribute("comments", comments);
+        model.addAttribute("popup_id", popup_id); // popup_id 값을 모델에 추가
+        return "popup/popupView";
     }
+
 }
