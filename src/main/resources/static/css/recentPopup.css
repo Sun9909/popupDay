@@ -1,0 +1,53 @@
+@charset "utf-8";
+h2 {
+    font-size: 1.8em;
+    margin: 20px 0;
+}
+.main_title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    align-items: center;
+}
+.main_title a {
+    margin: 5px 0 0 10px;
+}
+.main_title img {
+    margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+    width: 30px;
+    height: 30px;
+}
+/*최근 본 팝업 영역*/
+#recentArea {
+    margin-top: 5px;
+    position: relative;
+}
+#recentArea .recent {
+    padding: 0 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#recentArea .recentImage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+#recentArea .recent img {
+    width: 190px;
+    height: 180px;
+    margin: 2px 5px;
+}
+#recentArea .recent a {
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+    align-items: center;
+}
+#recentArea .recent p {
+    height: 55px;
+    width: 180px;
+    margin: 5px;
+}
+/* 최근 본 팝업 영역 끝 */

@@ -21,6 +21,9 @@ public interface MyController {
     // 회원이 작성한 댓글, 후기, 문의 개수 보기
     public ModelAndView getCount(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //최근 본 팝업 목록
+    public ModelAndView recentPopup(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
     //내 정보 수정페이지로
     public ModelAndView loginModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
 

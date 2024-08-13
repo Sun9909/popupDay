@@ -1,7 +1,7 @@
 @charset "utf-8";
 h2 {
     font-size: 1.8em;
-    margin: 20px 0 20px;
+    margin: 20px 0;
 }
 .main_title {
     display: flex;
@@ -9,8 +9,8 @@ h2 {
     margin-top: 10px;
     align-items: center;
 }
-. main_title a {
-    margin: 8px 0 0 10px;
+.main_title a {
+    margin: 5px 0 0 10px;
 }
 .main_title img {
     margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */

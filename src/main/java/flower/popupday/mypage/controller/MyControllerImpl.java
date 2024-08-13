@@ -128,6 +128,58 @@ public class MyControllerImpl implements MyController {
         return mav;
     }
 
+    @Override
+    @RequestMapping("/mypage/recentPopup.do")
+    public ModelAndView recentPopup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
+        //최근 본 팝업 목록 조회
+        String recentPopupsCookieName = "recentPopups";
+        String recentPopups = "";
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(recentPopupsCookieName)) {
+                    recentPopups = cookie.getValue();
+//                    break;
+                }
+            }
+        }
+
+        // Base64로 인코딩된 쿠키를 디코딩하여 ID 목록으로 변환
+        List<Long> recentPopupIds = new ArrayList<>();
+        if (!recentPopups.isEmpty()) {
+            try {
+                byte[] decodedBytes = Base64.getDecoder().decode(recentPopups);
+                String decodedString = new String(decodedBytes);
+                String[] popupIds = decodedString.split(",");
+                for (String popups_id : popupIds) {
+                    if (!popups_id.isEmpty()) {
+                        recentPopupIds.add(Long.parseLong(popups_id));
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                // 무시하거나 로그를 남기고 계속 진행
+                System.out.println("Invalid recentPopups format.");
+            }
+        }
+
+        // 최근 본 팝업 목록 3개만 가져오기
+        List<Long> topRecentPopupIds = recentPopupIds.size() > 15 ? recentPopupIds.subList(0, 15) : recentPopupIds;
+        System.out.println("최근 본 팝업 글번호 : " + topRecentPopupIds);
+
+        // 최근 본 팝업 목록 데이터 조회
+        Map<String, Object> recentPopupsData = myService.getPopupsByIds(topRecentPopupIds);
+
+        ModelAndView mav = new ModelAndView("mypage/recentPopup");
+        mav.addObject("my", loginDTO);
+        mav.addObject("recentPopups", recentPopupsData);
+        return mav;
+    }
+
     //내 정보 수정 페이지로 이동
     @Override
     @RequestMapping("/modify/loginModify.do")
