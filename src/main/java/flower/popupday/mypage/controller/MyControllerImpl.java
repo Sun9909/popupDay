@@ -69,52 +69,56 @@ public class MyControllerImpl implements MyController {
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
         Long id = loginDTO.getId();
         //myDTO=myService.getName(myDTO);
-        Long reviewCount = myService.getReviewCount(loginDTO.getId()); // 리뷰 개수 조회
+        Long reviewCount = myService.getReviewCount(id); // 리뷰 개수 조회
 
         //String recommentCount = myService.getreCommentCount(loginDTO.getUser_nickname()); //리뷰댓글
         //String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nickname()); //팝업댓글
 
-        Long qnaCount = myService.getQnaCount(loginDTO.getId());
+        Long qnaCount = myService.getQnaCount(id);
         // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
 
         //최근 본 팝업 목록 조회
-//        String recentPopupsCookieName = "recentPopups";
-//        String recentPopups = "";
-//        Cookie[] cookies = request.getCookies();
-//
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals(recentPopupsCookieName)) {
-//                    recentPopups = cookie.getValue();
-//                    break; // 쿠키를 찾았으므로 루프 종료
-//                }
-//            }
-//        }
-//
-//        // Base64로 인코딩된 쿠키를 디코딩하여 ID 목록으로 변환
-//        List<Long> recentPopupIds = new ArrayList<>();
-//        if (!recentPopups.isEmpty()) {
-//            try {
-//                byte[] decodedBytes = Base64.getDecoder().decode(recentPopups);
-//                String decodedString = new String(decodedBytes);
-//                String[] popupIds = decodedString.split(",");
-//                for (String popups_id : popupIds) {
-//                    if (!popups_id.isEmpty()) {
-//                        recentPopupIds.add(Long.parseLong(popups_id));
-//                    }
-//                }
-//            } catch (IllegalArgumentException e) {
-//                // 무시하거나 로그를 남기고 계속 진행
-//                System.out.println("Invalid recentPopups format.");
-//            }
-//        }
-//
-//        // 최근 본 팝업 목록 3개만 가져오기
-//        List<Long> topRecentPopupIds = recentPopupIds.size() > 3 ? recentPopupIds.subList(0, 3) : recentPopupIds;
-//
-//        // 최근 본 팝업 목록 데이터 조회
-//        List<Map<String, Object>> recentPopupsData = myService.getPopupsByIds(topRecentPopupIds);
+        String recentPopupsCookieName = "recentPopups";
+        String recentPopups = "";
+        Cookie[] cookies = request.getCookies();
+        System.out.println("쿠키 : " + cookies);
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(recentPopupsCookieName)) {
+                    recentPopups = cookie.getValue();
+                    System.out.println("최근 본 팝업1 : " + recentPopups);
+                }
+            }
+        }
+        System.out.println("최근 본 팝업 : " + recentPopups);
+
+        // Base64로 인코딩된 쿠키를 디코딩하여 ID 목록으로 변환
+        List<Long> recentPopupIds = new ArrayList<>();
+        if (!recentPopups.isEmpty()) {
+            try {
+                byte[] decodedBytes = Base64.getDecoder().decode(recentPopups);
+                String decodedString = new String(decodedBytes);
+                String[] popupIds = decodedString.split(",");
+                for (String popups_id : popupIds) {
+                    if (!popups_id.isEmpty()) {
+                        recentPopupIds.add(Long.parseLong(popups_id));
+                        System.out.println("최근 본 팝업 아이디 : " + recentPopupIds);
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                // 무시하거나 로그를 남기고 계속 진행
+                System.out.println("Invalid recentPopups format.");
+            }
+        }
+
+        // 최근 본 팝업 목록 3개만 가져오기
+        List<Long> topRecentPopupIds = recentPopupIds.size() > 10 ? recentPopupIds.subList(0, 10) : recentPopupIds;
+        System.out.println("최근 본 팝업 글번호 : " + topRecentPopupIds);
+
+        // 최근 본 팝업 목록 데이터 조회
+        Map<String, Object> recentPopupsData = myService.getPopupsByIds(topRecentPopupIds);
 
 
         ModelAndView mav = new ModelAndView("mypage/memberPage");
@@ -123,7 +127,7 @@ public class MyControllerImpl implements MyController {
         //mav.addObject("recommentCount", recommentCount);
         //mav.addObject("popcommentCount", popcommentCount);
         mav.addObject("qnaCount", qnaCount);
-//        mav.addObject("recentPopups", recentPopupsData);
+        mav.addObject("recentPopups", recentPopupsData);
         return mav;
     }
 
