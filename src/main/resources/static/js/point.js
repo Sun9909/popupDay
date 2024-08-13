@@ -92,8 +92,6 @@ function point_mover(event){
             event.target.previousElementSibling.value = some
         }
         event.target.previousElementSibling.value = some * change_count
-        console.log(change_count)
-        console.log(event.target.previousElementSibling.value)
     }
 }
 
