@@ -24,14 +24,15 @@
     <!-- 특정 팝업 ID에 해당하는 리뷰 목록 조회 -->
     <select id="selectReviewsByPopupId" resultMap="popupReviewResultMap">
         SELECT pc.popup_comment_id,
-               u.user_nickname,
-               pc.popup_id,
                pc.content,
                pc.created_at,
-               pc.updated_at
+               u.user_nickname,
+               p.title AS popup_title
         FROM popup_comment_tbl pc
-                 LEFT JOIN user_tbl u ON pc.user_id = u.user_id
-        WHERE pc.popup_id = #{popup_id};
+                 JOIN user_tbl u ON pc.user_id = u.id
+                 JOIN popup_tbl p ON pc.popup_id = p.popup_id
+        WHERE p.popup_id = #{popup_id}
+        ORDER BY pc.created_at DESC;
     </select>
 
 </mapper>
