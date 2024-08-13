@@ -95,12 +95,16 @@
     width: 220px;
 }
 
+.exchange-goods > input{
+    text-align: center;
+}
+
 .exchange-goods > img {
     height: 180px;
 }
 
 .product-count {
-    width: 50px;
+    padding-left: 17px;
 }
 
 .goods-list {

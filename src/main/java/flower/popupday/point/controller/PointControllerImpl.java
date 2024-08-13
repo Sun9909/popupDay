@@ -94,9 +94,11 @@ public class PointControllerImpl implements PointController{
         String image_file_name = request.getParameter("image_file_name");
         String product_name = request.getParameter("product_name");
         int product_price = Integer.parseInt(request.getParameter("product_price"));
+        int product_count = Integer.parseInt(request.getParameter("product_count"));
         pointDTO.setShop_id(shop_id);
         pointDTO.setProduct_price(product_price);
         pointDTO.setProduct_name(product_name);
+        pointDTO.setProduct_count(product_count);
         pointDTO.setImage_file_name(image_file_name);
         pointService.modGoods(pointDTO);
         ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");

@@ -23,7 +23,7 @@
     </select>
 
     <insert id="addGoods" parameterType="pointDTO">
-        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},999,#{image_file_name},sysdate(),sysdate())
+        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},#{product_count},#{image_file_name},sysdate(),sysdate())
     </insert>
 
     <delete id="removeGoods" parameterType="int">
