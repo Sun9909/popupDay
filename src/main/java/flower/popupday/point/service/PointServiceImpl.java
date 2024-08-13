@@ -38,4 +38,9 @@ public class PointServiceImpl implements PointService{
         List goodsList = pointDAO.getGoodsList(shop_id);
         return goodsList;
     }
+
+    @Override
+    public void modGoods(PointDTO pointDTO) throws DataAccessException {
+        pointDAO.modGoods(pointDTO);
+    }
 }

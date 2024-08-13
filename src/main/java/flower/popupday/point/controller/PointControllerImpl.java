@@ -87,4 +87,20 @@ public class PointControllerImpl implements PointController{
         return mav;
     }
 
+    @Override
+    @RequestMapping("/point/changeGoods.do")
+    public ModelAndView changeGoods(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        int shop_id = Integer.parseInt(request.getParameter("shop_id"));
+        String image_file_name = request.getParameter("image_file_name");
+        String product_name = request.getParameter("product_name");
+        int product_price = Integer.parseInt(request.getParameter("product_price"));
+        pointDTO.setShop_id(shop_id);
+        pointDTO.setProduct_price(product_price);
+        pointDTO.setProduct_name(product_name);
+        pointDTO.setImage_file_name(image_file_name);
+        pointService.modGoods(pointDTO);
+        ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");
+        return mav;
+    }
+
 }

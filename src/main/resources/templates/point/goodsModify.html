@@ -12,7 +12,7 @@
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="goods-form">
-            <form method="post" action="/point/changedGoods.do" class="goods" th:each="goodsList: ${moGoodsList}>
+            <form method="post" action="/point/changeGoods.do" class="goods" th:each="goods: ${moGoodsList}">
                 <div>
                     <p>상품 선택</p>
                     <div class="goods-select">
@@ -62,11 +62,11 @@
                     </div>
                 </div>
                 <div class="goods-input">
-                    <label>상품명 :</label><input type="text" name="product_name" th:value="${goodsList.product_name}">
-                    <input type="hidden" th:value="${goodsList.shop_id}" name="shop_id">
+                    <label>상품명 :</label><input type="text" name="product_name" th:value="${goods.product_name}">
+                    <input type="hidden" th:value="${goods.shop_id}" name="shop_id">
                 </div>
                 <div class="goods-input">
-                    <label>교환가격 :</label><input type="text" name="product_price" th:value="${goodsList.product_price}">
+                    <label>교환가격 :</label><input type="text" name="product_price" th:value="${goods.product_price}">
                 </div>
                 <div class="goods-btn">
                     <button type="submit">수정</button>
