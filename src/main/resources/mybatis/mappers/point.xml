@@ -30,7 +30,7 @@
         delete from point_shop_tbl where shop_id = #{shop_id}
     </delete>
 
-    <select id="getGoodsList" parameterType="int">
+    <select id="getGoodsList" parameterType="int" resultMap="pointResult">
         select * from point_shop_tbl where shop_id = #{shop_id}
     </select>
 </mapper>

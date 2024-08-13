@@ -73,8 +73,8 @@ public class PointControllerImpl implements PointController{
                                      HttpServletRequest request, HttpServletResponse response)throws Exception{
         List moGoodsList = pointService.getGoodsContent(shop_id);
         ModelAndView mav = new ModelAndView();
-        mav.addObject("moGoodsList", moGoodsList);
         mav.setViewName("point/goodsModify");
+        mav.addObject("moGoodsList", moGoodsList);
         return mav;
     }
 
