@@ -18,32 +18,30 @@ public class PopupReviewControllerImpl implements PopupReviewController {
     @Autowired
     private PopupReviewService popupReviewService;
 
-    //리뷰 작성
+    // 리뷰 작성
     @Override
     @PostMapping("/popupReview/add")
-    public String addReview(@RequestParam(value = "popup_id", required = true) Long popupId,
-                            @RequestParam(value = "user_id", required = true) Long userId,
-                            @RequestParam(value = "rating", required = false, defaultValue = "0") int rating,
+    public String addReview(@RequestParam(value = "popup_id", required = true) Long popup_id,
+                            @RequestParam(value = "user_id", required = true) Long user_id,
                             @RequestParam("content") String content,
                             RedirectAttributes redirectAttributes) {
-        // 디버깅용 로그 추가
-        System.out.println("Received popup_id: " + popupId);
-        System.out.println("Received user_id: " + userId);
-        System.out.println("Received rating: " + rating);
+        // 로그 출력
+        System.out.println("Received popup_id: " + popup_id);
+        System.out.println("Received user_id: " + user_id);
         System.out.println("Received content: " + content);
 
         try {
-            // 사용자가 별점을 선택하지 않았을 경우
-            if (rating == 0) {
-                redirectAttributes.addFlashAttribute("errorMessage", "별점을 선택해 주세요.");
-                return "redirect:/popup/popupView?popup_id=" + popupId;
+            // 파라미터 확인용 로그
+            if (popup_id == null || user_id == null || content == null) {
+                System.out.println("One of the parameters is null!");
+                redirectAttributes.addFlashAttribute("errorMessage", "잘못된 요청입니다.");
+                return "redirect:/popup/popupView";
             }
 
             // DTO에 데이터 전달
             PopupReviewDTO review = new PopupReviewDTO();
-            review.setPopup_id(popupId);
-            review.setUser_id(popupId);
-            review.setRating(rating);
+            review.setPopup_id(popup_id);
+            review.setUser_id(user_id);
             review.setContent(content);
 
             // 서비스 계층으로 리뷰 추가 요청
@@ -51,16 +49,17 @@ public class PopupReviewControllerImpl implements PopupReviewController {
 
             // 성공 메시지 설정
             redirectAttributes.addFlashAttribute("message", "후기가 성공적으로 저장되었습니다.");
+            System.out.println("Review successfully saved.");
 
         } catch (Exception e) {
             e.printStackTrace(); // 예외 메시지 확인
+            System.out.println("Exception occurred: " + e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "후기 저장 중 오류가 발생했습니다.");
         }
 
         // 리다이렉트할 페이지로 다시 돌아가기
-        return "redirect:/popup/popupView?popup_id=" + popupId;
+        return "redirect:/popup/popupView.do?popup_id=" + popup_id;
     }
-
     // 특정 팝업의 리뷰 조회 메서드
     @Override
     @GetMapping("/popupReview/view")

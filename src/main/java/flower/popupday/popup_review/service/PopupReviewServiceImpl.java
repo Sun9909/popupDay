@@ -16,7 +16,7 @@ public class PopupReviewServiceImpl implements PopupReviewService {
 
     @Override
     public void addReview(PopupReviewDTO popupReviewDTO) {
-        popupReviewDAO.insertReview(popupReviewDTO);
+        popupReviewDAO.addReview(popupReviewDTO);
     }
 
     @Override
