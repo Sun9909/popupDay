@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 @Service("pointService")
@@ -43,4 +47,6 @@ public class PointServiceImpl implements PointService{
     public void modGoods(PointDTO pointDTO) throws DataAccessException {
         pointDAO.modGoods(pointDTO);
     }
+    
+
 }

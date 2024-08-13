@@ -25,7 +25,9 @@
                 </div>
                 <div class="goods-list">
                     <form th:each="point: ${pointList}" name="pointExchange" action="/point/pointUse.do" method="post" class="exchange-goods">
-                        <img th:src="${point.image_file_name}" name="image_file_name">
+                        <div class="image_file">
+                            <img th:src="${point.image_file_name}" name="image_file_name">
+                        </div>
                         <input type="text" th:value="${point.product_name}" name="product_name" disabled>
                         <input type="hidden" th:value="${point.shop_id}" name="shop_id">
                         <input type="hidden" th:value="${point.product_price}" class="product_price" disabled>

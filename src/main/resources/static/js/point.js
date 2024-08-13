@@ -40,22 +40,22 @@ function showImage() {
 
     switch (selectedValue) {
         case "바나나맛 우유":
-            imageURL = cloudinaryBaseURL + "v1723441616/s3blm9zk3btsfrwok8i4.jpg";
+            imageURL = cloudinaryBaseURL + "v1723428042/quzroryrpuzkfc5gtno0.png";
             break;
         case "베스킨라빈스 싱글콘":
-            imageURL = cloudinaryBaseURL + "v1723441614/pmb2hv8wdivrfkvwodnv.jpg";
+            imageURL = cloudinaryBaseURL + "v1723428042/btakyskddcqmzonbhrv1.png";
             break;
         case "올리브영 1만원 교환권":
-            imageURL = cloudinaryBaseURL + "v1723441617/blgfyg1rvrqsylttu1c4.jpg";
+            imageURL = cloudinaryBaseURL + "v1723428043/w96tbtbigsoetebac9be.png";
             break;
         case "투썸플레이스 아메리카노 + 아이스박스 세트":
-            imageURL = cloudinaryBaseURL + "v1723441613/alq6a7mh9skwbpnw9tpp.jpg";
+            imageURL = cloudinaryBaseURL + "v1723428040/fwu79bfv54k4lz5biazl.png";
             break;
         case "스타벅스 아메리카노2 + 부드러운 생크림 카스테라":
-            imageURL = cloudinaryBaseURL + "v1723441615/vlxchwd0glnknrmzs5h3.jpg";
+            imageURL = cloudinaryBaseURL + "v1723428041/ql92hzvixdw1lcy6yinc.png";
             break;
         case "투썸플레이스 스트로베리 초코 생크림 케이크":
-            imageURL = cloudinaryBaseURL + "v1723441614/e4w5htzkj0lejdfphl7o.jpg";
+            imageURL = cloudinaryBaseURL + "v1723428041/qwzgax42rh66y7dbmpa0.png";
             break;
         default:
             imageURL = ""; // 기본 이미지 URL

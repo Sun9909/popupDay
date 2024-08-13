@@ -4,16 +4,18 @@ import flower.popupday.point.dto.PointDTO;
 import flower.popupday.point.service.PointService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 @Controller("pointController")
@@ -101,6 +103,16 @@ public class PointControllerImpl implements PointController{
         pointDTO.setProduct_count(product_count);
         pointDTO.setImage_file_name(image_file_name);
         pointService.modGoods(pointDTO);
+        ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/point/pointUse.do")
+    public ModelAndView pointUse(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        String image_file_name = request.getParameter("image_file_name");
+        int product_price = Integer.parseInt(request.getParameter("product_price"));
+
         ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");
         return mav;
     }
