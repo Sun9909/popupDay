@@ -49,7 +49,7 @@ public interface MyService {
     //찜 삭제
     public void unlikeClick(Long popup_id, Long id) throws DataAccessException;
 
-    public Map bsPopupList(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
+    public Map businessList(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
 
     public Map<String, Object> myPopupList(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
 

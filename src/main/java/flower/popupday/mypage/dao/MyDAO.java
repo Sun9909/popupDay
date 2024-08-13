@@ -68,9 +68,9 @@ public interface MyDAO {
 
     public ImageDTO selectFirstImg(Long popupId);
 
-    public List<PopupDTO> selectBsPopup(int count, Long id);
+    public List<PopupDTO> selectBusinessPopup(int count, Long id);
 
-    public int selectToBsPopup(Long id);
+    public int selectToBusinessPopup(Long id);
 
     public int selectToMyPopup(Long id);
 

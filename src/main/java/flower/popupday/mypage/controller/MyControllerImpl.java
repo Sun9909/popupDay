@@ -410,11 +410,11 @@ public class MyControllerImpl implements MyController {
         Map<String, Integer> pagingMap = new HashMap<>();
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
-        Map bsPopupList = myService.bsPopupList(pagingMap, id);
+        Map businessList = myService.businessList(pagingMap, id);
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("mypage/registration");
-        mav.addObject("bsPopupList", bsPopupList);
+        mav.addObject("businessList", businessList);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 

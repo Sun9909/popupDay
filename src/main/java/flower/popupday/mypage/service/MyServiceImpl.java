@@ -171,18 +171,18 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public Map bsPopupList(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
-        Map bsPopupList = new HashMap<>();
+    public Map businessList(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
+        Map businessList = new HashMap<>();
         int section = pagingMap.get("section");
         int pageNum = pagingMap.get("pageNum");
         int count = (section - 1) * 100 + (pageNum - 1) * 10;
-        List<PopupDTO> popupList = myDAO.selectBsPopup(count, id);
-        int totPopup = myDAO.selectToBsPopup(id);
+        List<PopupDTO> popupList = myDAO.selectBusinessPopup(count, id);
+        int totPopup = myDAO.selectToBusinessPopup(id);
 
-        bsPopupList.put("popupList", popupList);
-        bsPopupList.put("totPopup", totPopup);
+        businessList.put("popupList", popupList);
+        businessList.put("totPopup", totPopup);
 
-        return bsPopupList;
+        return businessList;
     }
 
     @Override
