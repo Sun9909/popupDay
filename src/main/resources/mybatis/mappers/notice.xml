@@ -9,7 +9,8 @@
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
-        <result property="created_date" column="created_date"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
     </resultMap>
 
 
@@ -21,7 +22,7 @@
 
     <!-- 전체 글 조회 LIMIT ?,10  갯수(count) 받음 -->
     <select id="selectAllNotice" resultMap="noticeResult" parameterType="int">
-        select * from notice_tbl order by created_date desc limit #{count}, 10
+        select * from notice_tbl order by created_at desc limit #{count}, 10
     </select>
 
 
@@ -52,7 +53,7 @@
     <!-- 새 글 추가 (글번호 생성 후 새 글 추가 호출)  Map으로 받음 여러개의 이미지 imageFileName에는 null값이 들어감 -->
     <insert id="insertNewNotice" parameterType="noticeDTO" useGeneratedKeys="true" keyProperty="notice_id">
       <![CDATA[
-        insert into notice_tbl(user_id, title, content, created_date) values(#{id},#{title},#{content},now())
+        insert into notice_tbl(user_id, title, content, created_at) values(#{id},#{title},#{content},now())
         ]]>
    </insert>
 

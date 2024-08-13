@@ -10,17 +10,20 @@ public class NoticeDTO {
     private long user_id;
     private String title;
     private String content;
-    private Date created_date;
+    private Date created_at;
+    private Date updated_at;
 
     // NoticeDTO 선언
-    public NoticeDTO() {}
+    public NoticeDTO() {
+    }
 
-    public NoticeDTO(long notice_id, long user_id, String title, String content, Date created_date) {
+    public NoticeDTO(long notice_id, long user_id, String title, String content, Date created_at, Date updated_at) {
         this.notice_id = notice_id;
         this.user_id = user_id;
         this.title = title;
         this.content = content;
-        this.created_date = created_date;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
     public long getNotice_id() {
@@ -55,11 +58,19 @@ public class NoticeDTO {
         this.content = content;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 }
