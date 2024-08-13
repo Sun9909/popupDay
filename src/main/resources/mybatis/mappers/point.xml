@@ -25,4 +25,12 @@
     <insert id="addGoods" parameterType="pointDTO">
         insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},999,#{image_file_name},sysdate(),sysdate())
     </insert>
+
+    <delete id="removeGoods" parameterType="int">
+        delete from point_shop_tbl where shop_id = #{shop_id}
+    </delete>
+
+    <select id="getGoodsList" parameterType="int" resultMap="pointResult">
+        select * from point_shop_tbl where shop_id = #{shop_id}
+    </select>
 </mapper>

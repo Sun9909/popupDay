@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,6 +64,26 @@ public class PointControllerImpl implements PointController{
         int pointNo= pointService.addGoods(pointDTO);
 
         ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do?pointNo=" + pointNo);
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/point/modifyGoods.do")
+    public ModelAndView  modifyGoods(@RequestParam("shop_id") int shop_id,
+                                     HttpServletRequest request, HttpServletResponse response)throws Exception{
+        List moGoodsList = pointService.getGoodsContent(shop_id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("point/goodsModify");
+        mav.addObject("moGoodsList", moGoodsList);
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/point/removeGoods.do")
+    public ModelAndView removeGoods(@RequestParam("shop_id") int shop_id,
+                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
+        pointService.removeGoods(shop_id);
+        ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");
         return mav;
     }
 

@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/point.css}">
-    <title>포인트 상품 추가</title>
+    <title>포인트 상품 수정</title>
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="goods-form">
-            <form method="post" action="/point/addGoods.do" class="goods" enctype="multipart/form-data">
+            <form method="post" action="/point/changedGoods.do" class="goods" th:each="goodsList: ${moGoodsList}>
                 <div>
                     <p>상품 선택</p>
                     <div class="goods-select">
@@ -62,14 +62,15 @@
                     </div>
                 </div>
                 <div class="goods-input">
-                    <label>상품명 :</label><input name="product_name" placeholder="상품명">
+                    <label>상품명 :</label><input type="text" name="product_name" th:value="${goodsList.product_name}">
+                    <input type="hidden" th:value="${goodsList.shop_id}" name="shop_id">
                 </div>
                 <div class="goods-input">
-                    <label>교환가격 :</label><input name="product_price" placeholder="상품교환 가격">
+                    <label>교환가격 :</label><input type="text" name="product_price" th:value="${goodsList.product_price}">
                 </div>
                 <div class="goods-btn">
-                    <button type="reset">취소</button>
-                    <button type="submit">등록</button>
+                    <button type="submit">수정</button>
+                    <button>취소</button>
                     <button><a th:href="@{/point/pointShop.do}">리스트로 돌아가기</a></button>
                 </div>
             </form>
