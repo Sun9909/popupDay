@@ -10,14 +10,14 @@
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <link rel="stylesheet" th:href="@{/css/alert.css}">
     <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
-    <meta name="flash-messageqnaview" th:content="${flashMessage}">
-    <meta name="flash-typeqnaview" th:content="${flashType}">
+    <meta name="flash-message" th:content="${flashMessage}">
+    <meta name="flash-type" th:content="${flashType}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>질문 상세보기</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let flashMessageMeta = document.querySelector('meta[name="flash-messageqnaview"]');
-            let flashTypeMeta = document.querySelector('meta[name="flash-typeqnaview"]');
+            let flashMessageMeta = document.querySelector('meta[name="flash-message"]');
+            let flashTypeMeta = document.querySelector('meta[name="flash-type"]');
 
             if (flashMessageMeta && flashTypeMeta) {
                 let flashMessage = flashMessageMeta.content;
@@ -75,41 +75,22 @@
             </div>
         </div>
 
-<!--        <div class="answer-section" th:if="${qnaView.answer != null}">-->
-<!--            <p>답변</p>-->
-
-<!--            <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">-->
-<!--                <input type="hidden" name="qna_id" th:value="${qnaView['qna']['qna_id']}">-->
-<!--                <textarea class="view-content" name="answer" disabled th:text="${qnaView['qna']['answer']}"></textarea>-->
-<!--                <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>-->
-<!--                <div id="answer-btn">-->
-<!--                    <input type="button" value="답변수정" onclick="answer_enable(this.form)">-->
-<!--                    <input type="button" value="답변삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView['qna']['qna_id']})|">-->
-<!--                </div>-->
-<!--                <div id="answer-mbtn" style="display: none;">-->
-<!--                    <input type="button" value="답변수정반영" onclick="submitForm(this.form)">-->
-<!--                    <button><a th:href="@{/notice/qnaList.do}">수정취소</a></button>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
         <div class="answer-section" th:if="${qnaView.qna != null}">
             <p>답변</p>
             <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">
                 <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
-                <textarea class="view-content" name="answer" disabled th:text="${qnaView.qna.qnaAnswerDTO != null ? qnaView.qna.qnaAnswerDTO.answer : ''}"></textarea>
+                <textarea class="view-content" name="answer" disabled th:text="${qnaView.answer != null ? qnaView.answer.answer : ''}"></textarea>
                 <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>
-                <div id="answer-btn">
+                <div id="answer-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                     <input type="button" value="답변수정" onclick="answer_enable(this.form)">
                     <input type="button" value="답변삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView.qna.qna_id})|">
                 </div>
-                <div id="answer-mbtn" style="display: none;">
+                <div id="answer-mbtn" style="display: none;" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                     <input type="button" value="답변수정반영" onclick="submitanswer(this.form)">
                     <button><a th:href="@{/notice/qnaList.do}">수정취소</a></button>
                 </div>
             </form>
         </div>
-
-
     </div>
 
     <!-- 중복된 스크립트 로드 제거 -->

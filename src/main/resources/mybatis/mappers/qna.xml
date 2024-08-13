@@ -69,8 +69,8 @@
 
     <!--qna 답변 -->
     <insert id="insertAnswer" parameterType="flower.popupday.notice.qna.dto.QnaAnswerDTO">
-        INSERT INTO qna_answer_tbl (user_id, qna_id, answer, created_at)
-        VALUES (#{user_id}, #{qna_id}, #{answer}, NOW())
+        INSERT INTO qna_answer_tbl (answer_id, user_id, qna_id, answer, created_at)
+        VALUES (#{answer_id}, #{user_id}, #{qna_id}, #{answer}, NOW())
     </insert>
 
 

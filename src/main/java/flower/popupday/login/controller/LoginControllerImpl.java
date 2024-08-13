@@ -279,5 +279,4 @@ public class LoginControllerImpl implements LoginController {
         session.removeAttribute("errorMessage");
     }
 
-
 }
