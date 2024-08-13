@@ -9,7 +9,7 @@ import java.util.List;
 public interface PopupReviewDAO {
 
     // 리뷰 삽입
-    void insertReview(PopupReviewDTO popupReviewDTO);
+    void addReview(PopupReviewDTO popupReviewDTO);
 
     // 특정 팝업 id에 해당하는 리뷰 목록 조회
     List<PopupReviewDTO> selectReviewsByPopupId(long popupId);

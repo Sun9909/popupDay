@@ -191,20 +191,12 @@
 
                     <!-- 후기 작성 섹션 (로그인 상태) -->
                     <form action="/popupReview/add" method="post">
-                        <input type="hidden" name="popup_id" th:value="${popupId}">
-                        <input type="hidden" name="user_id" th:value="${userId}">
-
-                        <div class="star-rating">
-                            <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
-                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
-                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
-                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
-                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
-                        </div>
-
-                        <textarea name="content" rows="4" cols="50" placeholder="방문하신 팝업스토어는 어땠나요?" required></textarea>
+                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
+                        <input type="hidden" name="user_id" th:value="${id}">
+                        <textarea name="content" rows="4" cols="50" placeholder="후기를 작성하세요"></textarea>
                         <button type="submit">후기 등록</button>
                     </form>
+
 
                     <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
                     <div class="review-form" th:if="${session.loginDTO == null}">

@@ -10,9 +10,8 @@ import javax.swing.*;
 public interface PopupReviewController {
 
     //리뷰 작성
-    public String addReview(@RequestParam("popupId") Long popupId,
-                            @RequestParam("userId") Long userId,
-                            @RequestParam(value = "rating", required = false, defaultValue = "0") int rating,
+    public String addReview(@RequestParam("popup_id") Long popupId,
+                            @RequestParam("user_id") Long userId,
                             @RequestParam("content") String content,
                             RedirectAttributes redirectAttributes);
 
