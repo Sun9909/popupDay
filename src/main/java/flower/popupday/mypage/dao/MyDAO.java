@@ -48,9 +48,9 @@ public interface MyDAO {
     public Long getAllPopupCount(Long user_id) throws DataAccessException;
 
     //내가 쓴 리뷰
-    public List selectAllReview(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+    public List selectAllReview(@Param("count") int count, Long id) throws DataAccessException;
 
-    public int selectToReview(@Param("id") int id) throws DataAccessException;
+    public int selectToReview(Long id) throws DataAccessException;
 
     //내가 쓴 문의 사항
     public List selectAllQnaList(@Param("count") int count, @Param("id") int id) throws DataAccessException;

@@ -12,7 +12,7 @@ public class MyReviewDTO {
     private String review_content;  //리뷰 내용
     private Date date;  //최종 날짜?
     private String write;   //작성자
-    private Date created_date;  //기재 날짜
+    private Date created_at;  //기재 날짜
 
     //생성자
     public MyReviewDTO() {
@@ -67,11 +67,11 @@ public class MyReviewDTO {
         this.write = write;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getcreated_at() {
+        return created_at;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setcreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 }

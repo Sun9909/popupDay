@@ -10,7 +10,7 @@ public class MyQnaDTO {
     private Long user_id;
     private String title;
     private String content;
-    private Date created_date;
+    private Date created_at;
     private String answer;
     private Date answer_date;
     private Status status;
@@ -56,12 +56,12 @@ public class MyQnaDTO {
         this.content = content;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getcreated_at() {
+        return created_at;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setcreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     public String getAnswer() {

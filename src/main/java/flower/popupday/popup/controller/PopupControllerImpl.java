@@ -251,7 +251,7 @@ public class PopupControllerImpl implements PopupController {
         //로그인된 경우에만 최근 본 팝업 목록 처리
         if (loginCheck) {
             // 최근 본 팝업 목록을 쿠키에 저장
-            String recentPopupsCookieName = "recentPopups";
+            String recentPopupsCookieName = "recentPopups_" + id;
             String recentPopups = "";
 
             if (cookies != null) {

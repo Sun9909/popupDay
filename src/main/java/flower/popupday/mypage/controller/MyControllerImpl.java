@@ -79,7 +79,7 @@ public class MyControllerImpl implements MyController {
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
 
         //최근 본 팝업 목록 조회
-        String recentPopupsCookieName = "recentPopups";
+        String recentPopupsCookieName = "recentPopups_" + id;
         String recentPopups = "";
         Cookie[] cookies = request.getCookies();
 
@@ -136,7 +136,7 @@ public class MyControllerImpl implements MyController {
         Long id = loginDTO.getId();
 
         //최근 본 팝업 목록 조회
-        String recentPopupsCookieName = "recentPopups";
+        String recentPopupsCookieName = "recentPopups_" + id;
         String recentPopups = "";
         Cookie[] cookies = request.getCookies();
 
@@ -333,17 +333,18 @@ public class MyControllerImpl implements MyController {
                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
         int section=Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
 
         Map<String, Integer> pagingMap=new HashMap<>();
         pagingMap.put("section", section); // 1
         pagingMap.put("pageNum", pageNum); // 1
-        pagingMap.put("id", id);
 
-        Map reviewMap = myService.reviewList(pagingMap);
+        Map reviewMap = myService.reviewList(pagingMap, id);
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("reviewList"); // 여기로감
+        mav.setViewName("notice/reviewList"); // 여기로감
         mav.addObject("reviewMap", reviewMap); // 글목록 넘겨줌
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);

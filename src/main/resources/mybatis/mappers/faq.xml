@@ -8,7 +8,7 @@
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
-        <result property="created_date" column="created_date"/>
+        <result property="created_at" column="created_at"/>
     </resultMap>
 
 
@@ -19,7 +19,7 @@
 
     <!-- 등록된 faq 리스트 화면출력 -->
     <select id="selectAllFaqList" resultMap="faqResult" parameterType="int">
-        select * from faq_tbl order by created_date LIMIT #{count}, 10
+        select * from faq_tbl order by created_at LIMIT #{count}, 10
     </select>
 
     <!-- 등록된 faq 개수 가져오기 -->

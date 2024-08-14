@@ -16,7 +16,7 @@ public class MyPopupDTO {
     private String brandPage;
     private Role role;
     private Long user_id;
-    private Date created_date;
+    private Date created_at;
 
     public MyPopupDTO() {
 
@@ -98,11 +98,11 @@ public class MyPopupDTO {
         this.user_id = user_id;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getcreated_at() {
+        return created_at;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setcreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 }

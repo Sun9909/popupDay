@@ -24,14 +24,11 @@ h2 {
 }
 #recentArea .recent {
     padding: 0 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
 }
 #recentArea .recentImage {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     text-align: center;
 }
 #recentArea .recent img {
