@@ -239,9 +239,9 @@
                             <span class="review-author" th:text="${review.user_nickname}" style="font-size: 20px;">작성자 이름</span> <!-- 작성자 이름 표시 -->
 
                             <!-- 작성자가 본인의 리뷰일 경우에만 표시 -->
-                            <div class="review-options" th:if="${id == currentUserId}">
-                                <button class="review-options-button">⋮</button>
-                                <div class="review-options-menu">
+                            <div class="review-options" th:if="${id == currentUserId}" style="position: relative;">
+                                <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
+                                <div class="review-options-menu" style="display: none; position: absolute; right: 0; top: 20px; background-color: white; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);">
                                     <button onclick="editReview(${review.id})">수정</button>
                                     <button onclick="deleteReview(${review.id})">삭제</button>
                                 </div>

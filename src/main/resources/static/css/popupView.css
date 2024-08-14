@@ -391,3 +391,27 @@ textarea[name="content"] {
 .star-rating label:hover ~ label {
     color: gold;
 }
+.review-options-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 1000; /* 다른 요소보다 앞에 오도록 설정 */
+}
+
+.review-options-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.review-options-menu button:hover {
+    background-color: #f0f0f0;
+}
