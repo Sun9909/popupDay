@@ -100,6 +100,11 @@
         where qna_tbl.user_id=#{id} group by qna_tbl.user_id
     </select>
 
+    <!-- 포인트 -->
+    <select id="getPoint" resultType="Long">
+        select tot_point from user_tbl where id=#{id}
+    </select>
+
     <!-- 아이디로 멤버 조회 -->
     <select id="selectMemberById" parameterType="Long" resultType="myDTO">
         select * from user_tbl where id=#{id}
