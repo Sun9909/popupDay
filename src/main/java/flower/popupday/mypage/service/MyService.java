@@ -14,9 +14,14 @@ public interface MyService {
     //마이페이지
     public MyDTO getName(MyDTO myDTO) throws DataAccessException;
 
+    //리뷰 개수
     public Long getReviewCount(Long id) throws DataAccessException;
 
+    //문의 개수
     public Long getQnaCount(Long id) throws DataAccessException;
+
+    //포인트
+    public Long getPoint(Long id) throws DataAccessException;
 
     //사용자 정보 조회
     public MyDTO findMember(Long id) throws DataAccessException;
@@ -44,7 +49,7 @@ public interface MyService {
     public Map reviewList(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
 
     //내가 쓴 문의 사항
-    public Map listQna(Map<String, Integer> pagingMap) throws DataAccessException;
+    public Map listQna(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
 
     //찜 삭제
     public void unlikeClick(Long popup_id, Long id) throws DataAccessException;

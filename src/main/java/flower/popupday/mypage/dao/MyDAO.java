@@ -22,6 +22,8 @@ public interface MyDAO {
 
     public Long getQnaCount(Long id) throws DataAccessException;
 
+    public Long getPoint(Long id) throws DataAccessException;
+
     public MyDTO selectMemberById(Long id) throws DataAccessException;
 
     public void updateLogin(LoginDTO loginDTO) throws DataAccessException;
@@ -53,9 +55,9 @@ public interface MyDAO {
     public int selectToReview(Long id) throws DataAccessException;
 
     //내가 쓴 문의 사항
-    public List selectAllQnaList(@Param("count") int count, @Param("id") int id) throws DataAccessException;
+    public List selectAllQnaList(@Param("count") int count, Long id) throws DataAccessException;
 
-    public int selectToQna(@Param("id") int id) throws DataAccessException;
+    public int selectToQna(Long id) throws DataAccessException;
 
     //찜 삭제
     public void unlikeClick(Long popup_id,Long id) throws DataAccessException;

@@ -40,23 +40,17 @@
                 <article class="point">
                     <a href="#">    <!-- comming soon~!^^ -->
                         <h5>내 포인트</h5>
-                        <p>0</p>
-<!--                        <div th:if="${point == null}">-->
-<!--                            <p th:text="'0개'"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless="${point == null}">-->
-<!--                            <p th:text="${point}+'개'"></p>-->
-<!--                        </div>-->
+                        <p th:text="${point}+' 점'"></p>
                     </a>
                 </article>
                 <article class="review">
                     <a th:href="@{/mypage/myReviewList.do(id=${my.id})}">
                         <h5>내가 쓴 후기</h5>
                         <div th:if="${reviewCount == null}">
-                            <p th:text="'0개'"></p>
+                            <p th:text="'0 개'"></p>
                         </div>
                         <div th:unless="${reviewCount == null}">
-                            <p th:text="${reviewCount}+'개'"></p>
+                            <p th:text="${reviewCount}+' 개'"></p>
                         </div>
                     </a>
                 </article>
@@ -64,10 +58,10 @@
                     <a th:href="@{/mypage/myQnaList.do(id=${my.id})}">
                         <h5>문의</h5>
                         <div th:if="${qnaCount == null}">
-                            <p th:text="'0개'"></p>
+                            <p th:text="'0 개'"></p>
                         </div>
                         <div th:unless="${qnaCount == null}">
-                            <p th:text="${qnaCount}+'개'"></p>
+                            <p th:text="${qnaCount}+' 개'"></p>
                         </div>
                     </a>
                 </article>

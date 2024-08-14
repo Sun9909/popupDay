@@ -68,15 +68,10 @@ public class MyControllerImpl implements MyController {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
         Long id = loginDTO.getId();
-        //myDTO=myService.getName(myDTO);
+
         Long reviewCount = myService.getReviewCount(id); // 리뷰 개수 조회
-
-        //String recommentCount = myService.getreCommentCount(loginDTO.getUser_nickname()); //리뷰댓글
-        //String popcommentCount = myService.getpopCommentCount(loginDTO.getUser_nickname()); //팝업댓글
-
-        Long qnaCount = myService.getQnaCount(id);
-        // 일단 user_id가 안되는 이유 = 값을 가져갈때 user_tbl의 user_id를 가져감 , 그래서 조회가 안됨, review_tbl의
-        // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
+        Long qnaCount = myService.getQnaCount(id);  // qna 개수 조회
+        Long point = myService.getPoint(id);
 
         //최근 본 팝업 목록 조회
         String recentPopupsCookieName = "recentPopups_" + id;   //아이디 별 쿠키를 갖도록
@@ -121,9 +116,8 @@ public class MyControllerImpl implements MyController {
         ModelAndView mav = new ModelAndView("mypage/memberPage");
         mav.addObject("my", loginDTO);
         mav.addObject("reviewCount", reviewCount);
-        //mav.addObject("recommentCount", recommentCount);
-        //mav.addObject("popcommentCount", popcommentCount);
         mav.addObject("qnaCount", qnaCount);
+        mav.addObject("point", point);
         mav.addObject("recentPopups", recentPopupsData);
         return mav;
     }
@@ -359,17 +353,18 @@ public class MyControllerImpl implements MyController {
                                 HttpServletRequest request, HttpServletResponse response) throws Exception {
         int section =  Integer.parseInt((_section == null) ? "1" : _section);
         int pageNum =  Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
-        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
 
         Map<String, Integer> pagingMap=new HashMap<>();
         pagingMap.put("section", section); // 1
         pagingMap.put("pageNum", pageNum); // 1
-        pagingMap.put("id", id);
 
-        Map qnaMap = myService.listQna(pagingMap); // 서비스에서 공지사항 글 목록 받아옴
+        Map qnaMap = myService.listQna(pagingMap, id); // 서비스에서 공지사항 글 목록 받아옴
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
-        mav.setViewName("qnaList"); // 이 뷰로 이동
+        mav.setViewName("notice/qnaList"); // 이 뷰로 이동
         mav.addObject("qnaMap", qnaMap); // notice을 mav에 추가하여 뷰로 전달(글 목록을 넘겨줌)
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
