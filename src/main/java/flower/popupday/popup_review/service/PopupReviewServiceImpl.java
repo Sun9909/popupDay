@@ -45,4 +45,14 @@ public class PopupReviewServiceImpl implements PopupReviewService {
     public double calculateAverageRating(Long popup_id) {
         return popupReviewDAO.getAverageRatingByPopupId(popup_id);
     }
+
+    //리뷰수정
+    public void updateReviewContent(Long userId, String content, int rating) {
+        popupReviewDAO.updateReviewContent(userId, content, rating);
+    }
+
+    // 특정 리뷰 ID로 리뷰를 가져오는 메서드
+    public PopupReviewDTO getReviewById(Long reviewId) {
+        return popupReviewDAO.findById(reviewId);  // 직접 객체 반환
+    }
 }

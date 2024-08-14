@@ -14,4 +14,9 @@ public interface PopupReviewService {
 
     //특정 팝업 id에 해당하는 별점 평균
     public double calculateAverageRating(Long popup_id);
+
+    //리뷰 수정
+    public void updateReviewContent(Long user_id, String content, int rating);
+
+    public PopupReviewDTO getReviewById(Long user_id);
 }

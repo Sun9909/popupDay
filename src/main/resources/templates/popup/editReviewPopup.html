@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Review</title>
+</head>
+<body>
+<h2>리뷰 수정</h2>
+<form action="/popupComment/update" method="post">
+    <input type="hidden" name="id" th:value="${review.id}">
+    <label for="content">리뷰 내용:</label>
+    <textarea id="content" name="content" rows="4" cols="50" th:text="${review.content}"></textarea>
+    <br>
+    <label for="rating">별점:</label>
+    <select id="rating" name="rating">
+        <option th:each="star : ${#numbers.sequence(1,5)}" th:value="${star}" th:text="${star}"></option>
+    </select>
+    <br>
+    <button type="submit">수정 완료</button>
+</form>
+</body>
+</html>

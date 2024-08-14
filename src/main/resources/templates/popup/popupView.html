@@ -235,26 +235,30 @@
                     <!-- 리뷰 컨테이너: 각 리뷰 항목을 감싸는 요소 -->
                     <div th:each="review, iterStat : ${reviews}" class="review-container">
                         <!-- 리뷰의 상단 부분: 작성자와 별점 표시 -->
-                        <div class="review-header" style="display: flex; justify-content: space-between; align-items: center;">
-                            <span class="review-author" th:text="${review.user_nickname}" style="font-size: 20px;">작성자 이름</span> <!-- 작성자 이름 표시 -->
-
+                        <div class="review-header" style="display: flex; justify-content: space-between; align-items: center; position: relative;">
                             <!-- 작성자가 본인의 리뷰일 경우에만 표시 -->
-                            <div class="review-options" th:if="${id == currentUserId}" style="position: relative;">
+                            <div class="review-options" th:if="${id != session.loginDTO}" style="position: absolute; right: 0; bottom: -110px;">
                                 <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
-                                <div class="review-options-menu" style="display: none; position: absolute; right: 0; top: 20px; background-color: white; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);">
-                                    <button onclick="editReview(${review.id})">수정</button>
-                                    <button onclick="deleteReview(${review.id})">삭제</button>
+                                <div class="review-options-menu" style="display: none;">
+                                    <button onclick="openEditPopup([[${id}]], [[${popup_comment_id}]])">수정</button>
+                                    <button onclick="deleteReview(${id})">삭제</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 리뷰 별점 및 내용 -->
-                        <div class="review-rating" style="display: flex; gap: 4px;">
-                            <!-- rating 값만큼 ★ 출력 -->
-                            <span th:each="star : ${#numbers.sequence(1, review.rating)}" style="font-size: 20px;">★</span>
-                            <!-- (5 - rating) 값이 0보다 클 때만 ☆ 출력 -->
-                            <span th:each="emptyStar : ${#numbers.sequence(1, 5 - review.rating)}"
-                                  th:if="${5 - review.rating > 0}" style="font-size: 20px;">☆</span>
+                        <!-- 리뷰 상단 컨테이너: 작성자, 별점 표시 -->
+                        <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <!-- 작성자 이름 -->
+                            <span class="review-author" th:text="${review.user_nickname}" style="font-size: 20px;">작성자 이름</span>
+
+                            <!-- 별점 표시 부분 -->
+                            <div class="review-rating" style="display: flex; gap: 4px; justify-content: flex-end;">
+                                <!-- rating 값만큼 ★ 출력 -->
+                                <span th:each="star : ${#numbers.sequence(1, review.rating)}" style="font-size: 20px;">★</span>
+                                <!-- (5 - rating) 값이 0보다 클 때만 ☆ 출력 -->
+                                <span th:each="emptyStar : ${#numbers.sequence(1, 5 - review.rating)}"
+                                      th:if="${5 - review.rating > 0}" style="font-size: 20px;">☆</span>
+                            </div>
                         </div>
 
                         <!-- 리뷰 내용 -->
@@ -264,6 +268,30 @@
                         <!-- 리뷰 작성일 -->
                         <div class="review-date">
                             작성일: <span th:text="${#temporals.format(review.created_at, 'yyyy-MM-dd')}"></span>
+                        </div>
+                    </div>
+
+                    <!-- 레이어 팝업 -->
+                    <div id="editPopup" class="popup-overlay" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close-btn" onclick="closeEditPopup()">&times;</span>
+                            <h2>리뷰 수정</h2>
+                            <form id="editForm" action="/popupComment/update" method="post">
+                                <input type="hidden" name="id" id="reviewId">
+                                <label for="content">리뷰 내용:</label>
+                                <textarea id="contentUpdate" name="content" rows="4" cols="50"></textarea>
+                                <br>
+                                <label for="rating">별점:</label>
+                                <select id="rating" name="rating">
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </select>
+                                <br>
+                                <button type="submit">수정 완료</button>
+                            </form>
                         </div>
                     </div>
                 </div>

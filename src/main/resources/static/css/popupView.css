@@ -415,3 +415,86 @@ textarea[name="content"] {
 .review-options-menu button:hover {
     background-color: #f0f0f0;
 }
+.review-options-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.review-options-button:hover {
+    color: #666;
+}
+.review-options-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 5px;
+    white-space: nowrap; /* 메뉴가 가로로 펼쳐지게 합니다 */
+}
+
+.review-options-menu button {
+    background-color: transparent;
+    border: none;
+    margin: 0 5px; /* 가로로 펼쳐지게 하기 위해 margin 조정 */
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.review-options-menu button:hover {
+    color: #666;
+}
+
+.review-options {
+    position: relative;
+    display: inline-block;
+}
+/* 수정/삭제 버튼 호버 효과 제거 */
+.review-options-menu button {
+    background-color: transparent; /* 배경색을 투명하게 설정 */
+    border: none; /* 버튼의 테두리를 제거 */
+    cursor: pointer; /* 버튼 위에 커서를 올렸을 때 커서가 포인터로 변경 */
+}
+
+.review-options-menu button:hover {
+    background-color: transparent; /* 호버 시에도 배경색을 투명하게 유지 */
+    color: inherit; /* 텍스트 색상 변경이 없도록 설정 */
+}
+/* 레이어 팝업 배경 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 레이어 팝업 컨텐츠 */
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    width: 500px;
+    max-width: 80%;
+}
+
+/* 닫기 버튼 스타일링 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
