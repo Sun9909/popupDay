@@ -255,7 +255,7 @@ public class PopupControllerImpl implements PopupController {
         boolean loginCheck = loginDTO != null;
         Long id = loginCheck ? loginDTO.getId() : null;
 
-        // 로그인된 경우에만 최근 본 팝업 목록 처리
+        // 로그인 된 경우에만 최근 본 팝업 목록 처리
         if (loginCheck) {
             // 최근 본 팝업 목록을 쿠키에 저장
             String recentPopupsCookieName = "recentPopups_" + id;

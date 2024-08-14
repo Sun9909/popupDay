@@ -79,7 +79,7 @@ public class MyControllerImpl implements MyController {
         // user_id(FK) 값을 조회해서 select 해서 값을 들고 가면됨
 
         //최근 본 팝업 목록 조회
-        String recentPopupsCookieName = "recentPopups_" + id;
+        String recentPopupsCookieName = "recentPopups_" + id;   //아이디 별 쿠키를 갖도록
         String recentPopups = "";
         Cookie[] cookies = request.getCookies();
 
@@ -136,7 +136,7 @@ public class MyControllerImpl implements MyController {
         Long id = loginDTO.getId();
 
         //최근 본 팝업 목록 조회
-        String recentPopupsCookieName = "recentPopups_" + id;
+        String recentPopupsCookieName = "recentPopups_" + id; //아이디 별 쿠키를 갖도록
         String recentPopups = "";
         Cookie[] cookies = request.getCookies();
 
