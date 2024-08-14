@@ -77,6 +77,9 @@
             <!-- 최근 본 팝업 영역 -->
             <div id="recentArea">
                 <h3>최근 본 팝업</h3>
+                <div th:if="${recentPopups.popupDetail == null or recentPopups.popupDetail.isEmpty()}">
+                    <h5>최근 본 팝업이 없습니다</h5>
+                </div>
                 <section class="recent">
                     <div class="recentImage" th:each="popup : ${recentPopups.popupDetail}">
                         <a th:href="@{/popup/popupView.do(popup_id=${popup.popup.popup_id})}" class="pop" title="팝업">
@@ -85,7 +88,7 @@
                         </a>
                     </div>
                 </section>
-                <a th:href="@{/mypage/recentPopup.do(id=${my.id})}" class="more" title="최근 본 팝업 더보기">더보기 &gt;</a>
+                <a th:unless="${recentPopups.popupDetail == null or recentPopups.popupDetail.isEmpty()}" th:href="@{/mypage/recentPopup.do(id=${my.id})}" class="more" title="최근 본 팝업 더보기">더보기 &gt;</a>
             </div>
             <!-- 최근 본 팝업 영역 끝 -->
 
@@ -96,6 +99,7 @@
                     <li><a th:href="@{/mypage/memberLike.do(id=${my.id})}">찜</a></li>
 <!--                    <li><a href="#">내가 쓴 댓글</a></li>-->
                     <li><a th:href="@{/mypage/myReviewList.do(id=${my.id})}">내가 쓴 후기</a></li>
+                    <li><a href="#">포인트 샵</a></li>
                 </ul>
             </div>
             <!-- 내 활동 영역 끝 -->

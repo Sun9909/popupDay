@@ -17,7 +17,7 @@
         <result property="brand_page" column="brand_page"/>
         <result property="role" column="role"/>
         <result property="user_id" column="user_id"/>
-        <result property="created_date" column="created_date"/>
+        <result property="created_at" column="created_at"/>
         <result property="hits" column="hits"/>
         <result property="monday_time" column="monday_time"/>
         <result property="tuesday_time" column="tuesday_time"/>

@@ -121,11 +121,10 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public Map reviewList(Map<String, Integer> pagingMap) throws DataAccessException {
+    public Map reviewList(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
         Map listMap=new HashMap<>();
         int section=pagingMap.get("section");
         int pageNum=pagingMap.get("pageNum");
-        int id=pagingMap.get("id");
         int count=(section-1)*100+(pageNum-1)*10;
 
         List<ReviewDTO> reviewList=myDAO.selectAllReview(count, id);

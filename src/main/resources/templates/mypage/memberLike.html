@@ -34,8 +34,8 @@
             </div>
 
             <!-- 찜한 팝업이 없을 때 -->
-            <form th:if="${popupMap == null}">
-                <h4>현재 등록된 팝업이 없습니다</h4>
+            <form th:if="${popupMap.popupLike == null or popupMap.popupLike.isEmpty()}">
+                <h4>현재 찜한 팝업이 없습니다</h4>
             </form>
 
             <!-- 찜한 팝업이 있을 때 -->

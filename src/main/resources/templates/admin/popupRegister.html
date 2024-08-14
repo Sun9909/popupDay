@@ -56,7 +56,7 @@
                 <tr th:each="popup : ${popupInfoList}">
                     <td><a th:href="@{/admin/registerForm.do(popup_id=${popup.popup.popup_id})}" th:text="${popup.popup.title}"></a></td>
                     <td th:text="${popup.popup.user_id}"></td>
-                    <td th:text="${popup.popup.created_date}"></td>
+                    <td th:text="${popup.popup.created_at}"></td>
                     <td th:text="${popup.popup.role}"></td>
                 </tr>
             </table>

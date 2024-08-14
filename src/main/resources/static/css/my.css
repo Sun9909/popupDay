@@ -77,6 +77,11 @@ h2 {
     font-size: 1.3em;
     margin: 30px 35px 20px;
  }
+#recentArea h5 {
+    text-align: center;
+    font-size: 1.3em;
+    color: #8F8CBB;
+}
 #recentArea .recent {
     padding: 0 35px 20px;
     display: flex;
