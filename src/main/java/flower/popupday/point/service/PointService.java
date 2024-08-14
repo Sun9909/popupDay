@@ -19,5 +19,7 @@ public interface PointService {
 
     public void modGoods(PointDTO pointDTO) throws DataAccessException;
 
+    public List getGiftList(List giftList) throws DataAccessException;
+
 
 }
