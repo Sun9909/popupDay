@@ -31,12 +31,13 @@
     <insert id="insertLogin" parameterType="loginDTO">
         <!-- 값 다 추가한뒤에 넣을것 [회원가입 포인트 추가] -->
         <![CDATA[
-        insert into user_tbl(id,user_id,user_nickname,name,pwd,email,reg_date,role,birth_date,gender)
-        values(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, now(), '일반', 'active',#{birth_date},#{gender})
+        INSERT INTO user_tbl( user_id, user_nickname, name, pwd, email, reg_date, role, birth_date, gender)
+        VALUES(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, NOW(), '일반', '1990-01-01', 'M');
+
         ]]>
     </insert>
     <insert id="insertJoinPoint" parameterType="loginDTO">
-        insert into point_history_tbl(user_id,change_amount,point_type,new_point,earned_at)
+        insert into point_history_tbl(user_id,change_amount,point_type,new_point)
         values(#{id},+100,'회원가입',100,now())
     </insert>
     <update id="createReviewPoint" parameterType="loginDTO">

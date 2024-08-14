@@ -88,4 +88,8 @@ public interface PopupDAO {
 
     void deletePopupHashTag(Long popupId);
 
+
+    //yoni
+
+    void getUserHashTags(long user_id);
 }
