@@ -40,4 +40,9 @@ public class PopupReviewServiceImpl implements PopupReviewService {
             return Collections.emptyList();
         }
     }
+
+    //특정 팝업 id에 해당하는 별점 평균
+    public double calculateAverageRating(Long popup_id) {
+        return popupReviewDAO.getAverageRatingByPopupId(popup_id);
+    }
 }

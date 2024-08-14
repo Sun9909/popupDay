@@ -13,4 +13,7 @@ public interface PopupReviewDAO {
 
     // 특정 팝업 id에 해당하는 리뷰 목록 조회
     List<PopupReviewDTO> selectReviewsByPopupId(long popup_id);
+
+    //특정 팝업 id에 해당하는 별점 평균
+    public double getAverageRatingByPopupId(Long popup_id);
 }

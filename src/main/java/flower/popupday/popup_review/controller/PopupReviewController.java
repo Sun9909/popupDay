@@ -13,6 +13,7 @@ public interface PopupReviewController {
     public String addReview(@RequestParam("popup_id") Long popupId,
                             @RequestParam("user_id") Long userId,
                             @RequestParam("content") String content,
+                            @RequestParam("rating") int rating,
                             RedirectAttributes redirectAttributes);
 
     //특정 팝업의 리뷰 조회
