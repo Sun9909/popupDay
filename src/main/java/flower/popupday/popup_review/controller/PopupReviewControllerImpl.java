@@ -26,15 +26,17 @@ public class PopupReviewControllerImpl implements PopupReviewController {
     public String addReview(@RequestParam(value = "popup_id", required = true) Long popup_id,
                             @RequestParam(value = "user_id", required = true) Long user_id,
                             @RequestParam("content") String content,
+                            @RequestParam("rating") int rating,
                             RedirectAttributes redirectAttributes) {
         // 로그 출력
         System.out.println("Received popup_id: " + popup_id);
         System.out.println("Received user_id: " + user_id);
         System.out.println("Received content: " + content);
+        System.out.println("Received rating: " + rating);
 
         try {
             // 파라미터 확인용 로그
-            if (popup_id == null || user_id == null || content == null) {
+            if (popup_id == null || user_id == null || content == null || rating < 1 || rating > 5) {
                 System.out.println("One of the parameters is null!");
                 redirectAttributes.addFlashAttribute("errorMessage", "잘못된 요청입니다.");
                 return "redirect:/popup/popupView";
@@ -45,6 +47,7 @@ public class PopupReviewControllerImpl implements PopupReviewController {
             review.setPopup_id(popup_id);
             review.setUser_id(user_id);
             review.setContent(content);
+            review.setRating(rating);  // 별점 설정
 
             // 서비스 계층으로 리뷰 추가 요청
             popupReviewService.addReview(review);

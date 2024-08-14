@@ -310,7 +310,6 @@ public class PopupControllerImpl implements PopupController {
         // 팝업 상세 조회
         Map<String, Object> popupMap = popupService.popupView(popup_id, id);
 
-
         // 리뷰 목록 조회 (후기 작성)
         List<PopupReviewDTO> reviews = new ArrayList<>();
         try {
@@ -323,6 +322,12 @@ public class PopupControllerImpl implements PopupController {
             System.out.println("리뷰 조회 중 오류가 발생했습니다: " + e.getMessage());
         }
 
+        // 리뷰 개수 계산
+        int reviewCount = reviews.size();
+
+        // 평균 별점 계산
+        double averageRating = popupReviewService.calculateAverageRating(popup_id);
+
         // 팝업 상세 페이지로 이동
         ModelAndView mav = new ModelAndView();
         mav.setViewName("popup/popupView");
@@ -330,7 +335,9 @@ public class PopupControllerImpl implements PopupController {
         mav.addObject("loginCheck", loginCheck);
         mav.addObject("id", id);
         mav.addObject("reviews", reviews);  // 리뷰 목록 추가
-
+        mav.addObject("reviewCount", reviewCount);  // 리뷰 개수 추가
+        mav.addObject("averageRating", averageRating); // 평균 별점 추가
+        mav.addObject("currentUserId", session.getAttribute("user_id"));
         return mav;
     }
 

@@ -172,47 +172,9 @@
                     </div>
                 </div>
 
-                <div class="review-section">
-                    <h2>리뷰 목록</h2>
-
-                    <!-- 리뷰 목록 테이블 -->
-                    <table class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">번호</th>
-                            <th scope="col">작성자</th>
-                            <th scope="col">내용</th>
-                            <th scope="col">작성일</th>
-                            <th scope="col">팝업 제목</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="review, iterStat : ${reviews}">
-                            <th scope="row" th:text="${iterStat.count}">1</th>
-                            <td th:text="${review.user_nickname}">작성자</td>
-                            <td th:text="${review.content}">리뷰 내용</td>
-                            <td th:text="${#temporals.format(review.created_at, 'yyyy-MM-dd HH:mm')}">2024-03-14 15:30</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- 리뷰가 없을 경우 메시지 표시 -->
-                    <p th:if="${#lists.isEmpty(reviews)}">아직 작성된 리뷰가 없습니다.</p>
-
-                    <!-- 후기 작성 섹션 (로그인 상태) -->
-                    <form action="/popupReview/add" method="post">
-                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
-                        <input type="hidden" name="user_id" th:value="${id}">
-                        <textarea name="content" rows="4" cols="50" placeholder="후기를 작성하세요"></textarea>
-                        <button type="submit">후기 등록</button>
-                    </form>
-
-                </div>
-
-
                 <!-- 브랜드 홈페이지 바로가기 -->
                 <div>
-                    <a th:href="${popupMap.popupList.brand_page}" class="infor-tit">브랜드 홈페이지 바로가기</a>
+                    <a th:href="${popupMap.popupList.brand_page}" class="infor-tit"><h5>브랜드 홈페이지 바로가기</h5></a>
                 </div>
 
                 <span th:if="${popupMap != null && popupMap.popupList != null && loginCheck && popupMap.popupList.user_id == id}">
@@ -222,6 +184,91 @@
                         <button type="submit" class="btn-edit">수정하기</button>
                     </form>
                 </span>
+
+                <div class="review-section">
+                    <h5>
+                        ★ <span th:text="${#numbers.formatDecimal(averageRating, 0, 1)}"></span>
+                        리뷰 <span th:text="${reviewCount}"></span>개
+                    </h5>
+                    <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
+                    <div class="review-form" th:if="${session.loginDTO == null}">
+                        <h3>후기 작성 및 별점 등록을 위해 <a th:href="@{/login/login.do}">로그인</a>해주세요.</h3>
+                    </div>
+
+                    <!-- 리뷰가 없을 경우 메시지 표시 -->
+                    <p th:if="${#lists.isEmpty(reviews)}">아직 작성된 리뷰가 없습니다.</p>
+                    <!-- 후기 작성 섹션 (로그인 상태) -->
+                    <form action="/popupComment/add" method="post" th:if="${session.loginDTO != null}">
+                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
+                        <input type="hidden" name="user_id" th:value="${id}">
+
+                        <!-- 별점 기능 -->
+                        <div class="star-rating" th:if="${session.loginDTO != null}">
+                            <!-- 각 별은 라디오 버튼으로 구현됩니다. -->
+                            <!-- 별 5개에 대해 각각의 라디오 버튼과 레이블을 설정 -->
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">★</label>
+
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">★</label>
+
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">★</label>
+
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2">★</label>
+
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">★</label>
+                        </div>
+
+                        <!-- 글자 수 제한과 입력 이벤트를 가진 텍스트 영역 -->
+                        <textarea id="content" name="content" rows="4" cols="50" maxlength="50" placeholder="팝업 스토어의 후기를 작성해주세요!" oninput="updateCharacterCount()"></textarea>
+
+                        <!-- 남은 글자 수를 비율로 표시하는 부분 -->
+                        <p style="text-align: right;" id="charCount">(50 / 50)</p>
+
+                        <!-- 후기 등록 버튼 -->
+                        <button class="comment_button" type="submit">후기 등록</button>
+                    </form>
+
+                    <!-- 리뷰 컨테이너: 각 리뷰 항목을 감싸는 요소 -->
+                    <div th:each="review, iterStat : ${reviews}" class="review-container">
+                        <!-- 리뷰의 상단 부분: 작성자와 별점 표시 -->
+                        <div class="review-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="review-author" th:text="${review.user_nickname}" style="font-size: 20px;">작성자 이름</span> <!-- 작성자 이름 표시 -->
+
+                            <!-- 작성자가 본인의 리뷰일 경우에만 표시 -->
+                            <div class="review-options" th:if="${id == currentUserId}">
+                                <button class="review-options-button">⋮</button>
+                                <div class="review-options-menu">
+                                    <button onclick="editReview(${review.id})">수정</button>
+                                    <button onclick="deleteReview(${review.id})">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 리뷰 별점 및 내용 -->
+                        <div class="review-rating" style="display: flex; gap: 4px;">
+                            <!-- rating 값만큼 ★ 출력 -->
+                            <span th:each="star : ${#numbers.sequence(1, review.rating)}" style="font-size: 20px;">★</span>
+                            <!-- (5 - rating) 값이 0보다 클 때만 ☆ 출력 -->
+                            <span th:each="emptyStar : ${#numbers.sequence(1, 5 - review.rating)}"
+                                  th:if="${5 - review.rating > 0}" style="font-size: 20px;">☆</span>
+                        </div>
+
+                        <!-- 리뷰 내용 -->
+                        <div class="review-content" th:text="${review.content}">
+                            리뷰 내용이 여기에 표시됩니다.
+                        </div>
+                        <!-- 리뷰 작성일 -->
+                        <div class="review-date">
+                            작성일: <span th:text="${#temporals.format(review.created_at, 'yyyy-MM-dd')}"></span>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -238,6 +285,7 @@
     <script th:src="@{/js/popupListMap.js}"></script>
     <script th:src="@{/js/map2.js}"></script>
     <script th:src="@{/js/popupView.js}"></script>
+    <script th:src="@{/js/popupcomment.js}"></script>
     <script>
         var script = document.createElement('script');
         script.src = 'https://example.com/script.js';
