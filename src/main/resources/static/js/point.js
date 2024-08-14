@@ -11,25 +11,6 @@ function goodsImage(input) {
     } // if end
 }
 
-//이미지 가져오는 api
-const onDrop = async(files) => { //서버에 파일 업로드
-    let formData = new FormData();
-    formData.append("api_key", "488814329663519");
-    formData.append("upload_preset", "lek3r0ky");
-    formData.append("timestamp", (Date.now() / 1000) | 0);
-    formData.append(`file`, files[0]);
-
-    const config = {
-        header: { "Content-Type": "multipart/form-data" }
-    }
-
-    await axios.post('https://api.cloudinary.com/v1_1/dt1ftobia/image/upload', formData,config)
-    .then(res=>{
-        uploadPost(res.data.url)
-    })
-}
-
-
 function showImage() {
     // 선택된 라디오 버튼의 값을 가져옵니다.
     const selectedValue = document.querySelector('input[name="image_name"]:checked').value;
@@ -95,3 +76,101 @@ function point_mover(event){
     }
 }
 
+
+//교환 submit 버튼 누르면 시리얼번호 이미지 하단에 붙여서 보내주는 함수
+
+function generateSerialNumber() {
+    const timestamp = new Date().getTime();
+    const randomNum = Math.floor(Math.random() * 10000);
+    return `SN-${timestamp}-${randomNum}`;
+}
+
+async function drawImageWithSerialNumber(imageSrc) {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const img = new Image();
+    img.src = imageSrc;
+    img.crossOrigin = 'Anonymous'; // Cross-Origin 문제를 피하기 위한 설정
+
+    img.onload = async function() {
+
+        const width = canvas.width;  // CSS에서 설정한 너비
+        const height = 170; // CSS에서 설정한 높이
+        const serialNumber = generateSerialNumber();
+
+        // Canvas 크기 설정
+        const paddingTop = 0; // 상단 패딩
+        const paddingRight = 5; // 우측 패딩
+        const paddingBottom = 5; // 하단 패딩
+        const paddingLeft = 5; // 좌측 패딩
+
+        const fontSize = 15; // 시리얼 번호 폰트 크기
+        const backgroundHeight = fontSize + paddingTop + paddingBottom; // 배경 높이
+        canvas.height = height + backgroundHeight; // 시리얼 번호를 위한 추가 공간
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // 이미지 그리기
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // 시리얼 번호 배경 설정
+        ctx.fillStyle = 'white'; // 배경색을 흰색으로 설정
+        ctx.fillRect(0, height, width, backgroundHeight); // 배경 영역을 그립니다.
+
+        // 시리얼 번호 스타일 설정
+        ctx.font = '13px Arial';
+        ctx.fillStyle = '#333';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText(serialNumber, width / 2, height + backgroundHeight / 2 - 6);
+
+        // 수정된 이미지를 Cloudinary에 업로드
+        try {
+            const imageURL = await uploadToCloudinary(canvas);
+            imgValueChange(imageURL, this);
+
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    };
+}
+
+document.getElementById("gifticon").addEventListener('click', function() {
+    event.preventDefault();
+    const imageSrc = this.parentElement.querySelector('#file_name').value;
+    drawImageWithSerialNumber(imageSrc);
+});
+
+function imgValueChange(imageURL, originURL) {
+   const srcValue = 'originURL';
+   const elements = document.querySelectorAll(`[src='${srcValue}']`);
+   elements.parentElement.querySelector('#file_name').value = imageURL;
+}
+
+
+
+async function uploadToCloudinary(canvas) {
+    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dt1ftobia/image/upload';
+    const UPLOAD_PRESET = 'lek3r0ky';
+
+    const dataURL = canvas.toDataURL('image/png'); // 캔버스의 데이터를 URL로 변환
+    const formData = new FormData();
+    formData.append('file', dataURL);
+    formData.append('upload_preset', UPLOAD_PRESET);
+
+    try {
+        const response = await fetch(CLOUDINARY_URL, {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+
+        const result = await response.json();
+        return result.secure_url; // 업로드된 이미지 URL 반환
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+}

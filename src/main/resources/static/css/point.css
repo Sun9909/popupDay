@@ -92,7 +92,7 @@
 .exchange-goods {
     display: flex;
     flex-direction: column;
-    width: 220px;
+    width: 200px;
 }
 
 .exchange-goods > input{
@@ -119,4 +119,9 @@
 .image_file {
     height:180px;
     overflow: hidden;
+}
+
+canvas {
+    width: 200px;
+    height: 300px;
 }

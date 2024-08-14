@@ -26,20 +26,24 @@
                 <div class="goods-list">
                     <form th:each="point: ${pointList}" name="pointExchange" action="/point/pointUse.do" method="post" class="exchange-goods">
                         <div class="image_file">
-                            <img th:src="${point.image_file_name}" name="image_file_name">
+                            <img th:src="${point.image_file_name}">
+                            <input id="file_name" type="hidden" name="image_file_name" th:value="${point.image_file_name}">
                         </div>
                         <input type="text" th:value="${point.product_name}" name="product_name" disabled>
                         <input type="hidden" th:value="${point.shop_id}" name="shop_id">
                         <input type="hidden" th:value="${point.product_price}" class="product_price" disabled>
                         <input type="text" th:value="${point.product_price}" name="product_price" class="product_price" disabled>
-                        <input id="product-count" class="product-count" type="number" min="1" max="${point.product_count}" step="1" value="1" name="product_count" onclick="point_mover(event)">
-                        <input type="submit" value="교환하기">
+                        <input id="product-count" class="product-count" type="number" min="1" max="${point.product_count}" step="1" value="1" name="product_count">
+                        <input type="submit" value="교환하기" id="gifticon">
                         <div th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                             <button><a th:href="@{/point/modifyGoods.do(shop_id = ${point.shop_id})}">품목 수정</a></button>
                             <input type="button" value="품목 삭제" th:onclick="|fn_remove_goods('/point/removeGoods.do', ${point.shop_id})|">
                         </div>
                     </form>
                 </div>
+            </div>
+            <div id="canvas-container">
+                <canvas id="canvas"></canvas>
             </div>
         </div>
     </div>
