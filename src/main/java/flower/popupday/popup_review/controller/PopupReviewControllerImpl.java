@@ -5,12 +5,13 @@ import flower.popupday.popup_review.service.PopupReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,5 +81,25 @@ public class PopupReviewControllerImpl implements PopupReviewController {
 //        }
 //        return "popup/popupView.do"; // 리뷰를 보여줄 템플릿 경로 (예: reviews.html)
 //    }
+    //리뷰수정
+    @GetMapping("/popupComment/edit")
+    public String editReviewForm(@RequestParam("id") Long reviewId, Model model) {
+        // 기존의 리뷰 데이터를 가져오는 코드 수정
+        PopupReviewDTO review = popupReviewService.getReviewById(reviewId);
+        model.addAttribute("review", review);
+        return "editReviewPopup"; // 수정 폼을 위한 뷰 (HTML 파일)
+    }
+
+    @PostMapping("/popupComment/update")
+    public String updateReview(@RequestParam("id") Long reviewId,
+                               @RequestParam("content") String content,
+                               @RequestParam("rating") int rating) {
+        PopupReviewDTO review = popupReviewService.getReviewById(reviewId);
+
+        // 올바른 메서드 이름 사용
+        popupReviewService.updateReviewContent(review.getUser_id(), content, rating);
+
+        return "redirect:/popup/popupView"; // 수정 후 리다이렉트
+    }
 
 }

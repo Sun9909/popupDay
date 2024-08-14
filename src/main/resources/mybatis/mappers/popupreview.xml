@@ -44,4 +44,15 @@
         WHERE popup_id = #{popupId}
     </select>
 
+    <!-- 리뷰 업데이트 쿼리 -->
+    <update id="updateReviewContent" parameterType="map">
+        UPDATE popup_review_tbl
+        SET content = #{content}
+        WHERE user_id = #{user_id}
+    </update>
+
+    <select id="findById" parameterType="long" resultType="flower.popupday.popup_review.dto.PopupReviewDTO">
+        SELECT * FROM popup_review WHERE popup_comment_id = #{reviewId}
+    </select>
+
 </mapper>
