@@ -81,13 +81,16 @@ public class PopupReviewControllerImpl implements PopupReviewController {
 //        }
 //        return "popup/popupView.do"; // 리뷰를 보여줄 템플릿 경로 (예: reviews.html)
 //    }
-    //리뷰수정
+    // 리뷰수정
     @GetMapping("/popupComment/edit")
-    public String editReviewForm(@RequestParam("id") Long reviewId, Model model) {
-        // 기존의 리뷰 데이터를 가져오는 코드 수정
-        PopupReviewDTO review = popupReviewService.getReviewById(reviewId);
+    public String editReviewForm(
+            @RequestParam("user_id") Long userId,
+            @RequestParam("comment_id") Long commentId,
+            Model model) {
+        // 리뷰 데이터를 가져오는 서비스 메소드 호출
+        PopupReviewDTO review = popupReviewService.getReviewById(userId);
         model.addAttribute("review", review);
-        return "editReviewPopup"; // 수정 폼을 위한 뷰 (HTML 파일)
+        return "editReviewPopup"; // 수정 폼을 위한 뷰
     }
 
     @PostMapping("/popupComment/update")

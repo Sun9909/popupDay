@@ -22,9 +22,24 @@ document.addEventListener('click', function (event) {
     }
 });
 
-// 리뷰 수정 기능
-function editReview(id) {
-    window.open(`/popupComment/edit?id=${encodeURIComponent(id)}`, 'Edit Review', 'width=600,height=400');
+// 팝업 열기
+function openEditPopup(id) {
+    document.getElementById("reviewId").value = id;
+
+    // 리뷰 데이터를 서버로부터 가져오는 AJAX 요청 예시
+    fetch(`/popupComment/getReview?id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("content").value = data.content;
+            document.getElementById("rating").value = data.rating;
+        });
+
+    document.getElementById("editPopup").style.display = "flex";
+}
+
+// 팝업 닫기
+function closeEditPopup() {
+    document.getElementById("editPopup").style.display = "none";
 }
 
 // 수정된 리뷰 저장 기능

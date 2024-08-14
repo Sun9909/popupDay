@@ -22,5 +22,8 @@ public interface PopupReviewController {
     // String viewPopupReviews(@RequestParam("popupId") long popupId, Model model);
 
     //리뷰 수정
-    String editReviewForm(@RequestParam("id") Long id, Model model);
+    String editReviewForm(
+            @RequestParam("user_id") Long userId,
+            @RequestParam("comment_id") Long commentId,
+            Model model);;
 }
