@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 @Controller
 @RequestMapping("/login")
 public class LoginControllerImpl implements LoginController {
@@ -38,6 +41,7 @@ public class LoginControllerImpl implements LoginController {
         }
         return mav; // ModelAndView 반환
     }
+
 
     // 로그인 폼 이동 및 로그인 실패 시 오류 메시지를 처리
     @Override

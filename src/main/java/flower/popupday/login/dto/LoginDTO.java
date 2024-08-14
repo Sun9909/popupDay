@@ -2,6 +2,7 @@ package flower.popupday.login.dto;
 
 import org.springframework.stereotype.Component;
 import java.sql.Date;
+import java.util.List;
 
 @Component("loginDTO")
 public class LoginDTO {
@@ -19,6 +20,9 @@ public class LoginDTO {
     private Date birth_date;
     private String gender;
     private Long tot_point;
+
+    // 새로운 필드 추가: 사용자가 입력한 해시태그
+    private List<String> hashtags;
 
     public LoginDTO() {
     }
@@ -154,4 +158,9 @@ public class LoginDTO {
     public void setTot_point(Long tot_point) {
         this.tot_point = tot_point;
     }
+
+    // 해시태그  getter,setter
+    public List<String> getHashtags() {return hashtags;}
+
+    public void setHashtags(List<String> hashtags) {this.hashtags = hashtags;}
 }

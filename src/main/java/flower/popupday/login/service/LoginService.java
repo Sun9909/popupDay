@@ -1,6 +1,8 @@
 package flower.popupday.login.service;
 
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.popup.service.PopupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 public interface LoginService {
@@ -46,5 +48,6 @@ public interface LoginService {
     public LoginDTO getKakaoUserInfo(String accessToken) throws Exception;
 
     public void kakaoLogin(LoginDTO loginDTO) throws Exception;
+
 
 }
