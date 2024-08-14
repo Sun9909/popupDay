@@ -21,4 +21,10 @@ public interface PointDAO {
 
     public void modGoods(PointDTO pointDTO) throws DataAccessException;
 
+    public List getGiftList(List giftList) throws DataAccessException;
+
+    public List pointUseList(List giftList) throws DataAccessException;
+
+    public List usedPoint(List giftList) throws DataAccessException;
+
 }

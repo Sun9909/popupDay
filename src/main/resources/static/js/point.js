@@ -127,8 +127,7 @@ async function drawImageWithSerialNumber(imageSrc) {
         // 수정된 이미지를 Cloudinary에 업로드
         try {
             const imageURL = await uploadToCloudinary(canvas);
-            imgValueChange(imageURL, this);
-
+            return imageURL
         } catch (error) {
             console.error('Error uploading image:', error);
         }
@@ -138,15 +137,15 @@ async function drawImageWithSerialNumber(imageSrc) {
 document.getElementById("gifticon").addEventListener('click', function() {
     event.preventDefault();
     const imageSrc = this.parentElement.querySelector('#file_name').value;
-    drawImageWithSerialNumber(imageSrc);
+    const changedsrc = drawImageWithSerialNumber(imageSrc);
+    console.log(changedsrc)
+    this.parentElement.querySelector('#file_name').value = changedsrc
+    elements = this.parentElement
+    setTimeout(() => {
+           // 이벤트 처리 로직이 완료된 후 폼을 다시 제출합니다.
+           elements.submit();
+       }, 1000);
 });
-
-function imgValueChange(imageURL, originURL) {
-   const srcValue = 'originURL';
-   const elements = document.querySelectorAll(`[src='${srcValue}']`);
-   elements.parentElement.querySelector('#file_name').value = imageURL;
-}
-
 
 
 async function uploadToCloudinary(canvas) {

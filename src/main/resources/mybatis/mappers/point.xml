@@ -37,4 +37,15 @@
     <update id="modGoods" parameterType="pointDTO">
         update point_shop_tbl set product_price = #{product_price}, product_name=#{product_name}, image_file_name = #{image_file_name}, updated_at = sysdate() where shop_id = #{shop_id}
     </update>
+
+    <insert id="getGiftList" parameterType="java.util.List">
+
+
+    </insert>
+    <insert id="pointUseList" parameterType="java.util.List">
+
+    </insert>
+    <update id="usedPoint" parameterType="java.util.List">
+
+    </update>
 </mapper>

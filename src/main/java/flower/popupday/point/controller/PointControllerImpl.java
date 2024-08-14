@@ -1,9 +1,11 @@
 package flower.popupday.point.controller;
 
+import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.point.dto.PointDTO;
 import flower.popupday.point.service.PointService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,6 +114,22 @@ public class PointControllerImpl implements PointController{
     public ModelAndView pointUse(HttpServletRequest request, HttpServletResponse response)throws Exception{
         String image_file_name = request.getParameter("image_file_name");
         int product_price = Integer.parseInt(request.getParameter("product_price"));
+        int shop_id = Integer.parseInt(request.getParameter("shop_id"));
+
+        HttpSession session=request.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id=loginDTO.getId();
+        Long tot_point = loginDTO.getTot_point();
+
+        List giftList = new ArrayList();
+
+        giftList.add(image_file_name);
+        giftList.add(product_price);
+        giftList.add(id);
+        giftList.add(tot_point);
+        giftList.add(shop_id);
+
+        List gifticon = pointService.getGiftList(giftList);
 
         ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");
         return mav;

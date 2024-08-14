@@ -47,6 +47,15 @@ public class PointServiceImpl implements PointService{
     public void modGoods(PointDTO pointDTO) throws DataAccessException {
         pointDAO.modGoods(pointDTO);
     }
-    
+
+    @Override
+    public List getGiftList(List giftList) throws DataAccessException {
+        List giftForm = pointDAO.getGiftList(giftList); //gifticon 추가
+        pointDAO.pointUseList(giftList); //포인트 사용내역 추가()
+        pointDAO.usedPoint(giftList); //포인트 사용내역 업데이트(tot_point)
+
+        return giftForm;
+    }
+
 
 }
