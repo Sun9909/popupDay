@@ -16,6 +16,8 @@ public interface PointController {
 
     public ModelAndView goodsForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    public ModelAndView pointUse(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
     public ModelAndView changeGoods(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView addGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;

@@ -173,34 +173,40 @@
                 </div>
 
                 <div class="review-section">
-                    <h2>후기</h2>
+                    <h2>리뷰 목록</h2>
 
-                    <!-- 후기 목록 -->
-                    <div class="review-list">
-                        <ul>
-                            <li th:each="comment : ${comments}">
-                                <div class="review-item">
-                                    <p><strong th:text="${comment.user_id}"></strong></p> <!-- 사용자 아이디 -->
-                                    <p th:text="${comment.content}"></p> <!-- 리뷰 내용 -->
-                                    <p th:if="${comment.updated_at != null}" th:text="${#dates.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></p>
-                                    <p th:if="${comment.updated_at == null}" th:text="${#dates.format(comment.created_at, 'yyyy-MM-dd HH:mm')}"></p> <!-- 작성일 또는 수정일 -->
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- 리뷰 목록 테이블 -->
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">내용</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">팝업 제목</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="review, iterStat : ${reviews}">
+                            <th scope="row" th:text="${iterStat.count}">1</th>
+                            <td th:text="${review.user_nickname}">작성자</td>
+                            <td th:text="${review.content}">리뷰 내용</td>
+                            <td th:text="${#temporals.format(review.created_at, 'yyyy-MM-dd HH:mm')}">2024-03-14 15:30</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 리뷰가 없을 경우 메시지 표시 -->
+                    <p th:if="${#lists.isEmpty(reviews)}">아직 작성된 리뷰가 없습니다.</p>
 
                     <!-- 후기 작성 섹션 (로그인 상태) -->
-                    <form action="/popupComment/add" method="post">
-                        <input type="hidden" name="popup_id" th:value="${popup_id}">
-                        <input type="hidden" name="user_id" th:value="${user_id}">
+                    <form action="/popupReview/add" method="post">
+                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
+                        <input type="hidden" name="user_id" th:value="${id}">
                         <textarea name="content" rows="4" cols="50" placeholder="후기를 작성하세요"></textarea>
                         <button type="submit">후기 등록</button>
                     </form>
 
-                    <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
-                    <div class="review-form" th:if="${session.loginDTO == null}">
-                        <p>후기 작성 및 별점 등록을 위해 <a href="/login.html">로그인</a>해주세요.</p>
-                    </div>
                 </div>
 
 
