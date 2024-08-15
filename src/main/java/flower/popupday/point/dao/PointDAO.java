@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface PointDAO {
@@ -21,10 +22,10 @@ public interface PointDAO {
 
     public void modGoods(PointDTO pointDTO) throws DataAccessException;
 
-    public List getGiftList(List giftList) throws DataAccessException;
+    public void getGiftList(Map giftMap) throws DataAccessException;
 
-    public List pointUseList(List giftList) throws DataAccessException;
+    public void pointUseList(Map giftMap) throws DataAccessException;
 
-    public List usedPoint(List giftList) throws DataAccessException;
+    public void usedPoint(Map giftMap) throws DataAccessException;
 
 }

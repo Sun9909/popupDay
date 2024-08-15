@@ -121,15 +121,14 @@ public class PointControllerImpl implements PointController{
         Long id=loginDTO.getId();
         Long tot_point = loginDTO.getTot_point();
 
-        List giftList = new ArrayList();
+        Map<String, Object> giftMap = new HashMap<>();
+        giftMap.put("image_file_name", image_file_name);
+        giftMap.put("product_price", product_price);
+        giftMap.put("id", id);
+        giftMap.put("tot_point", tot_point);
+        giftMap.put("shop_id", shop_id);
 
-        giftList.add(image_file_name);
-        giftList.add(product_price);
-        giftList.add(id);
-        giftList.add(tot_point);
-        giftList.add(shop_id);
-
-        List gifticon = pointService.getGiftList(giftList);
+        pointService.getGiftList(giftMap);
 
         ModelAndView mav = new ModelAndView("redirect:/point/pointShop.do");
         return mav;

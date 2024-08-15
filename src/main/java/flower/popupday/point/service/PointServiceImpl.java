@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 @Service("pointService")
 public class PointServiceImpl implements PointService{
@@ -49,12 +50,11 @@ public class PointServiceImpl implements PointService{
     }
 
     @Override
-    public List getGiftList(List giftList) throws DataAccessException {
-        List giftForm = pointDAO.getGiftList(giftList); //gifticon 추가
-        pointDAO.pointUseList(giftList); //포인트 사용내역 추가()
-        pointDAO.usedPoint(giftList); //포인트 사용내역 업데이트(tot_point)
+    public void getGiftList(Map giftMap) throws DataAccessException {
+        pointDAO.getGiftList(giftMap); //gifticon 추가
+        pointDAO.pointUseList(giftMap); //포인트 사용내역 추가()
+        pointDAO.usedPoint(giftMap); //포인트 사용내역 업데이트(tot_point)
 
-        return giftForm;
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface PointService {
 
@@ -19,7 +20,7 @@ public interface PointService {
 
     public void modGoods(PointDTO pointDTO) throws DataAccessException;
 
-    public List getGiftList(List giftList) throws DataAccessException;
+    public void getGiftList(Map giftMap) throws DataAccessException;
 
 
 }
