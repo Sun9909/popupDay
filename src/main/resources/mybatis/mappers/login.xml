@@ -21,6 +21,11 @@
         <result property="tot_point" column="tot_point"/>
     </resultMap>
 
+    <resultMap id="LoginHashTagResult" type="flower.popupday.login.dto.LoginHashTagDTO">
+        <result property="user_id" column="user_id"/>
+        <result property="has_tag_id" column="has_tag_id"/>
+    </resultMap>
+
     <!-- sql문 중복 제거 -->
     <sql id="sr">
         <![CDATA[
@@ -113,5 +118,11 @@
     <update id="delAccessToken" parameterType="String">
         UPDATE user_tbl SET access_token=null WHERE user_id=#{email}
     </update>
+
+    <!-- 해시태그 저장 -->
+    <insert id="saveLoginHashTag" parameterType="flower.popupday.login.dto.LoginHashTagDTO">
+        INSERT INTO user_hash_tag_tbl (user_id, has_tag_id)
+        VALUES (#{user_id}, #{has_tag_id})
+    </insert>
 
 </mapper>

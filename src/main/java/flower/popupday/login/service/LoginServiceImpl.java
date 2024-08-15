@@ -5,12 +5,15 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import flower.popupday.login.dao.LoginDAO;
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.login.dto.LoginHashTagDTO;
 import flower.popupday.popup.service.PopupServiceImpl;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service("loginService") // 서비스 클래스임을 명시
@@ -27,15 +30,22 @@ public class LoginServiceImpl implements LoginService {
 
         // 일반 회원가입
     @Override
-    public void addLogin(LoginDTO loginDTO) throws DataAccessException {
+    public void addLogin(LoginDTO loginDTO, List<Long>has_tag_ids) throws DataAccessException {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
         //loginDAO.insertLogin(loginDTO); : DAO 객체를 사용하여 회원가입 정보를 데이터베이스에 삽입.
         loginDAO.insertLogin(loginDTO); // 회원가입 DAO 메서드 호출
         loginDAO.insertJoinPoint(loginDTO);//회원가입 포인트 추가
         loginDAO.createPoint(loginDTO);//포인트값 갱신
+
+        // 해시태그 저장
+        if (has_tag_ids != null && !has_tag_ids.isEmpty()) {
+            for (Long has_tag_id : has_tag_ids) {
+                Long user_id = Long.parseLong(loginDTO.getUser_id());
+                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO(user_id, has_tag_id);
+                loginDAO.saveLoginHashTag(loginHashTagDTO);
+            }
+        }
     }
-
-
 
 
     // 일반 회원 로그인
