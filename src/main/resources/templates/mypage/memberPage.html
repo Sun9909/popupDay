@@ -38,13 +38,13 @@
 <!--                    </a>-->
 <!--                </article>-->
                 <article class="point">
-                    <a href="#">    <!-- comming soon~!^^ -->
+                    <a href="#">    <!-- 포인트 사용 내역 창으로 이동 -->
                         <h5>내 포인트</h5>
                         <p th:text="${point}+' 점'"></p>
                     </a>
                 </article>
                 <article class="review">
-                    <a th:href="@{/mypage/myReviewList.do(id=${my.id})}">
+                    <a th:href="@{/mypage/myReview.do(id=${my.id})}">
                         <h5>내가 쓴 후기</h5>
                         <div th:if="${reviewCount == null}">
                             <p th:text="'0 개'"></p>
@@ -55,7 +55,7 @@
                     </a>
                 </article>
                 <article class="inquiry">
-                    <a th:href="@{/mypage/myQnaList.do(id=${my.id})}">
+                    <a th:href="@{/mypage/myQna.do(id=${my.id})}">
                         <h5>문의</h5>
                         <div th:if="${qnaCount == null}">
                             <p th:text="'0 개'"></p>

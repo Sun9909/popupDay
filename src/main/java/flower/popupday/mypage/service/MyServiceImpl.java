@@ -142,18 +142,18 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-    public Map listQna(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
+    public Map qnaList(Map<String, Integer> pagingMap, Long id) throws DataAccessException {
         Map<String, Object> qnaMap = new HashMap<>(); // 공지사항 목록과 관련 데이터를 저장할 맵을 생성
 
         int section = pagingMap.get("section"); // pagingMap에서 section 값을 가져와 section 변수에 저장
         int pageNum = pagingMap.get("pageNum"); // pagingMap에서 pageNum 값을 가져와 pageNum 변수에 저장
         int count = (section -1) * 100 + (pageNum - 1) * 10; // section,pageNum을 사용해 DB쿼리의 시작 위치를 계산 -> section은 100개의 공지사항을 pageNum은 10개의 공지사항을 나타냄.
 
-        List<QnaDTO> listQna = myDAO.selectAllQnaList(count, id); //noticeDAO를 사용해 count 위치부터 공지사항 목록을 가져옴 -> NoticeDTO 객체의 리스트로 반환 됨 (전체 글 조회)
-        int totQna = myDAO.selectToQna(id); // noticeDAO를 사용해 전체 공지사항 수를 가져옴.
+        List<QnaDTO> qnaList = myDAO.selectAllQnaList(count, id);
+        int totQna = myDAO.selectToQna(id);
 
-        qnaMap.put("listQna", listQna); // noticeList를 noticeMap에 추가
-        qnaMap.put("totQna", totQna);   // totNotice를 noticeMap에 추가
+        qnaMap.put("qnaList", qnaList);
+        qnaMap.put("totQna", totQna);
 
         return qnaMap;
     }

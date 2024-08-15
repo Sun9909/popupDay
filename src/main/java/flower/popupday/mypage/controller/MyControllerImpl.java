@@ -361,7 +361,7 @@ public class MyControllerImpl implements MyController {
         pagingMap.put("section", section); // 1
         pagingMap.put("pageNum", pageNum); // 1
 
-        Map qnaMap = myService.listQna(pagingMap, id); // 서비스에서 공지사항 글 목록 받아옴
+        Map qnaMap = myService.qnaList(pagingMap, id); // 서비스에서 공지사항 글 목록 받아옴
 
         ModelAndView mav = new ModelAndView(); // ModelAndView 객체를 생성
         mav.setViewName("notice/qnaList"); // 이 뷰로 이동
@@ -460,6 +460,64 @@ public class MyControllerImpl implements MyController {
             mav.addObject("allPopupCount", allPopupCount);
             mav.addObject("my", loginDTO);  // 추가된 부분
         }
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/mypage/myComment.do")
+    public ModelAndView myComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
+        return null;
+    }
+
+    @Override
+    @RequestMapping("/mypage/myQna.do")
+    public ModelAndView myQna(@RequestParam(value = "section", required = false) String _section,
+                                  @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int section=Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
+        Map<String, Object> qnaMap = myService.qnaList(pagingMap, id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/myQna");
+        mav.addObject("qnaMap", qnaMap);
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+        return mav;
+    }
+
+    @Override
+    @RequestMapping("/mypage/myReview.do")
+    public ModelAndView myReview(@RequestParam(value = "section", required = false) String _section,
+                                     @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int section=Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        Long id = loginDTO.getId();
+
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
+        Map<String, Object> reviewMap = myService.reviewList(pagingMap, id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/myReview");
+        mav.addObject("reviewMap", reviewMap);
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
         return mav;
     }
 

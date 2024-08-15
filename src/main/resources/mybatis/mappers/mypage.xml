@@ -161,7 +161,7 @@
 
     <!-- 내가 쓴 리뷰 -->
     <select id="selectAllReview" resultMap="reviewResult">
-        select * from review_tbl where user_id=#{id} order by created_at LIMIT #{count}, 10
+        select * from review_tbl where user_id=#{id} order by created_at desc LIMIT #{count}, 10
     </select>
 
     <select id="selectToReview" resultType="int">
