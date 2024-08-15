@@ -20,9 +20,7 @@ public class LoginDTO {
     private Date birth_date;
     private String gender;
     private Long tot_point;
-
-    // 새로운 필드 추가: 사용자가 입력한 해시태그
-    private List<String> hashtags;
+    private List<Long> has_tag_id;
 
     public LoginDTO() {
     }
@@ -159,8 +157,7 @@ public class LoginDTO {
         this.tot_point = tot_point;
     }
 
-    // 해시태그  getter,setter
-    public List<String> getHashtags() {return hashtags;}
+    public List<Long> getHas_tag_id() {return has_tag_id;}
 
-    public void setHashtags(List<String> hashtags) {this.hashtags = hashtags;}
+    public void setHas_tag_id(List<Long> has_tag_id) {this.has_tag_id = has_tag_id;}
 }

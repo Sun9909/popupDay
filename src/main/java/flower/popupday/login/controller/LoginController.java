@@ -5,16 +5,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 public interface LoginController {
 
-    // 일반 회원가입
+    // 일반 회원가입 + 해시태그
     ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-                          HttpServletRequest request,
-                          HttpServletResponse response) throws Exception;
+                          @RequestParam("has_tag_id") List<Long> has_tag_id, // 해시태그 ID 리스트 추가
+                          HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     // 로그인 폼 이동
     String loginForm(HttpServletRequest request, Model model) throws Exception;

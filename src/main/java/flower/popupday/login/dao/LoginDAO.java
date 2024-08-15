@@ -1,6 +1,7 @@
 package flower.popupday.login.dao;
 
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.login.dto.LoginHashTagDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -43,4 +44,8 @@ public interface LoginDAO {
     public void insertJoinPoint(LoginDTO loginDTO) throws DataAccessException;
 
     public void createPoint(LoginDTO loginDTO) throws DataAccessException;
+
+    //해시태그 저장
+    public void saveLoginHashTag(LoginHashTagDTO loginHashTagDTO) throws DataAccessException;
+
 }

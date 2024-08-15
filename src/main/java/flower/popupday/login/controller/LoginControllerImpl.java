@@ -1,6 +1,7 @@
 package flower.popupday.login.controller;
 
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.login.dto.LoginHashTagDTO;
 import flower.popupday.login.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Controller
@@ -22,25 +22,60 @@ public class LoginControllerImpl implements LoginController {
     @Autowired
     private LoginService loginService; // LoginService 객체를 자동 주입
 
-    // 일반 회원가입
+//    // 일반 회원가입
+//    @Override
+//    @PostMapping("/addLogin.do")
+//    public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
+//                                 HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        request.setCharacterEncoding("utf-8"); // 요청 인코딩 설정
+//        loginService.addLogin(loginDTO); // 회원 가입 서비스 호출
+//
+//        HttpSession session = request.getSession();
+//        String action = (String) session.getAttribute("action"); // 세션에서 action 값 가져오기
+//
+//        ModelAndView mav = new ModelAndView();
+//        if (action != null) {
+//            mav.setViewName("redirect:" + action); // action 값이 있으면 해당 경로로 리디렉션
+//        } else {
+//            mav.setViewName("redirect:/main.do"); // action 값이 없으면 메인 페이지로 리디렉션
+//        }
+//        return mav; // ModelAndView 반환
+//    }
+
+    //일반회원가입 + 해시태그
     @Override
-    @PostMapping("/addLogin.do")
+    @PostMapping("/addLogin")
     public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
+                                 @RequestParam("has_tag_id") List<Long> has_tag_id, // 해시태그 ID 리스트 추가
                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("utf-8"); // 요청 인코딩 설정
-        loginService.addLogin(loginDTO); // 회원 가입 서비스 호출
+        request.setCharacterEncoding("utf-8");
+        try {
+            // 서비스 호출 및 로그 확인
+            System.out.println("Received loginDTO: " + loginDTO);
+            System.out.println("Received has_tag_id: " + has_tag_id);
+
+            loginService.addLogin(loginDTO, has_tag_id);
+
+        }catch (Exception e) {
+            e.printStackTrace(); // 예외를 로그로 기록
+            // 오류 메시지를 모델에 추가하여 뷰에서 접근할 수 있도록 함
+            ModelAndView mav = new ModelAndView("errorView"); // 에러 뷰로 리다이렉트
+            mav.addObject("errorMessage", "회원가입 중 오류가 발생했습니다.");
+            return mav;
+        }
 
         HttpSession session = request.getSession();
-        String action = (String) session.getAttribute("action"); // 세션에서 action 값 가져오기
+        String action = (String) session.getAttribute("action");
 
         ModelAndView mav = new ModelAndView();
         if (action != null) {
-            mav.setViewName("redirect:" + action); // action 값이 있으면 해당 경로로 리디렉션
+            mav.setViewName("redirect:" + action);
         } else {
-            mav.setViewName("redirect:/main.do"); // action 값이 없으면 메인 페이지로 리디렉션
+            mav.setViewName("redirect:/main.do");
         }
-        return mav; // ModelAndView 반환
+        return mav;
     }
+
 
 
     // 로그인 폼 이동 및 로그인 실패 시 오류 메시지를 처리

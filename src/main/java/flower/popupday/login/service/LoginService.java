@@ -5,10 +5,12 @@ import flower.popupday.popup.service.PopupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
+
 public interface LoginService {
 
     // 회원 가입 메서드
-    public void addLogin(LoginDTO loginDTO) throws DataAccessException;
+    public void addLogin(LoginDTO loginDTO, List<Long> has_tag_ids) throws DataAccessException;
     // 주어진 회원 정보를 사용하여 회원 가입을 처리하는 메서드
 
     // login.html에서 찐 로그인용
