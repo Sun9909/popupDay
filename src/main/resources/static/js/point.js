@@ -137,7 +137,7 @@ async function drawImageWithSerialNumber(imageSrc) {
 document.getElementById("gifticon").addEventListener('click', function() {
     event.preventDefault();
     const imageSrc = this.parentElement.querySelector('#file_name').value;
-    const changedsrc = drawImageWithSerialNumber(imageSrc);
+    const changedsrc = await drawImageWithSerialNumber(imageSrc);
     console.log(changedsrc)
     this.parentElement.querySelector('#file_name').value = changedsrc
     elements = this.parentElement
