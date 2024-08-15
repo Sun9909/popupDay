@@ -1,5 +1,6 @@
 package flower.popupday.notice.review.dao;
 
+import flower.popupday.notice.review.dto.ReviewCommentDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +37,6 @@ public interface ReviewDAO {
     public void deleteReview(int review_id) throws DataAccessException;
 
     public void deleteImage(int review_id) throws DataAccessException;
+
+    public void addReviewComment(ReviewCommentDTO reviewComment) throws DataAccessException;
 }

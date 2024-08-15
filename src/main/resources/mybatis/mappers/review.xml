@@ -19,6 +19,16 @@
         <result property="image_file_name" column="image_file_name"/>
     </resultMap>
 
+    <resultMap type="reviewCommentDTO" id="reviewCommentResultMap">
+        <result property="popup_comment_id" column="popup_comment_id" />
+        <result property="user_id" column="user_id"/>
+        <result property="review_id" column="review_id"/>
+        <result property="content" column="content"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="user_nickname" column="user_nickname"/>
+    </resultMap>
+
     <select id="selectAllReview" resultMap="reviewResult">
         select * from review_tbl order by updated_at LIMIT #{count}, 10
     </select>
@@ -85,4 +95,10 @@
     <delete id="deleteReview" parameterType="int">
         delete from review_tbl where review_id = #{review_id}
     </delete>
+
+    <!-- comment -->
+    <insert id="addReviewComment">
+        insert into review_comment_tbl (user_id, review_id, content, created_at)
+        values (#{user_id}, #{review_id}, #{content}, CURRENT_TIMESTAMP)
+    </insert>
 </mapper>
