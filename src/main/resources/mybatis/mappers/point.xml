@@ -38,14 +38,17 @@
         update point_shop_tbl set product_price = #{product_price}, product_name=#{product_name}, image_file_name = #{image_file_name}, updated_at = sysdate() where shop_id = #{shop_id}
     </update>
 
-    <insert id="getGiftList" parameterType="java.util.List">
-
-
+    <insert id="getGiftList" parameterType="java.util.Map">
+        insert into my_gifticon_tbl(user_id, shop_id, image_file_name) values(#{id}, #{shop_id}, #{image_file_name})
     </insert>
-    <insert id="pointUseList" parameterType="java.util.List">
 
+    <insert id="pointUseList" parameterType="java.util.Map">
+        insert into point_history_tbl(user_id,change_amount,point_type,previous_point,new_point,point_date)
+        values(#{id},-#{product_price},'포인트사용',#{tot_point},(#{tot_point}-#{product_price}),now())
     </insert>
-    <update id="usedPoint" parameterType="java.util.List">
 
+    <update id="usedPoint" parameterType="java.util.Map">
+        update user_tbl set tot_point = (select new_point from point_history_tbl
+        where user_id = #{id} ORDER BY point_date DESC LIMIT 1) where id = #{id}
     </update>
 </mapper>

@@ -29,10 +29,10 @@
                             <img th:src="${point.image_file_name}">
                             <input id="file_name" type="hidden" name="image_file_name" th:value="${point.image_file_name}">
                         </div>
-                        <input type="text" th:value="${point.product_name}" name="product_name" disabled>
+                        <input type="text" th:value="${point.product_name}" name="product_name" readonly>
                         <input type="hidden" th:value="${point.shop_id}" name="shop_id">
-                        <input type="hidden" th:value="${point.product_price}" class="product_price" disabled>
-                        <input type="text" th:value="${point.product_price}" name="product_price" class="product_price" disabled>
+                        <input type="hidden" th:value="${point.product_price}" class="product_price" readonly>
+                        <input type="text" th:value="${point.product_price}" name="product_price" class="product_price" readonly>
                         <input id="product-count" class="product-count" type="number" min="1" max="${point.product_count}" step="1" value="1" name="product_count">
                         <input type="submit" value="교환하기" id="gifticon">
                         <div th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
