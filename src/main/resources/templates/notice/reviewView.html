@@ -56,55 +56,55 @@
 
             <div class="review-section">
                 <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
-                <div class="review-form" th:if="${session.loginDTO == null}">
+                <div class="review-form" th:if="${loginDTO == null}">
                     <h3>댓글 등록을 위해 <a th:href="@{/login/login.do}">로그인</a>해주세요.</h3>
                 </div>
 
                 <!-- 리뷰가 없을 경우 메시지 표시 -->
-                <p th:if="${#lists.isEmpty(reviews)}">아직 작성된 댓글이 없습니다.</p>
+                <p th:if="${#lists.isEmpty(reviewArticle.reviewComment)}">아직 작성된 댓글이 없습니다.</p>
                 <!-- 후기 작성 섹션 (로그인 상태) -->
-                <form action="/reviewComment/addReviewComment.do" method="post">
+                <form action="/reviewComment/addReviewComment.do" method="post" th:if="${loginDTO != null}">
                     <input type="hidden" name="review_id" th:value="${reviewArticle.review.review_id}">
                     <input type="hidden" name="user_id" th:value="${reviewArticle.review.user_id}">
 
                     <!-- 글자 수 제한과 입력 이벤트를 가진 텍스트 영역 -->
-                    <textarea id="content" name="content" rows="4" cols="50" maxlength="50" placeholder="리뷰의 댓글을 작성해주세요!" oninput="updateCharacterCount()"></textarea>
+                    <textarea id="content" name="content" rows="4" cols="50" maxlength="50" required placeholder="리뷰의 댓글을 작성해주세요!" oninput="updateCharacterCount()"></textarea>
 
                     <!-- 남은 글자 수를 비율로 표시하는 부분 -->
                     <p style="text-align: right;" id="charCount">(50 / 50)</p>
 
                     <!-- 후기 등록 버튼 -->
-                    <button class="comment_button" type="submit">리뷰 등록</button>
+                    <button class="comment_button" type="submit" >리뷰 등록</button>
                 </form>
 
                 <!-- 리뷰 컨테이너: 각 리뷰 항목을 감싸는 요소 -->
                 <div>
-<!--                <div th:each="review, iterStat : ${reviews}" class="review-container">-->
+                <div th:each="review, iterStat : ${reviewArticle.reviewComment}" class="review-container">
                     <!-- 리뷰의 상단 부분: 작성자와 별점 표시 -->
                     <div class="review-header" style="display: flex; justify-content: space-between; align-items: center; position: relative;">
                         <!-- 작성자가 본인의 리뷰일 경우에만 표시 -->
                         <div class="review-options"  style="position: absolute; right: 0; bottom: -110px;">
-                            <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
+                            <button class="review-options-button" th:if="${id != session.loginDTO}" onclick="toggleOptionsMenu(this)">⋮</button>
                             <div class="review-options-menu" style="display: none;">
-<!--                                <button onclick="openEditPopup([[${id}]], [[${popup_comment_id}]])">수정</button>-->
-<!--                                <button onclick="deleteReview(${id})">삭제</button>-->
+                                <button onclick="openEditPopup([[${review.user_id}]], [[${review.popup_comment_id}]])">수정</button>
+                                <button onclick="deleteReview(${id})">삭제</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 리뷰 상단 컨테이너: 작성자, 별점 표시 -->
+                    <!-- 리뷰 상단 컨테이너: 작성자 표시 -->
                     <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <!-- 작성자 이름 -->
-                        <span class="review-author"  style="font-size: 20px;">작성자 이름</span>
+                        <span class="review-author" th:text="${review.user_nickname}" style="font-size: 20px;">작성자 이름</span>
                     </div>
 
-                    <!-- 리뷰 내용 -->
-                    <div class="review-content" >
+                    <!-- 리뷰 내용 reviewComment-->
+                    <div class="review-content" th:text="${review.content}">
                         리뷰 내용이 여기에 표시됩니다.
                     </div>
                     <!-- 리뷰 작성일 -->
-                    <div class="review-date">
-                        작성일: <span></span>
+                    <div class="review-date" >
+                        작성일: <span th:text="${#temporals.format(review.created_at, 'yyyy-MM-dd')}"></span>
                     </div>
                 </div>
 
