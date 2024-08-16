@@ -304,7 +304,7 @@ public class PopupControllerImpl implements PopupController {
             recentPopupsCookie.setMaxAge(60 * 60 * 24 * 7); // 1주일 동안 유효
             recentPopupsCookie.setPath("/");  // 모든 경로에서 접근 가능
             response.addCookie(recentPopupsCookie);
-            System.out.println("최근 본 팝업 글번호 : " + recentPopupIds);
+//            System.out.println("최근 본 팝업 글번호 : " + recentPopupIds);
         }
 
         // 팝업 상세 조회

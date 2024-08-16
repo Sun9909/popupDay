@@ -39,7 +39,13 @@
             <div class="articles">
                 <p class="custom-button">댓글 내역</p>
             </div>
-
+            <div class="custom-select">
+                <div class="select-selected">팝업 댓글</div>
+                <select id="filterSelect" aria-hidden="true">
+                    <option value="popup-comment">팝업 댓글</option>
+                    <option value="review-comment">후기 댓글</option>
+                </select>
+            </div>
         </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>

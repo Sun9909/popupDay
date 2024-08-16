@@ -20,8 +20,7 @@ h2 {
     justify-content: center;
 }
 .profile .profileImg {
-    width: 30px;
-    height: 30px;
+    margin-left: 2px;
 }
 .profile p {
     font-size: 1.8em;

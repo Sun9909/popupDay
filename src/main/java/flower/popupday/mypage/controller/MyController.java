@@ -52,14 +52,6 @@ public interface MyController {
                                    @RequestParam(value = "pageNum", required = false) String _pageNum,
                                    HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //내가 쓴 리뷰 보기
-    public ModelAndView reviewList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
-    //내가 쓴 문의 사항
-    public ModelAndView qnaList (@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    String _pageNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
-
     //찜
     public ModelAndView unlikeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
@@ -87,5 +79,4 @@ public interface MyController {
     public ModelAndView myReview(@RequestParam(value = "section", required = false) String _section,
                                      @RequestParam(value = "pageNum", required = false) String _pageNum,
                                      HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 }
