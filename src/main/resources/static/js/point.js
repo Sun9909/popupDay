@@ -135,21 +135,29 @@ async function drawImageWithSerialNumber(imageSrc) {
 }
 
 document.getElementById("gifticon").addEventListener('click', function() {
-    event.preventDefault();
-    const imageSrc = this.parentElement.querySelector('#file_name').value;
-     drawImageWithSerialNumber(imageSrc)
-        .then(changedsrc => {
-            console.log(changedsrc);
-            this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
+    const user_point = parseInt(document.querySelector('#user_point').value,10);
+    const goods_point = parseInt(this.parentElement.querySelector('#product_price').value,10)
+    if (user_point >= goods_point){
+        event.preventDefault();
+            const imageSrc = this.parentElement.querySelector('#file_name').value;
+             drawImageWithSerialNumber(imageSrc)
+                .then(changedsrc => {
+                    console.log(changedsrc);
+                    this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
 
-            // 지연 후 폼을 제출합니다
-            setTimeout(() => {
-                this.parentElement.submit();
-            }, 1000);
-        })
-        .catch(error => {
-            console.error('이미지 처리 중 오류 발생:', error);
-        });
+                    // 지연 후 폼을 제출합니다
+                    setTimeout(() => {
+                        alert('교환에 성공했습니다!');
+                        this.parentElement.submit();
+                    }, 1000);
+                })
+                .catch(error => {
+                    console.error('이미지 처리 중 오류 발생:', error);
+                });
+    }else {
+        alert('포인트가 부족합니다.');
+    }
+
 });
 
 
