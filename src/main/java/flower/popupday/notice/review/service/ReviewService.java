@@ -1,5 +1,6 @@
 package flower.popupday.notice.review.service;
 
+import flower.popupday.notice.review.dto.ReviewCommentDTO;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface ReviewService {
     public void modReview(Map reviewMap) throws DataAccessException;
 
     public void removeReviews(int review_id) throws DataAccessException;
+
+    public void addReviewComment(ReviewCommentDTO reviewComment) throws DataAccessException;
 }

@@ -1,6 +1,7 @@
 package flower.popupday.notice.review.service;
 
 import flower.popupday.notice.review.dao.ReviewDAO;
+import flower.popupday.notice.review.dto.ReviewCommentDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,12 @@ public class ReviewServiceImpl implements ReviewService {
     public void removeReviews(int review_id) throws DataAccessException {
         reviewDAO.deleteImage(review_id);
         reviewDAO.deleteReview(review_id);
+    }
+
+    @Override
+    public void addReviewComment(ReviewCommentDTO reviewComment) throws DataAccessException {
+        reviewDAO.addReviewComment(reviewComment);
+
     }
 
 

@@ -1,6 +1,7 @@
 package flower.popupday.notice.review.controller;
 
 import flower.popupday.login.dto.LoginDTO;
+import flower.popupday.notice.review.dto.ReviewCommentDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
 import flower.popupday.notice.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -139,7 +141,6 @@ public class ReviewControllerImpl implements ReviewController {
         List<String> fileList=multiFileUpload(multipartRequest);
         List<ReviewImageDTO> imageFileList=new ArrayList<ReviewImageDTO>();
 
-        // 두개의 테이블을 동시에 이용
         if(fileList != null && fileList.size() != 0 ) {
             for(String fileName:fileList) {
                 ReviewImageDTO reviewImageDTO=new ReviewImageDTO();
@@ -214,6 +215,28 @@ public class ReviewControllerImpl implements ReviewController {
             FileUtils.deleteDirectory(imgDir);
         }
         ModelAndView mav=new ModelAndView("redirect:/notice/reviewList.do"); // 글 삭제 후 redirect 로 글목록 포워딩
+        return mav;
+    }
+
+    @Override
+    @PostMapping("/reviewComment/addReviewComment.do")
+    public ModelAndView addReviewComment(@RequestParam("review_id") Long review_id,
+                                         @RequestParam("user_id") Long user_id,
+                                         @RequestParam("content") String content,
+                                         HttpServletRequest request,
+                                         HttpServletResponse response) throws Exception {
+
+        // ReviewComment 객체를 생성하고 데이터 설정
+        ReviewCommentDTO reviewComment = new ReviewCommentDTO();
+        reviewComment.setReview_id(review_id);
+        reviewComment.setUser_id(user_id);
+        reviewComment.setContent(content);
+
+        // 댓글 등록 서비스 호출
+        reviewService.addReviewComment(reviewComment);
+
+        // 리뷰 상세보기 페이지로 리다이렉트
+        ModelAndView mav = new ModelAndView("redirect:/notice/viewReview.do?review_id=" + review_id);
         return mav;
     }
 }

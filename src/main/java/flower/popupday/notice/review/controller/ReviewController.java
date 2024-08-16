@@ -2,6 +2,7 @@ package flower.popupday.notice.review.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,4 +28,10 @@ public interface ReviewController {
     
     //후기 삭제하기
     ModelAndView removeReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView addReviewComment(@RequestParam("review_id") Long review_id, @RequestParam("user_id") Long user_id,
+                                         @RequestParam("content") String content, HttpServletRequest request,
+                                         HttpServletResponse response) throws Exception;
+
 }
+
