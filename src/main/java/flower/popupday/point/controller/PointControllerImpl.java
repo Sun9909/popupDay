@@ -32,10 +32,15 @@ public class PointControllerImpl implements PointController{
     @Override
     @RequestMapping("/point/pointShop.do")
     public ModelAndView pointShop(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session=request.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        long id= loginDTO.getId();
+        int userPoint = pointService.userPoint(id);
         List pointList = pointService.pointList();
         ModelAndView mav = new ModelAndView();
         mav.setViewName("point/pointShop");
         mav.addObject("pointList", pointList);
+        mav.addObject("userPoint",userPoint);
         return mav;
     }
 

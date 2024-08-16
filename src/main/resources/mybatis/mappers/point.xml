@@ -17,7 +17,9 @@
     <select id="getpointList" resultMap="pointResult">
         select * from point_shop_tbl order by updated_at
     </select>
-
+    <select id="getUserPoint" parameterType="long" resultType="int">
+        select tot_point from user_tbl where id = #{id}
+    </select>
     <select id="getNewGoodsNo" resultType="int">
         SELECT COALESCE(MAX(shop_id), 0) + 1 FROM point_shop_tbl;
     </select>

@@ -92,53 +92,55 @@ async function drawImageWithSerialNumber(imageSrc) {
     const img = new Image();
     img.src = imageSrc;
     img.crossOrigin = 'Anonymous'; // Cross-Origin 문제를 피하기 위한 설정
+    return new Promise((resolve, reject) => {
+        img.onload = async function() {
 
-    img.onload = async function() {
+            const width = canvas.width;  // CSS에서 설정한 너비
+            const height = 170; // CSS에서 설정한 높이
+            const serialNumber = generateSerialNumber();
 
-        const width = canvas.width;  // CSS에서 설정한 너비
-        const height = 170; // CSS에서 설정한 높이
-        const serialNumber = generateSerialNumber();
+            // Canvas 크기 설정
+            const paddingTop = 0; // 상단 패딩
+            const paddingRight = 5; // 우측 패딩
+            const paddingBottom = 5; // 하단 패딩
+            const paddingLeft = 5; // 좌측 패딩
 
-        // Canvas 크기 설정
-        const paddingTop = 0; // 상단 패딩
-        const paddingRight = 5; // 우측 패딩
-        const paddingBottom = 5; // 하단 패딩
-        const paddingLeft = 5; // 좌측 패딩
+            const fontSize = 15; // 시리얼 번호 폰트 크기
+            const backgroundHeight = fontSize + paddingTop + paddingBottom; // 배경 높이
+            canvas.height = height + backgroundHeight; // 시리얼 번호를 위한 추가 공간
 
-        const fontSize = 15; // 시리얼 번호 폰트 크기
-        const backgroundHeight = fontSize + paddingTop + paddingBottom; // 배경 높이
-        canvas.height = height + backgroundHeight; // 시리얼 번호를 위한 추가 공간
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // 이미지 그리기
+            ctx.drawImage(img, 0, 0, width, height);
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // 이미지 그리기
-        ctx.drawImage(img, 0, 0, width, height);
+            // 시리얼 번호 배경 설정
+            ctx.fillStyle = 'white'; // 배경색을 흰색으로 설정
+            ctx.fillRect(0, height, width, backgroundHeight); // 배경 영역을 그립니다.
 
-        // 시리얼 번호 배경 설정
-        ctx.fillStyle = 'white'; // 배경색을 흰색으로 설정
-        ctx.fillRect(0, height, width, backgroundHeight); // 배경 영역을 그립니다.
+            // 시리얼 번호 스타일 설정
+            ctx.font = '13px Arial';
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(serialNumber, width / 2, height + backgroundHeight / 2 - 6);
 
-        // 시리얼 번호 스타일 설정
-        ctx.font = '13px Arial';
-        ctx.fillStyle = '#333';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        ctx.fillText(serialNumber, width / 2, height + backgroundHeight / 2 - 6);
-
-        // 수정된 이미지를 Cloudinary에 업로드
-        try {
-            const imageURL = await uploadToCloudinary(canvas);
-            return imageURL
-        } catch (error) {
-            console.error('Error uploading image:', error);
-        }
-    };
+            // 수정된 이미지를 Cloudinary에 업로드
+            try {
+                const imageURL = await uploadToCloudinary(canvas);
+                resolve(imageURL);
+            } catch (error) {
+                reject(error);
+            }
+        };
+    });
 }
 
 document.getElementById("gifticon").addEventListener('click', function() {
     const user_point = parseInt(document.querySelector('#user_point').value,10);
+    console.log(user_point)
     const goods_point = parseInt(this.parentElement.querySelector('#product_price').value,10)
     if (user_point >= goods_point){
-        event.preventDefault();
+            event.preventDefault();
             const imageSrc = this.parentElement.querySelector('#file_name').value;
              drawImageWithSerialNumber(imageSrc)
                 .then(changedsrc => {

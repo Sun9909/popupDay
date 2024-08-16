@@ -18,7 +18,7 @@
                     <button><a th:href="@{/point/goodsForm.do}">교환품목 등록하기</a></button>
                 </div>
             </div>
-
+            <input type="hidden" th:value="${userPoint}" id="user_point">
             <div th:unless="${pointList == null or #lists.size(pointList) == 0}">
                 <div class="point-shop-adder" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                     <button><a th:href="@{/point/goodsForm.do}">교환품목 등록하기</a></button>

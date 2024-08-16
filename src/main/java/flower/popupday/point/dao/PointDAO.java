@@ -12,6 +12,8 @@ public interface PointDAO {
 
     public List getpointList() throws DataAccessException;
 
+    public int getUserPoint(long id) throws DataAccessException;
+
     public int getNewGoodsNo() throws DataAccessException;
 
     public void addGoods(PointDTO pointDTO) throws DataAccessException;

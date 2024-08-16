@@ -26,6 +26,12 @@ public class PointServiceImpl implements PointService{
     }
 
     @Override
+    public int userPoint(long id) throws DataAccessException {
+        int userPoint = pointDAO.getUserPoint(id);
+        return userPoint;
+    }
+
+    @Override
     public int addGoods(PointDTO pointDTO) throws DataAccessException {
         int shop_id = pointDAO.getNewGoodsNo();
         pointDTO.setShop_id(shop_id);
