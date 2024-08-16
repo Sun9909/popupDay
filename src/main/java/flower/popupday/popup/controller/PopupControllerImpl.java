@@ -4,8 +4,8 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
 import flower.popupday.popup.service.PopupService;
-import flower.popupday.popup_review.dto.PopupReviewDTO;
-import flower.popupday.popup_review.service.PopupReviewService;
+import flower.popupday.popup_comment.dto.PopupCommentDTO;
+import flower.popupday.popup_comment.service.PopupCommentService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,7 +39,7 @@ public class PopupControllerImpl implements PopupController {
 
     // 팝업 후기 리스트 불러오기 용도
     @Autowired
-    PopupReviewService popupReviewService;
+    PopupCommentService popupCommentService;
 
     @Override
     @GetMapping("/main.do")
@@ -311,9 +311,9 @@ public class PopupControllerImpl implements PopupController {
         Map<String, Object> popupMap = popupService.popupView(popup_id, id);
 
         // 리뷰 목록 조회 (후기 작성)
-        List<PopupReviewDTO> reviews = new ArrayList<>();
+        List<PopupCommentDTO> comments = new ArrayList<>();
         try {
-            reviews = popupReviewService.selectReviewsByPopupId(popup_id);
+            comments = popupCommentService.selectCommentsByPopupId(popup_id);
         } catch (DataAccessException e) {
             // 데이터베이스 관련 예외 처리
             System.out.println("리뷰 조회 중 데이터베이스 오류가 발생했습니다.");
@@ -323,10 +323,10 @@ public class PopupControllerImpl implements PopupController {
         }
 
         // 리뷰 개수 계산
-        int reviewCount = reviews.size();
+        int commentCount = comments.size();
 
         // 평균 별점 계산
-        double averageRating = popupReviewService.calculateAverageRating(popup_id);
+        double averageRating = popupCommentService.calculateAverageRating(popup_id);
 
         // 팝업 상세 페이지로 이동
         ModelAndView mav = new ModelAndView();
@@ -334,8 +334,8 @@ public class PopupControllerImpl implements PopupController {
         mav.addObject("popupMap", popupMap);
         mav.addObject("loginCheck", loginCheck);
         mav.addObject("id", id);
-        mav.addObject("reviews", reviews);  // 리뷰 목록 추가
-        mav.addObject("reviewCount", reviewCount);  // 리뷰 개수 추가
+        mav.addObject("comments", comments);  // 리뷰 목록 추가
+        mav.addObject("commentCount", commentCount);  // 리뷰 개수 추가
         mav.addObject("averageRating", averageRating); // 평균 별점 추가
         mav.addObject("currentUserId", session.getAttribute("user_id"));
         return mav;
