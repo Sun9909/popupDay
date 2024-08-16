@@ -5,7 +5,7 @@
 
 <mapper namespace="flower.popupday.popup_review.dao.PopupReviewDAO">
 
-    <resultMap type="flower.popupday.popup_review.dto.PopupReviewDTO" id="popupReviewResultMap">
+    <resultMap type="PopupReviewDTO" id="popupReviewResultMap">
         <result property="popup_comment_id" column="popup_comment_id" />
         <result property="user_id" column="user_id"/>
         <result property="popup_id" column="popup_id"/>

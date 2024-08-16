@@ -8,11 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 public interface MyController {
     //마이페이지
@@ -68,7 +67,10 @@ public interface MyController {
     public ModelAndView businessPage(HttpSession session);
 
     //내가 쓴 댓글 보기
-    public ModelAndView myComment(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView myComment(@RequestParam(value = "section", required = false) String _section,
+                                  @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                  @RequestParam(value = "filter", required = false, defaultValue = "popup-comment") String filter,
+                                  HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     // 내가 쓴 문의 보기
     public ModelAndView myQna(@RequestParam(value = "section", required = false) String _section,

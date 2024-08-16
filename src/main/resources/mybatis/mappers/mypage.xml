@@ -81,6 +81,27 @@
         <result property="popup_id" column="popup_id" />
     </resultMap>
 
+    <resultMap type="reviewCommentDTO" id="reviewCommentResult">
+        <result property="popup_comment_id" column="popup_comment_id" />
+        <result property="user_id" column="user_id"/>
+        <result property="review_id" column="review_id"/>
+        <result property="content" column="content"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="user_nickname" column="user_nickname"/>
+    </resultMap>
+
+    <resultMap type="PopupReviewDTO" id="popupCommentResult">
+        <result property="popup_comment_id" column="popup_comment_id" />
+        <result property="user_id" column="user_id"/>
+        <result property="popup_id" column="popup_id"/>
+        <result property="content" column="content"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="user_nickname" column="user_nickname"/>
+        <result property="rating" column="rating"/>
+    </resultMap>
+
     <!-- 로그인한 회원 정보 가져오기 -->
     <select id="getName" parameterType="myDTO">
         select * from user_tbl where id=#{id}
@@ -157,6 +178,23 @@
 
     <select id="getAllPopupCount" parameterType="Long">
         select * from popup_tbl where user_id=#{id}
+    </select>
+
+    <!-- 내가 쓴 댓글 -->
+    <select id="selectPopupComment" resultMap="popupCommentResult">
+        select * from popup_comment_tbl where user_id = #{id} order by created_at desc LIMIT #{count}, 10
+    </select>
+
+    <select id="selectToPopupComment" resultType="int">
+        select count(*) from popup_comment_tbl user_id=#{id}
+    </select>
+
+    <select id="selectReviewComment" resultMap="reviewCommentResult">
+        select * from review_comment_tbl where user_id = #{id} order by created_at desc LIMIT #{count}, 10
+    </select>
+
+    <select id="selectToReviewComment" resultType="int">
+        select count(*) from review_comment_tbl user_id=#{id}
     </select>
 
     <!-- 내가 쓴 리뷰 -->
