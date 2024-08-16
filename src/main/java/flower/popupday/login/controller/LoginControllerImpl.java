@@ -243,9 +243,9 @@ public class LoginControllerImpl implements LoginController {
     public ModelAndView showMemberForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView("login/memberForm"); // 일반 회원가입 폼 페이지로 이동
 
-        List<LoginHashTagDTO> hashtagList = loginService.hashtagList();
+        List<LoginHashTagDTO> hashtagList = loginService.hashtagList();  // 해시태그 조회
         mav.addObject("loginDTO", new LoginDTO()); // DTO 객체를 초기화하여 뷰로 전달
-        mav.addObject("hashtagList", hashtagList);
+        mav.addObject("hashtagList", hashtagList);  // 해시태그 조회
         return mav; // ModelAndView 반환
     }
 

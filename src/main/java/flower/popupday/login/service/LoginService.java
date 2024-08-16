@@ -50,6 +50,6 @@ public interface LoginService {
 
     public void kakaoLogin(LoginDTO loginDTO) throws Exception;
 
-
+    //해시태그 조회
     public List<LoginHashTagDTO> hashtagList() throws Exception;
 }

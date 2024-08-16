@@ -513,6 +513,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 해시태그
+// 해시태그
 document.addEventListener('DOMContentLoaded', function() {
     const showHashtagsBtn = document.getElementById('show-hashtags-btn');
     const submitBtn = document.getElementById('submit-btn');
@@ -594,41 +595,6 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
         alert('해시태그는 최대 3개까지만 선택할 수 있습니다.');
         return;
     }
-
-    const formData = new FormData();
-    formData.append('user_id', document.querySelector('input[name="user_id"]').value);
-    formData.append('email', document.querySelector('input[name="email"]').value);
-    formData.append('user_nickname', document.querySelector('input[name="user_nickname"]').value);
-    formData.append('pwd', document.querySelector('input[name="pwd"]').value);
-    formData.append('pwd_confirm', document.querySelector('input[name="pwd_confirm"]').value);
-    formData.append('has_tag_ids', JSON.stringify(selectedHashtags)); // 선택한 해시태그 ID를 JSON 문자열로 저장
-
-    fetch('/addLogin', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: '회원가입이 완료되었습니다!'
-                }).then(() => {
-                    location.href = '/';
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: '회원가입 중 오류가 발생했습니다.',
-                    text: data.message || '서버에서 오류 메시지를 전달하지 않았습니다.'
-                });
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: '회원가입 요청 중 오류가 발생했습니다.',
-                text: error.message || '네트워크 오류가 발생했습니다.'
-            });
-        });
 });
+
+
