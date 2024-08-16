@@ -107,7 +107,9 @@ table {
     align-items: center;
     gap: 5px;
 }
-
+.hashtag-text {
+    margin-right: 10px;
+}
 .hashtag-count {
     font-size: 0.9em;
     color: #666;

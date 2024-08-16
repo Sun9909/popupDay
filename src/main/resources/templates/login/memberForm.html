@@ -59,8 +59,12 @@
                             <td colspan="2">
                                 <button type="button" id="show-hashtags-btn">해시태그 선택하기</button>
                                 <div id="hashtag-selector-container" class="hide">
-                                    <div th:each="hashtag:${hashtagList}" id="hashtag-form" class="hashtag-container">
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" th:value="${hashtag}"><span class="hashtag-count" data-count="50"> (</span></label>
+                                    <div th:each="hashtag : ${hashtagList}" id="hashtag-form" class="hashtag-container">
+                                        <label class="hashtag-item">
+                                            <input type="checkbox" name="hashtag" th:value="${hashtag.hash_tag}" />
+                                            <span class="hashtag-text" th:text="${hashtag.hash_tag}"></span>
+                                            <span class="hashtag-count" th:text="${hashtag.count}"></span>
+                                        </label>
                                     </div>
                                     <p>최대 3개까지 선택 가능합니다.</p>
                                 </div>

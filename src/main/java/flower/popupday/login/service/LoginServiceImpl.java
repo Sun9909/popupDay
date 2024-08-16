@@ -41,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
         if (hash_tag_id != null && !hash_tag_id.isEmpty()) {
             Long user_id = Long.parseLong(loginDTO.getUser_id()); // String을 Long으로 변환
             for (Long hastagid : hash_tag_id) {
-                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO(user_id, hastagid);
+                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO();
                 loginDAO.saveLoginHashTag(loginHashTagDTO); // 해시태그 정보 저장
             }
         }

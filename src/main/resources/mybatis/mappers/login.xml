@@ -25,6 +25,8 @@
         <result property="user_hash_tag_id" column="user_hash_tag_id"/>
         <result property="user_id" column="user_id"/>
         <result property="hash_tag_id" column="hash_tag_id"/>
+        <result property="hash_tag" column="hash_tag"/>
+        <result property="count" column="count"/>
     </resultMap>
 
     <!-- sql문 중복 제거 -->
@@ -125,11 +127,12 @@
     <select id="hashtagList" resultType="flower.popupday.login.dto.LoginHashTagDTO">
       <![CDATA[
         SELECT
-            ht.hash_tag, COUNT(pht.hash_tag_id)
-        FROM hash_tag_tbl ht JOIN
-             popup_hash_tag_tbl pht ON ht.hash_tag_id = pht.hash_tag_id
-        GROUP BY
-            ht.hash_tag;
+            ht.hash_tag,
+            COUNT(pht.hash_tag_id) AS count
+        FROM hash_tag_tbl ht
+            JOIN popup_hash_tag_tbl pht
+        ON ht.hash_tag_id = pht.hash_tag_id
+        GROUP BY ht.hash_tag;
         ]]>
     </select>
 
