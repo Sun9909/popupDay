@@ -498,3 +498,23 @@ textarea[name="content"] {
     font-size: 20px;
     cursor: pointer;
 }
+
+.no-review {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.review-section > h5, .review-form > h3 {
+    text-align: center;
+}
+
+.infor-tit > h5 {
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    background-color: rgba(0,0,0,0.05);
+}
+
+.review-section {
+    margin: 20px 0;
+}

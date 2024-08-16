@@ -12,6 +12,8 @@ public interface PointDAO {
 
     public List getpointList() throws DataAccessException;
 
+    public int getUserPoint(long id) throws DataAccessException;
+
     public int getNewGoodsNo() throws DataAccessException;
 
     public void addGoods(PointDTO pointDTO) throws DataAccessException;
@@ -27,5 +29,11 @@ public interface PointDAO {
     public void pointUseList(Map giftMap) throws DataAccessException;
 
     public void usedPoint(Map giftMap) throws DataAccessException;
+
+    public void updateCount(Map giftMap) throws DataAccessException;
+
+    public int getNewGiftId() throws DataAccessException;
+
+    public int getHistoryId() throws DataAccessException;
 
 }
