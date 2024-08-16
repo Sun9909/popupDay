@@ -254,8 +254,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedDateInput = document.getElementById('selectedDateAdded');
     let selectedDate = null;
 
-    const year = 2024; // 예시 연도
-    const month = 6; // 6월 (0-based index, 5가 6월)
+    let today = new Date();
+
+    const year = today.getFullYear(); // 예시 연도
+    const month = today.getMonth(); // 6월 (0-based index, 5가 6월)
 
     // 초기화
     function init_calendar(year, month) {
