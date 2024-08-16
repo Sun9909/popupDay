@@ -186,7 +186,7 @@
     </select>
 
     <select id="selectToPopupComment" resultType="int">
-        select count(*) from popup_comment_tbl user_id=#{id}
+        select count(*) from popup_comment_tbl where user_id=#{id}
     </select>
 
     <select id="selectReviewComment" resultMap="reviewCommentResult">
@@ -194,7 +194,7 @@
     </select>
 
     <select id="selectToReviewComment" resultType="int">
-        select count(*) from review_comment_tbl user_id=#{id}
+        select count(*) from review_comment_tbl where user_id=#{id}
     </select>
 
     <!-- 내가 쓴 리뷰 -->

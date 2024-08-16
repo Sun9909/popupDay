@@ -41,12 +41,21 @@
             </div>
             <div class="custom-select">
                 <div class="select-selected">팝업 댓글</div>
+                <div class="select-items select-hide">
+                    <div data-value="popup-comment">팝업 댓글</div>
+                    <div data-value="review-comment">후기 댓글</div>
+                </div>
                 <select id="filterSelect" aria-hidden="true">
                     <option value="popup-comment">팝업 댓글</option>
                     <option value="review-comment">후기 댓글</option>
                 </select>
             </div>
         </div>
+        <table>
+            <tbody class="comlist-tb">
+            <!-- 댓글 목록이 여기 표시됩니다 -->
+            </tbody>
+        </table>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
@@ -55,6 +64,7 @@
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{/js/notice.js}"></script>
+    <script th:src="@{/js/popupList.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>
