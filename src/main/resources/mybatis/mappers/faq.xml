@@ -14,7 +14,7 @@
 
     <!--faq 등록 -->
     <insert id="insertFaq" parameterType="faqDTO">
-        insert into faq_tbl(user_id, title, content) values (#{user_id}, #{title}, #{content})
+        insert into faq_tbl values (#{faq_id}, #{user_id}, #{title}, #{content})
     </insert>
 
     <!-- 등록된 faq 리스트 화면출력 -->

@@ -66,3 +66,27 @@ function saveReview(updateId) {
         });
 }
 
+// 페이지 로드 시 글자 수를 초기화합니다.
+document.addEventListener('DOMContentLoaded', updateCharacterCount);
+
+function validateForm() {
+    const textarea = document.getElementById('content');
+    const errorMessage = document.getElementById('errorMessage');
+    const trimmedValue = textarea.value.trim();
+
+    if (trimmedValue === '') {
+        errorMessage.textContent = '댓글을 입력해주세요. 공백만 입력할 수 없습니다.';
+        return false; // 폼 제출을 막습니다.
+    }
+
+    errorMessage.textContent = ''; // 에러 메시지를 초기화합니다.
+    return true; // 폼 제출을 허용합니다.
+}
+
+// 폼 제출 시 유효성 검사를 수행하도록 설정합니다.
+document.querySelector('form').addEventListener('submit', function(event) {
+    if (!validateForm()) {
+        event.preventDefault(); // 폼 제출을 막습니다.
+    }
+});
+

@@ -196,7 +196,7 @@
                     </div>
 
                     <!-- 리뷰가 없을 경우 메시지 표시 -->
-                    <p th:if="${#lists.isEmpty(reviews)}">아직 작성된 리뷰가 없습니다.</p>
+                    <p th:if="${#lists.isEmpty(reviews)}" class="no-review">아직 작성된 리뷰가 없습니다.</p>
                     <!-- 후기 작성 섹션 (로그인 상태) -->
                     <form action="/popupComment/add" method="post" th:if="${session.loginDTO != null}">
                         <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">

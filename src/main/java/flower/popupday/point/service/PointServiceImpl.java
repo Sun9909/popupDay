@@ -26,6 +26,12 @@ public class PointServiceImpl implements PointService{
     }
 
     @Override
+    public int userPoint(long id) throws DataAccessException {
+        int userPoint = pointDAO.getUserPoint(id);
+        return userPoint;
+    }
+
+    @Override
     public int addGoods(PointDTO pointDTO) throws DataAccessException {
         int shop_id = pointDAO.getNewGoodsNo();
         pointDTO.setShop_id(shop_id);
@@ -51,9 +57,16 @@ public class PointServiceImpl implements PointService{
 
     @Override
     public void getGiftList(Map giftMap) throws DataAccessException {
+        int gifticon_id = pointDAO.getNewGiftId();
+        giftMap.put("gifticon_id",gifticon_id);
+
+        int history_id = pointDAO.getHistoryId();
+        giftMap.put("history_id",history_id);
+
         pointDAO.getGiftList(giftMap); //gifticon 추가
         pointDAO.pointUseList(giftMap); //포인트 사용내역 추가()
         pointDAO.usedPoint(giftMap); //포인트 사용내역 업데이트(tot_point)
+        pointDAO.updateCount(giftMap); //기프티콘 구매 개수 업데이트
 
     }
 
