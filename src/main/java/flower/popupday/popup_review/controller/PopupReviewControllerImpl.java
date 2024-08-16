@@ -105,4 +105,17 @@ public class PopupReviewControllerImpl implements PopupReviewController {
         return "redirect:/popup/popupView"; // 수정 후 리다이렉트
     }
 
+    @PostMapping("/popupComment/delete")
+    public String deleteReview(@RequestParam(value = "popup_id", required = true) Long popup_id,
+                               @RequestParam("popup_comment_id") Long popupCommentId,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            popupReviewService.deleteReview(popupCommentId);
+            redirectAttributes.addFlashAttribute("message", "리뷰가 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "리뷰 삭제에 실패했습니다.");
+        }
+        return "redirect:/popup/popupView.do?popup_id=" + popup_id; // 삭제 후 리다이렉트할 페이지로 변경
+    }
+
 }

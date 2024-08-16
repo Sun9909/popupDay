@@ -241,7 +241,13 @@
                                 <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
                                 <div class="review-options-menu" style="display: none;">
                                     <button onclick="openEditPopup([[${id}]], [[${popup_comment_id}]])">수정</button>
-                                    <button onclick="deleteReview(${id})">삭제</button>
+                                    <form th:action="@{/popupComment/delete}" method="post" style="display:inline;">
+                                        <!-- popup_comment_id를 포함 -->
+                                        <input type="hidden" name="popup_comment_id" th:value="${review.popup_comment_id}" />
+                                        <!-- popup_id를 포함 -->
+                                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}" />
+                                        <button type="submit" onclick="return confirm('정말로 이 후기를 삭제하시겠습니까?');">삭제</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

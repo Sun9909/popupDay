@@ -55,4 +55,10 @@ public class PopupReviewServiceImpl implements PopupReviewService {
     public PopupReviewDTO getReviewById(Long reviewId) {
         return popupReviewDAO.findById(reviewId);  // 직접 객체 반환
     }
+
+    //리뷰삭제
+    @Override
+    public void deleteReview(Long popupCommentId) throws Exception {
+        popupReviewDAO.deleteReview(popupCommentId);
+    }
 }
