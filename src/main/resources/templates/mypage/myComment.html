@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/myWrite.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/alert.css}">
+    <script th:src="@{https://code.jquery.com/jquery-latest.min.js}"></script>
+    <title>내가 쓴 댓글</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="containers">
+        <!-- 되돌아가기 -->
+        <div class="main_title">
+            <a th:href="@{/mypage/memberPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+            <h2>나의 작성 내역 보기</h2>
+        </div>
+        <!-- 서브 메뉴 -->
+        <div class="submenu-wrap">
+            <section id="submenu">
+                <a class="contact" th:href="@{/mypage/myComment.do}">
+                    <h2 class="active-category">댓글</h2>
+                </a>
+                <a class="contact"  th:href="@{/mypage/myQna.do}">
+                    <h2>Q&A</h2>
+                </a>
+                <a class="contact" th:href="@{/mypage/myReview.do}">
+                    <h2>후기</h2>
+                </a>
+            </section>
+        </div>
+
+        <div>
+            <div class="articles">
+                <p class="custom-button">댓글 내역</p>
+            </div>
+            <div class="custom-select">
+                <div class="select-selected">팝업 댓글</div>
+                <select id="filterSelect" aria-hidden="true">
+                    <option value="popup-comment">팝업 댓글</option>
+                    <option value="review-comment">후기 댓글</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/notice.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+</th:block>
+</body>
+</html>

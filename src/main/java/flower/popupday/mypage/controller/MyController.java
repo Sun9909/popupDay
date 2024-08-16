@@ -52,14 +52,6 @@ public interface MyController {
                                    @RequestParam(value = "pageNum", required = false) String _pageNum,
                                    HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //내가 쓴 리뷰 보기
-    public ModelAndView reviewList(@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    String _pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
-    //내가 쓴 문의 사항
-    public ModelAndView qnaList (@RequestParam(value = "section", required = false) String _section, @RequestParam(value = "pageNum", required = false)
-    String _pageNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
-
     //찜
     public ModelAndView unlikeClick(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
@@ -75,4 +67,16 @@ public interface MyController {
     //승인된 팝업 개수 사업자 페이지에 보이게
     public ModelAndView businessPage(HttpSession session);
 
+    //내가 쓴 댓글 보기
+    public ModelAndView myComment(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    // 내가 쓴 문의 보기
+    public ModelAndView myQna(@RequestParam(value = "section", required = false) String _section,
+                                  @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                  HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    // 내가 쓴 리뷰 보기
+    public ModelAndView myReview(@RequestParam(value = "section", required = false) String _section,
+                                     @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                     HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
