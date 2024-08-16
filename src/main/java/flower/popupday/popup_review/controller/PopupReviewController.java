@@ -25,5 +25,11 @@ public interface PopupReviewController {
     String editReviewForm(
             @RequestParam("user_id") Long userId,
             @RequestParam("comment_id") Long commentId,
-            Model model);;
+            Model model);
+
+    //리뷰 삭제
+    String deleteReview(@RequestParam(value = "popup_id", required = true) Long popup_id,
+                        @RequestParam("popup_comment_id") Long popupCommentId,
+                        RedirectAttributes redirectAttributes);
 }
+

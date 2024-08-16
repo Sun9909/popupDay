@@ -240,8 +240,14 @@
                             <div class="review-options" th:if="${id != session.loginDTO}" style="position: absolute; right: 0; bottom: -110px;">
                                 <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
                                 <div class="review-options-menu" style="display: none;">
-                                    <button onclick="openEditPopup([[${id}]], [[${popup_comment_id}]])">수정</button>
-                                    <button onclick="deleteReview(${id})">삭제</button>
+                                    <button type="button" onclick="openEditPopup()">수정</button>
+                                    <form th:action="@{/popupComment/delete}" method="post" style="display:inline;">
+                                        <!-- popup_comment_id를 포함 -->
+                                        <input type="hidden" name="popup_comment_id" th:value="${review.popup_comment_id}" />
+                                        <!-- popup_id를 포함 -->
+                                        <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}" />
+                                        <button type="submit" onclick="return confirm('정말로 이 후기를 삭제하시겠습니까?');">삭제</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -278,28 +284,40 @@
                             <h2>리뷰 수정</h2>
                             <form id="editForm" action="/popupComment/update" method="post">
                                 <input type="hidden" name="id" id="reviewId">
+
+                                <!-- 리뷰 내용 입력 -->
                                 <label for="content">리뷰 내용:</label>
                                 <textarea id="contentUpdate" name="content" rows="4" cols="50"></textarea>
                                 <br>
-                                <label for="rating">별점:</label>
-                                <select id="rating" name="rating">
-                                    <option value="5">5</option>
-                                    <option value="4">4</option>
-                                    <option value="3">3</option>
-                                    <option value="2">2</option>
-                                    <option value="1">1</option>
-                                </select>
+
+                                <!-- 별점 기능 -->
+                                <div class="star-rating">
+                                    <input type="radio" id="star5" name="rating" value="5">
+                                    <label for="star5">★</label>
+
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4">★</label>
+
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3">★</label>
+
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2">★</label>
+
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1">★</label>
+                                </div>
                                 <br>
+
+                                <!-- 수정 완료 버튼 -->
                                 <button type="submit">수정 완료</button>
                             </form>
                         </div>
                     </div>
-                </div>
 
 
             </div>
         </div>
-    </div>
     </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
