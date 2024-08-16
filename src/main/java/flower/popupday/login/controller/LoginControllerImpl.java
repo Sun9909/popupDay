@@ -53,7 +53,7 @@ public class LoginControllerImpl implements LoginController {
 
 
 
-    //일반회원가입 + 해시태그
+    //일반회원가입 + 해시태그 수정 중
     @Override
     @PostMapping("/addLogin")
     public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,

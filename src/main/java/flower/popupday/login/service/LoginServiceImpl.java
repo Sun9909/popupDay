@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private PopupServiceImpl popupService;
 
-        // 일반 회원가입
+    // 일반 회원가입 수정 중
     @Override
     public void addLogin(LoginDTO loginDTO,List<Long> hash_tag_id) throws DataAccessException {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
