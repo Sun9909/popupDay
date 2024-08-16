@@ -33,6 +33,7 @@
                         <input type="hidden" th:value="${point.shop_id}" name="shop_id">
                         <input type="hidden" th:value="${point.product_price}" class="product_price" readonly>
                         <input type="text" id="product_price" th:value="${point.product_price}" name="product_price" class="product_price" readonly>
+                        <input type="hidden" id="product_max"  th:value="${point.product_count}">
                         <input id="product-count" class="product-count" type="number" min="1" max="${point.product_count}" step="1" value="1" name="product_count">
                         <input type="submit" value="교환하기" id="gifticon">
                         <div th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">

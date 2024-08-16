@@ -120,6 +120,7 @@ public class PointControllerImpl implements PointController{
         String image_file_name = request.getParameter("image_file_name");
         int product_price = Integer.parseInt(request.getParameter("product_price"));
         int shop_id = Integer.parseInt(request.getParameter("shop_id"));
+        int product_count = Integer.parseInt(request.getParameter("product_count"));
 
         HttpSession session=request.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
@@ -132,6 +133,7 @@ public class PointControllerImpl implements PointController{
         giftMap.put("id", id);
         giftMap.put("tot_point", tot_point);
         giftMap.put("shop_id", shop_id);
+        giftMap.put("product_count", product_count);
 
         pointService.getGiftList(giftMap);
 

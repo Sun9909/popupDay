@@ -41,16 +41,28 @@
     </update>
 
     <insert id="getGiftList" parameterType="java.util.Map">
-        insert into my_gifticon_tbl(user_id, shop_id, image_file_name) values(#{id}, #{shop_id}, #{image_file_name})
+        insert into my_gifticon_tbl values(#{gifticon_id},#{id}, #{shop_id}, #{image_file_name})
     </insert>
 
+    <select id="getNewGiftId">
+        select IFNULL(MAX(gifticon_id), 0) + 1 FROM my_gifticon_tbl
+    </select>
+
+    <select id="getHistoryId">
+        select IFNULL(MAX(history_id), 0) + 1 FROM point_history_tbl
+    </select>
+
     <insert id="pointUseList" parameterType="java.util.Map">
-        insert into point_history_tbl(user_id,change_amount,point_type,previous_point,new_point,point_date)
-        values(#{id},-#{product_price},'포인트사용',#{tot_point},(#{tot_point}-#{product_price}),now())
+        insert into point_history_tbl
+        values(#{history_id},#{id},-#{product_price},'포인트사용',#{tot_point},(#{tot_point}-#{product_price}),now())
     </insert>
 
     <update id="usedPoint" parameterType="java.util.Map">
         update user_tbl set tot_point = (select new_point from point_history_tbl
         where user_id = #{id} ORDER BY point_date DESC LIMIT 1) where id = #{id}
+    </update>
+
+    <update id="updateCount" parameterType="java.util.Map">
+        update point_shop_tbl set product_count = (product_count - #{product_count}) where shop_id = #{shop_id}
     </update>
 </mapper>

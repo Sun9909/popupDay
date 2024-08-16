@@ -136,28 +136,36 @@ async function drawImageWithSerialNumber(imageSrc) {
 }
 
 document.getElementById("gifticon").addEventListener('click', function() {
-    const user_point = parseInt(document.querySelector('#user_point').value,10);
-    console.log(user_point)
-    const goods_point = parseInt(this.parentElement.querySelector('#product_price').value,10)
-    if (user_point >= goods_point){
-            event.preventDefault();
-            const imageSrc = this.parentElement.querySelector('#file_name').value;
-             drawImageWithSerialNumber(imageSrc)
-                .then(changedsrc => {
-                    console.log(changedsrc);
-                    this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
+    user_point = parseInt(document.querySelector('#user_point').value,10);
+    console.log(user_point);
+    const goods_point = parseInt(this.parentElement.querySelector('#product_price').value,10);
+    max_count = parseInt(this.parentElement.querySelector('#product_max').value,10);
+    console.log(max_count);
+    if (user_point >= goods_point && max_count != 0){
+        event.preventDefault();
+        const imageSrc = this.parentElement.querySelector('#file_name').value;
+         drawImageWithSerialNumber(imageSrc)
+            .then(changedsrc => {
+                console.log(changedsrc);
+                this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
 
-                    // 지연 후 폼을 제출합니다
-                    setTimeout(() => {
-                        alert('교환에 성공했습니다!');
-                        this.parentElement.submit();
-                    }, 1000);
-                })
-                .catch(error => {
-                    console.error('이미지 처리 중 오류 발생:', error);
-                });
-    }else {
+                // 지연 후 폼을 제출합니다
+                setTimeout(() => {
+                    alert('교환에 성공했습니다!');
+                    this.parentElement.submit();
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('이미지 처리 중 오류 발생:', error);
+            });
+    }else if(user_point <= 0 || user_point < goods_point) {
         alert('포인트가 부족합니다.');
+        event.preventDefault(); // 기본 동작을 방지합니다
+        return; // 핸들러 실행을 중단합니다
+    }else if(max_count == 0){
+        alert('교환수량이 부족합니다.');
+        event.preventDefault(); // 기본 동작을 방지합니다
+        return; // 핸들러 실행을 중단합니다
     }
 
 });
