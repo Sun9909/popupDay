@@ -299,3 +299,7 @@
 .select-items div.selected {
     background-color: #d0d0d0;
 }
+
+.popView-info {
+    width:200px;
+}

@@ -137,14 +137,19 @@ async function drawImageWithSerialNumber(imageSrc) {
 document.getElementById("gifticon").addEventListener('click', function() {
     event.preventDefault();
     const imageSrc = this.parentElement.querySelector('#file_name').value;
-    const changedsrc = await drawImageWithSerialNumber(imageSrc);
-    console.log(changedsrc)
-    this.parentElement.querySelector('#file_name').value = changedsrc
-    elements = this.parentElement
-    setTimeout(() => {
-           // 이벤트 처리 로직이 완료된 후 폼을 다시 제출합니다.
-           elements.submit();
-       }, 1000);
+     drawImageWithSerialNumber(imageSrc)
+        .then(changedsrc => {
+            console.log(changedsrc);
+            this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
+
+            // 지연 후 폼을 제출합니다
+            setTimeout(() => {
+                this.parentElement.submit();
+            }, 1000);
+        })
+        .catch(error => {
+            console.error('이미지 처리 중 오류 발생:', error);
+        });
 });
 
 

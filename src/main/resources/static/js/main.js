@@ -254,8 +254,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedDateInput = document.getElementById('selectedDateAdded');
     let selectedDate = null;
 
-    const year = 2024; // 예시 연도
-    const month = 6; // 6월 (0-based index, 5가 6월)
+    let today = new Date();
+
+    const year = today.getFullYear(); // 예시 연도
+    const month = today.getMonth(); // 6월 (0-based index, 5가 6월)
 
     // 초기화
     function init_calendar(year, month) {
@@ -295,13 +297,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     selectedDateInput.value = selectedDate;
 
                     // 이전에 선택된 날짜 셀에서 선택 클래스 제거
-                    const previouslySelected = document.querySelector('.table-date.selected-date');
+                    const previouslySelected = document.querySelector('.table-date.selected-date.active-date');
                     if (previouslySelected) {
                         previouslySelected.classList.remove('selected-date');
+                        previouslySelected.classList.remove('active-date');
                     }
 
                     // 현재 선택된 날짜 셀에 선택 클래스 추가
                     this.classList.add('selected-date');
+                    this.classList.add('active-date');
 
                     console.log("Selected Date Added: ", selectedDate);
                 });
@@ -309,6 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 기본적으로 오늘 날짜를 선택 상태로 설정
                 if (dateStr === getTodayDateStr(year, month)) {
                     dateCell.classList.add('selected-date');
+                    dateCell.classList.add('active-date');
                     selectedDateInput.value = dateStr;
                     selectedDate = dateStr;
                 }
