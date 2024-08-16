@@ -4,7 +4,8 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.login.dto.LoginHashTagDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper // mapper로 LoginDAO와 연결
 public interface LoginDAO {
@@ -48,4 +49,7 @@ public interface LoginDAO {
     //해시태그 저장
     public void saveLoginHashTag(LoginHashTagDTO loginHashTagDTO) throws DataAccessException;
 
+    public boolean isTagExists(List<Long> tagId);
+
+    public List<LoginHashTagDTO> hashtagList() throws DataAccessException;;
 }

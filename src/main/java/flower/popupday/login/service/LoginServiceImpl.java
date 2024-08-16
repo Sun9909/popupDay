@@ -30,19 +30,19 @@ public class LoginServiceImpl implements LoginService {
 
         // 일반 회원가입
     @Override
-    public void addLogin(LoginDTO loginDTO, List<Long>has_tag_ids) throws DataAccessException {
+    public void addLogin(LoginDTO loginDTO,List<Long> hash_tag_id) throws DataAccessException {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
         //loginDAO.insertLogin(loginDTO); : DAO 객체를 사용하여 회원가입 정보를 데이터베이스에 삽입.
         loginDAO.insertLogin(loginDTO); // 회원가입 DAO 메서드 호출
         loginDAO.insertJoinPoint(loginDTO);//회원가입 포인트 추가
         loginDAO.createPoint(loginDTO);//포인트값 갱신
 
-        // 해시태그 저장
-        if (has_tag_ids != null && !has_tag_ids.isEmpty()) {
-            for (Long has_tag_id : has_tag_ids) {
-                Long user_id = Long.parseLong(loginDTO.getUser_id());
-                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO(user_id, has_tag_id);
-                loginDAO.saveLoginHashTag(loginHashTagDTO);
+
+        if (hash_tag_id != null && !hash_tag_id.isEmpty()) {
+            Long user_id = Long.parseLong(loginDTO.getUser_id()); // String을 Long으로 변환
+            for (Long hastagid : hash_tag_id) {
+                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO(user_id, hastagid);
+                loginDAO.saveLoginHashTag(loginHashTagDTO); // 해시태그 정보 저장
             }
         }
     }
@@ -174,6 +174,12 @@ public class LoginServiceImpl implements LoginService {
         } else {
             loginDAO.kakaoInsert(loginDTO);
         }
+    }
+
+    //해시태그
+    @Override
+    public List<LoginHashTagDTO> hashtagList() throws Exception {
+        return loginDAO.hashtagList();
     }
 
 
