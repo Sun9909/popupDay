@@ -268,53 +268,53 @@
                         </div>
 
                         <!-- 리뷰 내용 -->
-                        <div class="review-content" th:text="${comment.content}">
-                            리뷰 내용이 여기에 표시됩니다.
-                        </div>
+                        <div class="review-content" th:text="${comment.content}"></div>
                         <!-- 리뷰 작성일 -->
                         <div class="review-date">
-                            작성일: <span th:text="${#temporals.format(comment.created_at, 'yyyy-MM-dd')}"></span>
+                            작성일: <span th:text="${comment.updated_at}"></span>
+                        </div>
+
+                        <!-- 레이어 팝업 -->
+                        <div id="editPopup" class="popup-overlay" style="display: none;">
+                            <div class="popup-content">
+                                <span class="close-btn" onclick="closeEditPopup()">&times;</span>
+                                <h2>리뷰 수정</h2>
+                                <form id="editForm" action="/popupComment/update" method="post">
+                                    <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
+                                    <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
+                                    <input type="hidden" name="content" th:value="${content}">
+
+                                    <!-- 리뷰 내용 입력 -->
+                                    <label for="content">리뷰 내용:</label>
+                                    <textarea id="contentUpdate" name="content" rows="4" cols="50"></textarea>
+                                    <br>
+
+                                    <!-- 별점 기능 -->
+                                    <div class="star-rating">
+                                        <input type="radio" id="edit-star5" name="rating" value="5">
+                                        <label for="edit-star5">★</label>
+
+                                        <input type="radio" id="edit-star4" name="rating" value="4">
+                                        <label for="edit-star4">★</label>
+
+                                        <input type="radio" id="edit-star3" name="rating" value="3">
+                                        <label for="edit-star3">★</label>
+
+                                        <input type="radio" id="edit-star2" name="rating" value="2">
+                                        <label for="edit-star2">★</label>
+
+                                        <input type="radio" id="edit-star1" name="rating" value="1">
+                                        <label for="edit-star1">★</label>
+                                    </div>
+                                    <br>
+
+                                    <!-- 수정 완료 버튼 -->
+                                    <button type="submit">수정 완료</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 레이어 팝업 -->
-                    <div id="editPopup" class="popup-overlay" style="display: none;">
-                        <div class="popup-content">
-                            <span class="close-btn" onclick="closeEditPopup()">&times;</span>
-                            <h2>리뷰 수정</h2>
-                            <form id="editForm" action="/popupComment/update" method="post">
-                                <input type="hidden" name="popup_comment_id" id="commentId">
-                                <input type="hidden" name="popup_id" id="popupId">
-
-                                <!-- 리뷰 내용 입력 -->
-                                <label for="content">리뷰 내용:</label>
-                                <textarea id="contentUpdate" name="content" rows="4" cols="50"></textarea>
-                                <br>
-
-                                <!-- 별점 기능 -->
-                                <div class="star-rating">
-                                    <input type="radio" id="edit-star5" name="rating" value="5">
-                                    <label for="edit-star5">★</label>
-
-                                    <input type="radio" id="edit-star4" name="rating" value="4">
-                                    <label for="edit-star4">★</label>
-
-                                    <input type="radio" id="edit-star3" name="rating" value="3">
-                                    <label for="edit-star3">★</label>
-
-                                    <input type="radio" id="edit-star2" name="rating" value="2">
-                                    <label for="edit-star2">★</label>
-
-                                    <input type="radio" id="edit-star1" name="rating" value="1">
-                                    <label for="edit-star1">★</label>
-                                </div>
-                                <br>
-
-                                <!-- 수정 완료 버튼 -->
-                                <button type="submit">수정 완료</button>
-                            </form>
-                        </div>
-                    </div>
 
 
             </div>

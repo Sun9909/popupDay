@@ -1,3 +1,5 @@
+let commentId = /*[[${comment.popup_comment_id}]]*/ '';
+
 // 텍스트 영역 글자 수 업데이트 기능
 function updateCharacterCount() {
     const textarea = document.getElementById('content');
@@ -34,37 +36,6 @@ function closeEditPopup() {
 }
 
 
-// 수정된 리뷰 저장 기능
-function saveReview(updateId) {
-    const editTextarea = document.getElementById(`edit-review-${updateId}`);
-    const updatedContent = editTextarea.value.trim();
-
-    fetch(`/popupComment/update`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            updateId: updateId,
-            content: updatedContent
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById(`review-content-${updateId}`).textContent = updatedContent;
-                document.getElementById(`review-content-${updateId}`).style.display = 'block';
-                editTextarea.style.display = 'none';
-                document.getElementById(`save-review-${updateId}`).style.display = 'none';
-            } else {
-                alert('리뷰 수정에 실패했습니다.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('리뷰 수정에 실패했습니다.');
-        });
-}
 
 // 페이지 로드 시 글자 수를 초기화합니다.
 document.addEventListener('DOMContentLoaded', updateCharacterCount);
