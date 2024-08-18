@@ -53,29 +53,20 @@
                             <td><input type="text" name="name" id="name"></td>
                         </tr>
 
-                        <!--yoni 해시태그 입력 필드 -->
+                        <!--yoni 해시태그 입력 필드 수정중 -->
                         <tr>
                             <td><label for="hashtag-selector-container">해시태그를 선택해주세요.</label></td>
                             <td colspan="2">
                                 <button type="button" id="show-hashtags-btn">해시태그 선택하기</button>
                                 <div id="hashtag-selector-container" class="hide">
-                                    <div id="hashtag-form" class="hashtag-container">
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#패션"> #패션 <span class="hashtag-count" data-count="50"> (50)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#쇼핑"> #쇼핑 <span class="hashtag-count" data-count="30"> (30)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#라이프스타일"> #라이프스타일 <span class="hashtag-count" data-count="20"> (20)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#건강"> #건강 <span class="hashtag-count" data-count="40"> (40)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#식품"> #식품 <span class="hashtag-count" data-count="10"> (10)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#디저트"> #디저트 <span class="hashtag-count" data-count="15"> (15)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#카페"> #카페 <span class="hashtag-count" data-count="25"> (25)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#애니메이션"> #애니메이션 <span class="hashtag-count" data-count="35"> (35)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#만화"> #만화 <span class="hashtag-count" data-count="12"> (12)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#캐릭터"> #캐릭터 <span class="hashtag-count" data-count="45"> (45)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#굿즈"> #굿즈 <span class="hashtag-count" data-count="55"> (55)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#콜라보"> #콜라보 <span class="hashtag-count" data-count="22"> (22)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#연예인"> #연예인 <span class="hashtag-count" data-count="18"> (18)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#뷰티"> #뷰티 <span class="hashtag-count" data-count="28"> (28)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#메이크업"> #메이크업 <span class="hashtag-count" data-count="32"> (32)</span></label>
-                                        <label class="hashtag-item"><input type="checkbox" name="hashtag" value="#이벤트"> #이벤트 <span class="hashtag-count" data-count="60"> (60)</span></label>
+                                    <div th:each="hashtag : ${hashtagList}" id="hashtag-form" class="hashtag-container">
+                                        <label class="hashtag-item">
+                                            <input type="checkbox" name="hashtag" th:value="${hashtag.hash_tag}" />
+                                            <span class="hashtag-text" th:text="${hashtag.hash_tag}"></span>
+                                            <span class="hashtag-count">
+                                                (<span th:text="${hashtag.count}"></span>)
+                                            </span>
+                                        </label>
                                     </div>
                                     <p>최대 3개까지 선택 가능합니다.</p>
                                 </div>
@@ -83,9 +74,13 @@
                         </tr>
                         <tr>
                             <td><div id="display-hashtags-container" class="selected-hashtags"></div></td>
-                            <td><button type="button" id="submit-btn">입력하기</button></td>
+                            <td>
+                                <input type="hidden" id="hidden-hashtag-ids" name="hash_tag_id">
+                            </td>
+                            <td>
+                                <button type="button" id="submit-btn">입력하기</button>
+                            </td>
                         </tr>
-
                     </table>
                     <div class="individual_last">
                         <input type="submit" value="가입하기" disabled>

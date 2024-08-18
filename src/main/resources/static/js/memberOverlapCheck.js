@@ -512,6 +512,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSubmitButtonState();
 });
 
+// 해시태그
+// 해시태그
 document.addEventListener('DOMContentLoaded', function() {
     const showHashtagsBtn = document.getElementById('show-hashtags-btn');
     const submitBtn = document.getElementById('submit-btn');
@@ -519,11 +521,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const displayHashtagsContainer = document.getElementById('display-hashtags-container');
     const hashtagInputs = document.querySelectorAll('#hashtag-form input[type="checkbox"]');
 
+    // 해시태그 선택 창 열기/닫기
     showHashtagsBtn.addEventListener('click', function() {
         hashtagSelectorContainer.classList.toggle('hide');
         hashtagSelectorContainer.classList.toggle('show');
     });
 
+    // 체크박스 3개 이상 선택 방지
     hashtagInputs.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
             const checkedCount = document.querySelectorAll('#hashtag-form input[type="checkbox"]:checked').length;
@@ -534,6 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // 해시태그 선택 완료
     submitBtn.addEventListener('click', function() {
         if (submitBtn.textContent === '입력하기') {
             const selectedHashtags = document.querySelectorAll('#hashtag-form input[type="checkbox"]:checked');
@@ -571,6 +576,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.getElementById('show-hashtags-btn').addEventListener('click', function() {
+    const container = document.getElementById('hashtag-selector-container');
+    container.classList.toggle('hide'); // 해시태그 선택 컨테이너 보이기/숨기기
+});
+
+//해시태그 서버로
 document.getElementById('submit-btn').addEventListener('click', function(event) {
     event.preventDefault();
 
@@ -584,44 +595,7 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
         alert('해시태그는 최대 3개까지만 선택할 수 있습니다.');
         return;
     }
-
-    const formData = new FormData();
-    formData.append('loginDTO', JSON.stringify({
-        user_id: document.querySelector('input[name="user_id"]').value,
-        email: document.querySelector('input[name="email"]').value,
-        user_nickname: document.querySelector('input[name="user_nickname"]').value,
-        pwd: document.querySelector('input[name="pwd"]').value,
-        pwd_confirm: document.querySelector('input[name="pwd_confirm"]').value
-    }));
-    formData.append('has_tag_id', JSON.stringify(selectedHashtags));
-
-    fetch('/addLogin', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: '회원가입이 완료되었습니다!'
-                }).then(() => {
-                    location.href = '/login';
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: '회원가입 중 오류가 발생했습니다.'
-                });
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: '회원가입 요청 중 오류가 발생했습니다.'
-            });
-            console.error('회원가입 오류:', error);
-        });
-
 });
+// 커밋밋 푸시중
+
 
