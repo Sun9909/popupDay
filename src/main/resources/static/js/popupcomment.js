@@ -23,24 +23,16 @@ document.addEventListener('click', function (event) {
 });
 
 // 팝업 열기
-function openEditPopup(id) {
-    document.getElementById("reviewId").value = id;
-
-    // 리뷰 데이터를 서버로부터 가져오는 AJAX 요청 예시
-    fetch(`/popupComment/getReview?id=${id}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("content").value = data.content;
-            document.getElementById("rating").value = data.rating;
-        });
-
-    document.getElementById("editPopup").style.display = "flex";
+function openEditPopup() {
+    // 레이어 팝업을 표시합니다.
+    document.getElementById("editPopup").style.display = "block";
 }
 
-// 팝업 닫기
 function closeEditPopup() {
+    // 레이어 팝업을 숨깁니다.
     document.getElementById("editPopup").style.display = "none";
 }
+
 
 // 수정된 리뷰 저장 기능
 function saveReview(updateId) {
@@ -73,3 +65,28 @@ function saveReview(updateId) {
             alert('리뷰 수정에 실패했습니다.');
         });
 }
+
+// 페이지 로드 시 글자 수를 초기화합니다.
+document.addEventListener('DOMContentLoaded', updateCharacterCount);
+
+function validateForm() {
+    const textarea = document.getElementById('content');
+    const errorMessage = document.getElementById('errorMessage');
+    const trimmedValue = textarea.value.trim();
+
+    if (trimmedValue === '') {
+        errorMessage.textContent = '댓글을 입력해주세요. 공백만 입력할 수 없습니다.';
+        return false; // 폼 제출을 막습니다.
+    }
+
+    errorMessage.textContent = ''; // 에러 메시지를 초기화합니다.
+    return true; // 폼 제출을 허용합니다.
+}
+
+// 폼 제출 시 유효성 검사를 수행하도록 설정합니다.
+document.querySelector('form').addEventListener('submit', function(event) {
+    if (!validateForm()) {
+        event.preventDefault(); // 폼 제출을 막습니다.
+    }
+});
+

@@ -92,70 +92,80 @@ async function drawImageWithSerialNumber(imageSrc) {
     const img = new Image();
     img.src = imageSrc;
     img.crossOrigin = 'Anonymous'; // Cross-Origin 문제를 피하기 위한 설정
+    return new Promise((resolve, reject) => {
+        img.onload = async function() {
 
-    img.onload = async function() {
+            const width = canvas.width;  // CSS에서 설정한 너비
+            const height = 170; // CSS에서 설정한 높이
+            const serialNumber = generateSerialNumber();
 
-        const width = canvas.width;  // CSS에서 설정한 너비
-        const height = 170; // CSS에서 설정한 높이
-        const serialNumber = generateSerialNumber();
+            // Canvas 크기 설정
+            const paddingTop = 0; // 상단 패딩
+            const paddingRight = 5; // 우측 패딩
+            const paddingBottom = 5; // 하단 패딩
+            const paddingLeft = 5; // 좌측 패딩
 
-        // Canvas 크기 설정
-        const paddingTop = 0; // 상단 패딩
-        const paddingRight = 5; // 우측 패딩
-        const paddingBottom = 5; // 하단 패딩
-        const paddingLeft = 5; // 좌측 패딩
+            const fontSize = 15; // 시리얼 번호 폰트 크기
+            const backgroundHeight = fontSize + paddingTop + paddingBottom; // 배경 높이
+            canvas.height = height + backgroundHeight; // 시리얼 번호를 위한 추가 공간
 
-        const fontSize = 15; // 시리얼 번호 폰트 크기
-        const backgroundHeight = fontSize + paddingTop + paddingBottom; // 배경 높이
-        canvas.height = height + backgroundHeight; // 시리얼 번호를 위한 추가 공간
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // 이미지 그리기
+            ctx.drawImage(img, 0, 0, width, height);
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // 이미지 그리기
-        ctx.drawImage(img, 0, 0, width, height);
+            // 시리얼 번호 배경 설정
+            ctx.fillStyle = 'white'; // 배경색을 흰색으로 설정
+            ctx.fillRect(0, height, width, backgroundHeight); // 배경 영역을 그립니다.
 
-        // 시리얼 번호 배경 설정
-        ctx.fillStyle = 'white'; // 배경색을 흰색으로 설정
-        ctx.fillRect(0, height, width, backgroundHeight); // 배경 영역을 그립니다.
+            // 시리얼 번호 스타일 설정
+            ctx.font = '13px Arial';
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(serialNumber, width / 2, height + backgroundHeight / 2 - 6);
 
-        // 시리얼 번호 스타일 설정
-        ctx.font = '13px Arial';
-        ctx.fillStyle = '#333';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        ctx.fillText(serialNumber, width / 2, height + backgroundHeight / 2 - 6);
-
-        // 수정된 이미지를 Cloudinary에 업로드
-        try {
-            const imageURL = await uploadToCloudinary(canvas);
-            return imageURL
-        } catch (error) {
-            console.error('Error uploading image:', error);
-        }
-    };
+            // 수정된 이미지를 Cloudinary에 업로드
+            try {
+                const imageURL = await uploadToCloudinary(canvas);
+                resolve(imageURL);
+            } catch (error) {
+                reject(error);
+            }
+        };
+    });
 }
 
 document.getElementById("gifticon").addEventListener('click', function() {
-    const user_point = parseInt(document.querySelector('#user_point').value,10);
-    const goods_point = parseInt(this.parentElement.querySelector('#product_price').value,10)
-    if (user_point >= goods_point){
+    user_point = parseInt(document.querySelector('#user_point').value,10);
+    console.log(user_point);
+    const goods_point = parseInt(this.parentElement.querySelector('#product_price').value,10);
+    max_count = parseInt(this.parentElement.querySelector('#product_max').value,10);
+    console.log(max_count);
+    if (user_point >= goods_point && max_count != 0){
         event.preventDefault();
-            const imageSrc = this.parentElement.querySelector('#file_name').value;
-             drawImageWithSerialNumber(imageSrc)
-                .then(changedsrc => {
-                    console.log(changedsrc);
-                    this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
+        const imageSrc = this.parentElement.querySelector('#file_name').value;
+         drawImageWithSerialNumber(imageSrc)
+            .then(changedsrc => {
+                console.log(changedsrc);
+                this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
 
-                    // 지연 후 폼을 제출합니다
-                    setTimeout(() => {
-                        alert('교환에 성공했습니다!');
-                        this.parentElement.submit();
-                    }, 1000);
-                })
-                .catch(error => {
-                    console.error('이미지 처리 중 오류 발생:', error);
-                });
-    }else {
+                // 지연 후 폼을 제출합니다
+                setTimeout(() => {
+                    alert('교환에 성공했습니다!');
+                    this.parentElement.submit();
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('이미지 처리 중 오류 발생:', error);
+            });
+    }else if(user_point <= 0 || user_point < goods_point) {
         alert('포인트가 부족합니다.');
+        event.preventDefault(); // 기본 동작을 방지합니다
+        return; // 핸들러 실행을 중단합니다
+    }else if(max_count == 0){
+        alert('교환수량이 부족합니다.');
+        event.preventDefault(); // 기본 동작을 방지합니다
+        return; // 핸들러 실행을 중단합니다
     }
 
 });

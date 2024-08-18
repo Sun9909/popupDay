@@ -19,4 +19,7 @@ public interface PopupReviewService {
     public void updateReviewContent(Long user_id, String content, int rating);
 
     public PopupReviewDTO getReviewById(Long user_id);
+
+    //리뷰 삭제
+    void deleteReview(Long popupCommentId) throws Exception;
 }

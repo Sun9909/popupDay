@@ -55,4 +55,9 @@
         SELECT * FROM popup_review WHERE popup_comment_id = #{reviewId}
     </select>
 
+    <!--리뷰삭제-->
+    <delete id="deleteReview" parameterType="long">
+        DELETE FROM popup_comment_tbl WHERE popup_comment_id = #{popup_comment_id}
+    </delete>
+
 </mapper>

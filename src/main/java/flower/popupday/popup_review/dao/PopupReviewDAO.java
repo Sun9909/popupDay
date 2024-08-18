@@ -23,4 +23,7 @@ public interface PopupReviewDAO {
 
     //수정을 위해서 리뷰 찾아주는 쿼리
     PopupReviewDTO findById(Long reviewId);
+
+    //리뷰 삭제
+    void deleteReview(Long popupCommentId) throws Exception;
 }

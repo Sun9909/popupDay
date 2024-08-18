@@ -10,7 +10,6 @@
 				<a class="user_img" href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberPage.do\', \'/login/login.do\')'">
 					<img class="user" th:src="@{/images/Group.svg}" alt="회원">
 				</a>
-				<input type="hidden" id="user_point" th:value="${session.loginDTO.tot_point}" name="tot_point">
 			</div>
 		</div>
 		<div th:unless="${session.isLogOn==true and session.loginDTO.user_nickname != null}">
