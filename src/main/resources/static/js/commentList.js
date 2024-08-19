@@ -1,13 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+    //모든 html이 로드 된 후 실행
     var customSelect = document.querySelector('.custom-select');
     var selected = customSelect.querySelector('.select-selected');
     var items = customSelect.querySelector('.select-items');
     var filterSelect = document.querySelector('#filterSelect');
 
+    //드롭다운 클릭 이벤트(선택된 옵션 영역을 클릭하면 드롭다운 목록을 보여주거나 숨김)
     selected.addEventListener('click', function() {
         items.classList.toggle('select-show');
     });
 
+    //드롭다운 항목 선택 처리
     items.addEventListener('click', function(e) {
         if (e.target.tagName === 'DIV') {
             var value = e.target.getAttribute('data-value');
@@ -61,11 +64,11 @@ function fetchComment(filter) {
         },
         body: JSON.stringify({ filter: filter })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('네트워크 응답이 실패했습니다. 상태 코드: ' + response.status);
+        .then(commentMap => {
+            if (!commentMap.ok) {
+                throw new Error('네트워크 응답이 실패했습니다. 상태 코드: ' + commentMap.status);
             }
-            return response.json(); // 응답을 JSON으로 읽습니다.
+            return commentMap.json(); // 응답을 JSON으로 읽습니다.
         })
         .catch(error => {
             console.error('Error:', error);
@@ -106,10 +109,10 @@ function loadComment(filter) {
             renderComment(data);
         })
         .catch(error => {
-            // 팝업 조회 실패 시, 오류 메시지를 표시
+            // 댓글 조회 실패 시, 오류 메시지를 표시
             Swal.fire({
                 icon: 'error',
-                text: '팝업 조회에 실패했습니다.',
+                text: '댓글 조회에 실패했습니다.',
                 confirmButtonText: '확인'
             });
         });
