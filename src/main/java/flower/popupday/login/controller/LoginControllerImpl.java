@@ -60,6 +60,8 @@ public class LoginControllerImpl implements LoginController {
 
         // 한 번에 모든 해시태그 정보를 서비스에 전달
         loginService.addLogin(loginDTO);
+        System.out.println("Received hashtagIds: " + loginDTO.getHashtagIds());
+        System.out.println("Received Id: " + loginDTO.getId());
 
         HttpSession session = request.getSession();
         String action = (String) session.getAttribute("action"); // 세션에서 action 값 가져오기

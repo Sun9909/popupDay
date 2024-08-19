@@ -30,14 +30,40 @@ public class LoginServiceImpl implements LoginService {
 
     // 일반 회원가입 수정 중
     @Override
-    public void addLogin(LoginDTO loginDTO) throws DataAccessException {
+    public void addLogin(LoginDTO loginDTO) throws Exception {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
         //loginDAO.insertLogin(loginDTO); : DAO 객체를 사용하여 회원가입 정보를 데이터베이스에 삽입.
         loginDAO.insertLogin(loginDTO); // 회원가입 DAO 메서드 호출
 //        loginDAO.insertJoinPoint(loginDTO);//회원가입 포인트 추가
 //        loginDAO.createPoint(loginDTO);//포인트값 갱신
+        // 여기에서 id가 잘 설정되었는지 확인합니다.
 
+        // 생성된 사용자 ID 가져오기
+        Long generatedId = loginDTO.getId();
+        System.out.println("Generated User ID: " + generatedId);
+
+        if (generatedId == null) {
+            throw new DataAccessException("User ID was not generated.") {};
+        }
+
+        // 해시태그 정보 저장
+        List<Long> hashtagIds = loginDTO.getHashtagIds();
+        if (hashtagIds != null && !hashtagIds.isEmpty()) {
+            for (Long hashtagId : hashtagIds) {
+                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO();
+                loginHashTagDTO.setUser_id(generatedId);
+                loginHashTagDTO.setHash_tag_id(hashtagId);
+                inserthashtag(loginHashTagDTO); // 해시태그 정보를 DB에 저장
+            }
+        }
     }
+    //해시태그 정보 저장
+    @Override
+    public void inserthashtag(LoginHashTagDTO loginHashTagDTO) throws Exception {
+        loginDAO.insertUserhashtag(loginHashTagDTO);
+    }
+
+
 
     // 일반 회원 로그인
     @Override
@@ -173,11 +199,6 @@ public class LoginServiceImpl implements LoginService {
         return loginDAO.hashtagList();
     }
 
-    //해시태그 정보 저장
-    @Override
-    public void inserthashtag(LoginHashTagDTO loginHashTagDTO) throws Exception {
-        loginDAO.insertUserhashtag(loginHashTagDTO);
-    }
 
 
 }
