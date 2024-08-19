@@ -209,7 +209,7 @@
     </select>
 
     <!-- 내가 쓴 문의 사항 -->
-    <select id="selectAllQnaList" resultMap="qnaResult" parameterType="java.util.Map">
+    <select id="selectAllQnaList" resultMap="qnaResult">
         select * from qna_tbl where user_id=#{id} order by created_at DESC LIMIT #{count}, 10
     </select>
 
