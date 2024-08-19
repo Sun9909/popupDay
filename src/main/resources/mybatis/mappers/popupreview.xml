@@ -70,12 +70,8 @@
 
     <!--리뷰수정-->
     <update id="updateComment">
-        UPDATE popup_comment_tbl
-        SET content = #{content} ,
-            rating = #{rating} ,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE popup_comment_id = #{popupCommentId}
-          AND popup_id = #{popupId}
+        UPDATE popup_comment_tbl SET content = #{content}, rating = #{rating}, updated_at = CURRENT_TIMESTAMP
+        WHERE popup_comment_id = #{popupCommentId} AND popup_id = #{popupId}
     </update>
 
 </mapper>
