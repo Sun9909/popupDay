@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/login")
@@ -58,27 +56,23 @@ public class LoginControllerImpl implements LoginController {
     @PostMapping("/addLogin")
     public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("utf-8"); // 요청 인코딩 설정
 
-        try {
-            // 서비스 호출 및 로그 확인
-            System.out.println("Received loginDTO: " + loginDTO);
-            System.out.println("Received has_tag_id: " + loginDTO.getHash_tag_id());
+        // 한 번에 모든 해시태그 정보를 서비스에 전달
+        loginService.addLogin(loginDTO);
+        System.out.println("Received hashtagIds: " + loginDTO.getHashtagIds());
+        System.out.println("Received Id: " + loginDTO.getId());
 
-            // LoginDTO에서 해시태그 ID 리스트를 가져와서 서비스 메서드에 전달
-            loginService.addLogin(loginDTO, loginDTO.getHash_tag_id());
+        HttpSession session = request.getSession();
+        String action = (String) session.getAttribute("action"); // 세션에서 action 값 가져오기
 
-            // 성공적으로 처리되었을 경우의 뷰 반환 (예: 로그인 페이지로 리다이렉트)
-            return new ModelAndView("redirect:/login");
-
-        } catch (Exception e) {
-            e.printStackTrace(); // 예외를 로그로 기록
-
-            // 오류 메시지를 모델에 추가하여 뷰에서 접근할 수 있도록 함
-            ModelAndView mav = new ModelAndView("errorView"); // 에러 뷰로 리다이렉트
-            mav.addObject("errorMessage", "회원가입 중 오류가 발생했습니다.");
-            return mav;
+        ModelAndView mav = new ModelAndView();
+        if (action != null) {
+            mav.setViewName("redirect:" + action); // action 값이 있으면 해당 경로로 리디렉션
+        } else {
+            mav.setViewName("redirect:/main.do"); // action 값이 없으면 메인 페이지로 리디렉션
         }
+        return mav; // ModelAndView 반환
     }
 
 

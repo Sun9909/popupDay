@@ -36,21 +36,21 @@
         ]]>
     </sql>
 
-    <insert id="insertLogin" parameterType="loginDTO">
+    <insert id="insertLogin" parameterType="loginDTO" useGeneratedKeys="true" keyProperty="id">
         <!-- 값 다 추가한뒤에 넣을것 [회원가입 포인트 추가] -->
         <![CDATA[
-        INSERT INTO user_tbl( user_id, user_nickname, name, pwd, email, reg_date, role, birth_date, gender)
+        INSERT INTO user_tbl(user_id, user_nickname, name, pwd, email, reg_date, role, birth_date, gender)
         VALUES(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, NOW(), '일반', '1990-01-01', 'M');
 
         ]]>
     </insert>
-    <insert id="insertJoinPoint" parameterType="loginDTO">
-        insert into point_history_tbl(user_id,change_amount,point_type,new_point)
-        values(#{id},+100,'회원가입',100,now())
-    </insert>
-    <update id="createReviewPoint" parameterType="loginDTO">
-        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{id}' ORDER BY point_date DESC LIMIT 1) where id = #{id};
-    </update>
+<!--    <insert id="insertJoinPoint" parameterType="loginDTO">-->
+<!--        insert into point_history_tbl(user_id,change_amount,point_type,new_point)-->
+<!--        values(#{id},+100,'회원가입',100,now())-->
+<!--    </insert>-->
+<!--    <update id="createReviewPoint" parameterType="loginDTO">-->
+<!--        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{id}' ORDER BY point_date DESC LIMIT 1) where id = #{id};-->
+<!--    </update>-->
 
     <insert id="busniessLogin" parameterType="loginDTO">
         <![CDATA[
@@ -127,7 +127,7 @@
     <select id="hashtagList" resultType="flower.popupday.login.dto.LoginHashTagDTO">
       <![CDATA[
         SELECT
-            ht.hash_tag,
+            ht.hash_tag, ht.hash_tag_id,
             COUNT(pht.hash_tag_id) AS count
         FROM hash_tag_tbl ht
             JOIN popup_hash_tag_tbl pht
@@ -137,9 +137,17 @@
     </select>
 
     <!-- 해시태그 저장 -->
-    <insert id="saveLoginHashTag" parameterType="flower.popupday.login.dto.LoginHashTagDTO">
+    <insert id="inserthashtag" parameterType="flower.popupday.login.dto.LoginHashTagDTO">
+        INSERT INTO user_hash_tag_tbl (user_id, hash_tag_id)
+        VALUES (#{id}, #{hash_tag_id})
+    </insert>
+
+    <!-- 회원가입 해시태그 삽입 쿼리 -->
+    <insert id="insertUserhashtag" parameterType="LoginHashTagDTO">
         INSERT INTO user_hash_tag_tbl (user_id, hash_tag_id)
         VALUES (#{user_id}, #{hash_tag_id})
     </insert>
+
+
 
 </mapper>

@@ -1,5 +1,10 @@
 package flower.popupday.login.dto;
 
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component("loginhashtagDTO")
 public class LoginHashTagDTO {
 
     private Long user_hash_tag_id;
