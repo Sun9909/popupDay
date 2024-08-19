@@ -45,6 +45,9 @@ public interface MyService {
 
     public Long getAllPopupCount(Long user_id) throws DataAccessException;
 
+    //내가 쓴 댓글
+    public Map commentList(Map<String, Integer> pagingMap, Long id, String filter) throws DataAccessException;
+
     //내가 쓴 리뷰 보기
     public Map reviewList(Map<String, Integer> pagingMap, Long id) throws DataAccessException;
 

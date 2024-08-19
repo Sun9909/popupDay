@@ -49,6 +49,16 @@ public interface MyDAO {
 
     public Long getAllPopupCount(Long user_id) throws DataAccessException;
 
+    //내가 쓴 후기 댓글
+    public List selectReviewComment(@Param("count") int count, Long id) throws DataAccessException;
+
+    public int selectToReviewComment(Long id) throws DataAccessException;
+
+    //내가 쓴 팝업 댓글
+    public List selectPopupComment(@Param("count") int count, Long id) throws DataAccessException;
+
+    public int selectToPopupComment(Long id) throws DataAccessException;
+
     //내가 쓴 리뷰
     public List selectAllReview(@Param("count") int count, Long id) throws DataAccessException;
 

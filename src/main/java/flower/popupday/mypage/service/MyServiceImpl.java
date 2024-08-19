@@ -7,6 +7,8 @@ import flower.popupday.notice.qna.dto.QnaDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
+import flower.popupday.popup_comment.dao.PopupCommentDAO;
+import flower.popupday.popup_comment.dto.PopupCommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class MyServiceImpl implements MyService {
 
     @Autowired
     private MyDAO myDAO;
+
+    @Autowired
+    private PopupCommentDAO popupCommentDAO;
 
     //마이페이지
     @Override // 한사람 정보 = 리스트 , 세션 이미지 + 유저정보 map
@@ -123,6 +128,33 @@ public class MyServiceImpl implements MyService {
         Long allPopupCount = myDAO.getAllPopupCount(user_id);
         System.out.println("service임" + allPopupCount);
         return allPopupCount;
+    }
+
+    @Override
+    public Map commentList(Map<String, Integer> pagingMap, Long id, String filter) throws DataAccessException {
+        Map commentMap=new HashMap<>();
+        int section=pagingMap.get("section");
+        int pageNum=pagingMap.get("pageNum");
+        int count=(section-1)*100+(pageNum-1)*10;
+
+        List<PopupCommentDTO> comment;
+        int totComment;
+
+        switch (filter) {
+            case "review-comment":
+                comment = myDAO.selectReviewComment(count, id);
+                totComment = myDAO.selectToReviewComment(id);
+                break;
+            case "popup-comment":
+            default:
+                comment = myDAO.selectPopupComment(count, id);
+                totComment = myDAO.selectToPopupComment(id);
+                break;
+        }
+
+        commentMap.put("comment", comment);
+        commentMap.put("totComment", totComment);
+        return commentMap;
     }
 
     @Override

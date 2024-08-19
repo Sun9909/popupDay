@@ -413,12 +413,28 @@ public class MyControllerImpl implements MyController {
 
     @Override
     @RequestMapping("/mypage/myComment.do")
-    public ModelAndView myComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView myComment(@RequestParam(value = "section", required = false) String _section,
+                                  @RequestParam(value = "pageNum", required = false) String _pageNum,
+                                  @RequestParam(value = "filter", required = false, defaultValue = "popup-comment") String filter,
+                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int section=Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
         Long id = loginDTO.getId();
 
-        return null;
+        Map<String, Integer> pagingMap = new HashMap<>();
+        pagingMap.put("section", section);
+        pagingMap.put("pageNum", pageNum);
+        Map<String, Object> commentMap = myService.commentList(pagingMap, id, filter);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/myComment");
+        mav.addObject("commentMap", commentMap);
+        mav.addObject("section", section);
+        mav.addObject("pageNum", pageNum);
+        return mav;
     }
 
     @Override
