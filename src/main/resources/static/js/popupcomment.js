@@ -1,6 +1,7 @@
 let commentId = /*[[${comment.popup_comment_id}]]*/ '';
 
 // 전역 변수로 currentOpenMenu 선언
+let isPopupVisible = false;
 let currentOpenMenu = null;
 
 // 텍스트 영역 글자 수 업데이트 기능
@@ -18,54 +19,47 @@ function updateCharacterCount2() {
     charCount.textContent = `(${remaining} / 50)`;
 }
 
-// 메뉴 토글 함수: 수정/삭제 메뉴 표시 토글
+//메뉴가 열려있을 때 레이어팝업이 떠 있는지 확인하는 함수
+function isPopupOpen() {
+    return document.getElementById("editPopup").style.display === "block";
+}
+
 function toggleOptionsMenu(button) {
-    // 메뉴 참조
     const menu = button.nextElementSibling;
 
-    // 다른 메뉴가 열려 있으면 닫기
     if (currentOpenMenu && currentOpenMenu !== menu) {
         currentOpenMenu.style.display = 'none';
     }
 
-    // 현재 메뉴를 열거나 닫음
     menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-
-    // 열려 있는 메뉴를 업데이트
     currentOpenMenu = (menu.style.display === 'block') ? menu : null;
 
-    // 스크롤 제어
-    if (currentOpenMenu) {
-        document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+    // 스크롤 제어 - 메뉴 또는 팝업이 열려 있는 경우 스크롤 비활성화
+    if (currentOpenMenu || isPopupVisible) {
+        document.body.style.overflow = 'hidden';
     } else {
-        document.body.style.overflow = 'auto';   // 스크롤 활성화
+        document.body.style.overflow = 'auto';
     }
 }
 
-// 메뉴 외부를 클릭하면 메뉴를 닫음
 document.addEventListener('click', function(event) {
     const isClickInside = currentOpenMenu && currentOpenMenu.contains(event.target);
     const isButtonClick = event.target.classList.contains('review-options-button');
 
-    // 메뉴 외부를 클릭하거나 메뉴 버튼을 다시 클릭하면 닫기
     if (!isClickInside && !isButtonClick) {
         if (currentOpenMenu) {
             currentOpenMenu.style.display = 'none';
             currentOpenMenu = null;
-            document.body.style.overflow = 'auto'; // 스크롤 다시 활성화
+
+            // 스크롤 제어 - 팝업이 열려 있지 않은 경우 스크롤을 활성화
+            if (!isPopupVisible) {
+                document.body.style.overflow = 'auto'; // 스크롤 활성화
+            }
         }
     }
 });
 
-// 전역 클릭 이벤트 리스너: 메뉴 외부 클릭 시 닫기
-document.addEventListener('click', function (event) {
-    const isClickInside = event.target.closest('.review-options');
-    if (!isClickInside) {
-        document.querySelectorAll('.review-options-menu').forEach(menu => {
-            menu.style.display = 'none';
-        });
-    }
-});
+
 
 // 팝업 열기
 function openEditPopup(button) {
@@ -92,11 +86,40 @@ function openEditPopup(button) {
 
     // 팝업을 표시
     document.getElementById("editPopup").style.display = "block";
+
+    document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+
+    isPopupVisible = true; // 팝업이 열려 있음을 기록
 }
 
+//클릭 이벤트를 추가로 처리해서 팝업이 열려 있을 때 스크롤이 활성화되지 않도록 하는 함수
+document.addEventListener('click', function(event) {
+    const isClickInside = currentOpenMenu && currentOpenMenu.contains(event.target);
+    const isButtonClick = event.target.classList.contains('review-options-button');
+    const isEditPopupOpen = isPopupOpen();
+
+    if (!isClickInside && !isButtonClick) {
+        if (currentOpenMenu) {
+            currentOpenMenu.style.display = 'none';
+            currentOpenMenu = null;
+
+            // 스크롤 제어 - 수정 팝업이 열려있는 경우 스크롤을 비활성화 유지
+            if (!isEditPopupOpen) {
+                document.body.style.overflow = 'auto'; // 스크롤 활성화
+            }
+        }
+    }
+});
+
 function closeEditPopup() {
-    // 레이어 팝업을 숨깁니다.
     document.getElementById("editPopup").style.display = "none";
+
+    isPopupVisible = false; // 팝업이 닫혔음을 기록
+
+    // 메뉴가 열려 있지 않다면 스크롤을 활성화
+    if (!currentOpenMenu) {
+        document.body.style.overflow = 'auto'; // 스크롤 활성화
+    }
 }
 
 //내용, 별점 작성 하지 않았을 경우 alert
