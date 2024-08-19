@@ -67,7 +67,7 @@
     </select>
 
     <!--별점 평균 계산-->
-    <select id="getAverageRatingByUserId" resultType="double">
+    <select id="getAverageRatingByPopupId" resultType="double">
         SELECT COALESCE(AVG(rating), 0) AS average_rating
         FROM popup_comment_tbl
         WHERE popup_id = #{popupId}

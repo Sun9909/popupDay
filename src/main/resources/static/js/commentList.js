@@ -77,7 +77,7 @@ function fetchComment(filter) {
 }
 
 // 데이터를 화면에 로딩하는 함수
-function renderComment(data) {
+function renderPopupComment(data) {
     const container = document.querySelector('.comlist-tb');
     if (container) {
         container.innerHTML = ''; // 기존 콘텐츠 지우기
@@ -85,35 +85,89 @@ function renderComment(data) {
         // 데이터 콘솔 출력
         console.log("렌더링할 데이터:", data);
 
-        data.comment.forEach((comment, index) => {
-            console.log(`댓글 데이터 ${index}:`, comment);
-            const commentElement = document.createElement('tr');
-            commentElement.classList.add('comment-lists');
+        data.comment.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('review-item');
 
-            // HTML 문자열을 직접 구성
             commentElement.innerHTML = `
-                <td>${comment.content}</td>
-                <td>${comment.created_at}</td>
+                <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <span class="review-author" style="font-size: 20px;">${comment.user_id}</span>
+                    <div class="review-rating" style="display: flex; gap: 4px; justify-content: flex-end;">
+                        ${'★'.repeat(comment.rating)}
+                        ${'☆'.repeat(5 - comment.rating)}
+                    </div>
+                </div>
+                <div class="review-content">${comment.content}</div>
+                <div class="review-date">
+                    작성일: ${new Date(comment.updated_at).toLocaleDateString()}
+                </div>
             `;
 
             container.appendChild(commentElement);
         });
+
+        // data.comment.forEach((comment, index) => {
+        //     console.log(`댓글 데이터 ${index}:`, comment);
+        //     const commentElement = document.createElement('tr');
+        //     commentElement.classList.add('comment-lists');
+        //
+        //     // HTML 문자열을 직접 구성
+        //     commentElement.innerHTML = `
+        //         <td>${comment.content}</td>
+        //         <td>${comment.created_at}</td>
+        //     `;
+        //
+        //     container.appendChild(commentElement);
+        // });
     }
 }
 
-// // 데이터를 가져와서 화면에 로딩하는 함수
-// function loadComment(filter) {
-//     fetchComment(filter)
-//         .then(data => {
-//             console.log('서버 응답:', data);
-//             renderComment(data);
-//         })
-//         .catch(error => {
-//             // 댓글 조회 실패 시, 오류 메시지를 표시
-//             Swal.fire({
-//                 icon: 'error',
-//                 text: '댓글 조회에 실패했습니다.',
-//                 confirmButtonText: '확인'
-//             });
-//         });
-// }
+function renderReviewComment(data) {
+    const container = document.querySelector('.comlist-tb');
+    if (container) {
+        container.innerHTML = ''; // 기존 콘텐츠 지우기
+
+        data.comment.forEach(review => {
+            const reviewElement = document.createElement('div');
+            reviewElement.classList.add('review-container');
+
+            reviewElement.innerHTML = `
+                <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <span class="review-author" style="font-size: 20px;">${review.user_id}</span>
+                </div>
+                <div class="review-content">${review.content}</div>
+                <div class="review-date">
+                    작성일: ${new Date(review.created_at).toLocaleDateString()}
+                </div>
+            `;
+
+            container.appendChild(reviewElement);
+        });
+    }
+}
+
+
+// 데이터를 가져와서 화면에 로딩하는 함수
+function loadComment(filter) {
+    // fetchComment(filter)
+    //     .then(data => {
+    //         console.log('서버 응답:', data);
+    //         renderComment(data);
+    //     })
+    fetchComment(filter)
+        .then(data => {
+            if (filter === 'popup-comment') {
+                renderPopupComment(data);  // 팝업 댓글 렌더링
+            } else if (filter === 'review-comment') {
+                renderReviewComment(data); // 후기 댓글 렌더링
+            }
+        })
+        .catch(error => {
+            // 댓글 조회 실패 시, 오류 메시지를 표시
+            Swal.fire({
+                icon: 'error',
+                text: '댓글 조회에 실패했습니다.',
+                confirmButtonText: '확인'
+            });
+        });
+}

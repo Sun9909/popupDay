@@ -53,33 +53,38 @@
             </div>
         </div>
 
-        <!-- 댓글 목록을 포함하는 테이블 -->
-        <div class="review-list">
-            <!-- 댓글 목록 반복 -->
-            <div th:each="comment : ${comments}" class="review-item">
-                <!-- 리뷰 상단 컨테이너: 작성자, 별점 표시 -->
-                <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <!-- 작성자 이름 -->
-                    <span class="review-author" th:text="${comment.user_nickname}" style="font-size: 20px;">작성자 이름</span>
-
-                    <!-- 별점 표시 부분 -->
-                    <div class="review-rating" style="display: flex; gap: 4px; justify-content: flex-end;">
-                        <!-- rating 값만큼 ★ 출력 -->
-                        <span th:each="star : ${#numbers.sequence(1, comment.rating)}" style="font-size: 20px;">★</span>
-                        <!-- (5 - rating) 값이 0보다 클 때만 ☆ 출력 -->
-                        <span th:each="emptyStar : ${#numbers.sequence(1, 5 - comment.rating)}"
-                              th:if="${5 - comment.rating > 0}" style="font-size: 20px;">☆</span>
-                    </div>
-                </div>
-
-                <!-- 리뷰 내용 -->
-                <div class="review-content" th:text="${comment.content}"></div>
-                <!-- 리뷰 작성일 -->
-                <div class="review-date">
-                    작성일: <span th:text="${#temporals.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></span>
-                </div>
-            </div>
+        <!-- 댓글 리스트를 표시할 테이블 -->
+        <div class="comlist-tb">
+            <!-- JavaScript에서 동적으로 댓글이 추가됨 -->
         </div>
+
+<!--        &lt;!&ndash; 댓글 목록을 포함하는 테이블 &ndash;&gt;-->
+<!--        <div class="review-list">-->
+<!--            &lt;!&ndash; 댓글 목록 반복 &ndash;&gt;-->
+<!--            <div th:each="comment : ${comments}" class="review-item">-->
+<!--                &lt;!&ndash; 리뷰 상단 컨테이너: 작성자, 별점 표시 &ndash;&gt;-->
+<!--                <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">-->
+<!--                    &lt;!&ndash; 작성자 이름 &ndash;&gt;-->
+<!--                    <span class="review-author" th:text="${comment.user_nickname}" style="font-size: 20px;">작성자 이름</span>-->
+
+<!--                    &lt;!&ndash; 별점 표시 부분 &ndash;&gt;-->
+<!--                    <div class="review-rating" style="display: flex; gap: 4px; justify-content: flex-end;">-->
+<!--                        &lt;!&ndash; rating 값만큼 ★ 출력 &ndash;&gt;-->
+<!--                        <span th:each="star : ${#numbers.sequence(1, comment.rating)}" style="font-size: 20px;">★</span>-->
+<!--                        &lt;!&ndash; (5 - rating) 값이 0보다 클 때만 ☆ 출력 &ndash;&gt;-->
+<!--                        <span th:each="emptyStar : ${#numbers.sequence(1, 5 - comment.rating)}"-->
+<!--                              th:if="${5 - comment.rating > 0}" style="font-size: 20px;">☆</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; 리뷰 내용 &ndash;&gt;-->
+<!--                <div class="review-content" th:text="${comment.content}"></div>-->
+<!--                &lt;!&ndash; 리뷰 작성일 &ndash;&gt;-->
+<!--                <div class="review-date">-->
+<!--                    작성일: <span th:text="${#temporals.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
