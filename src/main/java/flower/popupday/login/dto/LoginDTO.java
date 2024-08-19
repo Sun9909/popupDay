@@ -20,9 +20,17 @@ public class LoginDTO {
     private Date birth_date;
     private String gender;
     private Long tot_point;
-
+    private List<Long> hashtagIds;
 
     public LoginDTO() {
+    }
+
+    public List<Long> getHashtagIds() {
+        return hashtagIds;
+    }
+
+    public void setHashtagIds(List<Long> hashtagIds) {
+        this.hashtagIds = hashtagIds;
     }
 
     public enum Role {

@@ -42,14 +42,11 @@ public interface LoginDAO {
     // 사용자 정보 조회
     public LoginDTO findByUserId(String userId) throws DataAccessException;
 
-    public void insertJoinPoint(LoginDTO loginDTO) throws DataAccessException;
-
-    public void createPoint(LoginDTO loginDTO) throws DataAccessException;
+//    public void insertJoinPoint(LoginDTO loginDTO) throws DataAccessException;
+//
+//    public void createPoint(LoginDTO loginDTO) throws DataAccessException;
 
     //해시태그 저장
-    public void saveLoginHashTag(LoginHashTagDTO loginHashTagDTO) throws DataAccessException;
-
-    public boolean isTagExists(List<Long> tagId);
-
-    public List<LoginHashTagDTO> hashtagList() throws DataAccessException;;
+    public List<LoginHashTagDTO> hashtagList() throws DataAccessException;
+    public void insertUserhashtag(LoginHashTagDTO loginHashTagDTO) throws DataAccessException;
 }

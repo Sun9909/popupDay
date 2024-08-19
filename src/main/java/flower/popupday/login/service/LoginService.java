@@ -53,5 +53,6 @@ public interface LoginService {
     //해시태그 조회
     public List<LoginHashTagDTO> hashtagList() throws Exception;
 
-
+    //해시태그 정보 저장
+    void inserthashtag(LoginHashTagDTO loginHashTagDTO) throws Exception;
 }

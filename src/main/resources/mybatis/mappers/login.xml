@@ -127,7 +127,7 @@
     <select id="hashtagList" resultType="flower.popupday.login.dto.LoginHashTagDTO">
       <![CDATA[
         SELECT
-            ht.hash_tag,
+            ht.hash_tag, ht.hash_tag_id,
             COUNT(pht.hash_tag_id) AS count
         FROM hash_tag_tbl ht
             JOIN popup_hash_tag_tbl pht
@@ -139,7 +139,7 @@
     <!-- 해시태그 저장 -->
     <insert id="saveLoginHashTag" parameterType="flower.popupday.login.dto.LoginHashTagDTO">
         INSERT INTO user_hash_tag_tbl (user_id, hash_tag_id)
-        VALUES (#{user_id}, #{hash_tag_id})
+        VALUES (#{id}, #{hash_tag_id})
     </insert>
 
 </mapper>

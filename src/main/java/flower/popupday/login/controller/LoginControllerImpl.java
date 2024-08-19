@@ -55,14 +55,11 @@ public class LoginControllerImpl implements LoginController {
     @Override
     @PostMapping("/addLogin")
     public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-                                 @ModelAttribute("loginhashtagDTO") LoginHashTagDTO loginHashTagDTO,
                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("utf-8"); // 요청 인코딩 설정
 
-        List<Long>hashTagIds = request.getParameterValues("hash_tag_id"); // 해시태그 ID 배열
-
         // 한 번에 모든 해시태그 정보를 서비스에 전달
-        loginService.addLogin(loginDTO, loginHashTagDTO);
+        loginService.addLogin(loginDTO);
 
         HttpSession session = request.getSession();
         String action = (String) session.getAttribute("action"); // 세션에서 action 값 가져오기
