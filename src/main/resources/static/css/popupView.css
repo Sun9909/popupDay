@@ -490,6 +490,7 @@ textarea[name="content"] {
     margin-top: 200px;
     margin-left: 516px;
     max-width: 80%;
+    height: 350px;
 }
 
 /* 닫기 버튼 스타일링 */

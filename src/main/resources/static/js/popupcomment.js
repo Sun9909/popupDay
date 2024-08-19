@@ -42,6 +42,55 @@ function closeEditPopup() {
     document.getElementById("editPopup").style.display = "none";
 }
 
+//내용, 별점 작성 하지 않았을 경우 alert
+function commentForm() {
+    const rating = document.querySelector('input[name="rating"]:checked');
+    if (!rating) {
+        Swal.fire({
+            icon: 'warning',
+            title: '별점을 선택해주세요.',
+            showConfirmButton: true
+        });
+        return false;  // 폼 제출을 막음
+    }
+
+    const content = document.getElementById('content').value.trim();
+    if (content === '') {
+        Swal.fire({
+            icon: 'warning',
+            title: '내용을 작성해주세요.',
+            showConfirmButton: true
+        });
+        return false;  // 폼 제출을 막음
+    }
+
+    return true; // 모든 조건이 충족되면 폼 제출 허용
+}
+
+function commentEditForm() {
+    const rating = document.querySelector('input[name="rating"]:checked');
+    if (!rating) {
+        Swal.fire({
+            icon: 'warning',
+            title: '별점을 선택해주세요.',
+            showConfirmButton: true
+        });
+        return false;  // 폼 제출을 막음
+    }
+
+    const content = document.getElementById('contentUpdate').value.trim();
+    if (content === '') {
+        Swal.fire({
+            icon: 'warning',
+            title: '내용을 작성해주세요.',
+            showConfirmButton: true
+        });
+        return false;  // 폼 제출을 막음
+    }
+
+    return true; // 모든 조건이 충족되면 폼 제출 허용
+}
+
 
 
 // 페이지 로드 시 글자 수를 초기화합니다.

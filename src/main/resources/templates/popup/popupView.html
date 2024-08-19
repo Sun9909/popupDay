@@ -191,14 +191,14 @@
                         리뷰 <span th:text="${commentCount}"></span>개
                     </h5>
                     <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
-                    <div class="review-form" th:if="${session.loginDTO == null}">
+                    <div class="review-form" th:if="${session.loginDTO == null}" onsubmit="return commentForm()">
                         <h3>후기 작성 및 별점 등록을 위해 <a th:href="@{/login/login.do}">로그인</a>해주세요.</h3>
                     </div>
 
                     <!-- 리뷰가 없을 경우 메시지 표시 -->
                     <p th:if="${#lists.isEmpty(comments)}" class="no-review">아직 작성된 리뷰가 없습니다.</p>
                     <!-- 후기 작성 섹션 (로그인 상태) -->
-                    <form action="/popupComment/add" method="post" th:if="${session.loginDTO != null}">
+                    <form action="/popupComment/add" method="post" th:if="${session.loginDTO != null}" >
                         <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
                         <input type="hidden" name="user_id" th:value="${id}">
 
@@ -281,7 +281,7 @@
                             <div class="popup-content">
                                 <span class="close-btn" onclick="closeEditPopup()">&times;</span>
                                 <h2>리뷰 수정</h2>
-                                <form id="editForm" action="/popupComment/update" method="post">
+                                <form id="editForm" action="/popupComment/update" method="post" onsubmit="return commentEditForm()">
                                     <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
                                     <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
                                     <input type="hidden" name="content" th:value="${content}">
