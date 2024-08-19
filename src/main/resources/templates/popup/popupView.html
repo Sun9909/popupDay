@@ -198,7 +198,7 @@
                     <!-- 리뷰가 없을 경우 메시지 표시 -->
                     <p th:if="${#lists.isEmpty(comments)}" class="no-review">아직 작성된 리뷰가 없습니다.</p>
                     <!-- 후기 작성 섹션 (로그인 상태) -->
-                    <form action="/popupComment/add" method="post" th:if="${session.loginDTO != null}">
+                    <form action="/popupComment/add" method="post" th:if="${session.loginDTO != null}"  onsubmit="return commentForm()">
                         <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
                         <input type="hidden" name="user_id" th:value="${id}">
 
@@ -240,7 +240,11 @@
                             <div class="review-options" th:if="${id != session.loginDTO}" style="position: absolute; right: 0; bottom: -110px;">
                                 <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
                                 <div class="review-options-menu" style="display: none;">
-                                    <button type="button" onclick="openEditPopup()">수정</button>
+                                    <button type="button"
+                                            th:data-comment-id="${comment.popup_comment_id}"
+                                            th:data-content="${comment.content}"
+                                            th:data-rating="${comment.rating}"
+                                            onclick="openEditPopup(this)">수정</button>
                                     <form th:action="@{/popupComment/delete}" method="post" style="display:inline;">
                                         <!-- popup_comment_id를 포함 -->
                                         <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
@@ -271,22 +275,27 @@
                         <div class="review-content" th:text="${comment.content}"></div>
                         <!-- 리뷰 작성일 -->
                         <div class="review-date">
-                            작성일: <span th:text="${comment.updated_at}"></span>
+                            작성일: <span th:text="${#temporals.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
+
+
 
                         <!-- 레이어 팝업 -->
                         <div id="editPopup" class="popup-overlay" style="display: none;">
                             <div class="popup-content">
                                 <span class="close-btn" onclick="closeEditPopup()">&times;</span>
                                 <h2>리뷰 수정</h2>
-                                <form id="editForm" action="/popupComment/update" method="post">
-                                    <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}"/>
+                                <form id="editForm" action="/popupComment/update" method="post" onsubmit="return commentEditForm()">
+                                    <input type="hidden" name="popup_comment_id" id="popup_comment_id" />
                                     <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
 
                                     <!-- 리뷰 내용 입력 -->
-                                    <label for="content">리뷰 내용:</label>
-                                    <textarea id="contentUpdate" name="content" rows="4" cols="50"></textarea>
+                                    <label for="contentUpdate">리뷰 내용:</label>
+                                    <textarea id="contentUpdate" name="content" rows="4" cols="50" oninput="updateCharacterCount2()"></textarea>
                                     <br>
+
+                                    <!-- 남은 글자 수를 비율로 표시하는 부분 -->
+                                    <p style="text-align: right;" id="charCount2">(50 / 50)</p>
 
                                     <!-- 별점 기능 -->
                                     <div class="star-rating">
@@ -307,7 +316,7 @@
                                     </div>
                                     <br>
                                     <!-- 수정 완료 버튼 -->
-                                    <button type="submit">수정 완료</button>
+                                    <button type="submit" style="float: right;">수정 완료</button>
                                 </form>
                             </div>
                         </div>

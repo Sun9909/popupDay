@@ -96,6 +96,8 @@ public class PopupCommentControllerImpl implements PopupCommentController {
             @RequestParam("content") String content,
             @RequestParam("rating") int rating) {
 
+        System.out.println("popup_comment_id : " + popupCommentId);
+
         // 리뷰와 별점 업데이트 로직 수행
         popupCommentService.updateComment(popupCommentId, popupId, content, rating);
 

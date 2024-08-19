@@ -328,6 +328,11 @@ public class PopupControllerImpl implements PopupController {
         // 평균 별점 계산
         double averageRating = popupCommentService.calculateAverageRating(popup_id);
 
+        // 백엔드 코드에서 comment 객체의 updated_at 값을 출력
+        for (PopupCommentDTO comment : comments) {
+            System.out.println("Comment ID: " + comment.getPopup_comment_id() + ", Updated At: " + comment.getUpdated_at());
+        }
+
         // 팝업 상세 페이지로 이동
         ModelAndView mav = new ModelAndView();
         mav.setViewName("popup/popupView");
