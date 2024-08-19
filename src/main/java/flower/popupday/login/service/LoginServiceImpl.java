@@ -30,23 +30,41 @@ public class LoginServiceImpl implements LoginService {
 
     // 일반 회원가입 수정 중
     @Override
-    public void addLogin(LoginDTO loginDTO,List<Long> hash_tag_id) throws DataAccessException {
+    public void addLogin(LoginDTO loginDTO) throws DataAccessException {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
         //loginDAO.insertLogin(loginDTO); : DAO 객체를 사용하여 회원가입 정보를 데이터베이스에 삽입.
         loginDAO.insertLogin(loginDTO); // 회원가입 DAO 메서드 호출
         loginDAO.insertJoinPoint(loginDTO);//회원가입 포인트 추가
         loginDAO.createPoint(loginDTO);//포인트값 갱신
 
+        String userIdStr = loginDTO.getUser_id(); // String 타입의 user_id 가져오기
+        Long user_id = null;
 
-        if (hash_tag_id != null && !hash_tag_id.isEmpty()) {
-            Long user_id = Long.parseLong(loginDTO.getUser_id()); // String을 Long으로 변환
-            for (Long hastagid : hash_tag_id) {
-                LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO();
-                loginDAO.saveLoginHashTag(loginHashTagDTO); // 해시태그 정보 저장
+        try {
+            user_id = Long.valueOf(userIdStr); // String을 Long으로 변환
+        } catch (NumberFormatException e) {
+            // 유효하지 않은 user_id가 있으면 예외 처리
+            throw new DataAccessException("Invalid user ID format", e) {};
+        }
+
+        List<Long> hashTagIds = loginDTO.getHash_tag_id(); // 해시태그 ID 리스트 가져오기
+
+        if (hashTagIds != null && !hashTagIds.isEmpty()) {
+            for (Long hashTagId : hashTagIds) {
+                try {
+                    // 해시태그 정보 저장
+                    LoginHashTagDTO loginHashTagDTO = new LoginHashTagDTO();
+                    loginHashTagDTO.setUser_id(user_id);
+                    loginHashTagDTO.setHash_tag_id(hashTagId);
+                    // 해시태그 이름과 카운트는 다른 방법으로 설정하거나 기본값 설정
+                    loginDAO.saveLoginHashTag(loginHashTagDTO); // 해시태그 정보 저장
+                } catch (Exception e) {
+                    // 예외가 발생하면 해당 해시태그 ID는 무시하고 계속 진행
+                    System.err.println("Error saving hashTagId: " + hashTagId + ", " + e.getMessage());
+                }
             }
         }
     }
-
 
     // 일반 회원 로그인
     @Override

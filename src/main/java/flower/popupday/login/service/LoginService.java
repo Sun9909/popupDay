@@ -9,7 +9,7 @@ import java.util.List;
 public interface LoginService {
 
     // 회원 가입 메서드
-    public void addLogin(LoginDTO loginDTO, List<Long> hash_tag_id) throws DataAccessException;
+    public void addLogin(LoginDTO loginDTO)throws DataAccessException;
     // 주어진 회원 정보를 사용하여 회원 가입을 처리하는 메서드
 
     // login.html에서 찐 로그인용
@@ -52,4 +52,6 @@ public interface LoginService {
 
     //해시태그 조회
     public List<LoginHashTagDTO> hashtagList() throws Exception;
+
+
 }

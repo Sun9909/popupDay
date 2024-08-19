@@ -20,7 +20,7 @@ public class LoginDTO {
     private Date birth_date;
     private String gender;
     private Long tot_point;
-    private List<Long> hash_tag_id;
+
 
     public LoginDTO() {
     }
@@ -33,8 +33,8 @@ public class LoginDTO {
         active, deleted
     }
 
-    public LoginDTO(Long id, String user_id, String name, String pwd, String email, Date reg_date, String business_num, String role, String status,Date birth_date,
-                    String gender,Long tot_point) {
+    public LoginDTO(Long id, String user_id, String name, String pwd, String email, Date reg_date, String business_num, String role, String status, Date birth_date,
+                    String gender, Long tot_point) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
@@ -157,7 +157,5 @@ public class LoginDTO {
         this.tot_point = tot_point;
     }
 
-    public List<Long> getHash_tag_id() {return hash_tag_id;}
 
-    public void setHash_tag_id(List<Long> hash_tag_id) {this.hash_tag_id = hash_tag_id;}
 }

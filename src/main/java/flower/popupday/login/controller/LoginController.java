@@ -17,6 +17,7 @@ public interface LoginController {
 
     // 일반 회원가입 + 해시태그
     ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,// 해시태그 ID 리스트 추가
+                          @ModelAttribute("loginhashtagDTO") LoginHashTagDTO loginHashTagDTO,
                           HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     // 로그인 폼 이동

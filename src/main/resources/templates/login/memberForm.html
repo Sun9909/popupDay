@@ -61,11 +61,9 @@
                                 <div id="hashtag-selector-container" class="hide">
                                     <div th:each="hashtag : ${hashtagList}" id="hashtag-form" class="hashtag-container">
                                         <label class="hashtag-item">
-                                            <input type="checkbox" name="hashtag" th:value="${hashtag.hash_tag}" />
-                                            <span class="hashtag-text" th:text="${hashtag.hash_tag}"></span>
-                                            <span class="hashtag-count">
-                                                (<span th:text="${hashtag.count}"></span>)
-                                            </span>
+                                            <input type="checkbox" name="hash_tag_id" th:value="${hashtag.hash_tag_id}" />
+                                            <span class="hashtag-text" name="hash_tag" th:text="${hashtag.hash_tag}"></span>
+                                            <span class="hashtag-count">(<span th:text="${hashtag.count}"></span>)</span>
                                         </label>
                                     </div>
                                     <p>최대 3개까지 선택 가능합니다.</p>
