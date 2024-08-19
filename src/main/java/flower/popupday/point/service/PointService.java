@@ -12,6 +12,8 @@ public interface PointService {
 
     public List pointList() throws DataAccessException;
 
+    public int userPoint(long id) throws DataAccessException;
+
     public int addGoods(PointDTO pointDTO) throws DataAccessException;
 
     public void removeGoods(int shop_id) throws DataAccessException;

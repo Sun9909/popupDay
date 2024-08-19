@@ -22,8 +22,11 @@
     </resultMap>
 
     <resultMap id="LoginHashTagResult" type="flower.popupday.login.dto.LoginHashTagDTO">
+        <result property="user_hash_tag_id" column="user_hash_tag_id"/>
         <result property="user_id" column="user_id"/>
-        <result property="has_tag_id" column="has_tag_id"/>
+        <result property="hash_tag_id" column="hash_tag_id"/>
+        <result property="hash_tag" column="hash_tag"/>
+        <result property="count" column="count"/>
     </resultMap>
 
     <!-- sql문 중복 제거 -->
@@ -119,10 +122,24 @@
         UPDATE user_tbl SET access_token=null WHERE user_id=#{email}
     </update>
 
+
+    <!-- 해시태그 조회 완-->
+    <select id="hashtagList" resultType="flower.popupday.login.dto.LoginHashTagDTO">
+      <![CDATA[
+        SELECT
+            ht.hash_tag,
+            COUNT(pht.hash_tag_id) AS count
+        FROM hash_tag_tbl ht
+            JOIN popup_hash_tag_tbl pht
+        ON ht.hash_tag_id = pht.hash_tag_id
+        GROUP BY ht.hash_tag;
+        ]]>
+    </select>
+
     <!-- 해시태그 저장 -->
     <insert id="saveLoginHashTag" parameterType="flower.popupday.login.dto.LoginHashTagDTO">
-        INSERT INTO user_hash_tag_tbl (user_id, has_tag_id)
-        VALUES (#{user_id}, #{has_tag_id})
+        INSERT INTO user_hash_tag_tbl (user_id, hash_tag_id)
+        VALUES (#{user_id}, #{hash_tag_id})
     </insert>
 
 </mapper>

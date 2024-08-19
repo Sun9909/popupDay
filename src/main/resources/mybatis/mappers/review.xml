@@ -101,4 +101,9 @@
         insert into review_comment_tbl (user_id, review_id, content, created_at)
         values (#{user_id}, #{review_id}, #{content}, CURRENT_TIMESTAMP)
     </insert>
+
+    <select id="selectReviewComment" parameterType="int" resultType="reviewCommentDTO">
+        select rc.*, u.user_nickname from review_comment_tbl
+            rc join user_tbl u on rc.user_id = u.id where rc.review_id = #{review_id}
+    </select>
 </mapper>

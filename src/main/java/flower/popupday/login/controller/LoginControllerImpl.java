@@ -1,19 +1,26 @@
 package flower.popupday.login.controller;
 
+import flower.popupday.login.dao.LoginDAO;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.login.dto.LoginHashTagDTO;
 import flower.popupday.login.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/login")
@@ -21,6 +28,8 @@ public class LoginControllerImpl implements LoginController {
 
     @Autowired
     private LoginService loginService; // LoginService 객체를 자동 주입
+    @Autowired
+    private LoginDAO loginDAO;
 
 //    // 일반 회원가입
 //    @Override
@@ -42,39 +51,37 @@ public class LoginControllerImpl implements LoginController {
 //        return mav; // ModelAndView 반환
 //    }
 
-    //일반회원가입 + 해시태그
+
+
+    //일반회원가입 + 해시태그 수정 중
     @Override
     @PostMapping("/addLogin")
     public ModelAndView addLogin(@ModelAttribute("loginDTO") LoginDTO loginDTO,
-                                 @RequestParam("has_tag_id") List<Long> has_tag_id, // 해시태그 ID 리스트 추가
                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("utf-8");
+
         try {
             // 서비스 호출 및 로그 확인
             System.out.println("Received loginDTO: " + loginDTO);
-            System.out.println("Received has_tag_id: " + has_tag_id);
+            System.out.println("Received has_tag_id: " + loginDTO.getHash_tag_id());
 
-            loginService.addLogin(loginDTO, has_tag_id);
+            // LoginDTO에서 해시태그 ID 리스트를 가져와서 서비스 메서드에 전달
+            loginService.addLogin(loginDTO, loginDTO.getHash_tag_id());
 
-        }catch (Exception e) {
+            // 성공적으로 처리되었을 경우의 뷰 반환 (예: 로그인 페이지로 리다이렉트)
+            return new ModelAndView("redirect:/login");
+
+        } catch (Exception e) {
             e.printStackTrace(); // 예외를 로그로 기록
+
             // 오류 메시지를 모델에 추가하여 뷰에서 접근할 수 있도록 함
             ModelAndView mav = new ModelAndView("errorView"); // 에러 뷰로 리다이렉트
             mav.addObject("errorMessage", "회원가입 중 오류가 발생했습니다.");
             return mav;
         }
-
-        HttpSession session = request.getSession();
-        String action = (String) session.getAttribute("action");
-
-        ModelAndView mav = new ModelAndView();
-        if (action != null) {
-            mav.setViewName("redirect:" + action);
-        } else {
-            mav.setViewName("redirect:/main.do");
-        }
-        return mav;
     }
+
+
 
 
 
@@ -235,7 +242,10 @@ public class LoginControllerImpl implements LoginController {
     @GetMapping("/memberForm.do")
     public ModelAndView showMemberForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView("login/memberForm"); // 일반 회원가입 폼 페이지로 이동
+
+        List<LoginHashTagDTO> hashtagList = loginService.hashtagList();  // 해시태그 조회
         mav.addObject("loginDTO", new LoginDTO()); // DTO 객체를 초기화하여 뷰로 전달
+        mav.addObject("hashtagList", hashtagList);  // 해시태그 조회
         return mav; // ModelAndView 반환
     }
 

@@ -1,8 +1,8 @@
-package flower.popupday.popup_review.dto;
+package flower.popupday.popup_comment.dto;
 
 import java.time.LocalDateTime;
 
-public class PopupReviewDTO {
+public class PopupCommentDTO {
     private long popup_comment_id;
     private long popup_id;
     private long user_id;

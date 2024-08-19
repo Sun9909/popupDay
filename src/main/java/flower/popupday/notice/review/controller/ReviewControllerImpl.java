@@ -52,10 +52,13 @@ public class ReviewControllerImpl implements ReviewController {
     @Override
     @RequestMapping("/notice/viewReview.do")
     public ModelAndView viewReview(@RequestParam("review_id") int review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
         Map reviewArticle = reviewService.viewReview(review_id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/reviewView");
         mav.addObject("reviewArticle", reviewArticle);
+        mav.addObject("loginDTO", loginDTO);
         return mav;
     }
 
