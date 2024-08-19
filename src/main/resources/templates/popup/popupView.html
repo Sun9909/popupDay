@@ -280,9 +280,8 @@
                                 <span class="close-btn" onclick="closeEditPopup()">&times;</span>
                                 <h2>리뷰 수정</h2>
                                 <form id="editForm" action="/popupComment/update" method="post">
-                                    <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
+                                    <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}"/>
                                     <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
-                                    <input type="hidden" name="content" th:value="${content}">
 
                                     <!-- 리뷰 내용 입력 -->
                                     <label for="content">리뷰 내용:</label>
@@ -307,16 +306,12 @@
                                         <label for="edit-star1">★</label>
                                     </div>
                                     <br>
-
                                     <!-- 수정 완료 버튼 -->
                                     <button type="submit">수정 완료</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-
-
-
             </div>
         </div>
     </div>
