@@ -7,8 +7,8 @@ import flower.popupday.notice.qna.dto.QnaDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
-import flower.popupday.popup_review.dao.PopupReviewDAO;
-import flower.popupday.popup_review.dto.PopupReviewDTO;
+import flower.popupday.popup_comment.dao.PopupCommentDAO;
+import flower.popupday.popup_comment.dto.PopupCommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class MyServiceImpl implements MyService {
     private MyDAO myDAO;
 
     @Autowired
-    private PopupReviewDAO popupReviewDAO;
+    private PopupCommentDAO popupCommentDAO;
 
     //마이페이지
     @Override // 한사람 정보 = 리스트 , 세션 이미지 + 유저정보 map
@@ -137,7 +137,7 @@ public class MyServiceImpl implements MyService {
         int pageNum=pagingMap.get("pageNum");
         int count=(section-1)*100+(pageNum-1)*10;
 
-        List<PopupReviewDTO> comment;
+        List<PopupCommentDTO> comment;
         int totComment;
 
         switch (filter) {

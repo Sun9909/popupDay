@@ -91,7 +91,7 @@
         <result property="user_nickname" column="user_nickname"/>
     </resultMap>
 
-    <resultMap type="PopupReviewDTO" id="popupCommentResult">
+    <resultMap type="PopupCommentDTO" id="popupCommentResult">
         <result property="popup_comment_id" column="popup_comment_id" />
         <result property="user_id" column="user_id"/>
         <result property="popup_id" column="popup_id"/>
