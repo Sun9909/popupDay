@@ -46,6 +46,11 @@ public class PopupCommentServiceImpl implements PopupCommentService {
         return popupCommentDAO.getAverageRatingByPopupId(popupId);
     }
 
+    // 회원 id에 해당하는 리뷰 목록 조회
+    public List<PopupCommentDTO> selectCommentsByUserId(long id) {
+        return popupCommentDAO.selectCommentsByUserId(id);
+    }
+
 
     // 특정 리뷰 ID로 리뷰를 가져오는 메서드
     public PopupCommentDTO getCommentById(Long userId) {

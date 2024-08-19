@@ -101,19 +101,19 @@ function renderComment(data) {
     }
 }
 
-// 데이터를 가져와서 화면에 로딩하는 함수
-function loadComment(filter) {
-    fetchComment(filter)
-        .then(data => {
-            console.log('서버 응답:', data);
-            renderComment(data);
-        })
-        .catch(error => {
-            // 댓글 조회 실패 시, 오류 메시지를 표시
-            Swal.fire({
-                icon: 'error',
-                text: '댓글 조회에 실패했습니다.',
-                confirmButtonText: '확인'
-            });
-        });
-}
+// // 데이터를 가져와서 화면에 로딩하는 함수
+// function loadComment(filter) {
+//     fetchComment(filter)
+//         .then(data => {
+//             console.log('서버 응답:', data);
+//             renderComment(data);
+//         })
+//         .catch(error => {
+//             // 댓글 조회 실패 시, 오류 메시지를 표시
+//             Swal.fire({
+//                 icon: 'error',
+//                 text: '댓글 조회에 실패했습니다.',
+//                 confirmButtonText: '확인'
+//             });
+//         });
+// }

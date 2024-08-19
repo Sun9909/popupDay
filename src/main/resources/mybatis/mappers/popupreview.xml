@@ -23,7 +23,6 @@
     </insert>
 
     <!-- 특정 팝업 ID에 해당하는 리뷰 목록 조회 -->
-    <!-- 특정 팝업 ID에 해당하는 리뷰 목록 조회 -->
     <select id="selectCommentsByPopupId" resultMap="popupCommentResultMap">
         SELECT
         pc.popup_comment_id,
@@ -45,8 +44,30 @@
         pc.created_at DESC;
     </select>
 
+    <!-- 특정 사용자 ID에 해당하는 리뷰 목록 조회 -->
+    <select id="selectCommentsByUserId" resultMap="popupCommentResultMap">
+        SELECT
+            pc.popup_comment_id,
+            pc.content,
+            pc.created_at,
+            pc.updated_at,
+            pc.rating,
+            u.user_nickname,
+            p.title AS popup_title
+        FROM
+            popup_comment_tbl pc
+                JOIN
+            user_tbl u ON pc.user_id = u.id
+                JOIN
+            popup_tbl p ON pc.popup_id = p.popup_id
+        WHERE
+            pc.user_id = #{user_id}
+        ORDER BY
+            pc.created_at DESC;
+    </select>
+
     <!--별점 평균 계산-->
-    <select id="getAverageRatingByPopupId" resultType="double">
+    <select id="getAverageRatingByUserId" resultType="double">
         SELECT COALESCE(AVG(rating), 0) AS average_rating
         FROM popup_comment_tbl
         WHERE popup_id = #{popupId}

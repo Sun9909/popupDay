@@ -1,0 +1,111 @@
+.review-container {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.review-header {
+    margin-bottom: 10px;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.review-rating span {
+    color: gold;
+    font-size: 20px;
+}
+
+.review-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #999;
+}
+
+.review-options-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.review-options-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.review-options-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.review-options-menu button:hover {
+    background-color: #f0f0f0;
+}
+
+.review-options-button:hover + .review-options-menu {
+    display: block;
+}
+/* 리뷰 리스트 전체를 감싸는 컨테이너 */
+.review-list {
+    display: grid; /* Flexbox 또는 CSS Grid를 사용해 레이아웃 설정 가능 */
+    gap: 20px; /* 리뷰 항목 사이의 간격 */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 칸의 너비 조절 */
+}
+
+/* 각 리뷰 항목을 감싸는 요소 */
+.review-item {
+    border: 1px solid #ddd; /* 칸의 경계선 */
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9; /* 배경색 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+/* 기타 기존 스타일 재정의 가능 */
+.review-header {
+    margin-bottom: 10px;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.review-rating span {
+    color: gold;
+    font-size: 20px;
+}
+
+.review-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #999;
+}
