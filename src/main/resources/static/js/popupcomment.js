@@ -1,5 +1,8 @@
 let commentId = /*[[${comment.popup_comment_id}]]*/ '';
 
+// 전역 변수로 currentOpenMenu 선언
+let currentOpenMenu = null;
+
 // 텍스트 영역 글자 수 업데이트 기능
 function updateCharacterCount() {
     const textarea = document.getElementById('content');
@@ -17,9 +20,42 @@ function updateCharacterCount2() {
 
 // 메뉴 토글 함수: 수정/삭제 메뉴 표시 토글
 function toggleOptionsMenu(button) {
+    // 메뉴 참조
     const menu = button.nextElementSibling;
-    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+
+    // 다른 메뉴가 열려 있으면 닫기
+    if (currentOpenMenu && currentOpenMenu !== menu) {
+        currentOpenMenu.style.display = 'none';
+    }
+
+    // 현재 메뉴를 열거나 닫음
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+
+    // 열려 있는 메뉴를 업데이트
+    currentOpenMenu = (menu.style.display === 'block') ? menu : null;
+
+    // 스크롤 제어
+    if (currentOpenMenu) {
+        document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+    } else {
+        document.body.style.overflow = 'auto';   // 스크롤 활성화
+    }
 }
+
+// 메뉴 외부를 클릭하면 메뉴를 닫음
+document.addEventListener('click', function(event) {
+    const isClickInside = currentOpenMenu && currentOpenMenu.contains(event.target);
+    const isButtonClick = event.target.classList.contains('review-options-button');
+
+    // 메뉴 외부를 클릭하거나 메뉴 버튼을 다시 클릭하면 닫기
+    if (!isClickInside && !isButtonClick) {
+        if (currentOpenMenu) {
+            currentOpenMenu.style.display = 'none';
+            currentOpenMenu = null;
+            document.body.style.overflow = 'auto'; // 스크롤 다시 활성화
+        }
+    }
+});
 
 // 전역 클릭 이벤트 리스너: 메뉴 외부 클릭 시 닫기
 document.addEventListener('click', function (event) {
