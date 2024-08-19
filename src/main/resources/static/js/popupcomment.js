@@ -32,8 +32,29 @@ document.addEventListener('click', function (event) {
 });
 
 // 팝업 열기
-function openEditPopup() {
-    // 레이어 팝업을 표시합니다.
+function openEditPopup(button) {
+    // data-* 속성에서 값을 가져오기
+    const commentId = button.getAttribute('data-comment-id');
+    const content = button.getAttribute('data-content');
+    const rating = button.getAttribute('data-rating');
+
+    // popup_comment_id를 숨겨진 필드에 설정
+    document.getElementById('popup_comment_id').value = commentId;
+
+    // 팝업에 텍스트 영역에 기존 내용을 설정
+    document.getElementById('contentUpdate').value = content;
+
+    // 팝업에서 기존 별점을 설정
+    if (rating) {
+        const ratingInput = document.querySelector(`input[name="rating"][value="${rating}"]`);
+        if (ratingInput) {
+            ratingInput.checked = true;
+        } else {
+            console.error(`Rating input with value ${rating} not found.`);
+        }
+    }
+
+    // 팝업을 표시
     document.getElementById("editPopup").style.display = "block";
 }
 

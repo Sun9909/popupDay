@@ -240,7 +240,11 @@
                             <div class="review-options" th:if="${id != session.loginDTO}" style="position: absolute; right: 0; bottom: -110px;">
                                 <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
                                 <div class="review-options-menu" style="display: none;">
-                                    <button type="button" onclick="openEditPopup()">수정</button>
+                                    <button type="button"
+                                            th:data-comment-id="${comment.popup_comment_id}"
+                                            th:data-content="${comment.content}"
+                                            th:data-rating="${comment.rating}"
+                                            onclick="openEditPopup(this)">수정</button>
                                     <form th:action="@{/popupComment/delete}" method="post" style="display:inline;">
                                         <!-- popup_comment_id를 포함 -->
                                         <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
@@ -282,7 +286,7 @@
                                 <span class="close-btn" onclick="closeEditPopup()">&times;</span>
                                 <h2>리뷰 수정</h2>
                                 <form id="editForm" action="/popupComment/update" method="post" onsubmit="return commentEditForm()">
-                                    <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
+                                    <input type="hidden" name="popup_comment_id" id="popup_comment_id" />
                                     <input type="hidden" name="popup_id" th:value="${popupMap.popupList.popup_id}">
 
                                     <!-- 리뷰 내용 입력 -->
