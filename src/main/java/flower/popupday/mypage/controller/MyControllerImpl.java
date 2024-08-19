@@ -6,11 +6,15 @@ import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
 import flower.popupday.popup.dto.PopupDTO;
+import flower.popupday.popup_comment.dto.PopupCommentDTO;
+import flower.popupday.popup_comment.service.PopupCommentService;
+import flower.popupday.popup_comment.service.PopupCommentServiceImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +32,13 @@ public class MyControllerImpl implements MyController {
 
     @Autowired
     private PopupDTO popupDTO;
+
+    @Autowired
+    private PopupCommentServiceImpl popupCommentServiceImpl;
+
+    // 생성자를 통한 의존성 주입
+    @Autowired
+    private PopupCommentService popupCommentService;
 
     //마이페이지
     @Override
@@ -417,8 +428,8 @@ public class MyControllerImpl implements MyController {
                                   @RequestParam(value = "pageNum", required = false) String _pageNum,
                                   @RequestParam(value = "filter", required = false, defaultValue = "popup-comment") String filter,
                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int section=Integer.parseInt((_section == null) ? "1" : _section);
-        int pageNum=Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+        int section = Integer.parseInt((_section == null) ? "1" : _section);
+        int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
 
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
@@ -427,13 +438,38 @@ public class MyControllerImpl implements MyController {
         Map<String, Integer> pagingMap = new HashMap<>();
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
-        Map<String, Object> commentMap = myService.commentList(pagingMap, id, filter);
+
+        // 리뷰 목록 조회 (후기 작성)
+        List<PopupCommentDTO> comments = popupCommentService.selectCommentsByUserId(id);
+        try {
+            comments = popupCommentService.selectCommentsByUserId(id); // 팝업 ID를 user ID로 교체 (추정)
+        } catch (DataAccessException e) {
+            // 데이터베이스 관련 예외 처리
+            System.out.println("리뷰 조회 중 데이터베이스 오류가 발생했습니다.");
+        } catch (Exception e) {
+            // 일반적인 예외 처리
+            System.out.println("리뷰 조회 중 오류가 발생했습니다: " + e.getMessage());
+        }
+
+        // comments 리스트를 콘솔에 출력
+        if (comments != null && !comments.isEmpty()) {
+            for (PopupCommentDTO comment : comments) {
+                System.out.println("Comment ID: " + comment.getPopup_comment_id());
+                System.out.println("Comment Content: " + comment.getContent());
+                System.out.println("Comment Rating: " + comment.getRating());
+                System.out.println("Comment Created At: " + comment.getCreated_at());
+                System.out.println("Comment Updated At: " + comment.getUpdated_at());
+                System.out.println("--------------------------------------");
+            }
+        } else {
+            System.out.println("No comments found for user ID: " + id);
+        }
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("mypage/myComment");
-        mav.addObject("commentMap", commentMap);
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
+        mav.addObject("comments", comments);  // 리뷰 목록 추가
         return mav;
     }
 

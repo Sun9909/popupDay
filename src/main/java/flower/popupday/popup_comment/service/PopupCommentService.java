@@ -10,7 +10,10 @@ public interface PopupCommentService {
     void addComment(PopupCommentDTO popupCommentDTO);
 
     // 특정 팝업 id에 해당하는 리뷰 목록 조회
-    List<PopupCommentDTO> selectCommentsByPopupId(long popupId);
+    public List<PopupCommentDTO> selectCommentsByPopupId(long popupId);
+
+    // 회원 id에 해당하는 리뷰 목록 조회
+    public List<PopupCommentDTO> selectCommentsByUserId(long id);
 
     //특정 팝업 id에 해당하는 별점 평균
     public double calculateAverageRating(Long popupId);
