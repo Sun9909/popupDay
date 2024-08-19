@@ -7,6 +7,13 @@ function updateCharacterCount() {
     const remaining = 50 - textarea.value.length;
     charCount.textContent = `(${remaining} / 50)`;
 }
+// 텍스트 영역 글자 수 업데이트 기능(레이어 팝업 수정부분)
+function updateCharacterCount2() {
+    const textarea = document.getElementById('contentUpdate');
+    const charCount = document.getElementById('charCount2');
+    const remaining = 50 - textarea.value.length;
+    charCount.textContent = `(${remaining} / 50)`;
+}
 
 // 메뉴 토글 함수: 수정/삭제 메뉴 표시 토글
 function toggleOptionsMenu(button) {
