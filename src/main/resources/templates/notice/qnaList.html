@@ -107,9 +107,9 @@
             <!-- 문의사항 작성 내용 -->
             <div class="qnaitem" th:each="qna : ${qnaMap.listQna}">
                 <div>
-                    <a th:href="@{/notice/qnaView.do(qna_id=${qna.qna_id})}" th:text="${qna.title}"></a>
+                    <a class="qnatitle" th:href="@{/notice/qnaView.do(qna_id=${qna.qna_id})}" th:text="${qna.title}"></a>
                 </div>
-                <div th:text="${qna.created_at}"></div>
+                <div class="qnadate" th:text="${qna.created_at}"></div>
                 <div class="category" th:text="${qna.category_name}"></div>
             </div>
         </div>
