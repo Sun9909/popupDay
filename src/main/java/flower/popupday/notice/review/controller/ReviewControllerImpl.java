@@ -257,4 +257,16 @@ public class ReviewControllerImpl implements ReviewController {
         }
         return "redirect:/notice/viewReview.do?review_id=" + reviewId; // 삭제 후 리다이렉트할 페이지로 변경
     }
+
+    @PostMapping("/reviewComment/updateReviewComment.do")
+    public String updateComment(
+            @RequestParam("review_comment_id") Long reviewCommentId,
+            @RequestParam("review_id") Long reviewId,
+            @RequestParam("content") String content) {
+
+        // 리뷰와 별점 업데이트 로직 수행
+        reviewService.updateComment(reviewCommentId, reviewId, content);
+
+        return "redirect:/notice/viewReview.do?review_id=" + reviewId; // 수정 후 리디렉트할 페이지
+    }
 }
