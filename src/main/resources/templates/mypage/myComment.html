@@ -38,6 +38,11 @@
 
         <div>
             <div class="custom-select">
+                <div class="select-selected">팝업 댓글</div>
+                <div class="select-items select-hide">
+                    <div data-value="popup-comment">팝업 댓글</div>
+                    <div data-value="review-comment">후기 댓글</div>
+                </div>
 
                 <select id="filterSelect" aria-hidden="true">
                     <option value="popup-comment">팝업 댓글</option>
@@ -45,6 +50,7 @@
                 </select>
             </div>
         </div>
+
         <div class="review-list">
             <!-- 팝업 댓글 목록 반복 -->
             <div th:each="comment : ${comments}" class="review-item" data-value="popup-comment">
@@ -82,7 +88,6 @@
                 <!-- 이 부분에 후기를 표시하는 내용 추가 -->
             </div>
         </div>
-
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
