@@ -204,14 +204,6 @@ function toggleAnswerQna() {
     }
 }
 
-// // 다른 페이지(글 목록)로 이동
-// function backToList_qna(obj) {
-//     obj.action="/notice/qnaList.do"
-//     obj.method="post";
-//     obj.submit();
-// }
-
-
 
 //qna 수정하기
 function qna_enable(obj) {
@@ -228,93 +220,32 @@ function qna_modify(obj) {
 
 }
 
-
-//// 답변 수정하기
-//function answer_enable(form) {
-//    // 텍스트 영역 활성화
-//    form.querySelector('textarea[name="answer"]').removeAttribute('disabled');
-//
-//    // 버튼 상태 변경
-//    document.getElementById('answer-btn').style.display = 'none';
-//    document.getElementById('answer-mbtn').style.display = 'block';
-//}
-//
-//// 답변 수정 반영하기
-//function submitanswer(obj) {
-//    obj.action="/notice/modAnswer.do";
-//    obj.submit();
-//
-//}
-//
-//
-//// //qna 삭제 반영하기
-//function fn_remove_qna(url, qna_id) {
-//    Swal.fire({
-//        title: 'Q&A 질문을 삭제하시겠습니까?',
-//        text: "이 작업은 되돌릴 수 없습니다!",
-//        icon: 'warning',
-//        showCancelButton: true,
-//        confirmButtonColor: '#3085d6',
-//        cancelButtonColor: '#d33',
-//        confirmButtonText: '삭제',
-//        cancelButtonText: '취소'
-//    }).then((result) => {
-//        if (result.isConfirmed) {
-//            let dele_form = document.createElement("form");
-//            dele_form.setAttribute("action", url);
-//            dele_form.setAttribute("method", "post");
-//            let qnaInput = document.createElement("input");
-//            qnaInput.setAttribute("type", "hidden");
-//            qnaInput.setAttribute("name", "qna_id");
-//            qnaInput.setAttribute("value", qna_id);
-//            dele_form.appendChild(qnaInput);
-//            document.body.appendChild(dele_form);
-//            dele_form.submit();
-//        }
-//    });
-//}
-//
-//// qna답변 삭제 반영하기
-//function fn_remove_answer(url, qna_id) {
-//    Swal.fire({
-//        title: '답변을 삭제하시겠습니까?',
-//        text: "이 작업은 되돌릴 수 없습니다!",
-//        icon: 'warning',
-//        showCancelButton: true,
-//        confirmButtonColor: '#3085d6',
-//        cancelButtonColor: '#d33',
-//        confirmButtonText: '삭제',
-//        cancelButtonText: '취소'
-//    }).then((result) => {
-//        if (result.isConfirmed) {
-//            fetch(url, {
-//                method: 'POST',
-//                headers: {
-//                    'Content-Type': 'application/x-www-form-urlencoded'
-//                },
-//                body: new URLSearchParams({
-//                    'qna_id': qna_id
-//                })
-//            })
-//                .then(response => response.json())
-//                .then(data => {
-//                    if (data.success) {
-//                        // 성공적으로 삭제된 경우 페이지 리로드
-//                        window.location.reload();
-//                    } else {
-//                        Swal.fire('삭제 실패', '답변 삭제에 실패했습니다.', 'error');
-//                    }
-//                })
-//                .catch(error => {
-//                    console.error('Error:', error);
-//                    Swal.fire('오류', '서버 오류가 발생했습니다.', 'error');
-//                });
-//        }
-//    });
-//}
-
-
-//뉴
+// //qna 삭제 반영하기
+function fn_remove_qna(url, qna_id) {
+    Swal.fire({
+        title: 'Q&A 질문을 삭제하시겠습니까?',
+        text: "이 작업은 되돌릴 수 없습니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let dele_form = document.createElement("form");
+            dele_form.setAttribute("action", url);
+            dele_form.setAttribute("method", "post");
+            let qnaInput = document.createElement("input");
+            qnaInput.setAttribute("type", "hidden");
+            qnaInput.setAttribute("name", "qna_id");
+            qnaInput.setAttribute("value", qna_id);
+            dele_form.appendChild(qnaInput);
+            document.body.appendChild(dele_form);
+            dele_form.submit();
+        }
+    });
+}
 // 답변 수정하기
 function answer_enable(form) {
     // 텍스트 영역 활성화
@@ -329,7 +260,7 @@ function answer_enable(form) {
 // 답변 저장하기
 function submitanswer(form) {
     // 폼 액션 설정
-    form.action = "/notice/modAnswer.do";
+   form.action = "/notice/addAnswer.do";  // 수정된 부분
     form.submit();
 }
 
@@ -363,9 +294,22 @@ function fn_remove_answer(url, qna_id) {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                Swal.fire('오류', '서버 오류가 발생했습니다.', 'error');
-            });
-        }
-    });
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: '삭제완료',
+                                text: '답변이 삭제되었습니다.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // 'OK' 버튼 클릭 시 qnaList.do로 리디렉션
+                                    window.location.href = '/qnaList.do';
+                                }
+                            });
+                        });
+                    } else if (result.isDismissed) {
+                        // 취소 버튼 클릭 시 qnaList.do로 리디렉션
+                        window.location.href = '/notice/noticeView.do';
+                    }
+                });
 }
