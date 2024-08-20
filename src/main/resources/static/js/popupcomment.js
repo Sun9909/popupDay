@@ -8,16 +8,35 @@ let currentOpenMenu = null;
 function updateCharacterCount() {
     const textarea = document.getElementById('content');
     const charCount = document.getElementById('charCount');
-    const remaining = 50 - textarea.value.length;
-    charCount.textContent = `(${remaining} / 50)`;
+    const maxLength = 50;
+    const currentLength = textarea.value.length;
+
+    // 글자 수가 최대치를 초과하지 않도록 제한
+    if (currentLength > maxLength) {
+        textarea.value = textarea.value.substring(0, maxLength);
+    }
+
+    charCount.textContent = `(${currentLength} / ${maxLength})`;
 }
+
 // 텍스트 영역 글자 수 업데이트 기능(레이어 팝업 수정부분)
 function updateCharacterCount2() {
     const textarea = document.getElementById('contentUpdate');
     const charCount = document.getElementById('charCount2');
-    const remaining = 50 - textarea.value.length;
-    charCount.textContent = `(${remaining} / 50)`;
+    const maxLength = 50;
+    const currentLength = textarea.value.length;
+
+    // 글자 수가 최대치를 초과하지 않도록 제한
+    if (currentLength > maxLength) {
+        textarea.value = textarea.value.substring(0, maxLength);
+    }
+
+    charCount.textContent = `(${currentLength} / ${maxLength})`;
 }
+
+// 텍스트 입력 시 글자 수 업데이트 이벤트 리스너 추가
+document.getElementById('content').addEventListener('input', updateCharacterCount);
+document.getElementById('contentUpdate').addEventListener('input', updateCharacterCount2);
 
 //메뉴가 열려있을 때 레이어팝업이 떠 있는지 확인하는 함수
 function isPopupOpen() {
@@ -73,6 +92,14 @@ function openEditPopup(button) {
 
     // 팝업에 텍스트 영역에 기존 내용을 설정
     document.getElementById('contentUpdate').value = content;
+
+    // 글자 수를 업데이트
+    const maxLength = 50;
+    const currentLength = content.length;
+
+    // 글자 수 표시 업데이트
+    const charCount = document.getElementById('charCount2');
+    charCount.textContent = `(${currentLength} / ${maxLength})`;
 
     // 팝업에서 기존 별점을 설정
     if (rating) {
