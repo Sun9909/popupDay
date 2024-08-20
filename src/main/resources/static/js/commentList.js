@@ -55,6 +55,51 @@ document.addEventListener('DOMContentLoaded', function() {
     loadComment('popup-comment');
 });
 
+// // 데이터를 가져오는 함수
+// function fetchComment(filter) {
+//     return fetch('/mypage/myComment.do', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ filter: filter })
+//     })
+//         .then(commentMap => {
+//             if (!commentMap.ok) {
+//                 throw new Error('네트워크 응답이 실패했습니다. 상태 코드: ' + commentMap.status);
+//             }
+//             return commentMap.json(); // 응답을 JSON으로 읽습니다.
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             throw error; // 에러를 다시 던져서 호출 측에서 처리하게 함
+//         });
+// }
+//
+// // 데이터를 화면에 로딩하는 함수
+// function renderComment(data) {
+//     const container = document.querySelector('.comlist-tb');
+//     if (container) {
+//         container.innerHTML = ''; // 기존 콘텐츠 지우기
+//
+//         // 데이터 콘솔 출력
+//         console.log("렌더링할 데이터:", data);
+//
+//         data.comment.forEach((comment, index) => {
+//             console.log(`댓글 데이터 ${index}:`, comment);
+//             const commentElement = document.createElement('tr');
+//             commentElement.classList.add('comment-lists');
+//
+//             // HTML 문자열을 직접 구성
+//             commentElement.innerHTML = `
+//                 <td>${comment.content}</td>
+//                 <td>${comment.created_at}</td>
+//             `;
+//
+//             container.appendChild(commentElement);
+//         });
+//     }
+// }
 // 데이터를 가져오는 함수
 function fetchComment(filter) {
     return fetch('/mypage/myComment.do', {
@@ -121,7 +166,6 @@ function renderPopupComment(data) {
         // });
     }
 }
-
 function renderReviewComment(data) {
     const container = document.querySelector('.comlist-tb');
     if (container) {
