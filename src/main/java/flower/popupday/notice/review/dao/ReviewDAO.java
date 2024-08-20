@@ -2,6 +2,7 @@ package flower.popupday.notice.review.dao;
 
 import flower.popupday.notice.review.dto.ReviewCommentDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
+import flower.popupday.popup_comment.dto.PopupCommentDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
@@ -45,4 +46,10 @@ public interface ReviewDAO {
     public void deleteComment(Long reviewCommentId) throws DataAccessException;
 
     public void updateComment(Long reviewCommentId, Long reviewId, String content) throws DataAccessException;
+
+    // 특정 팝업 id에 해당하는 리뷰 목록 조회
+    List<PopupCommentDTO> selectCommentsByPopupId(long popupId);
+
+    // 회원 id에 해당하는 리뷰 목록 조회
+    List<ReviewCommentDTO> selectReviewByUserId(long id);
 }

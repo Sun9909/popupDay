@@ -83,9 +83,45 @@
             </div>
 
             <!-- 후기 댓글 목록 반복 -->
-            <div th:each="review : ${reviews}" class="review-item" data-value="review-comment" style="display:none;">
-                <!-- 후기 댓글 내용 -->
-                <!-- 이 부분에 후기를 표시하는 내용 추가 -->
+            <div class="review-list">
+                <div th:each="review : ${reviewComment}" class="review-container" data-value="review-comment">
+                    <!-- 리뷰의 상단 부분: 작성자와 별점 표시 -->
+                    <div class="review-header" style="display: flex; justify-content: space-between; align-items: center; position: relative;" >
+                        <!-- 작성자가 본인의 리뷰일 경우에만 표시 -->
+                        <div class="review-options" th:if="${id != session.loginDTO}" style="position: absolute; right: 0;">
+                            <button class="review-options-button" onclick="toggleOptionsMenu(this)">⋮</button>
+                            <div class="review-options-menu" style="display: none;">
+                                <button type="button"
+                                        th:data-comment-id="${review.review_comment_id}"
+                                        th:data-content="${review.content}"
+                                        onclick="openEditPopup(this)">수정</button>
+                                <!-- 삭제 기능 -->
+                                <div th:action="@{/reviewComment/deleteReviewComment.do}" method="post" style="display:inline;">
+                                    <!-- review_comment_id를 포함 -->
+                                    <input type="hidden" name="review_comment_id" th:value="${review.review_comment_id}" />
+                                    <!-- review_id를 포함 -->
+                                    <input type="hidden" name="review_id" th:value="${review.review_id}" />
+                                    <button type="submit" onclick="return confirm('정말로 이 후기를 삭제하시겠습니까?');">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 리뷰 상단 컨테이너: 작성자 표시 -->
+                    <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <!-- 작성자 이름 -->
+                        <span class="review-author" th:text="${review.user_nickname}" style="font-size: 20px;">작성자 이름</span>
+                    </div>
+
+                    <!-- 리뷰 내용 reviewComment -->
+                    <div class="review-content" th:text="${review.content}">
+                        리뷰 내용이 여기에 표시됩니다.
+                    </div>
+                    <!-- 리뷰 작성일 -->
+                    <div class="review-date">
+                        작성일: <span th:text="${#temporals.format(review.created_at, 'yyyy-MM-dd')}"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -97,6 +133,7 @@
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{/js/notice.js}"></script>
     <script th:src="@{/js/commentList.js}"></script>
+    <script th:src="@{/js/popupcomment.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </th:block>
 </body>

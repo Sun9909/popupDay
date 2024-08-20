@@ -155,3 +155,38 @@
 .select-items div.selected {
     background-color: #d0d0d0;
 }
+
+/* 공통 스타일 */
+.comment-author, .review-author {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.comment-text, .review-content {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.comment-date, .review-date {
+    font-size: 14px;
+    color: #888;
+}
+
+/* 팝업 댓글과 후기 댓글의 공통 스타일 */
+.review-item, .review-container {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 팝업 댓글 스타일 (필요시 커스터마이징 가능) */
+.review-item {
+    /* 기존 스타일 그대로 유지 */
+}
+
+/* 후기 댓글 스타일 (필요시 커스터마이징 가능) */
+.review-container {
+    /* 기존 스타일 그대로 유지 */
+}

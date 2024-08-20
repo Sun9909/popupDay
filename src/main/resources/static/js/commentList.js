@@ -1,16 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
-    //모든 html이 로드 된 후 실행
+    // 모든 HTML이 로드된 후 실행
     var customSelect = document.querySelector('.custom-select');
     var selected = customSelect.querySelector('.select-selected');
     var items = customSelect.querySelector('.select-items');
     var filterSelect = document.querySelector('#filterSelect');
+    const reviewItems = document.querySelectorAll('.review-item');
+    const reviewContainers = document.querySelectorAll('.review-container');
 
-    //드롭다운 클릭 이벤트(선택된 옵션 영역을 클릭하면 드롭다운 목록을 보여주거나 숨김)
+    // 드롭다운 클릭 이벤트 (선택된 옵션 영역을 클릭하면 드롭다운 목록을 보여주거나 숨김)
     selected.addEventListener('click', function() {
         items.classList.toggle('select-show');
     });
 
-    //드롭다운 항목 선택 처리
+    // 드롭다운 항목 선택 처리
     items.addEventListener('click', function(e) {
         if (e.target.tagName === 'DIV') {
             var value = e.target.getAttribute('data-value');
@@ -32,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 드롭다운 닫기
             items.classList.remove('select-show');
 
-            // 필터 변경 시 첫 페이지로 이동
-            loadComment(value);
+            // 필터 변경 시 해당 댓글만 표시
+            updateCommentDisplay(value);
         }
     });
 
@@ -48,100 +50,32 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#filterSelect').on('change', function() {
         var selectedValue = $(this).val();
         console.log('Selected value from select:', selectedValue); // Debugging
-        loadComment(selectedValue);
+        updateCommentDisplay(selectedValue);
     });
 
-    // 초기 페이지 로드
-    loadComment('popup-comment');
-});
-
-// // 데이터를 가져오는 함수
-// function fetchComment(filter) {
-//     return fetch('/mypage/myComment.do', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ filter: filter })
-//     })
-//         .then(commentMap => {
-//             if (!commentMap.ok) {
-//                 throw new Error('네트워크 응답이 실패했습니다. 상태 코드: ' + commentMap.status);
-//             }
-//             return commentMap.json(); // 응답을 JSON으로 읽습니다.
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             throw error; // 에러를 다시 던져서 호출 측에서 처리하게 함
-//         });
-// }
-//
-// // 데이터를 화면에 로딩하는 함수
-// function renderComment(data) {
-//     const container = document.querySelector('.comlist-tb');
-//     if (container) {
-//         container.innerHTML = ''; // 기존 콘텐츠 지우기
-//
-//         // 데이터 콘솔 출력
-//         console.log("렌더링할 데이터:", data);
-//
-//         data.comment.forEach((comment, index) => {
-//             console.log(`댓글 데이터 ${index}:`, comment);
-//             const commentElement = document.createElement('tr');
-//             commentElement.classList.add('comment-lists');
-//
-//             // HTML 문자열을 직접 구성
-//             commentElement.innerHTML = `
-//                 <td>${comment.content}</td>
-//                 <td>${comment.created_at}</td>
-//             `;
-//
-//             container.appendChild(commentElement);
-//         });
-//     }
-// }
-
-//select에 따라 해당 값 뜨게
-document.addEventListener('DOMContentLoaded', function() {
-    const filterSelect = document.getElementById('filterSelect');
-    const reviewItems = document.querySelectorAll('.review-item');
-
-    // select 박스의 값이 변경될 때
-    filterSelect.addEventListener('change', function() {
-        const selectedValue = filterSelect.value;
-
-        // 모든 리뷰 아이템 숨기기
+    // 댓글 표시 업데이트 함수
+    function updateCommentDisplay(selectedValue) {
+        // 모든 리뷰 및 팝업 아이템 숨기기
         reviewItems.forEach(item => {
             item.style.display = 'none';
         });
-
-        // 선택한 값과 일치하는 리뷰 아이템만 표시
-        reviewItems.forEach(item => {
-            if (item.getAttribute('data-value') === selectedValue) {
-                item.style.display = 'block';
-            }
+        reviewContainers.forEach(container => {
+            container.style.display = 'none';
         });
-    });
 
-    // 초기 표시 - 처음 로드할 때 선택된 옵션에 따라 필터 적용
-    filterSelect.dispatchEvent(new Event('change'));
-});
-
-function loadComment(filter) {
-    console.log("loadComment 함수가 호출되었습니다. 선택된 필터: " + filter);
-
-    const reviewItems = document.querySelectorAll('.review-item');
-
-    // 모든 리뷰 아이템 숨기기
-    reviewItems.forEach(item => {
-        item.style.display = 'none';
-    });
-
-    // 선택된 값과 일치하는 리뷰 아이템만 표시
-    reviewItems.forEach(item => {
-        if (item.getAttribute('data-value') === filter) {
-            item.style.display = 'block';
+        // 선택한 값과 일치하는 리뷰 및 팝업 아이템만 표시
+        if (selectedValue === 'popup-comment') {
+            reviewItems.forEach(item => {
+                item.style.display = 'block';
+            });
+        } else if (selectedValue === 'review-comment') {
+            reviewContainers.forEach(container => {
+                container.style.display = 'block';
+            });
         }
-    });
-}
+    }
 
+    // 초기 페이지 로드 - 처음 로드할 때 선택된 옵션에 따라 필터 적용
+    const initialSelectedValue = filterSelect.value;
+    updateCommentDisplay(initialSelectedValue);
+});

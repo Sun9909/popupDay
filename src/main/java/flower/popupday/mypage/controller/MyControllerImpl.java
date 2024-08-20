@@ -5,6 +5,8 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
+import flower.popupday.notice.review.dto.ReviewCommentDTO;
+import flower.popupday.notice.review.service.ReviewService;
 import flower.popupday.popup.dto.PopupDTO;
 import flower.popupday.popup_comment.dto.PopupCommentDTO;
 import flower.popupday.popup_comment.service.PopupCommentService;
@@ -39,6 +41,10 @@ public class MyControllerImpl implements MyController {
     // 생성자를 통한 의존성 주입
     @Autowired
     private PopupCommentService popupCommentService;
+
+    // 생성자를 통한 의존성 주입
+    @Autowired
+    private ReviewService reviewService;
 
     //마이페이지
     @Override
@@ -439,10 +445,10 @@ public class MyControllerImpl implements MyController {
         pagingMap.put("section", section);
         pagingMap.put("pageNum", pageNum);
 
-        // 리뷰 목록 조회 (후기 작성)
+        // 팝업 댓글(리뷰) 목록 조회 (후기 작성)
         List<PopupCommentDTO> comments = popupCommentService.selectCommentsByUserId(id);
         try {
-            comments = popupCommentService.selectCommentsByUserId(id); // 팝업 ID를 user ID로 교체 (추정)
+            comments = popupCommentService.selectCommentsByUserId(id);
         } catch (DataAccessException e) {
             // 데이터베이스 관련 예외 처리
             System.out.println("리뷰 조회 중 데이터베이스 오류가 발생했습니다.");
@@ -465,11 +471,40 @@ public class MyControllerImpl implements MyController {
             System.out.println("No comments found for user ID: " + id);
         }
 
+        //후기 댓글 목록 조회
+        List<ReviewCommentDTO> reviewComment = reviewService.selectReviewByUserId(id);
+        try {
+            reviewComment = reviewService.selectReviewByUserId(id);
+        } catch (DataAccessException e) {
+            // 데이터베이스 관련 예외 처리
+            System.out.println("리뷰 조회 중 데이터베이스 오류가 발생했습니다.");
+        } catch (Exception e) {
+            // 일반적인 예외 처리
+            System.out.println("리뷰 조회 중 오류가 발생했습니다: " + e.getMessage());
+        }
+
+        //reviews 리스트 콘솔에 출력
+        if (reviewComment != null && !reviewComment.isEmpty()) {
+            for (ReviewCommentDTO review : reviewComment) {
+                System.out.println("Comment ID: " + review.getReview_comment_id());
+                System.out.println("Comment UserID: " + review.getUser_id());
+                System.out.println("Comment Content: " + review.getContent());
+                System.out.println("Comment ReviewId: " + review.getReview_id());
+                System.out.println("Comment Created At: " + review.getCreated_at());
+                System.out.println("Comment Updated At: " + review.getUpdated_at());
+                System.out.println("--------------------------------------");
+            }
+        } else {
+            System.out.println("No comments found for user ID: " + id);
+        }
+
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("mypage/myComment");
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
         mav.addObject("comments", comments);  // 리뷰 목록 추가
+        mav.addObject("reviewComment", reviewComment);  // 리뷰 목록 추가
         return mav;
     }
 
