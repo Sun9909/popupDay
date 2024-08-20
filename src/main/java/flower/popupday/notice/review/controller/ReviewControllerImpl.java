@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.util.*;
@@ -241,5 +242,19 @@ public class ReviewControllerImpl implements ReviewController {
         // 리뷰 상세보기 페이지로 리다이렉트
         ModelAndView mav = new ModelAndView("redirect:/notice/viewReview.do?review_id=" + review_id);
         return mav;
+    }
+
+    @Override
+    @PostMapping("reviewComment/deleteReviewComment.do")
+    public String deleteComment(@RequestParam(value = "review_id", required = true) Long reviewId,
+                                @RequestParam("review_comment_id") Long reviewCommentId,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            reviewService.deleteComment(reviewCommentId);
+            redirectAttributes.addFlashAttribute("message", "리뷰가 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "리뷰 삭제에 실패했습니다.");
+        }
+        return "redirect:/notice/viewReview.do?review_id=" + reviewId; // 삭제 후 리다이렉트할 페이지로 변경
     }
 }
