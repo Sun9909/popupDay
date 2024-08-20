@@ -81,5 +81,10 @@ public class ReviewServiceImpl implements ReviewService {
 
     }
 
+    @Override
+    public void deleteComment(Long reviewCommentId) throws DataAccessException {
+        reviewDAO.deleteComment(reviewCommentId);
+    }
+
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface ReviewController {
 
@@ -32,6 +33,10 @@ public interface ReviewController {
     public ModelAndView addReviewComment(@RequestParam("review_id") Long review_id, @RequestParam("user_id") Long user_id,
                                          @RequestParam("content") String content, HttpServletRequest request,
                                          HttpServletResponse response) throws Exception;
+
+    public String deleteComment(@RequestParam(value = "review_id", required = true) Long reviewId,
+                                @RequestParam("review_comment_id") Long reviewCommentId,
+                                RedirectAttributes redirectAttributes) throws Exception;
 
 }
 

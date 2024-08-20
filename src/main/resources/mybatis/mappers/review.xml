@@ -106,4 +106,8 @@
         select rc.*, u.user_nickname from review_comment_tbl
             rc join user_tbl u on rc.user_id = u.id where rc.review_id = #{review_id}
     </select>
+
+    <delete id="deleteComment" parameterType="long">
+        DELETE FROM review_comment_tbl WHERE review_comment_id = #{review_comment_id}
+    </delete>
 </mapper>
