@@ -246,7 +246,19 @@ a.qnatitle {
     margin: 0 auto;
         width: 600px;
 }
-
+.usermodify {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+}
+#qna-btn, #qna-mbtn  {
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    margin: 20px 0px 20px;
+}
 
 .viewForm p {
     font-weight: 400;
@@ -269,12 +281,6 @@ a.qnatitle {
     margin-bottom: 30px;
 }
 
-#qna-btn {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 10px;
-    margin: 20px 0px 20px;
-}
 /* 수정추가 */
 
 .notice-form {
@@ -315,7 +321,7 @@ a.qnatitle {
     font-weight: 600;
 }
 
-.notice-view button {
+.listview {
     background-color: #8B8BDA;
     padding: 5px 10px;
     border-radius: 5px;
@@ -323,17 +329,20 @@ a.qnatitle {
     margin: 10px;
 }
 
-.notice-view button a {
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-}
-.blcok {
-    margin: 20px;
+#answer-section {
+    margin-top: 20px;
 }
 
+.noanswer {
+    margin: 0px 0 180px;
+    width: 600px;
+    background-color: white;
+    padding: 20px 15px 30px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
 
-/**후기후기후기후기ㅣ기************************/
+/**************************************후기후기후기후기ㅣ기************************/
 .reviewlist {
     display: flex;
     top: 50px;
@@ -616,7 +625,7 @@ a.write {
    resize: none;
    font-size: 18px;
 }
-#answer-btn {
+#answer-btn{
     margin-top: 10px;
     display: flex;
     flex-direction: row-reverse;
@@ -628,7 +637,15 @@ a.write {
 #answer-btn input, #answer-mbtn input, #answer-mbtn button {
     margin-right: 10px; /* 버튼 간의 간격 조정 */
 }
-
+.form-controls {
+    text-align: left; /* 버튼을 왼쪽으로 정렬 */
+}
+#answer-save {
+    margin: 10px 0px 50px;
+}
+.answer-in {
+    margin-bottom: 20px;
+}
 .view-list-btn {
     display: flex;
     flex-direction: row-reverse;

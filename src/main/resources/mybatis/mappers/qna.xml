@@ -86,7 +86,7 @@
 
     <!-- 답변 조회 -->
     <select id="selectQnaById" parameterType="long" resultMap="qnaAnswerResult">
-        SELECT * FROM qna_answer_tbl WHERE qna_id = #{qna_id}
+        SELECT * FROM qna_answer_tbl WHERE qna_id = #{qna_id} LIMIT 1
     </select>
 
     <!-- QnaDTO와 QnaAnswerDTO를 조회하여 Map으로 반환하는 쿼리 -->
