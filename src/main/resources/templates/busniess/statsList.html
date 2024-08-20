@@ -18,7 +18,7 @@
         <div class="month-chart">
 
             <tbody>
-                <tr th:each="item : ${count}">
+                <tr th:each="item : ${count}" class="viewer-list" data-month="${item.month}" data-hit-count="${item.hit_count}">
                     <td th:text="${item.month}"></td>
                     <td th:text="${item.hit_count}"></td>
                 </tr>
