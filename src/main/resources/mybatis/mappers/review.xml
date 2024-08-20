@@ -110,4 +110,10 @@
     <delete id="deleteComment" parameterType="long">
         DELETE FROM review_comment_tbl WHERE review_comment_id = #{review_comment_id}
     </delete>
+
+    <update id="updateComment">
+        UPDATE review_comment_tbl SET content = #{content}, updated_at = CURRENT_TIMESTAMP
+        WHERE review_comment_id = #{reviewCommentId} AND review_id = #{reviewId}
+    </update>
+
 </mapper>

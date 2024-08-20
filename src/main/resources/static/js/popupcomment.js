@@ -171,6 +171,20 @@ function commentEditForm() {
     return true; // 모든 조건이 충족되면 폼 제출 허용
 }
 
+function commentEditForm2() {
+    const content = document.getElementById('contentUpdate').value.trim();
+    if (content === '') {
+        Swal.fire({
+            icon: 'warning',
+            title: '내용을 작성해주세요.',
+            showConfirmButton: true
+        });
+        return false;  // 폼 제출을 막음
+    }
+
+    return true; // 모든 조건이 충족되면 폼 제출 허용
+}
+
 
 
 // 페이지 로드 시 글자 수를 초기화합니다.

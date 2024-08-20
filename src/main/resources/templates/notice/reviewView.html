@@ -124,18 +124,26 @@
                 </div>
 
                 <!-- 레이어 팝업 -->
-                <div id="editPopup" class="popup-overlay" style="display: none;">
-                    <div class="popup-content">
-                        <span class="close-btn" onclick="closeEditPopup()">&times;</span>
-                        <h2>댓글 수정</h2>
-                        <form id="editForm" action="/reviewComment/addReviewComment.do" method="post">
-                            <input type="hidden" name="review_comment_id" id="reviewId">
-                            <label for="content">댓글 내용:</label>
-                            <textarea id="contentUpdate" name="content" rows="4" cols="50"></textarea>
-                            <button type="submit">수정 완료</button>
-                        </form>
+                    <div id="editPopup" class="popup-overlay" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close-btn" onclick="closeEditPopup()">&times;</span>
+                            <h2>리뷰 수정</h2>
+                            <form id="editForm" action="/reviewComment/updateReviewComment.do" method="post" onsubmit="return commentEditForm2()">
+                                <input type="hidden" name="review_comment_id" id="popup_comment_id" />
+                                <input type="hidden" name="review_id" th:value="${reviewArticle.review.review_id}">
+
+                                <!-- 리뷰 내용 입력 -->
+                                <label for="contentUpdate">리뷰 내용:</label>
+                                <textarea id="contentUpdate" name="content" rows="4" cols="50" oninput="updateCharacterCount2()"></textarea>
+                                <br>
+                                <!-- 남은 글자 수를 비율로 표시하는 부분 -->
+                                <p style="text-align: right;" id="charCount2">(50 / 50)</p>
+                                <br>
+                                <!-- 수정 완료 버튼 -->
+                                <button type="submit" style="float: right;">수정 완료</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
             </div>
         </div>

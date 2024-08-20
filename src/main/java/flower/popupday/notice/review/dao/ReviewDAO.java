@@ -43,4 +43,6 @@ public interface ReviewDAO {
     public List <ReviewCommentDTO> selectReviewComment(int review_id) throws DataAccessException;
 
     public void deleteComment(Long reviewCommentId) throws DataAccessException;
+
+    public void updateComment(Long reviewCommentId, Long reviewId, String content) throws DataAccessException;
 }

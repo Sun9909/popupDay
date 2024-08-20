@@ -28,4 +28,6 @@ public interface ReviewService {
     public void addReviewComment(ReviewCommentDTO reviewComment) throws DataAccessException;
 
     public void deleteComment(Long popupCommentId) throws DataAccessException;
+
+    public void updateComment(Long reviewCommentId, Long reviewId, String content) throws DataAccessException;
 }
