@@ -30,4 +30,7 @@ public interface ReviewService {
     public void deleteComment(Long popupCommentId) throws DataAccessException;
 
     public void updateComment(Long reviewCommentId, Long reviewId, String content) throws DataAccessException;
+
+    // 회원 id에 해당하는 리뷰 목록 조회
+    public List<ReviewCommentDTO> selectReviewByUserId(long id);
 }

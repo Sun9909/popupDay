@@ -4,6 +4,7 @@ import flower.popupday.notice.review.dao.ReviewDAO;
 import flower.popupday.notice.review.dto.ReviewCommentDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.notice.review.dto.ReviewImageDTO;
+import flower.popupday.popup_comment.dto.PopupCommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -91,5 +92,9 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDAO.updateComment(reviewCommentId, reviewId, content);
     }
 
+    // 회원 id에 해당하는 리뷰 목록 조회 - 비정적 메서드
+    public List<ReviewCommentDTO> selectReviewByUserId(long id) {
+        return reviewDAO.selectReviewByUserId(id);
+    }
 
 }
