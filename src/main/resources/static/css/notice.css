@@ -328,7 +328,9 @@ a.qnatitle {
     font-size: 15px;
     font-weight: 600;
 }
-
+.blcok {
+    margin: 20px;
+}
 
 
 /**후기후기후기후기ㅣ기************************/
@@ -605,21 +607,33 @@ a.write {
     cursor: pointer;
 }
 .answer-content {
+   margin: 0 auto;
+   width: 600px;
    background-color: white;
-    padding: 20px 15px 30px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin: 0 auto;
-    width: 600px;
+   padding: 20px 15px 30px;
+   border-radius: 10px;
+   border: 1px solid #ccc;
+   resize: none;
+   font-size: 18px;
 }
+#answer-btn {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#answer-mbtn {
+    direction: rtl;
+}
+
+#answer-btn input, #answer-mbtn input, #answer-mbtn button {
+    margin-right: 10px; /* 버튼 간의 간격 조정 */
+}
+
 .view-list-btn {
     display: flex;
     flex-direction: row-reverse;
     margin: 20px 0px 20px;
 }
-
-
-
 
 #review_title {
     font-size: 25px;
