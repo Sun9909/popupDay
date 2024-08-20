@@ -13,7 +13,9 @@
 <body>
   <th:block layout:fragment="content">
     <div class="containers">
-
+        <div th:each="stats: ${statsMap}">
+            <input type="text" th:value="${stats.statsCount}" readonly>
+        </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
