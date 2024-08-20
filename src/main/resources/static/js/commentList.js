@@ -117,3 +117,29 @@ function renderComment(data) {
 //             });
 //         });
 // }
+
+//select에 따라 해당 값 뜨게
+document.addEventListener('DOMContentLoaded', function() {
+    const filterSelect = document.getElementById('filterSelect');
+    const reviewItems = document.querySelectorAll('.review-item');
+
+    // select 박스의 값이 변경될 때
+    filterSelect.addEventListener('change', function() {
+        const selectedValue = filterSelect.value;
+
+        // 모든 리뷰 아이템 숨기기
+        reviewItems.forEach(item => {
+            item.style.display = 'none';
+        });
+
+        // 선택한 값과 일치하는 리뷰 아이템만 표시
+        reviewItems.forEach(item => {
+            if (item.getAttribute('data-value') === selectedValue) {
+                item.style.display = 'block';
+            }
+        });
+    });
+
+    // 초기 표시 - 처음 로드할 때 선택된 옵션에 따라 필터 적용
+    filterSelect.dispatchEvent(new Event('change'));
+});

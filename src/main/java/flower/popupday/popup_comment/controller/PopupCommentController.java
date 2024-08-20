@@ -1,5 +1,6 @@
 package flower.popupday.popup_comment.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,5 +28,8 @@ public interface PopupCommentController {
             @RequestParam("popup_id") Long popupId,
             @RequestParam("content") String content,
             @RequestParam("rating") int rating);
+
+    //user_id와 popup_comment_id로 popup_id 찾기
+    public String popupIdSearch(@RequestParam("popup_comment_id") Long popupCommentId);
 }
 
