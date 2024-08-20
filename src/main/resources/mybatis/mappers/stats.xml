@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="flower.popupday.business.dao.StatsDAO">
+    <resultMap id="visitResult" type="statsDTO">
+        <result property="hits_id" column="hits_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="popup_id" column="popup_id"/>
+        <result property="viewed_at" column="viewed_at"/>
+    </resultMap>
+
+    <select id="statsList" parameterType="long">
+        select * from hits_tbl where popup_id = #{popup_id}
+    </select>
+
+    <select id="statsCount" parameterType="long">
+        select count(*) from hits_tbl where popup_id = #{popup_id}
+    </select>
+</mapper>
