@@ -44,10 +44,12 @@
                     <p>제목</p>
                     <input class="view-title" id="title" name="title" th:value="${qnaView.qna.title}" disabled>
                 </div>
+                <p></p>
                 <div class="viewForm">
                     <p>내용</p>
-                    <input class="view-content" id="content" name="content" th:value="${qnaView.qna.content}" disabled>
+                    <textarea class="view-content" id="content" name="content" style="height: 250px;">[[${qnaView.qna.content}]]</textarea>
                 </div>
+            </form>
                 <!-- 작성자가 글 수정 및 삭제 -->
                 <div class="usermodify" th:if="${session.loginDTO.id == qnaView.qna.user_id and session.loginDTO.role != '관리자'}">
                     <div id="qna-btn">
@@ -59,39 +61,62 @@
                         <button><a th:href="@{/notice/qnaList.do}">수정취소하기</a></button>
                     </div>
                 </div>
-            </form>
 
+
+<!--            &lt;!&ndash; 관리자 답변 &ndash;&gt;-->
+<!--            <div class="qna-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">-->
+<!--                <button type="button" onclick="toggleAnswerQna()">답변하기</button>-->
+<!--                <div id="answer_qna_div" class="answer_qna" style="display: none;">-->
+<!--                    <form class="answer-content" th:action="@{/notice/addAnswer.do}" method="post">-->
+<!--                        <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">-->
+<!--                        <textarea id="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100" name="answer"></textarea>-->
+<!--                        <button><a th:href="@{/notice/qnaList.do}">취소하기</a></button>-->
+<!--                    </form>-->
+<!--                        <button type="submit">등록하기</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="answer-section" th:if="${qnaView.qna != null}">-->
+<!--            <p>답변</p>-->
+<!--            <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">-->
+<!--                <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">-->
+<!--                <textarea class="view-content" name="answer" disabled th:text="${qnaView.answer != null ? qnaView.answer.answer : ''}"></textarea>-->
+<!--                <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>-->
+<!--                <div id="answer-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">-->
+<!--                    <input type="button" value="답변수정" onclick="answer_enable(this.form)">-->
+<!--                    <input type="button" value="답변삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView.qna.qna_id})|">-->
+<!--                </div>-->
+<!--                <div id="answer-mbtn" style="display: none;" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">-->
+<!--                    <input type="button" value="답변수정반영" onclick="submitanswer(this.form)">-->
+<!--                    <button><a th:href="@{/notice/qnaList.do}">수정취소</a></button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
             <!-- 관리자 답변 -->
             <div class="qna-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
-                <button type="button" onclick="toggleAnswerQna()">답변하기</button>
-                <div id="answer_qna_div" class="answer_qna" style="display: none;">
-                    <form class="answer-content" th:action="@{/notice/addAnswer.do}" method="post">
-                        <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
-                        <textarea id="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100" name="answer"></textarea>
-                        <button type="submit">등록하기</button>
-                        <button><a th:href="@{/notice/qnaList.do}">취소하기</a></button>
-                    </form>
-                </div>
+                <!-- 답변하기 버튼 제거 -->
             </div>
-        </div>
 
-        <div class="answer-section" th:if="${qnaView.qna != null}">
-            <p>답변</p>
-            <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">
-                <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
-                <textarea class="view-content" name="answer" disabled th:text="${qnaView.answer != null ? qnaView.answer.answer : ''}"></textarea>
-                <button><a th:href="@{/notice/qnaList.do}">목록보기</a></button>
-                <div id="answer-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
-                    <input type="button" value="답변수정" onclick="answer_enable(this.form)">
-                    <input type="button" value="답변삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView.qna.qna_id})|">
-                </div>
-                <div id="answer-mbtn" style="display: none;" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
-                    <input type="button" value="답변수정반영" onclick="submitanswer(this.form)">
-                    <button><a th:href="@{/notice/qnaList.do}">수정취소</a></button>
-                </div>
-            </form>
+            <!-- 답변 섹션: 답변 입력 폼과 기존 답변 내용 -->
+            <div class="answer-section" th:if="${qnaView.qna != null}">
+                <form class="answer-content" th:action="@{/notice/modAnswer.do}" method="post">
+                    <input type="hidden" name="qna_id" th:value="${qnaView.qna.qna_id}">
+                    <textarea class="view-content" name="answer" placeholder="문의 내용에 대한 답글을 입력하세요" rows="5" cols="100"
+                              th:text="${qnaView.answer != null ? qnaView.answer.answer : ''}"></textarea>
+                    <div id="answer-btn" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
+                        <input type="button" value="답변 저장하기" onclick="answer_enable(this.form)">
+                        <input type="button" value="답변 삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView.qna.qna_id})|">
+                    </div>
+                    <div id="answer-mbtn" style="display: none;" th:if="${session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
+                        <input type="button" value="답변 수정 반영하기" onclick="submitanswer(this.form)">
+                        <button><a th:href="@{/notice/qnaList.do}">수정 취소</a></button>
+                    </div>
+                    <button><a th:href="@{/notice/qnaList.do}">목록 보기</a></button>
+                </form>
+            </div>
+
         </div>
-    </div>
 
     <!-- 중복된 스크립트 로드 제거 -->
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>

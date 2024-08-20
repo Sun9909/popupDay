@@ -44,13 +44,14 @@
 
         ]]>
     </insert>
-<!--    <insert id="insertJoinPoint" parameterType="loginDTO">-->
-<!--        insert into point_history_tbl(user_id,change_amount,point_type,new_point)-->
-<!--        values(#{id},+100,'회원가입',100,now())-->
-<!--    </insert>-->
-<!--    <update id="createReviewPoint" parameterType="loginDTO">-->
-<!--        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{id}' ORDER BY point_date DESC LIMIT 1) where id = #{id};-->
-<!--    </update>-->
+
+    <insert id="insertJoinPoint" parameterType="loginDTO">
+        insert into point_history_tbl(user_id,change_amount,point_type,new_point)
+        values(#{id},+100,'회원가입',100,now())
+    </insert>
+    <update id="createReviewPoint" parameterType="loginDTO">
+        update user_tbl set tot_point = (select new_point from point_history_tbl where user_id = '#{id}' ORDER BY point_date DESC LIMIT 1) where id = #{id};
+    </update>
 
     <insert id="busniessLogin" parameterType="loginDTO">
         <![CDATA[
