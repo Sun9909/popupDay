@@ -4,12 +4,11 @@ import flower.popupday.popup.dao.PopupDAO;
 import flower.popupday.popup.dto.HashTagDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,15 +21,52 @@ public class PopupServiceImpl implements PopupService {
     @Autowired
     private PopupDAO popupDAO;
 
+//    @Override
+//    public Map <String, Object> mainView(HttpSession session) throws DataAccessException {
+//        Map<String, Object> mainMap = new HashMap<>();
+//        List<PopupDTO> bestPopupList = popupDAO.bestPopup();
+//        List<HashTagDTO> bestHashTagList = popupDAO.bestHashTagList();
+//        mainMap.put("bestPopupList",bestPopupList);
+//        mainMap.put("bestHashTagList",bestHashTagList);
+//        return mainMap;
+//    }
+
     @Override
-    public Map <String, Object> mainView() throws DataAccessException {
+    public Map<String, Object> mainView(Long id) throws DataAccessException {
         Map<String, Object> mainMap = new HashMap<>();
+
+        // 로그인 상태 및 사용자 ID 확인
+        boolean isLoggedIn = id != null;
+//        Long id = null;
+        boolean userSelectedHashtags = false;
+
+        if (isLoggedIn) {
+            // 세션에서 사용자 ID를 직접 가져옴
+//            id = (Long) session.getAttribute("id");
+            //System.out.println("id: " + id);
+
+
+            // 사용자 해시태그 선택 여부 확인
+            userSelectedHashtags = popupDAO.hasSelectedHashtags(id);
+            //System.out.println("userSelectedHashtags: " + userSelectedHashtags);
+
+        }
+
+        // 팝업 리스트 조회
         List<PopupDTO> bestPopupList = popupDAO.bestPopup();
-        List<HashTagDTO> bestHashTagList = popupDAO.bestHashTagList();
-        mainMap.put("bestPopupList",bestPopupList);
-        mainMap.put("bestHashTagList",bestHashTagList);
+
+        // 해시태그 리스트 조회 (로그인 상태 및 해시태그 선택 여부에 따라)
+        List<HashTagDTO> bestHashTagList = popupDAO.bestHashTagList(isLoggedIn, userSelectedHashtags, id);
+
+        System.out.println("bestHashTagList size: " + (bestHashTagList != null ? bestHashTagList.size() : 0));
+
+        // 결과를 Map에 저장
+        mainMap.put("bestPopupList", bestPopupList);
+        mainMap.put("bestHashTagList", bestHashTagList);
+
         return mainMap;
     }
+
 
     @Override
     public List<PopupDTO> searchPopupHasTag(String hashtag) {

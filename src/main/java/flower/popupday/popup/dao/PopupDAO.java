@@ -69,7 +69,9 @@ public interface PopupDAO {
 
     public List<PopupDTO> bestPopup() throws DataAccessException;
 
-    public List<HashTagDTO> bestHashTagList() throws DataAccessException;
+    public List<HashTagDTO> bestHashTagList(boolean isLoggedIn, boolean userSelectedHashtags, Long id) throws DataAccessException;
+
+//    public List<HashTagDTO> bestHashTagList() throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashtag) throws DataAccessException;
 
@@ -84,12 +86,13 @@ public interface PopupDAO {
 
     public void updateHashTags(Map popupMap) throws DataAccessException;
 
-    Integer findHashTagId(String hashTag);
+    public Integer findHashTagId(String hashTag) throws DataAccessException;
 
-    void deletePopupHashTag(Long popupId);
-
+    public void deletePopupHashTag(Long popupId) throws DataAccessException;
 
     //yoni
 
-    void getUserHashTags(long user_id);
+    public void getUserHashTags(long user_id) throws DataAccessException;
+
+    public boolean hasSelectedHashtags(Long id) throws DataAccessException;
 }

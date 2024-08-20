@@ -209,16 +209,16 @@
         WHERE p.role ="승인" and p.end_date > NOW() ORDER BY p.hits DESC LIMIT 5;
     </select>
 
-    <select id="bestHashTagList" resultType="HashTagDTO">
-        SELECT h.hash_tag, COUNT(ph.popup_id) AS usage_count
-        FROM hash_tag_tbl h
-                 JOIN popup_hash_tag_tbl ph ON h.hash_tag_id = ph.hash_tag_id
-                 JOIN popup_tbl p ON ph.popup_id = p.popup_id
-        WHERE p.role = '승인'
-        GROUP BY h.hash_tag_id, h.hash_tag
-        ORDER BY usage_count DESC
-            LIMIT 5; -- 원하는 개수로 조정
-    </select>
+<!--    <select id="bestHashTagList" resultType="HashTagDTO">-->
+<!--        SELECT h.hash_tag, COUNT(ph.popup_id) AS usage_count-->
+<!--        FROM hash_tag_tbl h-->
+<!--                 JOIN popup_hash_tag_tbl ph ON h.hash_tag_id = ph.hash_tag_id-->
+<!--                 JOIN popup_tbl p ON ph.popup_id = p.popup_id-->
+<!--        WHERE p.role = '승인'-->
+<!--        GROUP BY h.hash_tag_id, h.hash_tag-->
+<!--        ORDER BY usage_count DESC-->
+<!--            LIMIT 5; &#45;&#45; 원하는 개수로 조정-->
+<!--    </select>-->
 
     <select id="searchPopupHasTag" parameterType="String" resultMap="popResult">
         SELECT p.popup_id, p.title, p.start_date, p.end_date, p.address,p.role, MAX(i.image_file_name) AS image_file_name
@@ -248,5 +248,44 @@
             VALUES ((SELECT hash_tag_id FROM hash_tag_tbl WHERE hash_tag = #{tag}), #{popup_id});
         </foreach>
     </update>
+
+        <!-- 로그인 여부와 해시태그 선택 여부에 따라 동적으로 해시태그 리스트 조회 -->
+    <select id="bestHashTagList" parameterType="map" resultType="HashTagDTO">
+        <choose>
+            <when test="isLoggedIn and userSelectedHashtags">
+                <!-- 로그인한 경우: 사용자가 해시태그를 선택했을 때 -->
+                SELECT h.hash_tag, COUNT(ph.popup_id) AS usage_count FROM hash_tag_tbl h
+                JOIN popup_hash_tag_tbl ph ON h.hash_tag_id = ph.hash_tag_id
+                JOIN popup_tbl p ON ph.popup_id = p.popup_id
+                JOIN user_hash_tag_tbl uht ON h.hash_tag_id = uht.hash_tag_id
+                WHERE p.role = '승인' AND uht.user_id = #{id}
+                GROUP BY h.hash_tag_id, h.hash_tag ORDER BY usage_count DESC
+                LIMIT 5
+            </when>
+            <when test="isLoggedIn and not userSelectedHashtags">
+                <!-- 로그인한 경우: 사용자가 해시태그를 선택하지 않았을 때 -->
+                SELECT h.hash_tag, COUNT(ph.popup_id) AS usage_count
+                FROM hash_tag_tbl h JOIN popup_hash_tag_tbl ph ON h.hash_tag_id = ph.hash_tag_id
+                JOIN popup_tbl p ON ph.popup_id = p.popup_id WHERE p.role = '승인'
+                GROUP BY h.hash_tag_id, h.hash_tag ORDER BY usage_count DESC
+                LIMIT 5
+            </when>
+            <otherwise>
+                <!-- 비로그인 상태: 기본 해시태그 5개 조회 -->
+                SELECT h.hash_tag, COUNT(ph.popup_id) AS usage_count FROM hash_tag_tbl h
+                JOIN popup_hash_tag_tbl ph ON h.hash_tag_id = ph.hash_tag_id
+                JOIN popup_tbl p ON ph.popup_id = p.popup_id
+                WHERE p.role = '승인' GROUP BY h.hash_tag_id, h.hash_tag
+                ORDER BY usage_count DESC LIMIT 5
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 사용자가 해시태그를 선택했는지 여부를 확인 -->
+    <select id="hasSelectedHashtags" parameterType="Long" resultType="boolean">
+        SELECT COUNT(*)
+        FROM user_hash_tag_tbl
+        WHERE user_id = #{id}
+    </select>
 
 </mapper>

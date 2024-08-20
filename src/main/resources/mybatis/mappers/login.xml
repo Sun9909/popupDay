@@ -133,7 +133,7 @@
         FROM hash_tag_tbl ht
             JOIN popup_hash_tag_tbl pht
         ON ht.hash_tag_id = pht.hash_tag_id
-        GROUP BY ht.hash_tag;
+        GROUP BY ht.hash_tag ORDER BY COUNT DESC;
         ]]>
     </select>
 

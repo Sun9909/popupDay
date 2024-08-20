@@ -1,6 +1,7 @@
 package flower.popupday.popup.service;
 
 import flower.popupday.popup.dto.PopupDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface PopupService {
 
     public void updatePopup(Map<String, Object> popupMap) throws DataAccessException;
 
-    public Map<String, Object> mainView() throws DataAccessException;
+    public Map<String, Object> mainView(Long id) throws DataAccessException;
 
     public List<PopupDTO> searchPopupHasTag(String hashTag) throws DataAccessException;
 

@@ -41,11 +41,40 @@ public class PopupControllerImpl implements PopupController {
     @Autowired
     PopupCommentService popupCommentService;
 
+//    @Override
+//    @GetMapping("/main.do")
+//    public ModelAndView mainView(HttpServletRequest request, HttpServletResponse response) {
+//        ModelAndView mav = new ModelAndView();
+//        Map<String, Object> mainMap = popupService.mainView();
+//        mav.addObject("mainMap", mainMap);
+//        mav.setViewName("main");
+//
+//        // mainMap이 null이 아닌 경우에만 추가 처리
+//        if (mainMap != null) {
+//            Object bestPopupListObj = mainMap.get("bestPopupList");
+//            if (bestPopupListObj instanceof List<?>) {
+//                List<?> bestPopupList = (List<?>) bestPopupListObj;
+//                bestPopupList.forEach(popup -> {
+//                    if (popup instanceof PopupDTO) {
+//                        PopupDTO popupDTO = (PopupDTO) popup;
+//                        // 로그 출력용
+//                    }
+//                });
+//            }
+//        }
+//
+//        return mav;
+//    }
+
     @Override
     @GetMapping("/main.do")
     public ModelAndView mainView(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
-        Map<String, Object> mainMap = popupService.mainView();
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
+        Long id = (loginDTO != null) ? loginDTO.getId() : null;
+        System.out.println(id);
+        Map<String, Object> mainMap = popupService.mainView(id);
         mav.addObject("mainMap", mainMap);
         mav.setViewName("main");
 
