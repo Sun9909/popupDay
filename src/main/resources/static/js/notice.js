@@ -256,11 +256,10 @@ function answer_enable(form) {
     document.getElementById('answer-btn').style.display = 'none';
     document.getElementById('answer-mbtn').style.display = 'block';
 }
-
 // 답변 저장하기
-function submitanswer(form) {
+function submitAnswer(form, actionUrl) {
     // 폼 액션 설정
-   form.action = "/notice/addAnswer.do";  // 수정된 부분
+    form.action = actionUrl; // 동적으로 URL 설정
     form.submit();
 }
 
@@ -282,34 +281,38 @@ function fn_remove_answer(url, qna_id) {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: new URLSearchParams({ 'qna_id': qna_id })
+                body: new URLSearchParams({
+                    'qna_id': qna_id
+                }).toString()
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // 성공적으로 삭제된 경우 페이지 리로드
-                    window.location.reload();
-                } else {
-                    Swal.fire('삭제 실패', '답변 삭제에 실패했습니다.', 'error');
-                }
-            })
-            .catch(error => {
-                            console.error('Error:', error);
-                            Swal.fire({
-                                title: '삭제완료',
-                                text: '답변이 삭제되었습니다.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // 'OK' 버튼 클릭 시 qnaList.do로 리디렉션
-                                    window.location.href = '/qnaList.do';
-                                }
-                            });
-                        });
-                    } else if (result.isDismissed) {
-                        // 취소 버튼 클릭 시 qnaList.do로 리디렉션
-                        window.location.href = '/notice/noticeView.do';
+                .then(response => {
+                    if (response.redirected) {
+                        // Handle the redirection
+                        window.location.href = response.url;
+                    } else if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok.');
                     }
+                })
+                .then(data => {
+                    if (data && data.success) {
+                        document.getElementById('answer-section').style.display = 'none';
+                        document.getElementById('user-answer-section').style.display = 'block';
+                        Swal.fire('삭제 완료', '답변이 성공적으로 삭제되었습니다.', 'success').then(() => {
+                            window.location.href = '/notice/qnaList.do';
+                        });
+                    } else {
+                        Swal.fire('삭제 실패', '답변 삭제에 실패했습니다.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('삭제 실패', '오류가 발생했습니다.', 'error');
                 });
+        }
+    });
 }
+
+
+
