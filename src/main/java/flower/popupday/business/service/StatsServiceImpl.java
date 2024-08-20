@@ -1,6 +1,9 @@
 package flower.popupday.business.service;
 
 import flower.popupday.business.dao.StatsDAO;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -26,4 +29,5 @@ public class StatsServiceImpl implements StatsService{
         int visitCount = statsDAO.statsCount(popup_id);
         return visitCount;
     }
+
 }
