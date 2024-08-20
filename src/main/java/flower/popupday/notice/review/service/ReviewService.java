@@ -26,4 +26,6 @@ public interface ReviewService {
     public void removeReviews(int review_id) throws DataAccessException;
 
     public void addReviewComment(ReviewCommentDTO reviewComment) throws DataAccessException;
+
+    public void deleteComment(Long popupCommentId) throws DataAccessException;
 }
