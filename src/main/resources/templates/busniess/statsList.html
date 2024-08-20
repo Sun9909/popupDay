@@ -7,16 +7,26 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
     <link rel="stylesheet" th:href="@{/css/alert.css}">
+    <link rel="stylesheet" th:href="@{/css/stats.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
+
     <title>사용자 방문 통계</title>
 </head>
 <body>
   <th:block layout:fragment="content">
     <div class="containers">
-        <div th:each="stats: ${statsMap}">
-            <input type="text" th:value="${stats.statsCount}" readonly>
+        <div class="month-chart">
+            <tbody>
+                <tr th:each="item : ${count}">
+                    <td th:text="${item.month}"></td>
+                    <td th:text="${item.hit_count}"></td>
+                </tr>
+            </tbody>
+            <canvas id="myChart"></canvas>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/js/stats.js}"></script>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
     <script th:src="@{/js/main.js}"></script>
