@@ -7,6 +7,13 @@ public class HitsDTO {
     private String month;
     private int hit_count;
 
+    HitsDTO(){};
+
+    HitsDTO(String month, int hit_count) {
+        this.month = month;
+        this.hit_count = hit_count;
+    }
+
     public int getHit_count() {
         return hit_count;
     }

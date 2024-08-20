@@ -1,4 +1,4 @@
- // 그래프를 그리기 위한 데이터와 옵션 설정
+// 그래프를 그리기 위한 데이터와 옵션 설정
 const ctx = document.getElementById('myChart').getContext('2d');
 
 const myChart = new Chart(ctx, {
