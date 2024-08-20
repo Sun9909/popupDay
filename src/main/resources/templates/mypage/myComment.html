@@ -57,29 +57,35 @@
         <div class="review-list">
             <!-- 댓글 목록 반복 -->
             <div th:each="comment : ${comments}" class="review-item">
-                <!-- 리뷰 상단 컨테이너: 작성자, 별점 표시 -->
-                <div class="review-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <!-- 작성자 이름 -->
-                    <span class="review-author" th:text="${comment.user_nickname}" style="font-size: 20px;">작성자 이름</span>
+                <!-- 리뷰 클릭 시 팝업스토어 상세 주소로 이동 -->
+                <form th:action="@{/popup/popupComment.do}" method="post" style="text-decoration: none; color: inherit;">
+                    <!-- 숨겨진 입력 필드에 user_id와 popup_comment_id 전송 -->
+                    <input type="hidden" name="popup_comment_id" th:value="${comment.popup_comment_id}" />
 
-                    <!-- 별점 표시 부분 -->
-                    <div class="review-rating" style="display: flex; gap: 4px; justify-content: flex-end;">
-                        <!-- rating 값만큼 ★ 출력 -->
-                        <span th:each="star : ${#numbers.sequence(1, comment.rating)}" style="font-size: 20px;">★</span>
-                        <!-- (5 - rating) 값이 0보다 클 때만 ☆ 출력 -->
-                        <span th:each="emptyStar : ${#numbers.sequence(1, 5 - comment.rating)}"
-                              th:if="${5 - comment.rating > 0}" style="font-size: 20px;">☆</span>
-                    </div>
-                </div>
+                    <!-- 리뷰 상단 컨테이너: 작성자, 별점 표시 -->
+                    <button type="submit" style="background: none; border: none; padding: 0; margin: 0; text-align: left; width: 100%; text-decoration: none; color: inherit; display: block;">
+                        <span style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <!-- 작성자 이름 -->
+                            <span th:text="${comment.user_nickname}" style="font-size: 20px;">작성자 이름</span>
 
-                <!-- 리뷰 내용 -->
-                <div class="review-content" th:text="${comment.content}"></div>
-                <!-- 리뷰 작성일 -->
-                <div class="review-date">
-                    작성일: <span th:text="${#temporals.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></span>
-                </div>
+                            <!-- 별점 표시 부분 -->
+                            <span style="display: flex; gap: 4px; justify-content: flex-end;">
+                                <span th:each="star : ${#numbers.sequence(1, comment.rating)}" style="font-size: 20px;">★</span>
+                                <span th:each="emptyStar : ${#numbers.sequence(1, 5 - comment.rating)}" th:if="${5 - comment.rating > 0}" style="font-size: 20px;">☆</span>
+                            </span>
+                        </span>
+
+                        <!-- 리뷰 내용 -->
+                        <span th:text="${comment.content}" style="display: block;"></span>
+                        <!-- 리뷰 작성일 -->
+                        <span style="display: block;">
+                            작성일: <span th:text="${#temporals.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                    </button>
+                </form>
             </div>
         </div>
+
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
