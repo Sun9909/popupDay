@@ -217,15 +217,15 @@ document.addEventListener('DOMContentLoaded', function() {
         hashtagSelectorContainer.classList.toggle('show');
     });
 
-    // 체크박스 4개 이상 선택 방지
+    // 체크박스 5개 이상 선택 방지
     hashtagInputs.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
             const checkedCount = document.querySelectorAll('#hashtag-form input[type="checkbox"]:checked').length;
-            if (checkedCount > 4) {
+            if (checkedCount > 5) {
                 this.checked = false;
                    Swal.fire({
                        icon: 'warning',
-                       title: '최대 4개까지 선택할 수 있습니다.',
+                       title: '최대 5개까지 선택할 수 있습니다.',
                        confirmButtonText: '확인',
                        confirmButtonColor: '#3085d6'
                    });
@@ -238,10 +238,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedHashtags = document.querySelectorAll('#hashtag-form input[type="checkbox"]:checked');
 
         if (submitBtn.textContent === '입력하기') {
-            if (selectedHashtags.length !== 4) {
+            if (selectedHashtags.length !== 5) {
                  Swal.fire({
                     icon: 'warning',
-                    title: '해시태그를 4개 선택해야 합니다.',
+                    title: '해시태그를 5개 선택해야 합니다.',
                     confirmButtonText: '확인',
                     confirmButtonColor: '#3085d6'
                 });
