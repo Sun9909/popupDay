@@ -26,4 +26,7 @@ public interface PopupCommentService {
 
     //리뷰 수정
     public void updateComment(Long popupCommentId, Long popupId, String content, int rating);
+
+    //user_id와 popup_comment_id로 popup_id 찾기
+    public Long popupIdSearch(Long popupCommentId);
 }

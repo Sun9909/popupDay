@@ -75,6 +75,7 @@ public class PopupCommentControllerImpl implements PopupCommentController {
 //    }
 
 
+    //댓글 후기 삭제
     @PostMapping("/popupComment/delete")
     public String deleteComment(@RequestParam(value = "popup_id", required = true) Long popupId,
                                @RequestParam("popup_comment_id") Long popupCommentId,
@@ -102,6 +103,27 @@ public class PopupCommentControllerImpl implements PopupCommentController {
         popupCommentService.updateComment(popupCommentId, popupId, content, rating);
 
         return "redirect:/popup/popupView.do?popup_id=" + popupId; // 수정 후 리디렉트할 페이지
+    }
+
+    //user_id와 popup_comment_id로 popup_id 찾기
+    @PostMapping("/popup/popupComment.do")
+    public String popupIdSearch(@RequestParam("popup_comment_id") Long popupCommentId) {
+
+        // 댓글 ID와 사용자 ID를 통해 popup_id 조회
+        Long popupId = popupCommentService.popupIdSearch(popupCommentId);
+
+        System.out.println("popup_id = " + popupId);
+
+        // 전달된 값 확인
+        System.out.println("Received popup_comment_id: " + popupCommentId);
+
+        // popup_id가 조회되었다면 리다이렉트, 조회되지 않으면 오류 페이지로 이동
+        if(popupId != null) {
+            return "redirect:/popup/popupView.do?popup_id=" + popupId;
+        }else {
+            return "redirect:/error";  // 혹은 404 페이지 등으로 리다이렉트
+        }
+
     }
 
 }

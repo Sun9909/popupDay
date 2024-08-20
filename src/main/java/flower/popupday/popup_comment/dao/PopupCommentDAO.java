@@ -2,6 +2,7 @@ package flower.popupday.popup_comment.dao;
 
 import flower.popupday.popup_comment.dto.PopupCommentDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,4 +32,7 @@ public interface PopupCommentDAO {
 
     //리뷰 수정
     void updateComment(Long popupCommentId, Long popupId, String content, int rating);
+
+    //user_id와 popup_comment_id로 popup_id 찾기
+    Long popupIdSearch(@Param("popupCommentId") Long popupCommentId);
 }

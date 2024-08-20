@@ -67,4 +67,9 @@ public class PopupCommentServiceImpl implements PopupCommentService {
     public void updateComment(Long popupCommentId, Long popupId, String content, int rating) {
         popupCommentDAO.updateComment(popupCommentId, popupId, content, rating);
     }
+
+    //user_id와 popup_comment_id로 popup_id 찾기
+    public Long popupIdSearch(Long popupCommentId) {
+        return popupCommentDAO.popupIdSearch(popupCommentId);
+    }
 }

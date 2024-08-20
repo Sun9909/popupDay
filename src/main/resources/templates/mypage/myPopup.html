@@ -33,6 +33,7 @@
             <!-- 팝업이 있을 때 -->
             <form th:each="popup : ${popupMap.popupInfoList}">
                 <fieldset>
+                    <a th:href="@{/business/StatsList.do(popup_id=${popup.popup.popup_id})}">팝업 방문자 통계</a>
                     <a th:href="@{/popup/popupView.do(popup_id=${popup.popup.popup_id})}" class="pop" title="팝업">
                         <div th:if="${popup.thumbnailImage != null}" class="popImg">
                             <img th:src="@{/popupDownload.do(popup_id=${popup.popup.popup_id}, image_file_name=${popup.thumbnailImage.image_file_name})}" alt="popupImage1">

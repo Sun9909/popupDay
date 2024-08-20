@@ -81,7 +81,7 @@
     </update>
 
     <select id="findById" parameterType="long" resultType="flower.popupday.popup_comment.dto.PopupCommentDTO">
-        SELECT * FROM popup_comment WHERE popup_comment_id = #{commentId}
+        SELECT * FROM popup_comment_tbl WHERE popup_comment_id = #{commentId}
     </select>
 
     <!--리뷰삭제-->
@@ -94,5 +94,11 @@
         UPDATE popup_comment_tbl SET content = #{content}, rating = #{rating}, updated_at = CURRENT_TIMESTAMP
         WHERE popup_comment_id = #{popupCommentId} AND popup_id = #{popupId}
     </update>
+
+    <!--user_id와 popup_comment_id로 popup_id 찾기-->
+    <select id="popupIdSearch" parameterType="map" resultType="long">
+        SELECT popup_id FROM popup_comment_tbl WHERE popup_comment_id = #{popupCommentId}
+    </select>
+
 
 </mapper>
