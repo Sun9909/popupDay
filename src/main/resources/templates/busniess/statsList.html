@@ -16,13 +16,14 @@
   <th:block layout:fragment="content">
     <div class="containers">
         <div class="month-chart">
-
-            <tbody>
-                <tr th:each="item : ${count}" class="viewer-list" data-month="${item.month}" data-hit-count="${item.hit_count}">
-                    <td th:text="${item.month}"></td>
-                    <td th:text="${item.hit_count}"></td>
-                </tr>
-            </tbody>
+            <table>
+                <tbody>
+                    <tr th:each="item : ${count}" class="viewer-list" th:data-month="${item.month}" th:data-hit-count="${item.hit_count}">
+                        <td th:text="${item.month}"></td>
+                        <td th:text="${item.hit_count}"></td>
+                    </tr>
+                </tbody>
+            </table>
             <canvas id="myChart"></canvas>
         </div>
     </div>
