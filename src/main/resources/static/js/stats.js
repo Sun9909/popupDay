@@ -1,9 +1,7 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // 빈 리스트를 초기화합니다.
     var month = [];
     var count = [];
-
     // 각 요소를 가져와서 리스트에 추가합니다.
     document.querySelectorAll('.viewer-list').forEach(function(element) {
         month.push(element.getAttribute('data-month'));

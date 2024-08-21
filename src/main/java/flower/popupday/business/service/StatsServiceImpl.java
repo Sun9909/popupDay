@@ -32,4 +32,9 @@ public class StatsServiceImpl implements StatsService{
         return visitCount;
     }
 
+    @Override
+    public void updateHitUser(long popup_id, long id) throws DataAccessException {
+        statsDAO.updateHitUser(popup_id,id);
+    }
+
 }
