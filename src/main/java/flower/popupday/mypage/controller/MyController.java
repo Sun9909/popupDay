@@ -39,11 +39,12 @@ public interface MyController {
     //비밀번호 수정페이지로
     public ModelAndView passwordModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //비밀번호 수정
     public ModelAndView updatePwd(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    //회원 탈퇴
     public ModelAndView dropMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    //public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView getBusiness(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
