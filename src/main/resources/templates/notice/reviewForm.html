@@ -35,17 +35,12 @@
         </div>
 
         <div>
-            <div class="contentreview">
-                <nav class="reviewlist">
-                    <a class="custom-button active">후기작성</a>
-                </nav>
-            </div>
 
             <!--후기 작성공간-->
             <div class="review-content write-review active">
                 <div class="myreview" id="write-review">
                     <form action="/notice/addReview.do" method="post" enctype="multipart/form-data">
-<!--                        <input name="user_id" th:value="${session.loginDTO.user_id}" readonly class="review-id">-->
+                        <input name="user_id" th:value="${session.loginDTO.user_id}" readonly class="review-id" type="hidden">
                         <input name="id" th:value="${session.loginDTO.id}" type="hidden">
                         <input name="review_title" placeholder="후기 제목을 입력해주세요" class="review-title">
                         <textarea placeholder="후기를 작성해주세요" rows="15" cols="200" name="review_content"></textarea>
@@ -53,7 +48,7 @@
                         <div id="dock_file"></div>
                         <!-- 후기 작성 폼 -->
                         <button type="submit" class="sub-btns">후기 작성하기</button>
-                        <button class="sub-btns"><a th:href="@{/notice/reviewList.do}">리스트로 돌아가기</a></button>
+                        <button class="sub-btns"><a class="sub-btns" th:href="@{/notice/reviewList.do}">리스트로 돌아가기</a></button>
                     </form>
                 </div>
             </div>

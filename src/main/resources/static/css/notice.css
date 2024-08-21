@@ -373,7 +373,7 @@ a.qnatitle {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 70px 10px 70px 10px;
+    padding: 10px 10px 70px 10px;
 }
 
 .myreview textarea {
@@ -560,17 +560,6 @@ a.qnatitle {
     text-align: center;
     position: relative;
 }
-.review-btn {
-    position: absolute;
-    bottom: 0;
-    right: 52px;
-    background-color: #FEFEDF;
-    border: 2px solid #8B8BDA;
-    padding: 6px 8px;
-    font-size: 13px;
-    border-radius: 5px;
-    font-weight: 600;
-}
 
 .review-id {
     width: 18%;
@@ -594,7 +583,15 @@ a.qnatitle {
     font-weight: 600;
     color: white;
 }
-
+.sub-btns a {
+    background-color: #8B8BDA;
+    border: none;
+    padding: 7px 8px;
+    font-size: 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+}
 
 /*페이지설정*/
 .number {
@@ -666,4 +663,67 @@ a.write {
     text-align: right;
     font-size: 15px;
     color: #757575;
+}
+
+/* 전체 리뷰 작성 영역의 스타일을 정의합니다 */
+.review-content {
+    background-color: white; /* 배경색을 흰색으로 설정 */
+    width: 675px; /* 전체 너비 설정 */
+    margin: 20px auto; /* 페이지 중앙에 배치 */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 요소들 간의 간격을 줄여 제목을 더 위로 이동 */
+    align-items: center;
+}
+
+/* 리뷰 작성 폼의 각 입력 필드 및 텍스트 영역 스타일 */
+.myreview {
+    width: 100%; /* 전체 너비를 부모 요소에 맞춤 */
+}
+
+.myreview input, .myreview textarea {
+    width: 100%; /* 입력 필드와 텍스트 영역의 너비를 부모 요소에 맞춤 */
+    padding: 10px; /* 내부 여백 추가 */
+    margin-bottom: 15px; /* 필드 간의 아래 여백 줄이기 */
+}
+
+/* 제목과 ID 필드의 스타일 */
+.review-id, .review-title {
+    height: 45px; /* 높이 설정 */
+    margin-bottom: 10px; /* 제목 필드 아래에 간격 추가 */
+}
+
+/* 텍스트 영역 스타일 */
+textarea {
+    resize: none; /* 크기 조절 불가 */
+    height: 150px; /* 고정 높이 설정 */
+    margin-bottom: 20px; /* 텍스트박스와 "이미지 추가" 버튼 사이 간격 */
+}
+
+
+/* 후기 작성 가이드 스타일 */
+.reviewguide {
+    max-width: 675px; /* 최대 너비 설정 */
+    margin: 20px auto; /* 중앙 정렬 */
+    padding: 20px; /* 내부 여백 설정 */
+    background-color: #f9f9f9; /* 배경색 설정 */
+    border-radius: 4px; /* 모서리를 둥글게 설정 */
+}
+
+/* 미디어 쿼리: 모바일 최적화 */
+@media (max-width: 768px) {
+    .review-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .myreview input, .myreview textarea {
+        width: 100%;
+    }
+
+    .review-btn, .sub-btns {
+        width: 100%;
+        margin-bottom: 15px;
+    }
 }

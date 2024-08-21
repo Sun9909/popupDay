@@ -154,8 +154,8 @@
     </insert>
 
     <!--userid로 해시태그 조회-->
-    <select id="getUserHashTagList" resultType="LoginHashtagDTO">
-        SELECT h.hash_tag_id, h.hash_tag
+    <select id="getUserHashTagList" resultType="LoginHashTagDTO">
+        SELECT uht.user_hash_tag_id, uht.user_id, h.hash_tag_id, h.hash_tag
         FROM user_hash_tag_tbl uht
                  JOIN hash_tag_tbl h ON uht.hash_tag_id = h.hash_tag_id
         WHERE uht.user_id = #{userId}
@@ -167,6 +167,19 @@
         SET hash_tag_id = #{newHashTagId}
         WHERE user_id = #{userId} AND user_hash_tag_id = #{userHashTagId}
     </update>
+
+    <!-- 새로운 해시태그 추가 -->
+    <insert id="addUserHashtag">
+        INSERT INTO user_hash_tag_tbl (user_id, hash_tag_id)
+        VALUES (#{userId}, #{hashTagId})
+    </insert>
+
+    <!-- 기존 해시태그 삭제 -->
+    <delete id="deleteUserHashtag">
+        DELETE FROM user_hash_tag_tbl
+        WHERE user_hash_tag_id = #{userHashTagId}
+    </delete>
+
 
 
 

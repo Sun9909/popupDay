@@ -76,12 +76,12 @@
         <div class="popup-layer" id="hashtagPopup">
             <span class="close-btn" id="closePopup">X</span>
             <h3>해시태그 수정</h3>
-            <form id="hashtagForm" action="/mypage/hashtagUpdate" method="post" >
+            <form id="hashtagForm" action="/mypage/hashtagUpdate" method="post">
                 <div id="hashtag-selector-container">
                     <div class="hashtag-grid">
                         <div th:each="hashtag : ${hashtagList}" class="hashtag-item">
                             <label>
-                                <input type="checkbox" name="hash_tag_id" th:value="${hashtag.hash_tag_id}" />
+                                <input type="checkbox" name="hash_tag_id" th:value="${hashtag.hash_tag_id}" class="hashtag-checkbox" />
                                 <span class="hashtag-text" name="hash_tag" th:text="${hashtag.hash_tag}"></span>
                                 <span class="hashtag-count">(<span th:text="${hashtag.count}"></span>)</span>
                             </label>
@@ -92,7 +92,6 @@
                 <button type="submit" class="submit-btn">수정하기</button>
             </form>
         </div>
-
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
