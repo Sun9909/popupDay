@@ -26,7 +26,7 @@
             </table>
             <table>
                 <tbody>
-                    <tr th:each="stats : ${statsMap.user_info}" class="viewer-info">
+                    <tr th:each="stats : ${statsMap.user_info}" class="viewer-info" th:data-birth="${stats.birth_month}" th:data-gender="${stats.gender}" th:data-count="${stats.count}">
                         <td th:text="${stats.birth_month}"></td>
                         <td th:text="${stats.gender}"></td>
                         <td th:text="${stats.count}"></td>
@@ -35,7 +35,9 @@
             </table>
             <button id="view-info">팝업 조회 상세</button>
             <canvas id="myChart"></canvas>
-            <canvas id="visitAge"></canvas>
+            <div id="visit_view"  style="display:none">
+                <canvas id="visitAge"></canvas>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
