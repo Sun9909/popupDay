@@ -1,3 +1,10 @@
 .month-chart {
     width: 500px;
 }
+
+canvas {
+    background-color: white;
+}
+table{
+    display:none;
+}
