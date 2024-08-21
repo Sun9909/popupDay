@@ -3,6 +3,7 @@ package flower.popupday.login.dao;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.login.dto.LoginHashTagDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -50,4 +51,12 @@ public interface LoginDAO {
     public List<LoginHashTagDTO> hashtagList() throws DataAccessException;
 
     public void insertUserhashtag(LoginHashTagDTO loginHashTagDTO) throws DataAccessException;
+
+    //userid로 해시태그 조회
+    public List<LoginHashTagDTO> getUserHashTagList(Long userId) throws DataAccessException;
+
+    //해시태그 수정
+    void updateUserHashtags(@Param("userHashTagId") Long userHashTagId,
+                            @Param("userId") Long userId,
+                            @Param("newHashTagId") Long newHashTagId);
 }

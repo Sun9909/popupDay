@@ -153,6 +153,21 @@
         VALUES (#{user_id}, #{hash_tag_id})
     </insert>
 
+    <!--userid로 해시태그 조회-->
+    <select id="getUserHashTagList" resultType="LoginHashtagDTO">
+        SELECT h.hash_tag_id, h.hash_tag
+        FROM user_hash_tag_tbl uht
+                 JOIN hash_tag_tbl h ON uht.hash_tag_id = h.hash_tag_id
+        WHERE uht.user_id = #{userId}
+    </select>
+
+    <!--해시태그 수정-->
+    <update id="updateUserHashtags">
+        UPDATE user_hash_tag_tbl
+        SET hash_tag_id = #{newHashTagId}
+        WHERE user_id = #{userId} AND user_hash_tag_id = #{userHashTagId}
+    </update>
+
 
 
 </mapper>

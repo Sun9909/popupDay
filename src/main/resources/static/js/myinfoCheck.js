@@ -209,3 +209,43 @@ function delete_check(event, url) {
         }
     });
 }
+
+// 해시태그 수정 버튼 클릭 시 팝업 표시
+document.getElementById("modifyHashtagBtn").addEventListener("click", function () {
+    document.getElementById("hashtagPopup").classList.add("active");
+});
+
+// 팝업 닫기 버튼
+document.getElementById("closePopup").addEventListener("click", function () {
+    document.getElementById("hashtagPopup").classList.remove("active");
+});
+
+// 해시태그 수정 폼 제출 시
+document.getElementById("hashtagForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // 폼 데이터 수집
+    const formData = new FormData(this);
+
+    // 서버로 전송
+    fetch('/mypage/hashtagUpdate', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => {
+            if (response.ok) {
+                // 성공 메시지 표시
+                alert("해시태그가 수정되었습니다.");
+
+                // 마이페이지로 돌아가기 (팝업 닫기)
+                document.getElementById("hashtagPopup").classList.remove("active");
+            } else {
+                // 오류 처리
+                alert("해시태그 수정에 실패했습니다.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("해시태그 수정 중 오류가 발생했습니다.");
+        });
+});

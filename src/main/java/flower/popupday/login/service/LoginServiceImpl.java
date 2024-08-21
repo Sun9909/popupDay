@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -197,6 +198,24 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List<LoginHashTagDTO> hashtagList() throws Exception {
         return loginDAO.hashtagList();
+    }
+
+    //user 해시태그 리스트 조회
+    @Override
+    public List<LoginHashTagDTO> userHashTagList(Long userId) throws Exception {
+        return loginDAO.getUserHashTagList(userId);
+    }
+
+    @Transactional
+    public void updateUserHashtags(Long userId, List<Long> newHashtagIds) {
+        List<LoginHashTagDTO> existingHashtags = loginDAO.getUserHashTagList(userId);
+
+        for (int i = 0; i < existingHashtags.size() && i < newHashtagIds.size(); i++) {
+            LoginHashTagDTO existing = existingHashtags.get(i);
+            Long newHashtagId = newHashtagIds.get(i);
+
+            loginDAO.updateUserHashtags(existing.getUser_hash_tag_id(), userId, newHashtagId);
+        }
     }
 
 

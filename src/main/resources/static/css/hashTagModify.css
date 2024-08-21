@@ -1,0 +1,74 @@
+/* 레이어 팝업 스타일 */
+.popup-layer {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* 팝업의 너비를 적절히 조정하세요 */
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popup-layer.active {
+    display: block;
+}
+
+.popup-layer .close-btn {
+    float: right;
+    cursor: pointer;
+}
+
+.popup-layer .submit-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 해시태그 선택 컨테이너에 스크롤 추가 */
+#hashtag-selector-container {
+    max-height: 300px; /* 적절한 높이를 설정하여 스크롤 가능하도록 */
+    overflow-y: auto;
+}
+
+/* 해시태그들을 그리드 형태로 배치 */
+.hashtag-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 두 개씩 표시 */
+    gap: 10px; /* 해시태그 간의 간격 */
+}
+
+.hashtag-item {
+    display: flex;
+    align-items: center;
+}
+
+.hashtag-item label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.hashtag-text {
+    margin-left: 5px;
+}
+
+.hashtag-count {
+    margin-left: 5px;
+    color: gray;
+}
+#selectedHashtags {
+    display: inline-block;
+    background-color: #f0f0f0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#selectedHashtags span {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+}
