@@ -18,9 +18,17 @@
         <div class="month-chart">
             <table>
                 <tbody>
-                    <tr th:each="item : ${count}" class="viewer-list" th:data-month="${item.month}" th:data-hit-count="${item.hit_count}">
+                    <tr th:each="item : ${statsMap.count}" class="viewer-list" th:data-month="${item.month}" th:data-hit-count="${item.hit_count}">
                         <td th:text="${item.month}"></td>
                         <td th:text="${item.hit_count}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr th:each="stats : ${statsMap.user_info}" class="viewer-info">
+                        <td th:text="${stats.user_id}"></td>
+                        <td th:text="${stats.popup_id}"></td>
                     </tr>
                 </tbody>
             </table>

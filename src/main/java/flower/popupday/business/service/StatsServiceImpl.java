@@ -2,6 +2,7 @@ package flower.popupday.business.service;
 
 import flower.popupday.business.dao.StatsDAO;
 import flower.popupday.business.dto.HitsDTO;
+import flower.popupday.business.dto.StatsDTO;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 import org.knowm.xchart.XYSeries;
@@ -36,5 +37,12 @@ public class StatsServiceImpl implements StatsService{
     public void updateHitUser(long popup_id, long id) throws DataAccessException {
         statsDAO.updateHitUser(popup_id,id);
     }
+
+    @Override
+    public List<StatsDTO> userStats(long popup_id) throws DataAccessException {
+        List<StatsDTO> userInfo = statsDAO.userStats(popup_id);
+        return userInfo;
+    }
+
 
 }
