@@ -1,5 +1,6 @@
 package flower.popupday.popup.controller;
 
+import flower.popupday.business.service.StatsService;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.popup.dto.ImageDTO;
 import flower.popupday.popup.dto.PopupDTO;
@@ -40,6 +41,9 @@ public class PopupControllerImpl implements PopupController {
     // 팝업 후기 리스트 불러오기 용도
     @Autowired
     PopupCommentService popupCommentService;
+
+    @Autowired
+    StatsService statsService;
 
 //    @Override
 //    @GetMapping("/main.do")
@@ -248,6 +252,7 @@ public class PopupControllerImpl implements PopupController {
     @RequestMapping("/popup/popupView.do")
     public ModelAndView popupView(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+
         // 쿠키를 이용하여 조회수를 업데이트
         Cookie[] cookies = request.getCookies();
         boolean hasViewed = false;
@@ -269,20 +274,21 @@ public class PopupControllerImpl implements PopupController {
             }
         }
 
-        // 조회수 증가 처리
-        if (!hasViewed) {
-            popupService.updateHits(popup_id);
-            Cookie viewCookie = new Cookie("popupView_" + popup_id, String.valueOf(System.currentTimeMillis()));
-            viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60));
-            response.addCookie(viewCookie);
-        }
-
         // 찜 기능 세션 가져오기
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
 
         boolean loginCheck = loginDTO != null;
         Long id = loginCheck ? loginDTO.getId() : null;
+
+        // 조회수 증가 처리
+        if (!hasViewed) {
+            popupService.updateHits(popup_id);
+            statsService.updateHitUser(popup_id, id);
+            Cookie viewCookie = new Cookie("popupView_" + popup_id, String.valueOf(System.currentTimeMillis()));
+            viewCookie.setMaxAge((int) (COOKIE_EXPIRY_DAYS * 24 * 60 * 60));
+            response.addCookie(viewCookie);
+        }
 
         // 로그인 된 경우에만 최근 본 팝업 목록 처리
         if (loginCheck) {

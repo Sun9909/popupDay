@@ -29,8 +29,12 @@ public class StatsServiceImpl implements StatsService{
     @Override
     public List<HitsDTO> statsCount(long popup_id) throws DataAccessException {
         List<HitsDTO> visitCount = statsDAO.statsCount(popup_id);
-        System.out.println("count2: " + visitCount);
         return visitCount;
+    }
+
+    @Override
+    public void updateHitUser(long popup_id, long id) throws DataAccessException {
+        statsDAO.updateHitUser(popup_id,id);
     }
 
 }

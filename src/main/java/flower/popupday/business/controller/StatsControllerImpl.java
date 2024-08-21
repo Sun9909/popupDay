@@ -26,14 +26,12 @@ public class StatsControllerImpl implements StatsController{
     @Override
     @RequestMapping("/business/StatsList.do")
     public ModelAndView StatsList(@RequestParam("popup_id") Long popup_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        Map statsList = statsService.statsList(popup_id);//테이블 정보
         List<HitsDTO> count = statsService.statsCount(popup_id);//해당 팝업 조회수 가져오기
-//        System.out.println("statsList: " + statsList);
-        System.out.println("count: " + count);
+
+        response.setContentType("application/json");
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busniess/statsList");
-//        mav.addObject("statsList",statsList);
         mav.addObject("count",count);
 
         return mav;

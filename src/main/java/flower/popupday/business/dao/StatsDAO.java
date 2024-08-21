@@ -15,4 +15,6 @@ public interface StatsDAO {
 
     public List<HitsDTO> statsCount(long popup_id) throws DataAccessException;
 
+    public void updateHitUser(long popup_id, long id) throws DataAccessException;
+
 }
