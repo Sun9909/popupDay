@@ -153,7 +153,7 @@ document.getElementById("gifticon").addEventListener('click', function() {
                 setTimeout(() => {
                     alert('교환에 성공했습니다!');
                     this.parentElement.submit();
-                }, 1000);
+                });
             })
             .catch(error => {
                 console.error('이미지 처리 중 오류 발생:', error);
