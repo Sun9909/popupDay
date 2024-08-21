@@ -230,6 +230,19 @@ public class MyControllerImpl implements MyController {
         return "redirect:/mypage/memberPage.do";
     }
 
+    @Override
+    @RequestMapping("/mypage/myGifticon")
+    public ModelAndView myGifticon(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+        long id = loginDTO.getId();
+
+//        List myGifticon = myService.getGifticon(id);
+
+        ModelAndView mav = new ModelAndView("redirect:/mypage/myGifticon.do");
+        return mav;
+    }
+
 
     //자신의 정보를 수정한 후 저장하기
     @Override

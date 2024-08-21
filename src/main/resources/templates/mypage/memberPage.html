@@ -25,18 +25,6 @@
             </div>
             <!-- 내가 작성한 것들 보는 영역 -->
             <div class="wrote">
-                <!-- 댓글이 생긴다면 추가 -->
-<!--                <article class="comment">-->
-<!--                    <a href="#">-->
-<!--                        <h5>댓글</h5>-->
-<!--                        <div th:if="${recommentCount == null and popcommentCount == null}">-->
-<!--                            <p th:text="'0개'"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless="${recommentCount == null and popcommentCount == null}">-->
-<!--                            <p th:text="${recommentCount}+${popcommentCount}+'개'"></p>-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                </article>-->
                 <article class="point">
                     <a href="#">    <!-- 포인트 사용 내역 창으로 이동 -->
                         <h5>내 포인트</h5>
@@ -94,6 +82,7 @@
                     <li><a th:href="@{/mypage/myComment.do(id=${my.id})}">내가 쓴 댓글</a></li>
                     <li><a th:href="@{/notice/reviewList.do}">후기</a></li>
                     <li><a th:href="@{/point/pointShop.do(id=${my.id})}">포인트 교환소</a></li>
+                    <li><a th:href="@{/mypage/myGifticon.do(id=${my.id})}">마이 기프티콘</a></li>
                 </ul>
             </div>
             <!-- 내 활동 영역 끝 -->
@@ -102,7 +91,6 @@
             <div class="service">
                 <h3>고객센터</h3>
                 <ul>
-                    <!--                    <li><a href="#">문의사항</a></li>-->
                     <li><a th:href="@{/notice/faqList.do}">FAQ</a></li>
                     <li><a th:href="@{/notice/qnaList.do}">Q&A</a></li>
                 </ul>

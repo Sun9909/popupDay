@@ -86,4 +86,7 @@ public interface MyController {
 
     //해시태그 수정
     public String updateHashtags(@RequestParam("hash_tag_id") List<Long> hash_tag_id, HttpSession session);
+
+    //교환한 기프티콘 보기
+    public ModelAndView myGifticon(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
