@@ -9,7 +9,7 @@
 table {
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 30px;
+    /*padding-bottom: 30px;*/
     border-spacing: 20px;
 
 }
@@ -73,14 +73,6 @@ table {
     color: #666;
 }
 
-.selected-hashtags {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
 .selected-hashtag-item {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
@@ -88,54 +80,31 @@ table {
     padding: 5px 10px;
     font-size: 0.9em;
 }
-.hide {
-    display: none;
-}
-
-.show {
-    display: block;
-}
-
-.hashtag-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.hashtag-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.hashtag-text {
-    margin-right: 10px;
-}
-.hashtag-count {
-    font-size: 0.9em;
-    color: #666;
-}
 
 /* 해시태그 선택하기 버튼과 해시태그 컨테이너 스타일 */
-#show-hashtags-btn, #submit-btn {
+#show-hashtags-btn {
     margin-bottom: 10px;
 }
 
 /* 해시태그 컨테이너 스타일 */
 .selected-hashtags {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-    width: 100%; /* 전체 너비 사용 */
     max-width: 600px; /* 최대 너비 설정 */
 }
 
-/* 개별 해시태그 아이템 스타일 */
-.selected-hashtag-item {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 0.9em;
+.dislpayhash {
+    text-align: center;
+}
+
+#display-hashtags-container {
+    /* text-align: center; */
+    margin: 0px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#submit-btn {
+    margin: 20px;
 }

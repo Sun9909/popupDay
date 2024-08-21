@@ -10,13 +10,22 @@
         <result property="viewed_at" column="viewed_at"/>
     </resultMap>
 
+    <resultMap id="visitCount" type="hitsDTO">
+        <result property="month" column="month"/>
+        <result property="result_count" column="result_count"/>
+    </resultMap>
+
 <!--    <select id="statsList" parameterType="long">-->
 <!--        select * from hits_tbl where popup_id = #{popup_id}-->
 <!--    </select>-->
 
-    <select id="statsCount" parameterType="long" resultType="HitsDTO">
+    <select id="statsCount" parameterType="long" resultMap="visitCount">
         SELECT DATE_FORMAT(viewed_at, '%Y-%m') AS month, COUNT(*) AS hit_count
         FROM hits_tbl WHERE popup_id = #{popup_id}
         GROUP BY month ORDER BY month;
     </select>
+
+    <insert id="updateHitUser" parameterType="long">
+        insert into hits_tbl(user_id,popup_id,viewed_at) values(#{id},#{popup_id},now())
+    </insert>
 </mapper>
