@@ -30,13 +30,7 @@ public class MyControllerImpl implements MyController {
     private MyService myService;
 
     @Autowired
-    private MyPopupDTO myPopupDTO;
-
-    @Autowired
     private PopupDTO popupDTO;
-
-    @Autowired
-    private PopupCommentServiceImpl popupCommentServiceImpl;
 
     // 생성자를 통한 의존성 주입
     @Autowired
@@ -63,17 +57,15 @@ public class MyControllerImpl implements MyController {
 
         // 로그인된 사용자의 역할(role)에 따라 리다이렉트 설정
         if (loginDTO.getRole() == LoginDTO.Role.일반) {
-            //System.out.println(loginDTO.getRole());
-            mav.setViewName("redirect:/mypage/mypage.do"); // 리뷰 카운트 페이지로 리다이렉트
+            mav.setViewName("redirect:/mypage/mypage.do"); // 회원 마이페이지로
         }
         else if(loginDTO.getRole() == LoginDTO.Role.사업자) {
-            //System.out.println(loginDTO.getRole());
-            mav.setViewName("redirect:/mypage/businessPage.do");
+            mav.setViewName("redirect:/mypage/businessPage.do");    // 사업자 마이페이지로
         }
         else if (loginDTO.getRole() == LoginDTO.Role.관리자) {
-            mav.setViewName("redirect:/admin/admin.do");
+            mav.setViewName("redirect:/admin/admin.do");    // 관리자 페이지로
         }
-        else {
+        else {  // 로그인이 되어있지 않으면
             mav.setViewName("redirect:login/loginForm"); // 로그인 폼으로 유도
         }
         return mav;
