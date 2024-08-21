@@ -6,15 +6,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/myGifticon.css}">
-    <title>포인트 교환소</title>
+    <title>마이 기프티콘</title>
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-        <div th:each="gifticon : ${myGifticon}" class="gifticon-container">
-            <div class="image_file">
-                <img th:src="@{${gifticon.image_file_name}}" alt="Gifticon Image">
-                <input id="file_name" type="hidden" name="image_file_name" th:value="${gifticon.image_file_name}">
+        <div class="main_title">
+            <a th:href="@{/mypage/memberPage.do}"><img th:src="@{/images/ltr.svg}" alt="왼쪽화살표"></a>
+            <h2>마이 기프티콘</h2>
+        </div>
+
+        <div id="giftArea">
+            <div th:each="gifticon : ${myGifticon}" class="gifticon-container">
+                <div class="image_file">
+                    <img th:src="@{${gifticon.image_file_name}}" alt="Gifticon Image">
+                    <input id="file_name" type="hidden" name="image_file_name" th:value="${gifticon.image_file_name}">
+                </div>
             </div>
         </div>
     </div>

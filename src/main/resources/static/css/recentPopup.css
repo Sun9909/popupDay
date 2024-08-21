@@ -1,12 +1,7 @@
 @charset "utf-8";
-h2 {
-    font-size: 1.8em;
-    margin: 20px 0;
-}
 .main_title {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
     align-items: center;
 }
 .main_title a {
@@ -16,6 +11,10 @@ h2 {
     margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
     width: 30px;
     height: 30px;
+}
+.main_title h2 {
+    font-size: 1.8em;
+    margin: 8px 0 10px;
 }
 
 /*최근 본 팝업 영역*/
