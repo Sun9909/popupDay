@@ -39,7 +39,7 @@
     <insert id="insertLogin" parameterType="loginDTO" useGeneratedKeys="true" keyProperty="id">
         <![CDATA[
         INSERT INTO user_tbl(user_id, user_nickname, name, pwd, email, reg_date, role, birth_date, gender)
-        VALUES(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, NOW(), '일반', '1990-01-01', 'M');
+        VALUES(#{user_id}, #{user_nickname}, #{name}, #{pwd}, #{email}, NOW(), '일반', #{birth_date}, #{gender});
 
         ]]>
     </insert>
