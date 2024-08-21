@@ -2,6 +2,7 @@ package flower.popupday.mypage.service;
 
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dto.MyDTO;
+import flower.popupday.mypage.dto.MyGifticonDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.popup.dto.PopupDTO;
 import org.springframework.dao.DataAccessException;
@@ -68,4 +69,6 @@ public interface MyService {
 
     //최근 본 팝업 조회
     public Map<String, Object> getPopupsByIds(List<Long> popupId) throws DataAccessException;
+
+    public List<MyGifticonDTO> getGifticon(long id) throws DataAccessException;
 }
