@@ -27,7 +27,7 @@
     width: 720px;
     padding-top: 40px;
     height:auto;
-    text-align: center;
+    /*text-align: center;*/
 }
 .content {
     display: none;
@@ -112,14 +112,6 @@
 }
 
 /* 댓글 */
-.custom-select {
-    position: relative;
-    display: inline-block;
-    width: 200px;
-}
-.custom-select select {
-    display: none;
-}
 .select-selected {
     background-color: #f5f5f5;
     border: 1px solid #ddd;
@@ -181,12 +173,36 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 팝업 댓글 스타일 (필요시 커스터마이징 가능) */
-.review-item {
-    /* 기존 스타일 그대로 유지 */
+/* 문의 */
+.qna-history p {
+    text-align: center;
+    margin-top: 10px;
+}
+.qnaitem {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
 }
 
-/* 후기 댓글 스타일 (필요시 커스터마이징 가능) */
-.review-container {
-    /* 기존 스타일 그대로 유지 */
+/* 후기 */
+.myreview-history {
+    padding: 20px 60px;
+}
+.myreview-history p {
+    text-align: center;
+    margin-top: 10px;
+}
+.myreview .review-list {
+    display: flex;
+    margin-bottom: 7px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+.myreview .review-list p {
+    margin: 5px;
+}
+.review-list:hover {
+    color: #005cbf;
 }

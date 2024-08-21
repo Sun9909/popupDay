@@ -41,21 +41,21 @@
             </div>
 
             <!-- 후기 내역 공간 -->
-            <div class="review-history">
+            <div class="myreview-history">
                 <!-- 후기가 존재하지 않을때 -->
                 <div class="myreview-history" th:if="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
                     <p>작성한 후기가 없습니다.</p>
                 </div>
                 <!-- 후기가 존재할때 -->
-                <div class="myreview-history" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
+                <div class="myreview" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
                     <div th:each="review : ${reviewMap.reviewList}">
                         <a class="review-list" th:href="@{/notice/viewReview.do(review_id = ${review.review_id})}">
-                            <p th:text="${review.review_title}"></p><span th:text="${review.created_at}"></span>
+                            <p th:text="${review.review_title}"></p><p th:text="${review.created_at}"></p>
                         </a>
                     </div>
 
                     <!--페이징 처리-->
-                    <div align="center" th:if="${reviewMap.totReview > 10}">
+                    <div class="number" th:if="${reviewMap.totReview > 10}">
                         <div th:if="${reviewMap.totReview > 100}">
                             <span th:each="num : ${#numbers.sequence(1, (reviewMap.section > reviewMap.totReview / 100 ? (reviewMap.totReview % 100) / 10 + 1 : 10))}">
                                 <span th:if="${reviewMap.section > 1 and num == 1}">
@@ -65,7 +65,7 @@
                                     <a class="target" th:href="@{/mypage/myReview.do(section=${section}, pageNum=${(reviewMap.section - 1) * 10 + num})}" th:text="${(reviewMap.section - 1)*10+num}">}</a>
                                 </span>
                                 <span th:unless="${num == (reviewMap.pageNum % 10 == 0 ? 10 : reviewMap.pageNum % 10)}">
-                                    <a classs="noLine" th:href="@{/mypage/myReview.do(section=${reviewMap.section}, pageNum=${(reviewMap.section - 1) * 10 + num})}"  th:text="${(reviewMap.section - 1)*10+num}"></a>
+                                    <a class="noLine" th:href="@{/mypage/myReview.do(section=${reviewMap.section}, pageNum=${(reviewMap.section - 1) * 10 + num})}"  th:text="${(reviewMap.section - 1)*10+num}"></a>
                                 </span>
                                 <span th:if="${num == 10}">
                                     <a th:href="@{/mypage/myReview.do(section=${reviewMap.section + 1}, pageNum=${reviewMap.section * 10 + 1})}">next</a>

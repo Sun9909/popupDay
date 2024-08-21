@@ -83,6 +83,12 @@
                     </ul>
                 </div>
             </div>
+            <!-- 사업자일 경우 -->
+            <a href="#" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).사업자}" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/popup/myPopup.do\', \'/login/login.do\')'">
+                <img th:src="@{/images/zzem.svg}">
+                <span>팝업 목록</span>
+            </a>
+            <a href="#" th:unless="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).사업자}" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberLike.do\', \'/login/login.do\')'">
             <a href="#"
                th:unless="${session.loginDTO != null && (session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자 || session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).사업자)}"
                th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/mypage/memberLike.do\', \'/login/login.do\')'">

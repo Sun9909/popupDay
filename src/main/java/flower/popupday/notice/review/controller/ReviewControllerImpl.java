@@ -27,7 +27,7 @@ public class ReviewControllerImpl implements ReviewController {
     private ReviewService reviewService;
 
     // 이미지 저장 경로
-    private static String ARTICLE_IMG_REPO="D:\\Sin\\fileupload2";
+    private static String ARTICLE_IMG_REPO="D:\\Sun\\fileupload2";
 
     @Override
     @RequestMapping("/notice/reviewList.do")
