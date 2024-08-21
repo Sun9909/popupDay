@@ -14,7 +14,7 @@
 <!--        select * from hits_tbl where popup_id = #{popup_id}-->
 <!--    </select>-->
 
-    <select id="statsCount" parameterType="long" resultType="java.util.List">
+    <select id="statsCount" parameterType="long" resultType="HitsDTO">
         SELECT DATE_FORMAT(viewed_at, '%Y-%m') AS month, COUNT(*) AS hit_count
         FROM hits_tbl WHERE popup_id = #{popup_id}
         GROUP BY month ORDER BY month;
