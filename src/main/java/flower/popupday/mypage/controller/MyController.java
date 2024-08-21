@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MyController {
@@ -81,4 +82,7 @@ public interface MyController {
     public ModelAndView myReview(@RequestParam(value = "section", required = false) String _section,
                                      @RequestParam(value = "pageNum", required = false) String _pageNum,
                                      HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    //해시태그 수정
+    public String updateHashtags(@RequestParam("hash_tag_id") List<Long> hash_tag_id, HttpSession session);
 }

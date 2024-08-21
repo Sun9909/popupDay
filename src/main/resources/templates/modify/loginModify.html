@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/loginmodify.css}">
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
     <link rel="stylesheet" th:href="@{/css/alert.css}">
+    <link rel="stylesheet" th:href="@{/css/hashTagModify.css}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css}">
     <title>회원정보 수정</title>
 </head>
@@ -53,6 +54,15 @@
                 <input type="email" name="email" th:value="${myInfo.email}">
                 <input type="hidden" name="origin_email" th:value="${myInfo.email}">
             </p>
+
+            <div>
+                <button type="button" id="modifyHashtagBtn">해시태그 수정</button>
+                <div id="selectedHashtags">
+                    <span th:each="hashtag : ${userHashTagList}" th:text="${hashtag.hash_tag} + ' '"></span>
+                </div>
+            </div>
+
+
             <input type="hidden" name="reg_date" th:value="${myInfo.reg_date}">
             <input type="hidden" name="business_num" th:value="${myInfo.business_num}">
             <input type="hidden" name="role" th:value="${myInfo.role}">
@@ -61,6 +71,28 @@
                 <input type="submit" value="저장">
             </p>
         </form>
+
+        <!-- 해시태그 수정 레이어 팝업 -->
+        <div class="popup-layer" id="hashtagPopup">
+            <span class="close-btn" id="closePopup">X</span>
+            <h3>해시태그 수정</h3>
+            <form id="hashtagForm" action="/mypage/hashtagUpdate" method="post" >
+                <div id="hashtag-selector-container">
+                    <div class="hashtag-grid">
+                        <div th:each="hashtag : ${hashtagList}" class="hashtag-item">
+                            <label>
+                                <input type="checkbox" name="hash_tag_id" th:value="${hashtag.hash_tag_id}" />
+                                <span class="hashtag-text" name="hash_tag" th:text="${hashtag.hash_tag}"></span>
+                                <span class="hashtag-count">(<span th:text="${hashtag.count}"></span>)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <p>최대 5개까지 선택 가능합니다.</p>
+                </div>
+                <button type="submit" class="submit-btn">수정하기</button>
+            </form>
+        </div>
+
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
