@@ -55,7 +55,7 @@ function toggleOptionsMenu(button) {
 
     // 스크롤 제어 - 메뉴 또는 팝업이 열려 있는 경우 스크롤 비활성화
     if (currentOpenMenu || isPopupVisible) {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'auto';
     } else {
         document.body.style.overflow = 'auto';
     }
@@ -114,7 +114,7 @@ function openEditPopup(button) {
     // 팝업을 표시
     document.getElementById("editPopup").style.display = "block";
 
-    document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+    document.body.style.overflow = 'auto'; // 스크롤 비활성화
 
     isPopupVisible = true; // 팝업이 열려 있음을 기록
 }
