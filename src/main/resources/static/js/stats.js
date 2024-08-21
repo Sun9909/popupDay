@@ -69,7 +69,7 @@ document.getElementById("view-info").addEventListener('click', function() {
 
     if (chartVisible) {
         // 차트를 숨깁니다.
-        canvas.style.display = 'none';
+        document.getElementById('visit_view').style.display = 'none';
         console.log('Canvas display after hiding:', canvas.style.display);
         if (myChart2) {
             myChart2.destroy(); // 기존 차트를 제거합니다.
@@ -77,7 +77,7 @@ document.getElementById("view-info").addEventListener('click', function() {
         }
     } else {
         // 차트를 표시합니다.
-        canvas.style.display = 'block';
+        document.getElementById('visit_view').style.display = 'block';
 
         // 데이터와 차트 옵션을 설정합니다.
         var count = [

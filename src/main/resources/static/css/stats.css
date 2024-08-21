@@ -1,9 +1,13 @@
 .month-chart {
-    width: 500px;
+    margin: 10px 20px;
 }
 
 canvas {
     background-color: white;
+    padding: 0 40px 0 20px;
+    margin: 20px auto;
+    height: 340px;
+    width: 680px;
 }
 table{
     display:none;
