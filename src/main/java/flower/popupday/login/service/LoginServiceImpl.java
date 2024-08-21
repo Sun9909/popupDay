@@ -34,8 +34,8 @@ public class LoginServiceImpl implements LoginService {
         System.out.println(loginDTO.toString()); // 회원가입 정보를 콘솔에 출력
         //loginDAO.insertLogin(loginDTO); : DAO 객체를 사용하여 회원가입 정보를 데이터베이스에 삽입.
         loginDAO.insertLogin(loginDTO); // 회원가입 DAO 메서드 호출
-//        loginDAO.insertJoinPoint(loginDTO);//회원가입 포인트 추가
-//        loginDAO.createPoint(loginDTO);//포인트값 갱신
+        loginDAO.insertJoinPoint(loginDTO);//회원가입 포인트 추가
+        loginDAO.createPoint(loginDTO);//포인트값 갱신
         // 여기에서 id가 잘 설정되었는지 확인합니다.
 
         // 생성된 사용자 ID 가져오기
