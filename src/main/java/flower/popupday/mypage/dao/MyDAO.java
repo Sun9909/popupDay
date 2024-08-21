@@ -87,4 +87,6 @@ public interface MyDAO {
     public int selectToMyPopup(Long id);
 
     public Map<String, Object> findPopupById(Long popup_id) throws DataAccessException;
+
+    public List getGifticon(long id) throws DataAccessException;
 }

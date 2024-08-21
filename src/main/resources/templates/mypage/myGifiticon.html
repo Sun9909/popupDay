@@ -11,7 +11,12 @@
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
-
+        <div th:each="gifticon : ${myGifticon}" class="gifticon-container">
+            <div class="image_file">
+                <img th:src="@{${gifticon.image_file_name}}" alt="Gifticon Image">
+                <input id="file_name" type="hidden" name="image_file_name" th:value="${gifticon.image_file_name}">
+            </div>
+        </div>
     </div>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>

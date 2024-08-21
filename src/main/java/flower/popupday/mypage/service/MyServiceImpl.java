@@ -3,6 +3,7 @@ package flower.popupday.mypage.service;
 import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.mypage.dao.MyDAO;
 import flower.popupday.mypage.dto.MyDTO;
+import flower.popupday.mypage.dto.MyGifticonDTO;
 import flower.popupday.notice.qna.dto.QnaDTO;
 import flower.popupday.notice.review.dto.ReviewDTO;
 import flower.popupday.popup.dto.ImageDTO;
@@ -288,6 +289,11 @@ public class MyServiceImpl implements MyService {
         recentPopup.put("popupDetail", popupDetail);
 
         return recentPopup;
+    }
+
+    @Override
+    public List<MyGifticonDTO> getGifticon(long id) throws DataAccessException {
+        return myDAO.getGifticon(id);
     }
 
 //    @Override

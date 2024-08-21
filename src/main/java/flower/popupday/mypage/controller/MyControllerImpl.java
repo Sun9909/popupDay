@@ -5,6 +5,7 @@ import flower.popupday.login.dto.LoginDTO;
 import flower.popupday.login.dto.LoginHashTagDTO;
 import flower.popupday.login.service.LoginService;
 import flower.popupday.mypage.dto.MyDTO;
+import flower.popupday.mypage.dto.MyGifticonDTO;
 import flower.popupday.mypage.dto.MyPopupDTO;
 import flower.popupday.mypage.service.MyService;
 import flower.popupday.notice.review.dto.ReviewCommentDTO;
@@ -235,15 +236,14 @@ public class MyControllerImpl implements MyController {
     }
 
     @Override
-    @RequestMapping("/mypage/myGifticon")
+    @RequestMapping("/mypage/myGifticon.do")
     public ModelAndView myGifticon(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
         long id = loginDTO.getId();
-
-//        List myGifticon = myService.getGifticon(id);
-
-        ModelAndView mav = new ModelAndView("redirect:/mypage/myGifticon.do");
+        List<MyGifticonDTO> myGifticon = myService.getGifticon(id);
+        ModelAndView mav = new ModelAndView("mypage/myGifiticon");
+        mav.addObject("myGifticon", myGifticon);
         return mav;
     }
 
