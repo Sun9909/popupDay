@@ -206,15 +206,29 @@ public class LoginServiceImpl implements LoginService {
         return loginDAO.getUserHashTagList(userId);
     }
 
+    //해시태그 수정
     @Transactional
     public void updateUserHashtags(Long userId, List<Long> newHashtagIds) {
         List<LoginHashTagDTO> existingHashtags = loginDAO.getUserHashTagList(userId);
 
-        for (int i = 0; i < existingHashtags.size() && i < newHashtagIds.size(); i++) {
-            LoginHashTagDTO existing = existingHashtags.get(i);
+        // 기존 해시태그를 업데이트 또는 유지
+        for (int i = 0; i < newHashtagIds.size(); i++) {
             Long newHashtagId = newHashtagIds.get(i);
+            if (i < existingHashtags.size()) {
+                LoginHashTagDTO existing = existingHashtags.get(i);
+                if (!existing.getHash_tag_id().equals(newHashtagId)) {
+                    // 해시태그가 변경된 경우에만 업데이트 수행
+                    loginDAO.updateUserHashtags(existing.getUser_hash_tag_id(), userId, newHashtagId);
+                }
+            } else {
+                // 기존 해시태그 수보다 더 많은 해시태그가 선택된 경우, 새로운 해시태그를 추가
+                loginDAO.addUserHashtag(userId, newHashtagId);
+            }
+        }
 
-            loginDAO.updateUserHashtags(existing.getUser_hash_tag_id(), userId, newHashtagId);
+        // 선택되지 않은 기존 해시태그 삭제
+        for (int i = newHashtagIds.size(); i < existingHashtags.size(); i++) {
+            loginDAO.deleteUserHashtag(existingHashtags.get(i).getUser_hash_tag_id());
         }
     }
 

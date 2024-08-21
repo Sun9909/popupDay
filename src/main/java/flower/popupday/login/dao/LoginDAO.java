@@ -59,4 +59,10 @@ public interface LoginDAO {
     void updateUserHashtags(@Param("userHashTagId") Long userHashTagId,
                             @Param("userId") Long userId,
                             @Param("newHashTagId") Long newHashTagId);
+
+    //해시태그 수정
+    void addUserHashtag(Long userId, Long hashTagId);
+
+    //해시태그 수정
+    void deleteUserHashtag(Long userHashTagId);
 }
