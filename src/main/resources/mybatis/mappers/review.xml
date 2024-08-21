@@ -103,8 +103,8 @@
     </insert>
 
     <select id="selectReviewComment" parameterType="int" resultType="reviewCommentDTO">
-        select rc.*, u.user_nickname from review_comment_tbl
-            rc join user_tbl u on rc.user_id = u.id where rc.review_id = #{review_id}
+        select rc.*, u.user_nickname from review_comment_tbl rc
+        join user_tbl u on rc.user_id = u.id where rc.review_id = #{review_id}
     </select>
 
     <delete id="deleteComment" parameterType="long">
@@ -117,26 +117,36 @@
     </update>
 
     <!-- 특정 사용자 ID에 해당하는 리뷰 목록 조회 -->
+<!--    <select id="selectReviewByUserId" resultMap="reviewCommentResultMap">-->
+<!--        SELECT-->
+<!--            rc.review_comment_id, rc.content, rc.created_at,-->
+<!--            rc.updated_at, u.user_nickname, r.review_title,-->
+<!--            rc.review_id,  &#45;&#45; review_id 추가-->
+<!--            rc.user_id     &#45;&#45; user_id 추가-->
+<!--        FROM review_comment_tbl rc JOIN-->
+<!--            user_tbl u ON rc.user_id = u.id JOIN-->
+<!--            review_tbl r ON rc.review_id = r.review_id-->
+<!--        WHERE rc.user_id = #{user_id}-->
+<!--        ORDER BY rc.created_at DESC;-->
+<!--    </select>-->
+
     <select id="selectReviewByUserId" resultMap="reviewCommentResultMap">
         SELECT
-            rc.review_comment_id,
-            rc.content,
-            rc.created_at,
-            rc.updated_at,
-            u.user_nickname,
-            r.review_title,
-            rc.review_id,  -- review_id 추가
-            rc.user_id     -- user_id 추가
+        rc.review_comment_id,
+        rc.content,
+        rc.created_at,
+        rc.updated_at, <!-- updated_at 컬럼 추가 -->
+        u.user_nickname
         FROM
-            review_comment_tbl rc
-                JOIN
-            user_tbl u ON rc.user_id = u.id
-                JOIN
-            review_tbl r ON rc.review_id = r.review_id
+        review_comment_tbl rc
+        JOIN
+        user_tbl u ON rc.user_id = u.id
+        JOIN
+        review_tbl r ON rc.review_id = r.review_id
         WHERE
-            rc.user_id = #{user_id}
+        r.review_id = #{review_id}
         ORDER BY
-            rc.created_at DESC;
+        rc.created_at DESC;
     </select>
 
 </mapper>

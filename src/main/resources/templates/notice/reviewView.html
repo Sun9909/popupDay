@@ -65,7 +65,7 @@
                 <!-- 후기 작성 섹션 (로그인 상태) -->
                 <form action="/reviewComment/addReviewComment.do" method="post" th:if="${loginDTO != null}" onsubmit="return validateForm()">
                     <input type="hidden" name="review_id" th:value="${reviewArticle.review.review_id}">
-                    <input type="hidden" name="user_id" th:value="${reviewArticle.review.user_id}">
+                    <input type="hidden" name="user_id" th:value="${session.loginDTO.id}">
 
                     <!-- 글자 수 제한과 입력 이벤트를 가진 텍스트 영역 -->
                     <textarea id="content" name="content" rows="4" cols="50" maxlength="50" required placeholder="리뷰의 댓글을 작성해주세요!" oninput="updateCharacterCount()"></textarea>
@@ -144,7 +144,6 @@
                             </form>
                         </div>
                     </div>
-
             </div>
         </div>
     </div>
