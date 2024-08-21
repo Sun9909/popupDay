@@ -19,6 +19,7 @@ public class AdminDTO {
     private String gender;
     private Long tot_point;
     private String profile;
+    private String business_num;
 
     //생성자
     public AdminDTO() {
@@ -135,5 +136,13 @@ public class AdminDTO {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public String getBusiness_num() {
+        return business_num;
+    }
+
+    public void setBusiness_num(String business_num) {
+        this.business_num = business_num;
     }
 }
