@@ -64,7 +64,8 @@
                     <td th:text="${member.role}"></td>
                     <td th:text="${member.status}"></td>
                     <td><a th:href="@{/admin/memberModify.do(id=${member.id})}">수정</a></td>
-                    <td><a href="#" onclick="drop_check(event, '/admin/delMember.do?id=${member.id}')">삭제</a></td>
+                    <td><a href="#" th:onclick="|drop_check(event, '/admin/delMember.do?id=${member.id}')|">삭제</a></td>
+<!--                    <input type="button" value="답변 삭제" th:onclick="|fn_remove_answer('/notice/removeAnswer.do', ${qnaView.qna.qna_id})|">-->
                 </tr>
             </table>
 

@@ -93,17 +93,18 @@ document.getElementById("view-info").addEventListener('click', function() {
         canvas.style.display = 'block';
 
         // 데이터와 차트 옵션을 설정합니다.
-        var count = [100, 200, 300, 400];
-        var anotherCount = [50, 150, 250, 350];
+        var count = [];
+        var month = [];
+        var gender = ['남성','여성'];
 
         // 차트를 생성합니다.
         myChart2 = new Chart(ctx2, {
             type: 'line',
             data: {
-                labels: count,
+                labels: gender,
                 datasets: [{
                     label: '팝업 조회 수',
-                    data: anotherCount,
+                    data: count,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderWidth: 1

@@ -198,6 +198,7 @@ public class MyControllerImpl implements MyController {
         LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");    //loginDTO 속성으로 저장된 객체를 가져와 LoginDTO 타입으로 캐스팅. 사용자의 로그인 정보를 담고 있음
 
         Long userId = loginDTO.getId(); // LoginDTO에서 user_id 가져오기
+        System.out.println("userID : " + userId);
 
         MyDTO myDTO=myService.findMember(loginDTO.getId()); //사용자 id를 가져와 서비스의 findMember 메소드를 호출하여 MyDTO객체를 반환받음. 사용자의 상세 정보를 담고 있음
         ModelAndView mav = new ModelAndView("modify/loginModify"); // 새로운 ModelAndView 객체 생성. 포워딩?
@@ -214,20 +215,23 @@ public class MyControllerImpl implements MyController {
     }
 
     //해시태그 수정
-    @RequestMapping("/mypage/hashtagUpdate")
-    public String updateHashtags(@RequestParam("hash_tag_id") List<Long> hash_tag_id, HttpSession session) {
-        // 세션에서 사용자 ID 가져오기 (로그인 상태 가정)
-        Long userId = loginDTO.getId(); // LoginDTO에서 user_id 가져오기
+    @PostMapping("/mypage/hashtagUpdate")
+    public String updateHashtags(@RequestParam("hash_tag_id") List<Long> hashTagIds, HttpSession session) {
+        LoginDTO loginDTO = (LoginDTO) session.getAttribute("loginDTO");
+
+        Long userId = loginDTO.getId();
 
         System.out.println("user_id = " + userId);
 
-        if (userId != null) {
-            // 해시태그 업데이트 처리
-            loginService.updateUserHashtags(userId, hash_tag_id);
+        if (userId == null) {
+            return "redirect:/login/login.do"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
         }
 
-        // 업데이트 후 마이페이지로 리다이렉트
-        return "redirect:/mypage/memberPage.do";
+        // 해시태그 업데이트 로직
+        loginService.updateUserHashtags(userId, hashTagIds);
+
+        // 처리 후 마이페이지로 리다이렉트
+        return "redirect:/modify/loginModify.do";
     }
 
     @Override

@@ -5,20 +5,13 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 @Component("userStatsDTO")
 public class UserstatsDTO {
-    private long user_id;
     private int popup_id;
     private Date viewed_at;
-    private long id;
     private Date birth_date;
     private String gender;
+    private int count;
+    private String birth_month;
 
-    public long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
-    }
 
     public int getPopup_id() {
         return popup_id;
@@ -36,14 +29,6 @@ public class UserstatsDTO {
         this.viewed_at = viewed_at;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Date getBirth_date() {
         return birth_date;
     }
@@ -58,5 +43,21 @@ public class UserstatsDTO {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getBirth_month() {
+        return birth_month;
+    }
+
+    public void setBirth_month(String birth_month) {
+        this.birth_month = birth_month;
     }
 }

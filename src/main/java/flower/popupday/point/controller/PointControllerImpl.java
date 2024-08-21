@@ -67,8 +67,25 @@ public class PointControllerImpl implements PointController{
         String image_file_name=(String)goodsMap.get("image_file_name");
         String product_name=(String)goodsMap.get("product_name");
         int product_price= Integer.parseInt((String) goodsMap.get("product_price"));
+        // goodsMap에서 "product_count" 값을 가져옵니다
+        String productCountStr = (String) goodsMap.get("product_count");
+
+        // 빈값 또는 null 체크 후 기본값 설정
+        int product_count;
+        if (productCountStr == null || productCountStr.trim().isEmpty()) {
+            product_count = 999; // 기본값 설정
+        } else {
+            // 빈값이 아닌 경우, 문자열을 정수로 변환
+            try {
+                product_count = Integer.parseInt(productCountStr);
+            } catch (NumberFormatException e) {
+                // 숫자 형식이 아닌 경우, 기본값 설정
+                product_count = 999;
+            }
+        }
         pointDTO.setProduct_name(product_name);
         pointDTO.setProduct_price(product_price);
+        pointDTO.setProduct_count(product_count);
         pointDTO.setImage_file_name(image_file_name);
         int pointNo= pointService.addGoods(pointDTO);
 
