@@ -15,10 +15,6 @@
         <result property="result_count" column="result_count"/>
     </resultMap>
 
-<!--    <select id="statsList" parameterType="long">-->
-<!--        select * from hits_tbl where popup_id = #{popup_id}-->
-<!--    </select>-->
-
     <select id="statsCount" parameterType="long" resultMap="visitCount">
         SELECT DATE_FORMAT(viewed_at, '%Y-%m') AS month, COUNT(*) AS hit_count
         FROM hits_tbl WHERE popup_id = #{popup_id}
@@ -30,7 +26,8 @@
     </insert>
 
     <select id="userStats" parameterType="long" resultType="userStatsDTO">
-        SELECT hit.user_id, hit.popup_id, hit.viewed_at, me.id, me.birth_date, me.gender
-        from hits_tbl as hit left outer join user_tbl as me on hit.user_id = me.id WHERE popup_id = #{popup_id}
+        SELECT DATE_FORMAT(me.birth_date, '%Y') AS birth_month, me.gender, COUNT(*) AS count
+        FROM hits_tbl AS hit LEFT OUTER JOIN user_tbl AS me ON hit.user_id = me.id WHERE hit.popup_id = #{popup_id} and me.birth_date is not null
+        GROUP BY birth_month, me.gender ORDER BY birth_month, me.gender;
     </select>
 </mapper>

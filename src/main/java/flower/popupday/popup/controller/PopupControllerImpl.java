@@ -282,7 +282,7 @@ public class PopupControllerImpl implements PopupController {
         Long id = loginCheck ? loginDTO.getId() : null;
 
         // 조회수 증가 처리
-        if (!hasViewed) {
+        if (!hasViewed && id != null) {
             popupService.updateHits(popup_id);
             statsService.updateHitUser(popup_id, id);
             Cookie viewCookie = new Cookie("popupView_" + popup_id, String.valueOf(System.currentTimeMillis()));

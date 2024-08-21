@@ -27,8 +27,9 @@
             <table>
                 <tbody>
                     <tr th:each="stats : ${statsMap.user_info}" class="viewer-info">
-                        <td th:text="${stats.user_id}"></td>
-                        <td th:text="${stats.popup_id}"></td>
+                        <td th:text="${stats.birth_month}"></td>
+                        <td th:text="${stats.gender}"></td>
+                        <td th:text="${stats.count}"></td>
                     </tr>
                 </tbody>
             </table>

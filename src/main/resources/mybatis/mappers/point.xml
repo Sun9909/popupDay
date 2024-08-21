@@ -25,7 +25,7 @@
     </select>
 
     <insert id="addGoods" parameterType="pointDTO">
-        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},#{product_count},#{image_file_name},sysdate(),sysdate())
+        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},#{product_count},#{image_file_name},now(),now())
     </insert>
 
     <delete id="removeGoods" parameterType="int">
@@ -37,7 +37,7 @@
     </select>
 
     <update id="modGoods" parameterType="pointDTO">
-        update point_shop_tbl set product_price = #{product_price}, product_name=#{product_name}, image_file_name = #{image_file_name}, updated_at = sysdate() where shop_id = #{shop_id}
+        update point_shop_tbl set product_price = #{product_price}, product_name=#{product_name}, image_file_name = #{image_file_name}, product_count = #{product_count}, updated_at = now() where shop_id = #{shop_id}
     </update>
 
     <insert id="getGiftList" parameterType="java.util.Map">
