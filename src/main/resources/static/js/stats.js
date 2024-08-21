@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Months:', month);
     console.log('Counts:', count);
 
-    // 그래프를 그리기 위한 데이터와 옵션 설정
+    // 그래프를 그리기 위한 데이터와 옵션 설정(팝업 전체 방문자 통계)
     const ctx = document.getElementById('myChart').getContext('2d');
 
     const myChart = new Chart(ctx, {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: month, // x축 레이블
             datasets: [{
-                label: 'My First Dataset', // 데이터셋 레이블
+                label: '팝업 조회 수', // 데이터셋 레이블
                 data: count, // y축 데이터
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             plugins: {
                 title: {
                     display: true, // 제목 표시 여부
-                    text: '총 방문자 통계', // 제목 내용
+                    text: '팝업 전체 방문자 통계', // 제목 내용
                     color: '#333', // 제목 색상
                     font: {
                         size: 18, // 제목 폰트 크기
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 x: { // x축 설정
                     title: {
                         display: true, // 제목 표시 여부
-                        text: '2024년', // 제목 내용
+                        text: '조회 날짜', // 제목 내용
                         color: 'black', // 제목 색상
                         font: {
                             size: 14, // 제목 폰트 크기
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 y: {
                     title: {
                         display: true,
-                        text: '조회 수(명)',
+                        text: '조회 수',
                         color: 'black',
                         font: {
                             size: 14, // 제목 폰트 크기
@@ -72,4 +72,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+});
+
+var chartVisible = false;
+var myChart2 = null; // 차트 인스턴스를 저장할 변수
+
+document.getElementById("view-info").addEventListener('click', function() {
+    var canvas = document.getElementById('visitAge');
+    var ctx2 = canvas.getContext('2d');
+
+    if (chartVisible) {
+        // 차트를 숨깁니다.
+        canvas.style.display = 'none';
+        if (myChart2) {
+            myChart2.destroy(); // 기존 차트를 제거합니다.
+            myChart2 = null;
+        }
+    } else {
+        // 차트를 표시합니다.
+        canvas.style.display = 'block';
+
+        // 데이터와 차트 옵션을 설정합니다.
+        var count = [100, 200, 300, 400];
+        var anotherCount = [50, 150, 250, 350];
+
+        // 차트를 생성합니다.
+        myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: count,
+                datasets: [{
+                    label: '팝업 조회 수',
+                    data: anotherCount,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // 차트의 표시 여부를 토글합니다.
+    chartVisible = !chartVisible;
 });
