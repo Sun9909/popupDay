@@ -736,3 +736,34 @@ textarea {
         margin-bottom: 15px;
     }
 }
+
+/* admin faq 버튼 */
+/* 버튼 스타일 조정 */
+.custom-button, .modify_button, .faq-button {
+    background-color: #8B8BDA;  /* 배경색 */
+    border: none;               /* 테두리 제거 */
+    color: white;               /* 글자색 */
+    padding: 5px 17px;          /* 패딩 줄이기 */
+    font-size: 14px;            /* 글자 크기 줄이기 */
+    border-radius: 5px;         /* 모서리 둥글게 */
+    cursor: pointer;            /* 마우스 커서 변경 */
+    transition: background-color 0.3s ease;  /* 호버 효과 */
+    text-decoration: none;      /* 링크 밑줄 제거 */
+    display: inline-block;      /* 인라인 블록으로 표시 */
+}
+
+/* 버튼 호버 시 색상 변화 */
+.custom-button:hover, .modify_button:hover, .faq-button:hover {
+    background-color: #6f42c1;  /* 호버 시 배경색 */
+}
+
+/* 수정/삭제 버튼 추가 스타일 (필요시) */
+.modify_button {
+    margin-right: 10px; /* 수정/삭제 버튼 간 간격 */
+    margin-top: 10px;
+}
+
+/* FAQ 작성하기 버튼에만 적용될 스타일 */
+.faq-button-custom {
+    margin-left: 20px;  /* 왼쪽으로 마진을 주어 안쪽으로 배치 */
+}
