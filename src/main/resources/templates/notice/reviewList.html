@@ -47,7 +47,7 @@
                 <!-- 후기가 존재하지 않을때 -->
                 <div class="myreview-history" th:if="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
                     <p>작성한 후기가 없습니다.</p>
-                    <button><a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
+                    <button  class="sub-btns" ><a th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
                 </div>
                 <!-- 후기가 존재할때 -->
                 <div class="myreview-history" th:unless="${reviewMap.reviewList != null and reviewMap.reviewList.isEmpty()}">
@@ -56,7 +56,7 @@
                             <p th:text="${review.review_title}"></p><span th:text="${review.created_at}"></span>
                         </a>
                     </div>
-                    <button><a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
+                    <button  class="sub-btns" ><a href="#" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/reviewForm.do\', \'/login/login.do\')'">후기 작성하기</a></button>
                     <!--페이징 처리-->
                     <div align="center" th:if="${reviewMap.totReview > 10}">
                         <div th:if="${reviewMap.totReview > 100}">

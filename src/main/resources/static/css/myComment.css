@@ -21,7 +21,8 @@
 /* 리뷰 리스트 전체를 감싸는 컨테이너 */
 .review-list {
     display: grid;
-    gap: 20px;
+    gap: 18px;
+    margin: 12px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
@@ -51,6 +52,49 @@
     margin-bottom: 10px;
     font-size: 16px;
     color: #555;
+}
+
+.review-item:hover {
+    color: inherit; /* 부모 요소의 색상을 상속하여 파란색으로 변하지 않도록 함 */
+    transform: scale(1.05); /* 크기를 5% 확대 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* hover 시 그림자 더 강조 */
+}
+
+/* 또는 특정 요소에 대해 명시적으로 색상을 설정 */
+.review-item:hover {
+    color: #000; /* 검은색으로 설정 */
+}
+
+/* 만약 링크 요소(<a>)가 있다면 다음과 같이 설정 */
+.review-item a:hover {
+    color: #000; /* 링크 텍스트의 색상을 검은색으로 설정 */
+    text-decoration: none; /* 밑줄을 제거 */
+}
+
+/* review-list 안의 모든 텍스트 요소에 hover 상태에서도 글씨 색상 유지 */
+.review-list:hover {
+    color: inherit; /* 부모 요소의 색상을 상속하여 파란색으로 변하지 않도록 함 */
+}
+
+/* review-list 내부의 링크(<a>) 요소가 있는 경우 */
+.review-list a {
+    color: inherit; /* 기본 색상 유지 */
+    text-decoration: none; /* 기본적으로 링크 밑줄 제거 */
+}
+
+.review-list a:hover {
+    color: inherit; /* hover 시에도 색상을 변경하지 않음 */
+    text-decoration: none; /* hover 시 밑줄 제거 */
+}
+
+/* review-item 내부의 텍스트 요소에 대해 추가 스타일 적용 */
+.review-item {
+    color: #000; /* 기본 텍스트 색상 설정 */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* 부드러운 애니메이션 효과 추가 */
+}
+
+.review-item:hover {
+    color: #000; /* hover 시 텍스트 색상 유지 */
 }
 
 /* 리뷰 작성일 */
