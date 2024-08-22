@@ -125,3 +125,27 @@ canvas {
     width: 200px;
     height: 300px;
 }
+/* goodsForm */
+.goods-btn {
+    display: flex;           /* Flexbox로 설정하여 자식 요소들을 가로로 배치 */
+    flex-direction: row;     /* 가로로 정렬 */
+    justify-content: center; /* 중앙 정렬 */
+    gap: 10px;               /* 버튼들 간의 간격 설정 */
+    margin: 20px 0px;        /* 상하 여백 설정 */
+}
+
+.goods-btn button {
+    padding: 5px 15px;     /* 내부 여백을 늘려 버튼 크기 확대 */
+    border: none;
+    cursor: pointer;
+    display: inline-block;    /* 버튼 요소들을 인라인 블록으로 설정 */
+    margin: 0;                /* 개별 버튼의 상하 여백 제거 (부모 요소의 여백 사용) */
+    background-color: #8B8BDA; /* 버튼 배경색 설정 */
+    color: white;             /* 버튼 텍스트 색상 설정 */
+    border-radius: 5px;       /* 모서리를 둥글게 설정 */
+    font-size: 18px;          /* 폰트 크기를 늘려 버튼의 크기를 확대 */
+    font-weight: 600;         /* 텍스트 두께 조정 */
+}
+.goods-btn button a {
+    color: white;
+}

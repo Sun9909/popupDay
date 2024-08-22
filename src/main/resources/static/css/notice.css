@@ -510,6 +510,14 @@ a.qnatitle {
     justify-content: center;
 }
 
+/* 버튼을 포함하는 부모 요소에 Flexbox 적용 */
+.review-form-btn {
+    display: flex;
+    justify-content: space-between; /* 버튼들을 간격을 두고 나란히 배치 */
+    flex-wrap: wrap; /* 버튼들이 한 줄에 다 들어가지 않을 경우 줄바꿈 허용 */
+    gap: 10px; /* 버튼들 간의 간격 */
+}
+
 #review-btn > input, #review-mbtn > input {
     background-color: #8B8BDA;
     border: none;
@@ -528,13 +536,14 @@ a.qnatitle {
     cursor: pointer;
     background-color: #8B8BDA;
     border: none;
-    padding: 5px;
+    padding: 1px 6px;
     color: white;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     border-radius: 5px;
-    width: 300px;
-    margin: 0 auto;
+    width: 130px;
+    margin-right: 351px;
+    height: 29px;
 }
 
 #modify-img {
@@ -726,4 +735,35 @@ textarea {
         width: 100%;
         margin-bottom: 15px;
     }
+}
+
+/* admin faq 버튼 */
+/* 버튼 스타일 조정 */
+.custom-button, .modify_button, .faq-button {
+    background-color: #8B8BDA;  /* 배경색 */
+    border: none;               /* 테두리 제거 */
+    color: white;               /* 글자색 */
+    padding: 5px 17px;          /* 패딩 줄이기 */
+    font-size: 14px;            /* 글자 크기 줄이기 */
+    border-radius: 5px;         /* 모서리 둥글게 */
+    cursor: pointer;            /* 마우스 커서 변경 */
+    transition: background-color 0.3s ease;  /* 호버 효과 */
+    text-decoration: none;      /* 링크 밑줄 제거 */
+    display: inline-block;      /* 인라인 블록으로 표시 */
+}
+
+/* 버튼 호버 시 색상 변화 */
+.custom-button:hover, .modify_button:hover, .faq-button:hover {
+    background-color: #6f42c1;  /* 호버 시 배경색 */
+}
+
+/* 수정/삭제 버튼 추가 스타일 (필요시) */
+.modify_button {
+    margin-right: 10px; /* 수정/삭제 버튼 간 간격 */
+    margin-top: 10px;
+}
+
+/* FAQ 작성하기 버튼에만 적용될 스타일 */
+.faq-button-custom {
+    margin-left: 20px;  /* 왼쪽으로 마진을 주어 안쪽으로 배치 */
 }
