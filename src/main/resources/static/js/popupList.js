@@ -90,7 +90,7 @@ function renderPopups(data) {
             const popupElement = document.createElement('tr');
             popupElement.classList.add('popup-lists');
 
-            // HTML 문자열을 직접 구성
+            // HTML
             popupElement.innerHTML = `
                 <td>
                     ${thumbnailImage ? `

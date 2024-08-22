@@ -6,14 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/point.css}">
-    <link rel="stylesheet" th:href="@{/css/alert.css}">
     <title>포인트 상품 추가</title>
 </head>
 <body>
 <th:block layout:fragment="content">
     <div class="containers">
         <div class="goods-form">
-            <form method="post" action="/point/addGoods.do" class="goods" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <form method="post" action="/point/addGoods.do" class="goods" enctype="multipart/form-data">
                 <div>
                     <p>상품 선택</p>
                     <div class="goods-select">
@@ -24,17 +23,52 @@
                                 <input type="radio" name="image_name" value="바나나맛 우유" onclick="showImage()">
                             </div>
                         </span>
-                        <!-- Other options remain unchanged -->
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441614/pmb2hv8wdivrfkvwodnv.jpg">
+                            <div>
+                                <label>베스킨라빈스 싱글콘</label>
+                                <input type="radio" name="image_name" value="베스킨라빈스 싱글콘" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441617/blgfyg1rvrqsylttu1c4.jpg">
+                            <div>
+                                <label>올리브영 1만원 교환권</label>
+                                <input type="radio" name="image_name" value="올리브영 1만원 교환권" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441613/alq6a7mh9skwbpnw9tpp.jpg">
+                            <div>
+                                <label>투썸플레이스 아메리카노 + 아이스박스 세트</label>
+                                <input type="radio" name="image_name" value="투썸플레이스 아메리카노 + 아이스박스 세트" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441615/vlxchwd0glnknrmzs5h3.jpg">
+                            <div>
+                                <label>스타벅스 아메리카노2 + 부드러운 생크림 카스테라</label>
+                                <input type="radio" name="image_name" value="스타벅스 아메리카노2 + 부드러운 생크림 카스테라" onclick="showImage()">
+                            </div>
+                        </span>
+                        <span>
+                            <img src="https://res.cloudinary.com/dt1ftobia/image/upload/v1723441614/e4w5htzkj0lejdfphl7o.jpg">
+                            <div>
+                                <label>투썸플레이스 스트로베리 초코 생크림 케이크</label>
+                                <input type="radio" name="image_name" value="투썸플레이스 스트로베리 초코 생크림 케이크" onclick="showImage()">
+                            </div>
+                        </span>
+                        <input type="hidden" id="imageURL" name="image_file_name" value="">
                     </div>
                 </div>
                 <div class="goods-input">
                     <label>상품명 :</label><input name="product_name" placeholder="상품명">
                 </div>
                 <div class="goods-input">
-                    <label>교환가격 :</label><input id="product_price" name="product_price" placeholder="상품교환 가격">
+                    <label>교환가격 :</label><input name="product_price" placeholder="상품교환 가격">
                 </div>
                 <div class="goods-input">
-                    <label>수량 :</label><input type="text" id="product_count" name="product_count" placeholder="상품 수량(미 기입 시 999로 고정)">
+                    <label>수량 :</label><input type="text" name="product_count" placeholder="상품 수량(미 기입 시 999로 고정)">
                 </div>
                 <div class="goods-btn">
                     <button type="reset">취소</button>
@@ -52,39 +86,6 @@
     <script th:src="@{/js/point.js}"></script>
     <script th:src="@{/js/search.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
-    <script>
-        function validateForm() {
-            var priceInput = document.getElementById("product_price").value.trim();
-            var countInput = document.getElementById("product_count").value.trim();
-            var price = parseFloat(priceInput);
-            var count = parseFloat(countInput);
-
-            var isPriceValid = !isNaN(price) && price > 0;
-            var isCountValid = !isNaN(count) && count >= 0;
-
-            if (!isPriceValid || !isCountValid) {
-                var errorMessages = [];
-
-                if (!isPriceValid) {
-                    errorMessages.push('교환가격에는 유효한 숫자만 입력할 수 있습니다.');
-                }
-
-                if (!isCountValid) {
-                    errorMessages.push('수량에는 유효한 숫자만 입력할 수 있습니다.');
-                }
-
-                Swal.fire({
-                    icon: 'error',
-                    title: '입력 오류',
-                    html: errorMessages.join('<br>') // Join messages with <br> for line breaks
-                });
-
-                return false; // Prevent form submission
-            }
-
-            return true; // Allow form submission
-        }
-    </script>
 </th:block>
 </body>
 </html>

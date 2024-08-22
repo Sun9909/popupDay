@@ -77,7 +77,6 @@ public class PopupControllerImpl implements PopupController {
         HttpSession session = request.getSession();
         LoginDTO loginDTO=(LoginDTO)session.getAttribute("loginDTO");
         Long id = (loginDTO != null) ? loginDTO.getId() : null;
-        System.out.println(id);
         Map<String, Object> mainMap = popupService.mainView(id);
         mav.addObject("mainMap", mainMap);
         mav.setViewName("main");
