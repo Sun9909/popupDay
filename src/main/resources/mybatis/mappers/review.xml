@@ -98,8 +98,8 @@
 
     <!-- comment -->
     <insert id="addReviewComment">
-        insert into review_comment_tbl (user_id, review_id, content, created_at)
-        values (#{user_id}, #{review_id}, #{content}, CURRENT_TIMESTAMP)
+        insert into review_comment_tbl (user_id, review_id, content, created_at, updated_at)
+        values (#{user_id}, #{review_id}, #{content}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)
     </insert>
 
     <select id="selectReviewComment" parameterType="int" resultType="reviewCommentDTO">

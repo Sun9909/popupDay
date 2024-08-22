@@ -12,10 +12,11 @@
         <result property="image_file_name" column="image_file_name"/>
         <result property="created_at" column="created_at"/>
         <result property="updated_at" column="updated_at"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <select id="getpointList" resultMap="pointResult">
-        select * from point_shop_tbl order by updated_at
+        select * from point_shop_tbl where status='활성' order by updated_at
     </select>
     <select id="getUserPoint" parameterType="long" resultType="int">
         select tot_point from user_tbl where id = #{id}
@@ -25,15 +26,15 @@
     </select>
 
     <insert id="addGoods" parameterType="pointDTO">
-        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},#{product_count},#{image_file_name},now(),now())
+        insert into point_shop_tbl values(#{shop_id}, #{product_name},#{product_price},#{product_count},#{image_file_name},now(),now(),'활성')
     </insert>
 
     <delete id="removeGoods" parameterType="int">
-        delete from point_shop_tbl where shop_id = #{shop_id}
+        update point_shop_tbl set status='비활성' where shop_id = #{shop_id}
     </delete>
 
     <select id="getGoodsList" parameterType="int" resultMap="pointResult">
-        select * from point_shop_tbl where shop_id = #{shop_id}
+        select * from point_shop_tbl where shop_id = #{shop_id} and status ='활성'
     </select>
 
     <update id="modGoods" parameterType="pointDTO">

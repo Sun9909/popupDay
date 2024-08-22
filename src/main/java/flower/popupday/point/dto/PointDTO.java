@@ -1,5 +1,7 @@
 package flower.popupday.point.dto;
 
+import ch.qos.logback.core.status.Status;
+import flower.popupday.login.dto.LoginDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,6 +15,8 @@ public class PointDTO {
     private String image_file_name;
     private Date created_at;
     private Date updated_at;
+    private Status status;
+
 
     public PointDTO() {};
 
@@ -25,6 +29,10 @@ public class PointDTO {
         this.image_file_name = image_file_name;
         this.created_at = created_at;
         this.updated_at = updated_at;
+    }
+
+    public enum Status {
+        활성, 비활성
     }
 
     public long getShop_id() {
@@ -81,5 +89,13 @@ public class PointDTO {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

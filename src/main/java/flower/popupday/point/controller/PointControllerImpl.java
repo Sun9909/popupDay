@@ -65,6 +65,7 @@ public class PointControllerImpl implements PointController{
         }
 
         String image_file_name=(String)goodsMap.get("image_file_name");
+        System.out.println(image_file_name);
         String product_name=(String)goodsMap.get("product_name");
         int product_price= Integer.parseInt((String) goodsMap.get("product_price"));
         // goodsMap에서 "product_count" 값을 가져옵니다
