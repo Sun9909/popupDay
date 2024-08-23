@@ -41,7 +41,7 @@
                             <input type="text" id="product_max"  th:value="${point.product_count}" readonly>
                         </div>
                         <input type="hidden" id="product-count" class="product-count" min="1" max="${point.product_count}" step="1" value="1" name="product_count">
-                        <input type="submit" value="교환하기" id="gifticon" class="change-btn">
+                        <input type="submit" value="교환하기" class="gifticon change-btn">
                         <div th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                             <button><a th:href="@{/point/modifyGoods.do(shop_id = ${point.shop_id})}">품목 수정</a></button>
                             <input type="button" value="품목 삭제" th:onclick="|fn_remove_goods('/point/removeGoods.do', ${point.shop_id})|">
