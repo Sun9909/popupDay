@@ -138,59 +138,60 @@ async function drawImageWithSerialNumber(imageSrc) {
 let isCooldown = false;
 const cooldownDuration = 1000; // 1초 쿨다운 시간
 
-document.getElementById("gifticon").addEventListener('click', function(event) {
-    if (isCooldown) {
-        event.preventDefault(); // 쿨다운 중에는 클릭 무시
-        return;
-    }
+document.querySelectorAll('.gifticon').forEach(button => {
+    button.addEventListener('click', function(event) {
+        if (isCooldown) {
+            event.preventDefault(); // 쿨다운 중에는 클릭 무시
+            return;
+        } else {
+            event.preventDefault(); // 기본 동작 방지
+            // 쿨다운 상태로 설정
+            isCooldown = true;
 
-    // 쿨다운 상태로 설정
-    isCooldown = true;
+            // 클릭 처리
+            const user_point = parseInt(document.querySelector('#user_point').value, 10);
+            console.log(user_point);
+            const form = this.closest('form'); // 현재 버튼이 속한 폼을 찾습니다
+            const goods_point = parseInt(form.querySelector('#product_price').value, 10);
+            const max_count = parseInt(form.querySelector('#product_max').value, 10);
+            console.log(goods_point);
+            console.log(max_count);
 
-    // 클릭 처리
-    user_point = parseInt(document.querySelector('#user_point').value, 10);
-    console.log(user_point);
-    const goods_point = parseInt(this.parentElement.querySelector('#product_price').value, 10);
-    max_count = parseInt(this.parentElement.querySelector('#product_max').value, 10);
-    console.log(max_count);
+            if (user_point >= goods_point && max_count !== 0) {
+                const imageSrc = form.querySelector('#file_name').value;
+                drawImageWithSerialNumber(imageSrc)
+                    .then(changedsrc => {
+                        console.log(changedsrc);
+                        form.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
 
-    if (user_point >= goods_point && max_count !== 0) {
-        event.preventDefault();
+                        // 지연 후 폼을 제출합니다
+                        setTimeout(() => {
+                            form.submit(); // 직접 폼 제출
+                            alert('교환에 성공했습니다!');
+                        }, 500); // 500ms 지연 (필요에 따라 조정 가능)
 
-        const imageSrc = this.parentElement.querySelector('#file_name').value;
-        drawImageWithSerialNumber(imageSrc)
-            .then(changedsrc => {
-                console.log(changedsrc);
-                this.parentElement.querySelector('#file_name').value = changedsrc; // 변경된 이미지 소스 값을 업데이트합니다
-
-                // 지연 후 폼을 제출합니다
-                setTimeout(() => {
-                    this.parentElement.submit();
-                    alert('교환에 성공했습니다!');
-                }, 500); // 500ms 지연 (필요에 따라 조정 가능)
-
-                // 쿨다운 시간 후 클릭 가능하도록 설정
-                setTimeout(() => {
-                    isCooldown = false;
-                }, cooldownDuration);
-            })
-            .catch(error => {
-                console.error('이미지 처리 중 오류 발생:', error);
-                // 쿨다운 상태를 해제하지 않으면, 이미지 처리 오류 발생 시에도 클릭 방지 상태를 해제해야 할 수 있습니다.
-                isCooldown = false;
-            });
-    } else if (user_point <= 0 || user_point < goods_point) {
-        alert('포인트가 부족합니다.');
-        event.preventDefault(); // 기본 동작을 방지합니다
-        isCooldown = false; // 쿨다운 상태를 해제
-        return; // 핸들러 실행을 중단합니다
-    } else if (max_count === 0) {
-        alert('교환수량이 부족합니다.');
-        event.preventDefault(); // 기본 동작을 방지합니다
-        isCooldown = false; // 쿨다운 상태를 해제
-        return; // 핸들러 실행을 중단합니다
-    }
+                        // 쿨다운 시간 후 클릭 가능하도록 설정
+                        setTimeout(() => {
+                            isCooldown = false;
+                        }, cooldownDuration);
+                    })
+                    .catch(error => {
+                        console.error('이미지 처리 중 오류 발생:', error);
+                        // 쿨다운 상태를 해제하지 않으면, 이미지 처리 오류 발생 시에도 클릭 방지 상태를 해제해야 할 수 있습니다.
+                        isCooldown = false;
+                    });
+            } else if (user_point <= 0 || user_point < goods_point) {
+                alert('포인트가 부족합니다.');
+                isCooldown = false; // 쿨다운 상태를 해제
+            } else if (max_count === 0) {
+                alert('교환수량이 부족합니다.');
+                isCooldown = false; // 쿨다운 상태를 해제
+            }
+        }
+    });
 });
+
+
 
 
 
