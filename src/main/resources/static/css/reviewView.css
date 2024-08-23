@@ -43,7 +43,7 @@ textarea[name="content"] {
     color: gold; /* 별점의 색상을 금색으로 설정 */
 }
 
-.review-content {
+.review_content {
     text-align: left; /* 텍스트를 왼쪽으로 정렬 */
     margin-bottom: 8px; /* 아래쪽 간격 설정 */
     padding: 10px; /* 여백 설정 */

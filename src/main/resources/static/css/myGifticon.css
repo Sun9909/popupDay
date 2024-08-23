@@ -1,32 +1,42 @@
 @charset "utf-8";
+
 .main_title {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
+
 .main_title a {
     margin: 5px 0 0 10px;
 }
+
 .main_title img {
     margin: 4px 10px; /* 이미지와 텍스트 사이의 간격 조정 */
     width: 30px;
     height: 30px;
 }
+
 .main_title h2 {
     font-size: 1.8em;
 }
+
 #giftArea {
     margin-top: 5px;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 기프티콘 사이의 간격 조정 */
+    justify-content: center; /* 기프티콘을 중앙에 정렬 */
 }
+
 #giftArea .gifticon-container {
-    padding: 10px 30px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 1fr;
+    flex: 1 1 calc(50% - 20px); /* 50% 너비에서 간격을 제외 */
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 설정 */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
 }
+
 #giftArea .gifticon-container img {
     width: 250px;
     height: 220px;
-    margin: 5px 10px;
 }
