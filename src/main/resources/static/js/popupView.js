@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function adjustWidth(input) {
     // 글자 수에 따른 너비를 ch 단위로 설정
     const length = input.value.length;
-    input.style.width = (length * 13 + 13) + 'px';
+    input.style.width = (length * 14 + 14) + 'px';
 }
 
 // 페이지 로드 시, 모든 input 요소의 너비를 초기화

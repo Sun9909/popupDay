@@ -228,7 +228,7 @@ cursor: pointer; 포인터 커서로 변경
 #tag{
     border-radius: 30px;
     border: 1px #8B8BDA solid;
-    background-color: #FDFEFF;
+    background-color: #FEFEDF;
     padding: 6px 10px;
     text-align: center;
     width: 100%;
@@ -261,6 +261,7 @@ cursor: pointer; 포인터 커서로 변경
 
 .search-box-inner input {
     font-size: 13px;
+    font-weight: 600;
 }
 
 .popupdetail-title-infor {
