@@ -19,7 +19,10 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public void addFaq(FaqDTO faqDTO) throws DataFormatException {
+        int faq_id = faqDAO.getNewFaqNo();
+        faqDTO.setFaq_id(faq_id);
         faqDAO.insertFaq(faqDTO);
+
     }
 
     @Override
