@@ -93,10 +93,23 @@
     display: flex;
     flex-direction: column;
     width: 200px;
+    box-shadow: 0 0 2px #8B8BDA;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .exchange-goods > input{
     text-align: center;
+    background-color: inherit;
+    border: none;
+    font-size: 18px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.exchange-goods > input:hover {
+    color:black;
 }
 
 .exchange-goods .image_file > img {
@@ -119,6 +132,7 @@
 .image_file {
     height:180px;
     overflow: hidden;
+    box-shadow: 0 0 1px;
 }
 
 canvas {
@@ -148,4 +162,60 @@ canvas {
 }
 .goods-btn button a {
     color: white;
+}
+
+.exchange-val {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.exchange-val > label {
+    width: 70px;
+    flex-shrink: 1;
+}
+.exchange-val >input {
+   width: 50%;
+   background-color: inherit;
+   border: none;
+   font-size: 15px;
+   padding-top: 3px;
+   text-align: right;
+}
+
+.exchange-goods .change-btn{
+    background-color: #8B8BDA;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+.admin_shop_btns {
+    margin: 0 auto;
+}
+.admin_shop_btns > button, .admin_shop_btns > input {
+    background-color: #FEFEDF;
+    border: 1px solid #8B8BDA;
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin: 0 5px;
+}
+
+.point-shop-adder > button {
+    display: block;
+    margin: 0 auto;
+    background-color: inherit;
+    border: none;
+}
+
+.point-shop-adder a {
+    font-size: 19px;
+    border-bottom: 1px solid;
+    cursor: pointer;
+}
+
+.point-shop-adder a:hover {
+    color: #8F8CB8;
 }
