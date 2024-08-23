@@ -545,6 +545,7 @@ a.qnatitle {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 6px;
 }
 
 /* 버튼을 포함하는 부모 요소에 Flexbox 적용 */

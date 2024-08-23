@@ -248,3 +248,7 @@ textarea[name="content"] {
 .review-section {
     margin: 20px 0;
 }
+
+.logins {
+    border: none;
+}

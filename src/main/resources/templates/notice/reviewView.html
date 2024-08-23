@@ -58,7 +58,7 @@
 
             <div class="review-section">
                 <!-- 후기 작성 섹션 (로그인되지 않은 상태) -->
-                <div class="review-form" th:if="${loginDTO == null}">
+                <div class="review-form logins" th:if="${loginDTO == null}">
                     <h3>댓글 등록을 위해 <a th:href="@{/login/login.do}">로그인</a>해주세요.</h3>
                 </div>
 
