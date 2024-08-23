@@ -546,6 +546,15 @@ textarea[name="content"] {
     text-align: center;
 }
 
+.review-form  a {
+    border-bottom: 1px solid #8B8BDA;
+    color: #8B8BDA;
+}
+
+.review-form  a:hover{
+    color:black;
+}
+
 .infor-tit > h5 {
     border-bottom: 1px solid #ccc;
     padding: 5px;
