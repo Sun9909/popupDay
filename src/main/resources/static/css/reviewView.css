@@ -13,10 +13,16 @@ textarea[name="content"] {
 }
 
 .comment_button[type="submit"] {
-    width: 100%; /* 버튼의 너비를 텍스트 영역과 동일하게 설정 */
-    box-sizing: border-box; /* 패딩과 보더를 포함하여 너비를 계산 */
-    margin-top: 10px; /* 텍스트 영역과 버튼 사이의 간격 조절 */
-    padding: 10px; /* 버튼의 패딩 조절 */
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 7px;
+    font-size: 18px;
+    background-color: #8B8BDA;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-weight: 600;
 }
 
 /* 리뷰 컨테이너 스타일 */

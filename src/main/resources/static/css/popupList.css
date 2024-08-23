@@ -16,18 +16,26 @@
 }
 
 .popup-store > input {
-    width: 400px;
+    margin-top: 10px;
+    width: 100%;
     height: 30px;
 }
 
 .popAddress {
     margin-top: -20px;
 }
+
+.popAddress > input {
+    margin-top: 10px;
+    padding: 5px;
+}
+
 #popupnote {
-    width: 400px;
+    width: 100%;
     height: 100px;
     resize: none;
     padding: 5px;
+    margin-top: 10px;
 }
 
 .popup-lists {
@@ -68,9 +76,11 @@
 }
 
 .operating-time > div {
-    display: inline-block;
-    flex-grow: 1;
-    margin-bottom: 5px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-auto-rows: 1fr;
+   gap: 20px 80px;
+   margin: 20px 10px;
 }
 
 .operating-time .times {
@@ -78,20 +88,23 @@
 }
 
 .url-link, .text-fill {
+    margin-top: 10px;
     height: 30px;
-    width: 350px;
+    width: 100%;
 }
 .popup-button {
     margin-top: 20px;
 }
+
 .popup-button > button {
     font-size: 17px;
-    padding: 5px 10px;
+    padding: 5px 18px;
     background-color: #8B8BDA;
     border: none;
     border-radius: 5px;
     color: white;
     font-weight: 700;
+    margin: 0 7px;
     cursor: pointer;
 }
 
@@ -101,8 +114,14 @@
     padding: 5px 8px;
     border-radius: 30px;
     font-size: 15px;
+    margin: 0 10px;
     width: 50px; /* 초기 너비 */
     box-sizing: content-box;
+}
+
+.popup-tag {
+    margin-bottom: 10px;
+    display: inline-block;
 }
 
 .popimg-bg {

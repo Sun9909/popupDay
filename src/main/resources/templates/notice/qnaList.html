@@ -101,16 +101,18 @@
 
             <!-- 문의사항 작성 버튼 -->
             <div class="write">
-                <a class="write" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaForm.do\', \'/login/login.do\')'">문의사항 작성하기</a>
+                <a class="write write-btn" th:onclick="'fn_articleForm(' + ${session.isLogOn} + ', \'/notice/qnaForm.do\', \'/login/login.do\')'">문의사항 작성하기</a>
             </div>
 
             <!-- 문의사항 작성 내용 -->
             <div class="qnaitem" th:each="qna : ${qnaMap.listQna}">
-                <div>
-                    <a class="qnatitle" th:href="@{/notice/qnaView.do(qna_id=${qna.qna_id})}" th:text="${qna.title}"></a>
-                </div>
-                <div class="qnadate" th:text="${qna.created_at}"></div>
                 <div class="category" th:text="${qna.category_name}"></div>
+                <div class="qna-content">
+                    <div>
+                        <a class="qnatitle" th:href="@{/notice/qnaView.do(qna_id=${qna.qna_id})}" th:text="${qna.title}"></a>
+                    </div>
+                    <p class="qnadate" th:text="${qna.created_at}"></p>
+                </div>
             </div>
         </div>
 

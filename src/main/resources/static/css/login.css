@@ -7,6 +7,7 @@ a>h2 {
     padding-top: 40px;
 }
 .login-submit {
+    box-shadow: 0px 0 3px #8B8BAE;
     width: 640px;
     background-color: white;
     border-radius: 5px;
@@ -47,12 +48,20 @@ a>h2 {
     height: 35px;
 }
 .loginButton a {
+    cursor: pointer;
     margin: 5px;
     text-decoration: none;
     color: black;
+    border-right: 1px solid #ccc;
+    padding-right: 10px;
 }
 .loginButton a:hover {
     color: #8B8BDA;
+}
+
+.loginButton .choice-form {
+    border-right: 0;
+    padding-right: 0;
 }
 
 .join>button {

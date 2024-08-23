@@ -37,6 +37,10 @@
         <!--공지사항 -->
         <div id="tab1" class="content active">
             <div class="contact-wrap">
+                <div class="notice-btn" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
+                    <!-- 사용자가 관리자일 때만 버튼을 표시합니다. -->
+                    <a th:href="@{/notice/noticeForm.do}">공지사항 작성하기</a>
+                </div>
                 <table class="table-board">
                     <tbody>
                     <tr>
@@ -46,14 +50,10 @@
 
                     <tr th:each="notice : ${noticeMap.noticeList}">
                         <td><a th:href="@{/notice/noticeView.do(notice_id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                        <td th:text="${notice.created_at}"></td>
+                        <td th:text="${notice.created_at}" class="created-date"></td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="notice-btn" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
-                    <!-- 사용자가 관리자일 때만 버튼을 표시합니다. -->
-                    <a th:href="@{/notice/noticeForm.do}">공지사항 작성하기</a>
-                </div>
             </div>
         </div>
 
