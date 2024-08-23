@@ -9,12 +9,13 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
     </resultMap>
 
 
     <!--faq 등록 -->
     <insert id="insertFaq" parameterType="faqDTO">
-        insert into faq_tbl values (#{faq_id}, #{user_id}, #{title}, #{content})
+        insert into faq_tbl values (#{faq_id}, #{user_id}, #{title}, #{content}, now(), now())
     </insert>
 
     <!-- 등록된 faq 리스트 화면출력 -->
@@ -30,7 +31,7 @@
     </select>
     <!-- faq 글 수정하기 -->
     <update id="changeFaq" parameterType="faqDTO">
-        update faq_tbl set title=#{title}, content=#{content} where faq_id = #{faq_id}
+        update faq_tbl set title=#{title}, content=#{content}, updated_at=now() where faq_id = #{faq_id}
     </update>
     <!-- faq 글 삭제하기 -->
     <delete id="deleteFaq" parameterType="int">
