@@ -46,7 +46,7 @@
 
                     <tr th:each="notice : ${noticeMap.noticeList}">
                         <td><a th:href="@{/notice/noticeView.do(notice_id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                        <td th:text="${notice.created_at}"></td>
+                        <td th:text="${notice.created_at}" class="created-date"></td>
                     </tr>
                     </tbody>
                 </table>

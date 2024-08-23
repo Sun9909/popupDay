@@ -57,33 +57,35 @@
 
                 <div class="operating-time fillout-form">
                     <label>팝업스토어 운영 시간</label>
-                    <div>
-                        <label for="monday_time">월:</label>
-                        <input type="text" id="monday_time" name="monday_time" placeholder="예: 10:00 ~ 20:00" required>
-                    </div>
-                    <div>
-                        <label for="tuesday_time">화:</label>
-                        <input type="text" id="tuesday_time" name="tuesday_time" placeholder="예: 10:00 ~ 20:00" required>
-                    </div>
-                    <div>
-                        <label for="wednesday_time">수:</label>
-                        <input type="text" id="wednesday_time" name="wednesday_time" placeholder="예: 10:00 ~ 20:00" required>
-                    </div>
-                    <div>
-                        <label for="thursday_time">목:</label>
-                        <input type="text" id="thursday_time" name="thursday_time" placeholder="예: 10:00 ~ 20:00" required>
-                    </div>
-                    <div>
-                        <label for="friday_time">금:</label>
-                        <input type="text" id="friday_time" name="friday_time" placeholder="예: 10:00 ~ 20:00" required>
-                    </div>
-                    <div>
-                        <label for="saturday_time">토:</label>
-                        <input type="text" id="saturday_time" name="saturday_time" placeholder="예: 10:00 ~ 20:00" required>
-                    </div>
-                    <div>
-                        <label for="sunday_time">일:</label>
-                        <input type="text" id="sunday_time" name="sunday_time" placeholder="예: 10:00 ~ 20:00" required>
+                    <div class="popup-times">
+                        <div>
+                            <label for="monday_time">월:</label>
+                            <input type="text" id="monday_time" name="monday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
+                        <div>
+                            <label for="tuesday_time">화:</label>
+                            <input type="text" id="tuesday_time" name="tuesday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
+                        <div>
+                            <label for="wednesday_time">수:</label>
+                            <input type="text" id="wednesday_time" name="wednesday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
+                        <div>
+                            <label for="thursday_time">목:</label>
+                            <input type="text" id="thursday_time" name="thursday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
+                        <div>
+                            <label for="friday_time">금:</label>
+                            <input type="text" id="friday_time" name="friday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
+                        <div>
+                            <label for="saturday_time">토:</label>
+                            <input type="text" id="saturday_time" name="saturday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
+                        <div>
+                            <label for="sunday_time">일:</label>
+                            <input type="text" id="sunday_time" name="sunday_time" placeholder="예: 10:00 ~ 20:00" required>
+                        </div>
                     </div>
                 </div>
 
@@ -105,7 +107,7 @@
                     <input name="info" class="text-fill" type="text" id="poptext" placeholder="한줄설명을 작성해주세요">
                 </div>
 
-                <label>팝업스토어 해시태그</label>
+                <label class="popup-tag">팝업스토어 해시태그</label>
                 <div class="checkbox_tag">
                     <input type="button" name="hash_tag" value="해시태그 추가" onclick="fn_addHash_tag()">
                     <td><div id="dock_hash_tag"></div></td>

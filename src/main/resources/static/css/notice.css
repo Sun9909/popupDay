@@ -13,6 +13,10 @@
     display: none;
 }
 
+.created-date {
+    width: 20%;
+}
+
 .active-category {
     color: white;
 }
@@ -179,7 +183,7 @@
     width: 100%;
     background-color: unset;
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
 }
 
@@ -202,16 +206,12 @@
 
 
 /**QNA**********************************************************************/
-.content2 {
-
-}
 .selectbox {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
     padding-bottom: 20px;
-    border-bottom: 1px black solid;
 }
 .selectLayer {
     display: inline-block;
@@ -227,8 +227,9 @@
     display: flex;
     flex-direction: column;
     margin: 20px;
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #ccc;
+    background-color: white;
 }
 a.qnatitle {
     font-size: 18px;
@@ -258,6 +259,13 @@ a.qnatitle {
     display: flex;
     gap: 10px;
     margin: 20px 0px 20px;
+}
+
+.qna-content {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .viewForm p {
@@ -425,8 +433,6 @@ a.qnatitle {
     font-weight: 400;
     font-size: 16px;
     box-sizing: border-box;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 }
 
 .reviewguide li:last-child {
@@ -456,6 +462,7 @@ a.qnatitle {
 }
 
 .review-list {
+    font-size: 18px;
     display: flex;
     margin-bottom: 7px;
     justify-content: space-between;
@@ -611,7 +618,7 @@ a.qnatitle {
 }
 
 /*글쓰기 버튼*/
-a.write {
+.write {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -621,6 +628,11 @@ a.write {
     font-weight: bold;
     cursor: pointer;
 }
+
+.write:hover {
+    color: #8F8CB8;
+}
+
 .answer-content {
    margin: 0 auto;
    width: 600px;
@@ -716,8 +728,8 @@ textarea {
     max-width: 675px; /* 최대 너비 설정 */
     margin: 20px auto; /* 중앙 정렬 */
     padding: 20px; /* 내부 여백 설정 */
-    background-color: #f9f9f9; /* 배경색 설정 */
-    border-radius: 4px; /* 모서리를 둥글게 설정 */
+    background-color: #ffffef;
+    border-radius: 10px;
 }
 
 /* 미디어 쿼리: 모바일 최적화 */
