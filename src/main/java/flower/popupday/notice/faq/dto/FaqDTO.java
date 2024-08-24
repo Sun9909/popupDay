@@ -17,12 +17,13 @@ public class FaqDTO {
 
     public FaqDTO() {}
 
-    public FaqDTO(long faq_id, long user_id, String title, String content, Date created_at, int totfaq) {
+    public FaqDTO(long faq_id, long user_id, String title, String content, Date created_at, Date updated_at, int totfaq) {
         this.faq_id = faq_id;
         this.user_id = user_id;
         this.title = title;
         this.content = content;
         this.created_at = created_at;
+        this.updated_at = updated_at;
         this.totFaq = totfaq;
     }
 

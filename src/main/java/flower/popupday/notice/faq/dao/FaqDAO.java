@@ -28,4 +28,6 @@ public interface FaqDAO {
 
     public void deleteFaq(int faq_id) throws DataAccessException;
 
+    public int getNewFaqNo() throws DataAccessException;
+
 }

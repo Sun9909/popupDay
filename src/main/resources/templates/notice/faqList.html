@@ -44,8 +44,8 @@
                         <p>작성된 FAQ가 없습니다.</p>
                     </div>
                     <ul th:if="${faqList != null and #lists.size(faqList) > 0}">
-                        <form name="faqArticle" method="post">
-                            <li class="faqitem" th:each="faq: ${faqList}">
+                        <form name="faqArticle" method="post" class="faqitem" th:each="faq: ${faqList}">
+                            <li>
                                 <p class="faq-category">이용안내</p>
                                 <span class="answerop">
                                     <input id="faq_title" type="text" name="title" th:value="${faq.title}">
@@ -56,7 +56,7 @@
                                     <input id="faq_content" type="text" name="content" th:value="${faq.content}" disabled>
                                 </div>
                                 <div id="modify_submit_btn">
-                                    <input type="button" value="수정반영하기" onclick="faq_modify(faqArticle)">
+                                    <input type="button" value="수정반영하기" onclick="faq_modify(this.form)">
                                 </div>
                                 <div id="rewrite_btn" th:if="${session.loginDTO != null && session.loginDTO.role == T(flower.popupday.login.dto.LoginDTO.Role).관리자}">
                                     <input type="button" value="수정" class="modify_button">
