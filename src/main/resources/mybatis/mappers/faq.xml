@@ -12,6 +12,9 @@
         <result property="updated_at" column="updated_at"/>
     </resultMap>
 
+    <select id="getNewFaqNo" resultType="int">
+        SELECT COALESCE(MAX(faq_id), 0) + 1 FROM faq_tbl;
+    </select>
 
     <!--faq 등록 -->
     <insert id="insertFaq" parameterType="faqDTO">
