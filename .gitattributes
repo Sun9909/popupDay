@@ -1,2 +1,4 @@
 src/** linguist-documentation=false
 src/** linguist-vendored=false
+*.java linguist-detectable=true
+*.css linguist-detectable=false
