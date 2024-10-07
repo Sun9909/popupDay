@@ -171,6 +171,8 @@ gradle-app.setting
 # My Security File
 
 static/js
+static/images
 application.yml
+
 
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle,intellij
