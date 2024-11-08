@@ -80,7 +80,7 @@ public class PointControllerImpl implements PointController{
             try {
                 product_count = Integer.parseInt(productCountStr);
             } catch (NumberFormatException e) {
-                // 숫자 형식이 아닌 경우, 기본값 설정
+
                 product_count = 999;
             }
         }
